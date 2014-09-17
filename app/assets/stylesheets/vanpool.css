@@ -1,0 +1,501 @@
+/***Login Admin **/
+      .body-login {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #8DC63D;
+      }
+
+      .form-signin {
+        max-width: 500px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
+      .form-signin .form-signin-heading,
+      .form-signin .checkbox {
+        margin-bottom: 10px;
+      }
+      .form-signin input[type="text"],
+      .form-signin input[type="password"] {
+        font-size: 16px;
+        height: auto;
+        margin-bottom: 15px;
+        padding: 7px 9px;
+      }
+
+
+/*Bottons */
+  .btn-pagar{
+      background-color: #8DC63D;
+      color: white;
+    }
+    .btn-pagar:hover,
+    .btn-pagar:active,
+    .btn-pagar:hover{
+      background-color: #78a735;
+      color:white;
+    }
+
+    .btn-pagar-l{
+      background-color: #8DC63D;
+      color: white;
+      font-size: 20px;
+    }
+
+  .btn-buscar{
+      background-color: #723190;
+      color: white;
+      font-size: 20px;
+    }
+    .btn-buscar:hover,
+    .btn-buscar:active,
+    .btn-buscar:hover{
+      background-color: #600988;
+      color:white;
+    }
+
+    .btn-buscar-nav{
+      background-color: #723190;
+      color: white;
+      font-size: 12px;
+    }
+    .btn-buscar-nav:hover,
+    .btn-buscar-nav:active,
+    .btn-buscar-nav:hover{
+      background-color: #600988;
+      color:white;
+    }
+
+    .btn-registro-nav{
+      background-color: #3B4794;
+      color: white;
+      font-size: 12px;
+      margin-top: 10px;
+      margin-right: 10px;
+    }
+    .btn-registro-nav:hover,
+    .btn-registro-nav:active,
+    .btn-registro-nav:hover{
+      background-color: #3B4794;
+      color:white;
+    }
+
+    .btn-registro{
+      background-color: #3B4794;
+      color: white;
+      font-size: 16px;
+    }
+
+    .btn-ingresar{
+      background-color: #D8D443;
+      color: 333333;
+      font-size: 16px;
+    }
+    .btn-ingresar:hover,
+    .btn-ingresar:active,
+    .btn-ingresar:hover{
+      background-color: #d9d21c;
+      color:333333;
+    }
+
+    .btn-ingresar-nav{
+      background-color: #D8D443;
+      color: #333333;
+      font-size: 12px;
+      margin-top: 10px;
+      margin-right: 50px;
+    }
+    .btn-ingresar-nav:hover,
+    .btn-ingresar-nav:active,
+    .btn-ingresar-nav:hover{
+      background-color: #d9d21c;
+      color: #333333;
+    }
+
+    .ingresar{
+      background-color: #D8D443;
+      margin-right: 55px;
+    }
+    .ingresar span{
+      color: #333333;
+    }
+
+    .user{
+      margin-right: 55px;
+    }
+
+    .registro{
+      background-color: #3B4794;
+      margin-right: 10px;
+    }
+
+    .ciudad-menu{
+      background-color: #8DC63D;
+      margin-right: 10px;
+    }
+
+    /*Boxes*/
+    .box-login{
+      padding: 15px;
+
+    }
+
+    .aviso-pago{
+      font-size: 18px;
+    }
+    
+
+    /* CUSTOMIZE THE MAP
+    -------------------------------------------------- */
+    .side-wall {
+      padding-left: 50px;
+      padding-right: 50px;
+    }
+
+    .small-box{
+      padding: 10px;
+    }
+    .msg-amigos{
+      background-color: #ccf197;
+      padding: 10px;
+      margin-top: 10px;
+    }
+
+    .msg-vacio{
+      background-color: #f3f487;
+      padding: 10px;
+      margin-top: 10px;
+    }
+
+    .label-config-info{
+      background-color: #ccf197;
+      padding: 10px;
+    }
+    .label-config-peligro{
+      background-color: #f4543c;
+      padding: 10px;
+      color: white;
+    }
+    .label-config-importante{
+      background-color: #f3f487;
+      padding: 10px;
+    }
+
+    .item{
+      padding-left: 20px;
+    }
+
+    /* map base class */
+    .map {
+      margin-bottom: 60px;      
+    }
+
+    .map .container {
+      position: relative;
+      padding-right: 0px;
+      padding-left: 0px;
+      padding-top: 15px;
+      padding-bottom: 5px;
+    }
+    .map .row-fluid{
+      padding-right: 0px;
+      padding-left: 0px;
+    }
+
+    .map .row-fluid {
+      margin:0px;
+    }
+    .map .span4 {
+      margin: 0px;
+    }
+    .map .span8 {
+      margin: 0px;
+    }
+
+    .map .span12{
+      background-color: #78a735;
+    }
+
+    .map .mapbox{
+      width: 800px;
+    }
+    .map .mapbox img{
+      width: 800px;
+      height: 350px;
+    }
+
+    .map .box{
+      margin-top: -10px;
+      padding: 15px; 
+    }
+
+    /* MARKETING CONTENT
+    -------------------------------------------------- */
+    .marketing  {
+      text-align: center;
+      background-color: #78a735;
+      padding: 20px;
+      margin-bottom: 30px;
+
+    }
+    .marketing p {
+      color:white;
+      font-size: 20px;
+    }
+    .marketing h2 {
+      font-weight: 28px;
+      color: white;
+    }
+    .marketing .span8 {
+      text-align: center;
+      padding: 20px;
+    }
+
+
+    /* footer base class */
+    .footer {
+      padding-top: 0px;
+      color: white;
+    }
+
+    .footer .container {
+      position: relative;
+      background-color: #78a735;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    .footer a{
+      color:white;
+    }
+
+    /* 
+    Skin Vanpool Green
+    ---------
+*/
+
+.card{
+  padding-top: 10px;
+}
+
+.container{
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.content-header > .breadcrumb {
+  margin-right: 60px;
+}
+
+.navbar-nav > .ciudad-menu > .dropdown-menu {
+  color: black;
+  width: auto;
+}
+
+.navbar-nav > .ciudad-menu > .dropdown-menu > li.ciudad > a {
+  color: black;
+}
+.navbar-nav > .ciudad-menu > .dropdown-menu > span {
+  padding-right:10px;
+  padding-left:10px;
+}
+
+.navbar-nav > .ciudad-menu > .dropdown-menu > li.ciudad > a:hover {
+  color: white;
+  background-color: #8DC63D;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > li.user-body > div > a {
+  color: #333333;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > li.user-body > div > a.call-to {
+  color: #78a735;
+}
+
+a {
+  color: #78a735;
+}
+
+a:hover,
+a:active,
+a:focus {
+  outline: none;
+  text-decoration: none;
+  color: #8DC63D;
+}
+
+.content{
+  width: 100%;
+  padding-left: 60px;
+  padding-right: 80px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: white;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > li.user-header {
+  height: 75px;
+  padding: 10px;
+  background: #8DC63D;
+  text-align: center;
+}
+
+/* skin-green navbar */
+.skin-green .navbar {
+  background-color: #8DC63D;
+}
+.skin-green .navbar .nav a {
+  color: rgba(255, 255, 255, 0.8);
+}
+.skin-green .navbar .nav > li > a:hover,
+.skin-green .navbar .nav > li > a:active,
+.skin-green .navbar .nav > li > a:focus,
+.skin-green .navbar .nav .open > a,
+.skin-green .navbar .nav .open > a:hover,
+.skin-green .navbar .nav .open > a:focus {
+  background: rgba(0, 0, 0, 0.1);
+  color: #f6f6f6;
+}
+.skin-green .navbar .navbar-right > .nav {
+  margin-right: 10px;
+}
+.skin-green .navbar .sidebar-toggle .icon-bar {
+  background: rgba(255, 255, 255, 0.8);
+}
+.skin-green .navbar .sidebar-toggle:hover .icon-bar {
+  background: #f6f6f6 !important;
+}
+/* skin-green logo */
+.skin-green .logo {
+  background-color: #78a735;
+  color: #f9f9f9;
+}
+
+.skin-green .logo > img{
+  
+}
+
+.skin-green .logo > a {
+  color: #f9f9f9;
+}
+.skin-green .logo:hover {
+  background: #78a735;
+}
+/* skin-green content header */
+.skin-green .right-side > .content-header {
+  background: #fbfbfb;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+/* Skin-green user panel */
+.skin-green .user-panel > .image > img {
+  border: 1px solid #dfdfdf;
+}
+.skin-green .user-panel > .info,
+.skin-green .user-panel > .info > a {
+  color: #555555;
+}
+/* skin-green sidebar */
+
+.skin-green .sidebar {
+  border-bottom: 1px solid #333;
+}
+.skin-green .sidebar > .sidebar-menu > li {
+  border-top: 1px solid #333;
+  border-bottom: 0px solid #444;
+}
+.skin-green .sidebar > .sidebar-menu > li:first-of-type {
+  border-top: 1px solid #444;
+}
+.skin-green .sidebar > .sidebar-menu > li:first-of-type > a {
+  border-top: 0px solid #333;
+}
+.skin-green .sidebar > .sidebar-menu > li > a {
+  margin-right: 1px;
+}
+.skin-green .sidebar > .sidebar-menu > li > a:hover,
+.skin-green .sidebar > .sidebar-menu > li.active > a {
+  color: #f6f6f6;
+  background: #444;
+}
+.skin-green .sidebar > .sidebar-menu > li > .treeview-menu {
+  margin: 0 1px;
+  background: #444;
+}
+.skin-green .left-side {
+  background: #333;
+}
+.skin-green .sidebar a {
+  color: #eee;
+}
+.skin-green .sidebar a:hover {
+  text-decoration: none;
+}
+.skin-green .treeview-menu > li > a {
+  color: #ccc;
+}
+.skin-green .treeview-menu > li.active > a,
+.skin-green .treeview-menu > li > a:hover {
+  color: #fff;
+}
+.skin-green .sidebar-form {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  border: 0px solid #555;
+  margin: 10px 10px;
+}
+.skin-green .sidebar-form input[type="text"],
+.skin-green .sidebar-form .btn {
+  box-shadow: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 0 solid rgba(255, 255, 255, 0.1);
+  height: 35px;
+  outline: none;
+}
+.skin-green .sidebar-form input[type="text"] {
+  color: #666;
+  -webkit-border-top-left-radius: 2px !important;
+  -webkit-border-top-right-radius: 0 !important;
+  -webkit-border-bottom-right-radius: 0 !important;
+  -webkit-border-bottom-left-radius: 2px !important;
+  -moz-border-radius-topleft: 2px !important;
+  -moz-border-radius-topright: 0 !important;
+  -moz-border-radius-bottomright: 0 !important;
+  -moz-border-radius-bottomleft: 2px !important;
+  border-top-left-radius: 2px !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-bottom-left-radius: 2px !important;
+}
+.skin-green .sidebar-form input[type="text"]:focus,
+.skin-green .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+  background-color: #444;
+  border: 0;
+}
+.skin-green .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+  border-left: 0;
+}
+.skin-green .sidebar-form .btn {
+  color: #999;
+  -webkit-border-top-left-radius: 0 !important;
+  -webkit-border-top-right-radius: 2px !important;
+  -webkit-border-bottom-right-radius: 2px !important;
+  -webkit-border-bottom-left-radius: 0 !important;
+  -moz-border-radius-topleft: 0 !important;
+  -moz-border-radius-topright: 2px !important;
+  -moz-border-radius-bottomright: 2px !important;
+  -moz-border-radius-bottomleft: 0 !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 2px !important;
+  border-bottom-right-radius: 2px !important;
+  border-bottom-left-radius: 0 !important;
+  border-left: 0;
+}

@@ -1,18 +1,38 @@
-<% provide(:title, 'Sign up') %>
-<h1>Sign up</h1>
-<div class="row">
-	<div class="span6 offset3">
-		<%= form_for(@user) do |f| %>
-		<%= render 'shared/error_messages', object: f.object %>
-			<%= f.label :name %>
-			<%= f.text_field :name %>
-			<%= f.label :email %>
-			<%= f.text_field :email %>
-			<%= f.label :password %>
-			<%= f.password_field :password %>
-			<%= f.label :password_confirmation, "Confirmation" %>
-			<%= f.password_field :password_confirmation %>
-			<%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
-		<% end %>
+<% provide(:title, "Registro") %>
+<div class="row-fluid">
+	<div class="container">
+		<div class="span6 offset3">
+			<%= form_for(@user) do |f| %>
+			<div class="box-login">
+                <h1>Ingresar</h1>
+                <div class="box-body">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                            <%= f.text_field :name, class:"form-control", placeholder:"Tu nombre" %>
+                    </div>
+                    <div class="form-group">
+                        <label>Correo Electrónico</label>
+                            <%= f.text_field :email, class:"form-control", placeholder:"correo@ejemplo.com" %>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Contraseña</label>
+                        <%= f.password_field :password, class:"form-control", placeholder:"tucontraseña"%>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Confirmación de Contraseña</label>
+                        <%= f.password_field :password_confirmation, class:"form-control", placeholder:"tucontraseña"%>
+                    </div>
+                    <div class="box-footer">
+                        <%= f.submit "Crear mi cuenta", class: "btn btn-flat btn-registro pull-right" %>
+                        </br>
+                        <hr></hr>
+                    </div>
+                </div><!-- /.box-body -->
+                <a class="btn btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i> Registrate con Facebook</a> 
+                </br>
+                <p>¿No tienes cuenta? <%= link_to "¡Registrate!", signup_path %></p>   
+            </div>
+        	<% end %>
+		</div>
 	</div>
 </div>

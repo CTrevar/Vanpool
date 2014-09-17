@@ -1,0 +1,67 @@
+        <header class="header">
+            <a href="<%=root_path%>" class="logo">
+                <img src="/assets/logo.png" class="img" alt="logo Image" />
+            </a>
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li class="registro" >
+                            <a href="#">Buscar nuevo viaje</a>
+                        </li>
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-user"></i>
+                                <span><%= @current_user.name %><i class="caret"></i></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header bg-light-green">
+                                    <div class="col-xs-4 text-center ">
+                                        <img src="../img/Foodzy_Badges.png" class="img-circle" alt="User Image" />
+                                    </div>
+                                    <div class="col-xs-8 card">
+                                    <b>Experto</b>
+                                    </br>
+                                    <a href="#">Ver muro de medallas</a>
+                                </li>
+                                <!-- Menu Body -->
+                                <li class="user-body">
+                                    <div class="col-xs-6 text-center ">
+                                        <i class="fa fa-trophy"></i>
+                                        <a href="#">250,000</a>
+                                        <a href="#">Puntos</a>
+                                        </br>
+                                        <a class="call-to" href="#">Ver detalle</a>       
+                                    </div>
+                                    <div class="col-xs-6 text-center "> 
+                                        <i class="fa fa-money"></i>
+                                        <a href="#">$500.00</a>
+                                        <a href="#">Pesos</a>
+                                        </br>
+                                        <a class="call-to" href="#">Comprar saldo</a>
+                                        
+                                    </div>
+                                </li>
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a href="/users/<%= @current_user.id %>/profile" class="btn btn-default btn-flat"><i class="fa fa-eye"></i> Ver Perfil</a>
+
+                                    </div>
+                                    <div class="pull-right">
+                                        <%= link_to "Salir", signout_path, method: "delete", class:"btn btn-default btn-flat" %>        
+                                        <li> </li>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>

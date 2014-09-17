@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Puntaje:</b>
+  <%= @cliente.puntaje %>
+</p>
+
+<p>
+  <b>Nivel:</b>
+  <%= @cliente.nivel %>
+</p>
+
+
+<%= link_to 'Edit', edit_cliente_path(@cliente) %> |
+<%= link_to 'Back', clientes_path %>

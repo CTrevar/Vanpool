@@ -21,6 +21,13 @@ class MicropostsController < ApplicationController
 		redirect_back_or root_path
 	end
 
+	# Returns microposts from the users being followed by the given user.
+	def self.from_users_followed_by(user)
+		followed_user_ids = user.followed_user_ids
+		where("user_id IN (:followed_user_ids) OR user_id = :user_id",
+		followed_user_ids: followed_user_ids, user_id: user)
+	end
+
 	private
 		def correct_user
 			@micropost = current_user.microposts.find_by_id(params[:id])

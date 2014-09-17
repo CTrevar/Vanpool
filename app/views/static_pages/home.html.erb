@@ -1,9 +1,12 @@
-<% provide(:title, 'Home') %>
+<% provide(:title, 'La nueva forma de llegar a tu destino') %>
 <% if signed_in? %>
 	<div class="row">
 		<aside class="span4">
 		<section>
 			<%= render 'shared/user_info' %>
+		</section>
+		<section>
+			<%= render 'shared/stats' %>
 		</section>
 		<section>
 			<%= render 'shared/micropost_form' %>
@@ -15,12 +18,89 @@
 		</div>
 	</div>
 <% else %>
-	<div class="center hero-unit">
-		<h1>Welcome to the Sample App</h1>
-		<h2>This is the home page for the
-		<a href="http://railstutorial.org/">Ruby on Rails Tutorial</a> sample application.
-		</h2>
-		<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
-	</div>
-	<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+
+	 <div class="row-fluid map">
+      <div class="span12">
+        <div class="container">
+          <div class="row-fluid">
+                  <div class="span4">
+                    <div class="box">
+                        <div class="box-header">
+                          <h3 class="box-title">Busca tu ruta</h3>
+                        </div><!-- /.box-header -->
+                            <!-- form start -->
+                              <form role="form">
+                                <div class="box-body">
+                                  <div class="form-group">
+                                    <label for="exampleInputEmail1">¿Dónde comienzas tu viaje?</label>
+                                    <div class="input-group">
+                                      <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                      <input  class="form-control"  placeholder="Origen">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="exampleInputEmail1">¿Dónde terminas tu viaje?</label>
+                                      <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                        <input  class="form-control"  placeholder="Destino">
+                                      </div>
+                                    </div>
+                                  <div class="form-group">
+                                    <label for="exampleInputEmail1">¿Cuando quieres viajar?</label>
+                                        <div class="row-fluid">
+                                          <div class="span6">
+                                            <div class="form-group">
+                                            <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
+                                        </div><!-- /.input group -->
+                                    </div><!-- /.form group -->
+                                          </div>
+                                          <div class="span6">
+                                           <div class="bootstrap-timepicker">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-clock-o"></i>
+                                                </div>
+                                                <input type="text" class="form-control timepicker"/>
+                                            </div><!-- /.input group -->
+                                        </div><!-- /.form group -->
+                                    </div>
+                                  </div>
+                                        </div>
+                                  </div>
+                                    <button type="submit" class="btn btn-flat btn-buscar pull-right">Buscar mi ruta</button>
+                                </div><!-- /.box-body -->
+                                  </br>
+                                      </br>
+                              </form>
+                    </div><!-- /.box -->
+                  </div>         
+                <div class="span8">
+                  <div class="mapbox">
+                    <img src="/assets/mapa.png">
+
+                  </div>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   <!-- Container -->
+    <div class="container marketing">
+      <div class="row-fluid">
+        <div class="span4">
+          <img class="img-circle" src="/assets/van.jpg">
+        </div>
+        <div class="span8">
+          <h2>La nueva forma de llegar a tu trabajo o escuela.</h2>
+          <p>Deja que nosotros te llevemos y te recojamos en una van de lujo. Solo paga por los trayectos que uses.</p>
+        </div>
+      </div>
+    </div><!-- /.container --> 
 <% end %>
