@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(:version => 20140917165224) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
+    t.integer  "heir_id"
+    t.string   "heir_type"
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
     t.string   "password_digest"
