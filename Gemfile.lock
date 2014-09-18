@@ -229,7 +229,7 @@ DEPENDENCIES
   guard-spork (= 0.3.2)
   heritage
   jquery-rails
-  pg (= 0.12.2)
+  pg
   rails (= 3.2.13)
   rspec-rails (= 2.9.0)
   sass-rails (~> 3.2.3)
