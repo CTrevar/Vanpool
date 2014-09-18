@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-  acts_as_predecessor
   attr_accessible :email, :name, :password, :password_confirmation
   has_secure_password
   has_many :microposts, dependent: :destroy
