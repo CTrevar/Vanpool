@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   	before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :following, :followers, :dashboard, :profile]
 	before_filter :correct_user, only: [:edit, :update]
-	before_filter :admin_user, only: :destroy
+	before_filter :admin_user, only:[:dashboard], destroy:
   	
   	def index
   		@users = User.paginate(page: params[:page])
@@ -81,7 +81,12 @@ class UsersController < ApplicationController
 
 	def dashboard
   		@users = User.paginate(page: params[:page])
-  	end
+      if current_user.admin?
+        render 'administradors/dashboard'
+      else
+        render 'users/dashboard'
+      end
+  end
 
 
 	private

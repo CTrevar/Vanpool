@@ -2,7 +2,11 @@ class StaticPagesController < ApplicationController
   def home
     @user = User.new
     if signed_in?
-  	   render 'users/dashboard'
+      if @user.admin?
+        render 'administradors/dashboard'
+      else
+        render 'users/dashboard'
+      end
     end
   end
 

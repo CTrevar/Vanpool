@@ -1,0 +1,41 @@
+<h1>Listing administradors</h1>
+
+<table>
+  <tr>
+    <th>Nombreusuario</th>
+    <th>Emailusuario</th>
+    <th>Idtipousuario</th>
+    <th>Facebookidusuario</th>
+    <th>Openpayidusuario</th>
+    <th>Nombrepilausuario</th>
+    <th>Apellidopaterno</th>
+    <th>Apellidomaterno</th>
+    <th>Fechanacimiento</th>
+    <th>Estatususuario</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @administradors.each do |administrador| %>
+  <tr>
+    <td><%= administrador.nombreUsuario %></td>
+    <td><%= administrador.emailUsuario %></td>
+    <td><%= administrador.idTipoUsuario %></td>
+    <td><%= administrador.facebookidUsuario %></td>
+    <td><%= administrador.openpayidUsuario %></td>
+    <td><%= administrador.nombrePilaUsuario %></td>
+    <td><%= administrador.apellidoPaterno %></td>
+    <td><%= administrador.apellidoMaterno %></td>
+    <td><%= administrador.fechaNacimiento %></td>
+    <td><%= administrador.estatusUsuario %></td>
+    <td><%= link_to 'Show', administrador %></td>
+    <td><%= link_to 'Edit', edit_administrador_path(administrador) %></td>
+    <td><%= link_to 'Destroy', administrador, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Administrador', new_administrador_path %>

@@ -1,0 +1,57 @@
+<%= form_for(@administrador) do |f| %>
+  <% if @administrador.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@administrador.errors.count, "error") %> prohibited this administrador from being saved:</h2>
+
+      <ul>
+      <% @administrador.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nombreUsuario %><br />
+    <%= f.text_field :nombreUsuario %>
+  </div>
+  <div class="field">
+    <%= f.label :emailUsuario %><br />
+    <%= f.text_field :emailUsuario %>
+  </div>
+  <div class="field">
+    <%= f.label :idTipoUsuario %><br />
+    <%= f.number_field :idTipoUsuario %>
+  </div>
+  <div class="field">
+    <%= f.label :facebookidUsuario %><br />
+    <%= f.text_field :facebookidUsuario %>
+  </div>
+  <div class="field">
+    <%= f.label :openpayidUsuario %><br />
+    <%= f.text_field :openpayidUsuario %>
+  </div>
+  <div class="field">
+    <%= f.label :nombrePilaUsuario %><br />
+    <%= f.text_field :nombrePilaUsuario %>
+  </div>
+  <div class="field">
+    <%= f.label :apellidoPaterno %><br />
+    <%= f.text_field :apellidoPaterno %>
+  </div>
+  <div class="field">
+    <%= f.label :apellidoMaterno %><br />
+    <%= f.text_field :apellidoMaterno %>
+  </div>
+  <div class="field">
+    <%= f.label :fechaNacimiento %><br />
+    <%= f.datetime_select :fechaNacimiento %>
+  </div>
+  <div class="field">
+    <%= f.label :estatusUsuario %><br />
+    <%= f.check_box :estatusUsuario %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
