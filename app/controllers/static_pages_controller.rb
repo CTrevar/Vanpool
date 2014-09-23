@@ -1,6 +1,7 @@
 class StaticPagesController < ApplicationController
   def home
     @user = User.new
+    
     if signed_in?
       @cliente=obtener_cliente
   	  render 'clientes/dashboard'

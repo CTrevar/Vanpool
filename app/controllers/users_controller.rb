@@ -21,6 +21,7 @@ class UsersController < ApplicationController
 		@user = User.new(params[:user])
 		if @user.save	
 			sign_in @user
+			@cliente = Cliente.create(puntaje:0,nivel_id:1,user_id:@user.id)
 			#flash[:success] = "Welcome to the Sample App!"
 			redirect_to @user
 		else
