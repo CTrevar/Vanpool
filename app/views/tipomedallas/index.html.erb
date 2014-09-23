@@ -1,0 +1,21 @@
+<h1>Listing tipomedallas</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tipomedallas.each do |tipomedalla| %>
+  <tr>
+    <td><%= link_to 'Show', tipomedalla %></td>
+    <td><%= link_to 'Edit', edit_tipomedalla_path(tipomedalla) %></td>
+    <td><%= link_to 'Destroy', tipomedalla, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Tipomedalla', new_tipomedalla_path %>

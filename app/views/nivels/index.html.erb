@@ -1,0 +1,27 @@
+<h1>Listing nivels</h1>
+
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>Rangomaximo</th>
+    <th>Estatus</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @nivels.each do |nivel| %>
+  <tr>
+    <td><%= nivel.nombre %></td>
+    <td><%= nivel.rangomaximo %></td>
+    <td><%= nivel.estatus %></td>
+    <td><%= link_to 'Show', nivel %></td>
+    <td><%= link_to 'Edit', edit_nivel_path(nivel) %></td>
+    <td><%= link_to 'Destroy', nivel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Nivel', new_nivel_path %>

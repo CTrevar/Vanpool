@@ -1,0 +1,33 @@
+<%= form_for(@medalla) do |f| %>
+  <% if @medalla.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@medalla.errors.count, "error") %> prohibited this medalla from being saved:</h2>
+
+      <ul>
+      <% @medalla.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+   <div class="field">
+    <%= f.label :nombre %><br />
+    <%= f.text_field :nombre %>
+  </div>
+  <div class="field">
+    <%= f.label :puntos %><br />
+    <%= f.number_field :puntos %>
+  </div>
+   <div class="field">
+    <%= f.label :imagen %><br />
+    <%= f.text_field :imagen %>
+  </div>
+   <div class="field">
+    <%= f.label :tipomedalla_id %><br />
+    <%= f.number_field :tipomedalla_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

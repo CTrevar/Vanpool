@@ -1,0 +1,8 @@
+<p id="notice"><%= notice %></p>
+
+<%= @medalla.nombre %>
+<%= @medalla.puntos %>
+<%= @medalla.tipomedalla.nombre %>
+<%= @medalla.imagen %>
+<%= link_to 'Edit', edit_medalla_path(@medalla) %> |
+<%= link_to 'Back', medallas_path %>

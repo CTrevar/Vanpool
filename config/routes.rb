@@ -1,19 +1,29 @@
 SampleApp::Application.routes.draw do
-  resources :clientes
+  resources :niveles
+  resources :tipomedallas
+  resources :medallas
+  
+  #get "users/new"
+  resources :clientes do
+    member do
+      get :profile
+    end
+  end
 
 
   #get "users/new"
   resources :users do
     member do
-      get :following, :followers, :profile
+      get :following, :followers
     end
   end
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
+
   
-  match '/dashboard', to: 'users#dashboard'
+  match '/dashboard', to: 'clientes#dashboard'
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy'

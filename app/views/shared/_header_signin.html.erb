@@ -1,3 +1,4 @@
+
         <header class="header">
             <a href="<%=root_path%>" class="logo">
                 <img src="/assets/logo.png" class="img" alt="logo Image" />
@@ -27,7 +28,7 @@
                                         <img src="/assets/Foodzy_Badges.png" class="img-circle" alt="User Image" />
                                     </div>
                                     <div class="col-xs-8 card">
-                                    <b>Experto</b>
+                                    <b><%=@cliente.nivel.nombre%></b>
                                     </br>
                                     <a href="#">Ver muro de medallas</a>
                                 </li>
@@ -35,7 +36,7 @@
                                 <li class="user-body">
                                     <div class="col-xs-6 text-center ">
                                         <i class="fa fa-trophy"></i>
-                                        <a href="#">250,000</a>
+                                        <a href="#"><%=@cliente.puntaje%></a>
                                         <a href="#">Puntos</a>
                                         </br>
                                         <a class="call-to" href="#">Ver detalle</a>       
@@ -51,7 +52,7 @@
                                 </li>
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="/users/<%= @current_user.id %>/profile" class="btn btn-default btn-flat"><i class="fa fa-eye"></i> Ver Perfil</a>
+                                        <a href="/clientes/<%= @current_user.id %>/profile" class="btn btn-default btn-flat"><i class="fa fa-eye"></i> Ver Perfil</a>
 
                                     </div>
                                     <div class="pull-right">

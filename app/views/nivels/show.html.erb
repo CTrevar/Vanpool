@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nombre:</b>
+  <%= @nivel.nombre %>
+</p>
+
+<p>
+  <b>Rangomaximo:</b>
+  <%= @nivel.rangomaximo %>
+</p>
+
+<p>
+  <b>Estatus:</b>
+  <%= @nivel.estatus %>
+</p>
+
+
+<%= link_to 'Edit', edit_nivel_path(@nivel) %> |
+<%= link_to 'Back', nivels_path %>
