@@ -28,7 +28,17 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+
+  # Gemas para las datatables
+  gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
+  gem 'jquery-ui-rails'
+  # Gemas para las datatables
+
 end
+
+# Gemas para la paginación de las datatables
+  gem 'will_paginate'
+# Gemas para las datatables
 
 gem 'jquery-rails'
 
