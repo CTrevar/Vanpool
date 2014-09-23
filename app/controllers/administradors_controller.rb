@@ -82,11 +82,12 @@ class AdministradorsController < ApplicationController
   end
 
 
-  def listAdministradores
+  def listadministradores
     respond_to do |format|
       format.html
       format.json { render json: AdministradorsDatatable.new(view_context) }
     end
+
   end
 
 end

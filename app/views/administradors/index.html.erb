@@ -1,41 +1,93 @@
-<h1>Listing administradors</h1>
+<% provide(:title, 'Inicio') %>
+<div class="wrapper row-offcanvas row-offcanvas-left">
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="left-side sidebar-offcanvas">
+    <%= render 'shared/administrador_sidebar' %>
+  </aside>
 
-<table>
-  <tr>
-    <th>Nombreusuario</th>
-    <th>Emailusuario</th>
-    <th>Idtipousuario</th>
-    <th>Facebookidusuario</th>
-    <th>Openpayidusuario</th>
-    <th>Nombrepilausuario</th>
-    <th>Apellidopaterno</th>
-    <th>Apellidomaterno</th>
-    <th>Fechanacimiento</th>
-    <th>Estatususuario</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+  <!-- Right side column. Contains the navbar and content of the page -->
+  <aside class="right-side">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Inicio
+      </h1>
+      <ol class="breadcrumb">
+        <li >Inicio</li>
+        <li class="active">Administradores</li>
+      </ol>
+    </section>
 
-<% @administradors.each do |administrador| %>
-  <tr>
-    <td><%= administrador.nombreUsuario %></td>
-    <td><%= administrador.emailUsuario %></td>
-    <td><%= administrador.idTipoUsuario %></td>
-    <td><%= administrador.facebookidUsuario %></td>
-    <td><%= administrador.openpayidUsuario %></td>
-    <td><%= administrador.nombrePilaUsuario %></td>
-    <td><%= administrador.apellidoPaterno %></td>
-    <td><%= administrador.apellidoMaterno %></td>
-    <td><%= administrador.fechaNacimiento %></td>
-    <td><%= administrador.estatusUsuario %></td>
-    <td><%= link_to 'Show', administrador %></td>
-    <td><%= link_to 'Edit', edit_administrador_path(administrador) %></td>
-    <td><%= link_to 'Destroy', administrador, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+    <!-- Main content -->
+    <section class="content">
+      <h1>Listing administradors</h1>
+      <hr>
+      <div data-jtable-config="/administradoresTableContainer">
+      </div>
+      <script type="text/javascript" charset="utf-8">
+          (function ($) {
+              jQuery.fn.jtable_ou = function () {
+                  return this.each(function () {
+                      var $this = $(this);
+                      var config_url=$this.attr("data-jtable-config");
+                      $.getScript( config_url, function( data, textStatus, jqxhr ) {
+                          $this.jtable(jtable_config);
+                          $this.jtable('load');
+                      });
+                  });
+              };
+          })(jQuery);
 
-<br />
+          $(document).on("page:change", function() {
+              $('[data-jtable-config]').jtable_ou();
+          });
+      </script>
+      <hr>
+      <table>
+        <thead>
+            <tr>
+              <th>name</th>
+              <th>Emailusuario</th>
+              <th>Idtipousuario</th>
+              <th>Facebookidusuario</th>
+              <th>Openpayidusuario</th>
+              <th>Nombrepilausuario</th>
+              <th>Apellidopaterno</th>
+              <th>Apellidomaterno</th>
+              <th>Fechanacimiento</th>
+              <th>Estatususuario</th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @administradors.each do |administrador| %>
+                <tr>
+                  <td><%= administrador.nombreUsuario %></td>
+                  <td><%= administrador.emailUsuario %></td>
+                  <td><%= administrador.idTipoUsuario %></td>
+                  <td><%= administrador.facebookidUsuario %></td>
+                  <td><%= administrador.openpayidUsuario %></td>
+                  <td><%= administrador.nombrePilaUsuario %></td>
+                  <td><%= administrador.apellidoPaterno %></td>
+                  <td><%= administrador.apellidoMaterno %></td>
+                  <td><%= administrador.fechaNacimiento %></td>
+                  <td><%= administrador.estatusUsuario %></td>
+                  <td><%= link_to 'Show', administrador %></td>
+                  <td><%= link_to 'Edit', edit_administrador_path(administrador) %></td>
+                  <td><%= link_to 'Destroy', administrador, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                </tr>
+            <% end %>
+        </tbody>
 
-<%= link_to 'New Administrador', new_administrador_path %>
+
+      </table>
+
+      <br />
+
+      <%= link_to 'New Administrador', new_administrador_path %>
+    </section>
+
+  </aside><!-- /.right-side -->
+</div><!-- ./wrapper -->

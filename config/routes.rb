@@ -32,7 +32,12 @@ SampleApp::Application.routes.draw do
   match '/about', to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
 
-  match '/listAdministradores', to: 'administradors#listAdministradores'
+  match '/listadministradores', to: 'administradors#listadministradores'
+  match '/administradors', to: 'administradors#index'
+
+  match '/administradoresTableContainer',   to: 'tables#administradoresTableContainer',   via: [:get, :post]
+  # match '/administradoresTableContainer/delete',   to: 'tables#administradoresTableContainer_delete',   via: [:post]
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
