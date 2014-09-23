@@ -8,9 +8,8 @@ def create
 	@user = User.new
 	user = User.find_by_email(params[:session][:email])
 	if user && user.authenticate(params[:session][:password])
-	sign_in user
-	render 'users/dashboard'
-	# Sign the user in and redirect to the user's show page.
+		sign_in user
+		redirect_to :controller => 'clientes', :action => 'dashboard'
 	else
 		flash.now[:error] = 'Invalid email/password combination' # Not quite right!
 		render 'new'

@@ -72,8 +72,8 @@ class UsersController < ApplicationController
 	end
 
 	def obtener_cliente
-    @cliente = Cliente.find(current_user.id)
-  end
+    	@cliente = Cliente.find(current_user.id)
+  	end
 
 	private
 		def signed_in_user

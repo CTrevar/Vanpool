@@ -2,7 +2,8 @@ class StaticPagesController < ApplicationController
   def home
     @user = User.new
     if signed_in?
-  	   render 'users/dashboard'
+      @cliente=obtener_cliente
+  	  render 'clientes/dashboard'
     end
   end
 
@@ -14,5 +15,9 @@ class StaticPagesController < ApplicationController
 
   def contact
   end
+
+  def obtener_cliente
+      @cliente = Cliente.find(current_user.id)
+    end
   
 end
