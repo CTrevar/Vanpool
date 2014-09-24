@@ -1,0 +1,22 @@
+<table class="table table-bordered">
+  <tr>
+    <th>Tipo medalla</th>
+    <th>Nombre</th>
+    <th>Puntos</th>
+    <th>Imagen</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @muro.each do |medalla| %>
+  <tr>
+    <td><%= medalla.nombre %></td>
+    <td><%= medalla.imagen%></td>
+    <td><%= medalla.tipomedalla.nombre %></td>
+    <td><%= link_to 'Show', medalla %></td>
+    <td><%= link_to 'Edit', edit_medalla_path(medalla) %></td>
+    <td><%= link_to 'Destroy', medalla, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
