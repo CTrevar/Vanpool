@@ -4,12 +4,12 @@
         <h3 class="box-title">Últimas Medallas</h3>
     </div>
     <div class="side-wall">
-        <img src="/assets/Foodzy_Badges.png" class="img-circle" alt="User Image" /></br>
-        <img src="/assets/Foodzy_Badges.png" class="img-circle" alt="User Image" /></br>
-        <img src="/assets/Foodzy_Badges.png" class="img-circle" alt="User Image" /></br>
-        <img src="/assets/Foodzy_Badges.png" class="img-circle" alt="User Image" /></br>
+        <% @muro.each do |medalla| %>
+            <img src="/assets/<%= medalla.imagen%>" class="img-circle" alt="<%= medalla.nombre%>" /></br>
+            <b><%= medalla.nombre%><b>
+        <% end %>
     </div>
     <hr></hr>
-    <h4 class="text-center"><a href="#">Ver todas mis medallas</a></h4>
+    <h4 class="text-center"><a href="/clientes/<%= @cliente.id %>/muro">Ver todas mis medallas</a></h4>
     </br>
 </div>

@@ -18,7 +18,7 @@ class StaticPagesController < ApplicationController
   end
 
   def obtener_cliente
-      @cliente = Cliente.find(current_user.id)
-    end
+      @cliente = Cliente.find_by_user_id(current_user.id)
+  end
   
 end

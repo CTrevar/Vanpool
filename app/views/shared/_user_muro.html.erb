@@ -1,0 +1,15 @@
+<div class="box">
+    <div class="box-header">
+        <i class="fa fa-trophy"></i>
+        <h3 class="box-title">Medallas Ganadas</h3>
+    </div>
+   <!-- <%= @mensaje_medallas%>-->
+        <% @muro.each do |medalla| %>
+            <div class="span3">
+                <img src="/assets/Foodzy_Badges.png" class="img-circle" alt="<%= medalla.nombre%>" /></br>
+                <center><b><%= medalla.nombre%><b></center>
+                <center><%= medalla.created_at%></center>
+            </div>
+        <% end %>
+    <hr></hr>
+</div>
