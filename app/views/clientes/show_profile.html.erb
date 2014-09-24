@@ -5,10 +5,10 @@
     </aside>
     <aside class="right-side">
     <section class="content-header">
-        <h1>Mi Perfil<small>Detalle</small></h1>
+        <h1>Perfil<small>Detalle</small></h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-home"></i> Inicio</a></li>
-            <li class="active">Mi perfil</li>
+            <li class="active">Perfil</li>
         </ol>
     </section>
     <section class="content">
@@ -28,26 +28,7 @@
                     </div>
                 </div>
 
-                <table>
-  <tr>
-    <th>nombre</th>
-    <th>puntos</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @muro.each do |medalla| %>
-  <tr>
-    <td><%= medalla.nombre %></td>
-    <td><%= medalla.puntos %></td>
-    <td><%= link_to 'Show', cliente %></td>
-    <td><%= link_to 'Edit', edit_cliente_path(cliente) %></td>
-    <td><%= link_to 'Destroy', cliente, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
+               
             </div>
             <div class="row-fluid">
                 <div class="span9">

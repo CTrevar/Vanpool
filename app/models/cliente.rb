@@ -3,6 +3,6 @@ class Cliente < ActiveRecord::Base
   belongs_to :user
   belongs_to :nivel
   has_many :medallasmuros
-  has_many :medallas, :through => :medallasmuros
+  has_many :medallas, through: :medallasmuros, source: :medalla
 
 end

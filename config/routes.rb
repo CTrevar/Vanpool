@@ -6,7 +6,7 @@ SampleApp::Application.routes.draw do
   #get "users/new"
   resources :clientes do
     member do
-      get :profile
+      get :profile, :muro
     end
   end
 
@@ -24,6 +24,7 @@ SampleApp::Application.routes.draw do
 
   
   match '/dashboard', to: 'clientes#dashboard'
+
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy'

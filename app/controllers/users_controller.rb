@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+	class UsersController < ApplicationController
   	before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :following, :followers, :obtener_cliente]
 	before_filter :correct_user, only: [:edit, :update]
 	before_filter :admin_user, only: :destroy
@@ -73,7 +73,7 @@ class UsersController < ApplicationController
 	end
 
 	def obtener_cliente
-    	@cliente = Cliente.find(current_user.id)
+    	@cliente = Cliente.find_by_user_id(current_user.id)
   	end
 
 	private

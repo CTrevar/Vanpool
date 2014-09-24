@@ -1,11 +1,12 @@
 class ClientesController < ApplicationController
-  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :dashboard, :profile, :obtener_cliente]
+  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :dashboard, 
+    :profile, :muro]
 
   # GET /clientes
   # GET /clientes.json
   def index
     @clientes = Cliente.all
-
+    @cliente = obtener_cliente
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @clientes }
@@ -85,8 +86,7 @@ class ClientesController < ApplicationController
 
   
   def dashboard
-    #@users = User.paginate(page: params[:page])
-    @cliente = obtener_cliente
+    @cliente = obtener_cliente(current_user)
   end
 
 
@@ -94,51 +94,100 @@ class ClientesController < ApplicationController
   def profile
     @title = "Perfil"
     @user = User.find(params[:id])
-
-    ##revisar linea mala
-    @cliente = Cliente.find(@user.id)
+    @current_cliente=Cliente.find_by_user_id(current_user.id)
     
-    if valida_ultimo_nivel==false then
-      @mensaje="Solo te faltan #{calcula_puntos_siguiente_nivel} 
-      para el nivel #{calcula_siguiente_nivel.nombre}" 
-    else
-      @mensaje=""
-    end
-    
-    @co2 = calcula_co2
+    @cliente=obtener_cliente(@user)
+    @mensaje=obtener_mensaje_nivel(@cliente)
+    @muro = obtener_ultimas_medallas(@cliente)
+    @co2 = calcula_co2(@cliente)
     @kilometros = 200
     @litros = 30
-
-    @muro= @cliente.medallas
-
     render 'show_profile'
   end
 
-  def obtener_cliente
-    ##revisar linea mala
-    @cliente = Cliente.find(current_user.id)
+  # GET /clientes/1/profile
+  def muro
+    @title="Muro de medallas"
+    @user=User.find(params[:id])
+     @current_cliente=Cliente.find_by_user_id(current_user.id)
+
+    @cliente=obtener_cliente(@user)
+    @mensaje=obtener_mensaje_nivel(@cliente)
+    #@mensaje_medallas=obtener_mensaje_medallas(@cliente)
+    @muro=obtener_muro(@cliente)
+    @co2 = calcula_co2(@cliente)
+    @kilometros = 200
+    @litros = 30
+    render 'show_muro'
   end
 
+
   private
-    def calcula_co2
-      return(Cliente.find(@user.id).puntaje*196)/1000
+    #Obtener cliente del usuario
+    def obtener_cliente(user)
+      @cliente = Cliente.find_by_user_id(user.id)
     end
 
-    def valida_ultimo_nivel
-      if Nivel.find(@cliente.nivel.id).id==Nivel.last.id 
+    #Obtener las ultimas 3 medallas del cliente
+    def obtener_ultimas_medallas(cliente)
+      return cliente.medallas.order("created_at DESC").last(3)
+    end
+
+    #obtener todo las medallas del cliente
+    def obtener_muro(cliente)
+      return cliente.medallas.order("created_at ASC").all
+    end
+
+    #Obtener el CO2 del cliente
+    def calcula_co2(cliente)
+      return(cliente.puntaje*196)/1000
+    end
+
+    ##NIVELES
+    #Validar si el cliente esta en el último nivel del cliente
+    def valida_ultimo_nivel(cliente)
+      if cliente.nivel.id==Nivel.last.id 
         return true
       else
         return false
       end
     end
 
-    def calcula_siguiente_nivel
-        return Nivel.find(@cliente.nivel.id+1)
+    #Obtener mensaje para el siguiente nivel del cliente
+    def obtener_mensaje_nivel(cliente)
+      if valida_ultimo_nivel(cliente)==false then
+        return "Solo te faltan #{calcula_puntos_siguiente_nivel(cliente)} 
+        para el nivel #{calcula_siguiente_nivel(cliente).nombre}" 
+      end
+    end
+
+    #Calcula el siguiente nivel del cliente
+    def calcula_siguiente_nivel(cliente)
+        return Nivel.find(cliente.nivel.id+1)
     end
     
-    def calcula_puntos_siguiente_nivel
-      return calcula_siguiente_nivel.rangomaximo-Cliente.find(@user.id).puntaje
+    #Calcula los puntos necesarios para el siguiente nivel del cliente
+    def calcula_puntos_siguiente_nivel(cliente)
+      return calcula_siguiente_nivel(cliente).rangomaximo-cliente.puntaje
     end
+
+
+    ##MEDALLAS
+    #Validar si el cliente tiene medallas
+    #def valida_medallas(cliente)
+    #  if cliente.medallas.count>0 
+     #   return true
+      #end
+    #end
+
+    #Obtener mensaje para el siguiente nivel del cliente
+    #def obtener_mensaje_medallas(cliente)
+     # if valida_medallas(cliente)==false then
+      #  return "Aún no tienes medallas. Aprende como puedes ganar medallas" 
+      #end
+    #end
+
+    
 
 end
 
