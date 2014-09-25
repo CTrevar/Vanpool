@@ -1,6 +1,6 @@
 class ClientesController < ApplicationController
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :dashboard, 
-    :profile, :muro]
+    :profile, :muro, :reservaciones, :checkin]
 
   # GET /clientes
   # GET /clientes.json
@@ -37,7 +37,8 @@ class ClientesController < ApplicationController
 
   # GET /clientes/1/edit
   def edit
-    @cliente = Cliente.find(params[:id])
+    #@cliente = Cliente.find(params[:id])
+    #@cliente = obtener_cliente(current_user)
   end
 
   # POST /clientes
@@ -84,9 +85,15 @@ class ClientesController < ApplicationController
     end
   end
 
+  def checkin
+    @cliente = obtener_cliente(current_user)
+    @cliente.puntaje=@cliente.puntaje+500
+    @cliente.save
+    redirect_to :controller => 'clientes', :action => 'reservaciones'
+  end
   
   def dashboard
-    @cliente = obtener_cliente(current_user)
+    @current_cliente = obtener_cliente(current_user)
   end
 
 
@@ -98,6 +105,7 @@ class ClientesController < ApplicationController
     
     @cliente=obtener_cliente(@user)
     @mensaje=obtener_mensaje_nivel(@cliente)
+    @validamedallas=valida_medallas(@cliente)
     @muro = obtener_ultimas_medallas(@cliente)
     @co2 = calcula_co2(@cliente)
     @kilometros = 200
@@ -109,16 +117,31 @@ class ClientesController < ApplicationController
   def muro
     @title="Muro de medallas"
     @user=User.find(params[:id])
-     @current_cliente=Cliente.find_by_user_id(current_user.id)
+    @current_cliente=Cliente.find_by_user_id(current_user.id)
 
     @cliente=obtener_cliente(@user)
     @mensaje=obtener_mensaje_nivel(@cliente)
-    #@mensaje_medallas=obtener_mensaje_medallas(@cliente)
+    @validamedallas=valida_medallas(@cliente)
     @muro=obtener_muro(@cliente)
     @co2 = calcula_co2(@cliente)
     @kilometros = 200
     @litros = 30
     render 'show_muro'
+  end
+
+  # GET /clientes/1/profile
+  def reservaciones
+    @title="Reservaciones"
+    @current_cliente = obtener_cliente(current_user)
+    @validareservas=valida_viajes(@cliente)
+    @validaviajes=valida_viajes_completos(@cliente)
+
+    @reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
+    @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
+    @reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
+    @reservaciones_canceladas=@current_cliente.reservacions.find_all_by_estadotipo_id(4)
+    
+    render 'show_reservaciones'
   end
 
 
@@ -171,23 +194,28 @@ class ClientesController < ApplicationController
       return calcula_siguiente_nivel(cliente).rangomaximo-cliente.puntaje
     end
 
+    ##MEDALLAS
+    #Validar si el cliente tiene medallas
+    def valida_medallas(cliente)
+      if cliente.medallas.count==0 
+        return false
+      end
+    end
 
     ##MEDALLAS
     #Validar si el cliente tiene medallas
-    #def valida_medallas(cliente)
-    #  if cliente.medallas.count>0 
-     #   return true
-      #end
-    #end
+    def valida_viajes(cliente)
+      if cliente.reservacions.find_all_by_estadotipo_id(2).count==0 
+        return false
+      end
+    end
 
-    #Obtener mensaje para el siguiente nivel del cliente
-    #def obtener_mensaje_medallas(cliente)
-     # if valida_medallas(cliente)==false then
-      #  return "Aún no tienes medallas. Aprende como puedes ganar medallas" 
-      #end
-    #end
-
-    
+    #Validar si el cliente tiene medallas
+    def valida_viajes_completos(cliente)
+      if cliente.reservacions.find_all_by_estadotipo_id(3).count==0 
+        return false
+      end
+    end
 
 end
 

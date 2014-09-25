@@ -4,12 +4,20 @@
         <h3 class="box-title">Últimas Medallas</h3>
     </div>
     <div class="side-wall">
+        <% if @validamedallas==false then %>
+        <div class="msg-vacio">
+            <h4><b>Aún no tienes medallas</b></h4>
+            Sugerencias de como ganar medallas (Mensaje de la empresa)
+        </div>
+    <% else %>
+
         <% @muro.each do |medalla| %>
             <img src="/assets/<%= medalla.imagen%>" class="img-circle" alt="<%= medalla.nombre%>" /></br>
             <b><%= medalla.nombre%><b>
         <% end %>
     </div>
     <hr></hr>
-    <h4 class="text-center"><a href="/clientes/<%= @cliente.id %>/muro">Ver todas mis medallas</a></h4>
+    <h4 class="text-center"><a href="/clientes/<%= @cliente.user.id %>/muro">Ver todas mis medallas</a></h4>
+     <% end %>
     </br>
 </div>

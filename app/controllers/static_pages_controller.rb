@@ -3,7 +3,7 @@ class StaticPagesController < ApplicationController
     @user = User.new
     
     if signed_in?
-      @cliente=obtener_cliente
+      @current_cliente=obtener_cliente
   	  render 'clientes/dashboard'
     end
   end

@@ -5,5 +5,6 @@ class Cliente < ActiveRecord::Base
   belongs_to :nivel
   has_many :medallasmuros
   has_many :medallas, through: :medallasmuros, source: :medalla
+  has_many :reservacions
 
 end

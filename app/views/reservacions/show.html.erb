@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Viaje:</b>
+  <%= @reservacion.viaje_id %>
+</p>
+
+<p>
+  <b>Cliente:</b>
+  <%= @reservacion.cliente_id %>
+</p>
+
+<p>
+  <b>Referenciapago:</b>
+  <%= @reservacion.referenciapago_id %>
+</p>
+
+<p>
+  <b>Estadostipo:</b>
+  <%= @reservacion.estadotipo_id %>
+</p>
+
+<p>
+  <b>Estatus:</b>
+  <%= @reservacion.estatus %>
+</p>
+
+
+<%= link_to 'Edit', edit_reservacion_path(@reservacion) %> |
+<%= link_to 'Back', reservacions_path %>

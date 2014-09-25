@@ -11,7 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140923054657) do
+ActiveRecord::Schema.define(:version => 20140925051323) do
+
+  create_table "administradors", :force => true do |t|
+    t.string   "nombreUsuario"
+    t.string   "emailUsuario"
+    t.integer  "idTipoUsuario"
+    t.string   "facebookidUsuario"
+    t.string   "openpayidUsuario"
+    t.string   "nombrePilaUsuario"
+    t.string   "apellidoPaterno"
+    t.string   "apellidoMaterno"
+    t.datetime "fechaNacimiento"
+    t.boolean  "estatusUsuario"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
 
   create_table "clientes", :force => true do |t|
     t.integer  "puntaje"
@@ -19,6 +34,12 @@ ActiveRecord::Schema.define(:version => 20140923054657) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "user_id"
+  end
+
+  create_table "estadotipos", :force => true do |t|
+    t.string   "nombre"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "medallas", :force => true do |t|
@@ -66,6 +87,16 @@ ActiveRecord::Schema.define(:version => 20140923054657) do
   add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
   add_index "relationships", ["follower_id", "followed_id"], :name => "index_relationships_on_follower_id_and_followed_id", :unique => true
   add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
+
+  create_table "reservacions", :force => true do |t|
+    t.integer  "viaje_id"
+    t.integer  "cliente_id"
+    t.integer  "referenciapago_id"
+    t.integer  "estadotipo_id"
+    t.boolean  "estatus"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
 
   create_table "tipomedallas", :force => true do |t|
     t.string   "nombre"
