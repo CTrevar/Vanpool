@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140925051323) do
+ActiveRecord::Schema.define(:version => 20140925163115) do
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -31,9 +31,11 @@ ActiveRecord::Schema.define(:version => 20140925051323) do
   create_table "clientes", :force => true do |t|
     t.integer  "puntaje"
     t.integer  "nivel_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "user_id"
+    t.string   "kilometros"
+    t.integer  "kilometraje"
   end
 
   create_table "estadotipos", :force => true do |t|
@@ -98,6 +100,18 @@ ActiveRecord::Schema.define(:version => 20140925051323) do
     t.datetime "updated_at",        :null => false
   end
 
+  create_table "ruta", :force => true do |t|
+    t.integer  "conductor_id"
+    t.integer  "van_id"
+    t.string   "nombre"
+    t.string   "gmaps"
+    t.string   "precio"
+    t.integer  "kilometros"
+    t.boolean  "estatus"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "tipomedallas", :force => true do |t|
     t.string   "nombre"
     t.datetime "created_at", :null => false
@@ -116,5 +130,15 @@ ActiveRecord::Schema.define(:version => 20140925051323) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+
+  create_table "viajes", :force => true do |t|
+    t.integer  "ruta_id"
+    t.string   "horainicio"
+    t.string   "fecha"
+    t.integer  "estadoviaje_id"
+    t.integer  "estatus"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
 
 end

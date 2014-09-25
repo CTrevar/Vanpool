@@ -108,8 +108,13 @@ class ClientesController < ApplicationController
     @validamedallas=valida_medallas(@cliente)
     @muro = obtener_ultimas_medallas(@cliente)
     @co2 = calcula_co2(@cliente)
-    @kilometros = 200
-    @litros = 30
+    @kilometros = @cliente.kilometraje
+    @litros = calcula_litros(@cliente)
+
+    @reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
+    @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
+    @reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
+
     render 'show_profile'
   end
 
@@ -124,8 +129,8 @@ class ClientesController < ApplicationController
     @validamedallas=valida_medallas(@cliente)
     @muro=obtener_muro(@cliente)
     @co2 = calcula_co2(@cliente)
-    @kilometros = 200
-    @litros = 30
+    @kilometros = @cliente.kilometraje
+    @litros = calcula_litros(@cliente)
     render 'show_muro'
   end
 
@@ -163,7 +168,15 @@ class ClientesController < ApplicationController
 
     #Obtener el CO2 del cliente
     def calcula_co2(cliente)
-      return(cliente.puntaje*196)/1000
+      vanco2=(cliente.kilometraje*80)/1000
+      autoco2=(cliente.kilometraje*196)/1000
+      return autoco2-vanco2
+    end
+
+     #Obtener el litros del cliente
+    def calcula_litros(cliente)
+      autolitros=(cliente.kilometraje*(2))
+      return autolitros
     end
 
     ##NIVELES
