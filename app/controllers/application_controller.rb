@@ -6,5 +6,7 @@ class ApplicationController < ActionController::Base
   include GamificationHelper
   include ViajesHelper
   include CheckinHelper
+  include NivelsHelper
+  include MedallasHelper
 
 end

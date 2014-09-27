@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140927182456) do
+ActiveRecord::Schema.define(:version => 20140927215117) do
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -58,8 +58,10 @@ ActiveRecord::Schema.define(:version => 20140927182456) do
     t.integer  "puntos"
     t.string   "imagen"
     t.boolean  "estatus"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.integer  "estado",         :default => 0
+    t.string   "descripcion"
   end
 
   create_table "medallasmuros", :force => true do |t|

@@ -1,50 +1,32 @@
 module GamificationHelper
 
-#Obtener las ultimas 3 medallas del cliente
-    def obtener_ultimas_medallas(cliente)
-      return cliente.medallas.order("created_at DESC").last(3)
+	#cambio de nivel
+	def cambio_nivel(cliente)
+		niveles=Nivel.find_all_by_estatus(true)
+		niveles.each do |nivel|
+    		if(cliente.puntaje>nivel.rangomaximo && valida_ultimo_nivel(cliente)==false)then
+      			cliente.nivel_id=nivel.id+1
+    		end
+    	end
+    	cliente.save
+	end
+
+	#Dar medalla tipo viaje
+    def asigna_medalla_viaje(cliente)
+    	medallas=Medalla.find_all_by_tipomedalla_id_and_estatus(1,true)
+    	medallas.each do |medalla|
+    		if(cliente.reservacions.find_all_by_estadotipo_id(3).count==medalla.estado) then
+      			medallamuro = Medallasmuro.create(cliente_id:cliente.id,medalla_id:medalla.id)
+      			medallamuro.save
+      			aumenta_puntos(cliente,medalla.puntos)
+    		end
+    	end
     end
 
-    #obtener todo las medallas del cliente
-    def obtener_muro(cliente)
-      return cliente.medallas.order("created_at ASC").all
-    end
+    #Aumentar puntos al cliente
+    def aumenta_puntos(cliente,puntos)
+    cliente.puntaje=cliente.puntaje+puntos
+    cliente.save
+	end
 
-    ##NIVELES
-    #Validar si el cliente esta en el último nivel del cliente
-    def valida_ultimo_nivel(cliente)
-      if cliente.nivel.id==Nivel.last.id 
-        return true
-      else
-        return false
-      end
-    end
-
-    #Obtener mensaje para el siguiente nivel del cliente
-    def obtener_mensaje_nivel(cliente)
-      if valida_ultimo_nivel(cliente)==false then
-        return "Solo te faltan #{calcula_puntos_siguiente_nivel(cliente)} 
-        para el nivel #{calcula_siguiente_nivel(cliente).nombre}" 
-      end
-    end
-
-    #Calcula el siguiente nivel del cliente
-    def calcula_siguiente_nivel(cliente)
-        return Nivel.find(cliente.nivel.id+1)
-    end
-    
-    #Calcula los puntos necesarios para el siguiente nivel del cliente
-    def calcula_puntos_siguiente_nivel(cliente)
-      return calcula_siguiente_nivel(cliente).rangomaximo-cliente.puntaje
-    end
-
-    ##MEDALLAS
-    #Validar si el cliente tiene medallas
-    def valida_medallas(cliente)
-      if cliente.medallas.count==0 
-        return false
-      end
-    end
-
-    
 end
