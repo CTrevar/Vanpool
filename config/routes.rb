@@ -1,6 +1,10 @@
 SampleApp::Application.routes.draw do
   resources :clientes
 
+  resources :rutas
+
+  resources :vans
+
 
   #get "users/new"
   resources :users do

@@ -1,0 +1,44 @@
+<h1>Van</h1>
+
+<%= form_for :van, url:vans_path do |f| %>
+	
+	<% if @van.errors.any? %>
+	  	<div id="error_explanation">
+		    <h2>No se pudo grabar por</h2>
+		    <ul>
+			    <% @van.errors.full_messages.each do |msg| %>
+			      	<li><%= msg %></li>
+			    <% end %>
+		    </ul>
+	  	</div>
+	<% end %>
+
+	<p>
+		<%= f.label :placa %>
+		<%= f.text_field :placa %>
+	</p>
+
+	<p>
+		<%= f.label :modelo %>
+		<%= f.text_field :modelo %>
+	</p>
+
+	<p>
+		<%= f.label :capacidad %>
+		<%= f.number_field :capacidad, in: 1 .. 20 %>
+	</p>
+
+	<p>
+		<%= f.label :pais %>
+		<%= f.collection_select :pais_id, Pais.all, :id, :nombre %>
+	</p>
+
+	<p>
+		<%= f.label :fecha_compra %>
+		<%= f.text_field :fecha_compra %>
+	</p>
+
+	<p>
+		<%= f.submit "Guardar" %>
+	</p>
+<%end%>

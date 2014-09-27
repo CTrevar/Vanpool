@@ -1,0 +1,26 @@
+<h1>Vans</h1>
+
+<table>
+	<tr>
+		<th>Placa</th>
+		<th>Modelo</th>
+		<th>Capacidad</th>
+		<th>Fecha</th>
+		<th>Activa</th>
+	</tr>
+
+	<%= @vans.each do |van| %>
+		<tr>
+			<td> <%= van.placa %> </td>
+			<td> <%= van.modelo %> </td>
+			<td> <%= van.capacidad %> </td>
+			<td> <%= van.fecha_compra %> </td>
+			<td> <%= van.activa %> </td>
+			<td><%= link_to 'Mostrar', van_path(van) %></td>
+    		<td><%= link_to 'Editar', edit_van_path(van) %></td>
+    		<td><%= button_to 'Eliminar', van_path(van),
+                    method: :delete %></td>
+		</tr>
+	<%end%>
+
+</table>
