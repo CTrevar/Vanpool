@@ -72,12 +72,12 @@
 		Micropost.from_users_followed_by(self)
 	end
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+# <<<<<<< HEAD
+# <<<<<<< HEAD
 	def obtener_cliente
     	@cliente = Cliente.find(current_user.id)
   	end
-=======
+#=======
 	def profile
 		@title = "Perfil"
 		@user = User.find(params[:id])
@@ -95,12 +95,12 @@
         render 'users/dashboard'
       end
   end
->>>>>>> jTables
-=======
+# >>>>>>> jTables
+# =======
     def obtener_cliente(user)
       @cliente = Cliente.find_by_user_id(user.id)
     end
->>>>>>> bbe988770409e80f7e6c8acf72c8150a9ac74846
+#>>>>>>> bbe988770409e80f7e6c8acf72c8150a9ac74846
 
 	private
 		def signed_in_user

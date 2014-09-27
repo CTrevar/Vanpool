@@ -8,10 +8,10 @@ def create
 	@user = User.new
 	user = User.find_by_email(params[:session][:email])
 	if user && user.authenticate(params[:session][:password])
-<<<<<<< HEAD
+#<<<<<<< HEAD
 		sign_in user
 		redirect_to :controller => 'clientes', :action => 'dashboard'
-=======
+#=======
     sign_in user
     if (user.admin?)
       redirect_to :controller => 'administradors', :action => 'index'
@@ -20,7 +20,7 @@ def create
     end
 
     # Sign the user in and redirect to the user's show page.
->>>>>>> jTables
+#>>>>>>> jTables
 	else
 		flash.now[:error] = 'Invalid email/password combination' # Not quite right!
 		render 'new'

@@ -1,11 +1,11 @@
 SampleApp::Application.routes.draw do
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+# <<<<<<< HEAD
+# <<<<<<< HEAD
+# =======
   resources :reservacions
 
 
->>>>>>> bbe988770409e80f7e6c8acf72c8150a9ac74846
+#>>>>>>> bbe988770409e80f7e6c8acf72c8150a9ac74846
   resources :niveles
   resources :tipomedallas
   resources :medallas
@@ -16,12 +16,12 @@ SampleApp::Application.routes.draw do
       get :profile, :muro
     end
   end
-=======
+# =======
   resources :administradors
 
 
   resources :clientes
->>>>>>> jTables
+#>>>>>>> jTables
 
 
   #get "users/new"

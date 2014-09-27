@@ -29,21 +29,22 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 
   # Gemas para las datatables
-  gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
+  gem 'jquery-datatables-rails'
+  #, github: 'rweng/jquery-datatables-rails'
   gem 'jquery-ui-rails'
   # Gemas para las datatables
 
 end
 
-<<<<<<< HEAD
+#<<<<<<< HEAD
 # Gemas para la paginación de las datatables
   gem 'will_paginate'
 # Gemas para las datatables
 
 gem 'jquery-rails'
 
-=======
->>>>>>> jTables
+#=======
+#>>>>>>> jTables
 group :test do
   gem 'capybara', '1.1.2'
   gem 'factory_girl_rails', '1.4.0'
