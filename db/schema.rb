@@ -11,7 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140923054657) do
+ActiveRecord::Schema.define(:version => 20140921051624) do
+
+  create_table "administradors", :force => true do |t|
+    t.string   "nombreUsuario"
+    t.string   "emailUsuario"
+    t.integer  "idTipoUsuario"
+    t.string   "facebookidUsuario"
+    t.string   "openpayidUsuario"
+    t.string   "nombrePilaUsuario"
+    t.string   "apellidoPaterno"
+    t.string   "apellidoMaterno"
+    t.datetime "fechaNacimiento"
+    t.boolean  "estatusUsuario"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+>>>>>>> jTables
 
   create_table "clientes", :force => true do |t|
     t.integer  "puntaje"

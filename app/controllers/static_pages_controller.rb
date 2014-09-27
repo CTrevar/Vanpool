@@ -3,8 +3,16 @@ class StaticPagesController < ApplicationController
     @user = User.new
     
     if signed_in?
+<<<<<<< HEAD
       @cliente=obtener_cliente
   	  render 'clientes/dashboard'
+=======
+      if @user.admin?
+        render 'administradors/dashboard'
+      else
+        render 'users/dashboard'
+      end
+>>>>>>> jTables
     end
   end
 

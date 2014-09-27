@@ -1,4 +1,5 @@
 SampleApp::Application.routes.draw do
+<<<<<<< HEAD
   resources :niveles
   resources :tipomedallas
   resources :medallas
@@ -9,6 +10,12 @@ SampleApp::Application.routes.draw do
       get :profile
     end
   end
+=======
+  resources :administradors
+
+
+  resources :clientes
+>>>>>>> jTables
 
 
   #get "users/new"
@@ -38,6 +45,17 @@ SampleApp::Application.routes.draw do
   match '/help', to: 'static_pages#help'
   match '/about', to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
+
+  match '/listadministradores', to: 'administradors#listadministradores'
+  match '/administradors', to: 'administradors#index'
+
+
+  match '/administrador_controller/jtable_list',   to: 'administradors#jtable_list',   via: [:get, :post]
+  match '/administrador_controller/jtable_filterlist',   to: 'administradors#jtable_filterlist',   via: [:get, :post]
+  match '/administrador_controller/jtable_create',   to: 'administradors#jtable_create',   via: [:get, :post]
+  match '/administrador_controller/jtable_delete',   to: 'administradors#jtable_delete',   via: [:post]
+  match '/administrador_controller/jtable_update',   to: 'administradors#jtable_update',   via: [:post]
+  # match '/administradoresTableContainer/delete',   to: 'tables#administradoresTableContainer_delete',   via: [:post]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

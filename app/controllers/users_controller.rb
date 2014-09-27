@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   	before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :following, :followers, :obtener_cliente]
 	before_filter :correct_user, only: [:edit, :update]
-	before_filter :admin_user, only: :destroy
+	before_filter :admin_user, only:[:dashboard], destroy:
   	
   	def index
   		@users = User.paginate(page: params[:page])
@@ -72,9 +72,29 @@ class UsersController < ApplicationController
 		Micropost.from_users_followed_by(self)
 	end
 
+<<<<<<< HEAD
 	def obtener_cliente
     	@cliente = Cliente.find(current_user.id)
   	end
+=======
+	def profile
+		@title = "Perfil"
+		@user = User.find(params[:id])
+		@co2 = 2300
+		@kilometros = 12000
+		@dinero = 450
+		render 'show_profile'
+	end
+
+	def dashboard
+  		@users = User.paginate(page: params[:page])
+      if current_user.admin?
+        render 'administradors/dashboard'
+      else
+        render 'users/dashboard'
+      end
+  end
+>>>>>>> jTables
 
 	private
 		def signed_in_user
