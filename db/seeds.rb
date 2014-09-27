@@ -21,4 +21,7 @@
 #rutas = Ruta.create([{van_id:1,conductor_id:1,gmaps:3456789,kilometros:15, nombre:"Valle-Galerias",precio:20.00},
 #	{van_id:3,conductor_id:3,gmaps:3456789,kilometros:20, nombre:"Centro-Cumbres",precio:30.00},
 #	{van_id:2,conductor_id:2,gmaps:3456789,kilometros:25, nombre:"Country-Valle",precio:50.00}])
-
+#vans = Van.create([{placa:"XD-345",modelo:"Ducato",capacidad:15,co2gxkm:245, pais_id:1,fechacompra:"19/02/2004"},
+#	{placa:"XD-344",modelo:"Ducato",capacidad:15,co2gxkm:245, pais_id:1,fechacompra:"19/02/2004"},
+#	{placa:"XD-343",modelo:"Ducato",capacidad:15,co2gxkm:245, pais_id:1,fechacompra:"19/02/2004"}])
+#configuraciones = Configuracion.create([{ nombre: 'CO2gxkmauto', valor: 196 }])

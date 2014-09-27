@@ -107,7 +107,7 @@ class ClientesController < ApplicationController
     @mensaje=obtener_mensaje_nivel(@cliente)
     @validamedallas=valida_medallas(@cliente)
     @muro = obtener_ultimas_medallas(@cliente)
-    @co2 = calcula_co2(@cliente)
+    @co2 = @cliente.co2
     @kilometros = @cliente.kilometraje
     @litros = calcula_litros(@cliente)
 
@@ -128,7 +128,7 @@ class ClientesController < ApplicationController
     @mensaje=obtener_mensaje_nivel(@cliente)
     @validamedallas=valida_medallas(@cliente)
     @muro=obtener_muro(@cliente)
-    @co2 = calcula_co2(@cliente)
+    @co2 = @cliente.co2
     @kilometros = @cliente.kilometraje
     @litros = calcula_litros(@cliente)
     render 'show_muro'
@@ -168,6 +168,7 @@ class ClientesController < ApplicationController
 
     #Obtener el CO2 del cliente
     def calcula_co2(cliente)
+
       vanco2=(cliente.kilometraje*80)/1000
       autoco2=(cliente.kilometraje*196)/1000
       return autoco2-vanco2
