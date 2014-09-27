@@ -1,0 +1,30 @@
+<p>
+	<%= form_for :van, url:vans_path do |f| %>
+
+	<p>
+		<%= f.label :placa %>
+		<%= f.text_field :placa %>
+	</p>
+
+	<p>
+		<%= f.label :modelo %>
+		<%= f.text_field :modelo %>
+	</p>
+
+	<p>
+		<%= f.label :capacidad %>
+		<%= f.number_field :capacidad, in: 1 .. 20 %>
+	</p>
+
+	<p>
+		<%= f.label :pais %>
+		<%= f.collection_select :pais_id, Pais.all, :id, :nombre %>
+	</p>
+
+	<p>
+		<%= f.label :fecha_compra %>
+		<%= f.text_field :fecha_compra %>
+	</p>
+
+<%end%>
+</p>

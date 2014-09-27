@@ -23,6 +23,10 @@ SampleApp::Application.routes.draw do
   resources :clientes
 #>>>>>>> jTables
 
+  resources :rutas
+
+  resources :vans
+
 
   #get "users/new"
   resources :users do
