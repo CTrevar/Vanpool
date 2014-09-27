@@ -54,28 +54,6 @@
 		end
 	end
 
-	def following
-		@title = "Following"
-		@user = User.find(params[:id])
-		@users = @user.followed_users.paginate(page: params[:page])
-		render 'show_follow'
-	end
-
-	def followers
-		@title = "Followers"
-		@user = User.find(params[:id])
-		@users = @user.followers.paginate(page: params[:page])
-		render 'show_follow'
-	end
-
-	def feed
-		Micropost.from_users_followed_by(self)
-	end
-
-    def obtener_cliente(user)
-      @cliente = Cliente.find_by_user_id(user.id)
-    end
-
 	private
 		def signed_in_user
 			store_location
