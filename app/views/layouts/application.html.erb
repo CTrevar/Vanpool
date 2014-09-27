@@ -10,7 +10,7 @@
   <%= stylesheet_link_tag "AdminLTE", media: "all" %>
   <%= stylesheet_link_tag "vanpool", media: "all" %>
   <%= stylesheet_link_tag "timepicker/bootstrap-timepicker", media: "all" %>
-
+  <%= stylesheet_link_tag "application", media: "all" %>
 
   <%= javascript_include_tag "bootstrap/jquery" %>
   <%= javascript_include_tag "bootstrap/bootstrap" %>
@@ -21,25 +21,25 @@
   <%= javascript_include_tag "plugins/colorpicker/bootstrap-colorpicker.min" %>
   <%= javascript_include_tag "plugins/timepicker/bootstrap-timepicker.min" %>
   <%= javascript_include_tag "AdminLTE/app" %>
-    <%= javascript_include_tag "application" %>
-    <script type="text/javascript">
-      (function ($) {
-    jQuery.fn.jtable_ou = function () {
-        return this.each(function () {
-            var $this = $(this);
-            var config_url=$this.attr("data-jtable-config");
-            $.getScript( config_url, function( data, textStatus, jqxhr ) {
-                $this.jtable(jtable_config);
-                $this.jtable('load');
-            });
-        });
-    };
-})(jQuery);
- 
-$(document).on("page:change", function() {
-    $('[data-jtable-config]').jtable_ou();
-});
-    </script>
+
+
+  <!-- Javascripts para jTables. -->
+  <%= javascript_include_tag "jquery.ui.all" %>
+  <!-- Incluir uno de los estilos para la jTable. -->
+  <%= stylesheet_link_tag "themes/metro/darkgray/jtable.min.css" %>
+  <%= javascript_include_tag "jquery.jtable.js" %>
+
+  <!-- Importación del CSS para la validación. -->
+  <%= stylesheet_link_tag "css/validationEngine.jquery.css" %>
+
+  <!-- Importación de Javascript para la validación. -->
+  <%= javascript_include_tag "js/jquery.validationEngine.js" %>
+  <%= javascript_include_tag "js/languages/jquery.validationEngine-es.js" %>
+
+
+
+  <%= javascript_include_tag "application" %>
+
 
   <%= csrf_meta_tags %>
   <%= render 'layouts/shim' %>

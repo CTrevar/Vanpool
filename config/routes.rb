@@ -35,7 +35,12 @@ SampleApp::Application.routes.draw do
   match '/listadministradores', to: 'administradors#listadministradores'
   match '/administradors', to: 'administradors#index'
 
-  match '/administradoresTableContainer',   to: 'tables#administradoresTableContainer',   via: [:get, :post]
+
+  match '/administrador_controller/jtable_list',   to: 'administradors#jtable_list',   via: [:get, :post]
+  match '/administrador_controller/jtable_filterlist',   to: 'administradors#jtable_filterlist',   via: [:get, :post]
+  match '/administrador_controller/jtable_create',   to: 'administradors#jtable_create',   via: [:get, :post]
+  match '/administrador_controller/jtable_delete',   to: 'administradors#jtable_delete',   via: [:post]
+  match '/administrador_controller/jtable_update',   to: 'administradors#jtable_update',   via: [:post]
   # match '/administradoresTableContainer/delete',   to: 'tables#administradoresTableContainer_delete',   via: [:post]
 
   # The priority is based upon order of creation:

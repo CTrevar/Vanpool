@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140923054657) do
+ActiveRecord::Schema.define(:version => 20140921051624) do
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -30,26 +30,7 @@ ActiveRecord::Schema.define(:version => 20140923054657) do
 
   create_table "clientes", :force => true do |t|
     t.integer  "puntaje"
-    t.integer  "nivel_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.integer  "user_id"
-  end
-
-  create_table "medallas", :force => true do |t|
-    t.integer  "tipomedalla_id"
-    t.string   "nombre"
-    t.integer  "puntos"
-    t.string   "imagen"
-    t.boolean  "estatus"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-  end
-
-  create_table "medallasmuros", :force => true do |t|
-    t.integer  "cliente_id"
-    t.integer  "medalla_id"
-    t.boolean  "cobrado"
+    t.integer  "nivel"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -63,14 +44,6 @@ ActiveRecord::Schema.define(:version => 20140923054657) do
 
   add_index "microposts", ["user_id", "created_at"], :name => "index_microposts_on_user_id_and_created_at"
 
-  create_table "nivels", :force => true do |t|
-    t.string   "nombre"
-    t.integer  "rangomaximo"
-    t.boolean  "estatus"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
@@ -82,15 +55,11 @@ ActiveRecord::Schema.define(:version => 20140923054657) do
   add_index "relationships", ["follower_id", "followed_id"], :name => "index_relationships_on_follower_id_and_followed_id", :unique => true
   add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
 
-  create_table "tipomedallas", :force => true do |t|
-    t.string   "nombre"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
+    t.integer  "heir_id"
+    t.string   "heir_type"
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
     t.string   "password_digest"

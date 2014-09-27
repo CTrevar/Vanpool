@@ -10,9 +10,9 @@ def create
 	if user && user.authenticate(params[:session][:password])
     sign_in user
     if (user.admin?)
-      render 'administradors/dashboard'
+      redirect_to :controller => 'administradors', :action => 'index'
     else
-      render 'users/dashboard'
+      redirect_to :controller => 'user', :action => 'dashboard'
     end
 
     # Sign the user in and redirect to the user's show page.
