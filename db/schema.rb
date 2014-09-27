@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20140921051624) do
+=======
+ActiveRecord::Schema.define(:version => 20140925163115) do
+>>>>>>> bbe988770409e80f7e6c8acf72c8150a9ac74846
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -27,14 +31,25 @@ ActiveRecord::Schema.define(:version => 20140921051624) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
+<<<<<<< HEAD
 >>>>>>> jTables
+=======
+>>>>>>> bbe988770409e80f7e6c8acf72c8150a9ac74846
 
   create_table "clientes", :force => true do |t|
     t.integer  "puntaje"
     t.integer  "nivel_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "user_id"
+    t.string   "kilometros"
+    t.integer  "kilometraje"
+  end
+
+  create_table "estadotipos", :force => true do |t|
+    t.string   "nombre"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "user_id"
   end
 
   create_table "medallas", :force => true do |t|
@@ -83,6 +98,28 @@ ActiveRecord::Schema.define(:version => 20140921051624) do
   add_index "relationships", ["follower_id", "followed_id"], :name => "index_relationships_on_follower_id_and_followed_id", :unique => true
   add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
 
+  create_table "reservacions", :force => true do |t|
+    t.integer  "viaje_id"
+    t.integer  "cliente_id"
+    t.integer  "referenciapago_id"
+    t.integer  "estadotipo_id"
+    t.boolean  "estatus"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  create_table "ruta", :force => true do |t|
+    t.integer  "conductor_id"
+    t.integer  "van_id"
+    t.string   "nombre"
+    t.string   "gmaps"
+    t.string   "precio"
+    t.integer  "kilometros"
+    t.boolean  "estatus"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "tipomedallas", :force => true do |t|
     t.string   "nombre"
     t.datetime "created_at", :null => false
@@ -101,5 +138,15 @@ ActiveRecord::Schema.define(:version => 20140921051624) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+
+  create_table "viajes", :force => true do |t|
+    t.integer  "ruta_id"
+    t.string   "horainicio"
+    t.string   "fecha"
+    t.integer  "estadoviaje_id"
+    t.integer  "estatus"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
 
 end

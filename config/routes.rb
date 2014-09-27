@@ -1,5 +1,11 @@
 SampleApp::Application.routes.draw do
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+  resources :reservacions
+
+
+>>>>>>> bbe988770409e80f7e6c8acf72c8150a9ac74846
   resources :niveles
   resources :tipomedallas
   resources :medallas
@@ -7,7 +13,7 @@ SampleApp::Application.routes.draw do
   #get "users/new"
   resources :clientes do
     member do
-      get :profile
+      get :profile, :muro
     end
   end
 =======
@@ -28,9 +34,13 @@ SampleApp::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
+  resources :reservacions, only: [:checkin]
 
   
   match '/dashboard', to: 'clientes#dashboard'
+  match '/reservaciones', to: 'clientes#reservaciones'
+  match '/checkin', to: 'reservacions#checkin'
+
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy'

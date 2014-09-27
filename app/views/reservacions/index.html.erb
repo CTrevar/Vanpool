@@ -1,0 +1,31 @@
+<h1>Listing reservacions</h1>
+
+<table>
+  <tr>
+    <th>Viaje</th>
+    <th>Cliente</th>
+    <th>Referenciapago</th>
+    <th>Estadostipo</th>
+    <th>Estatus</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @reservacions.each do |reservacion| %>
+  <tr>
+    <td><%= reservacion.viaje_id %></td>
+    <td><%= reservacion.cliente_id %></td>
+    <td><%= reservacion.referenciapago_id %></td>
+    <td><%= reservacion.estadostipo %></td>
+    <td><%= reservacion.estatus %></td>
+    <td><%= link_to 'Show', reservacion %></td>
+    <td><%= link_to 'Edit', edit_reservacion_path(reservacion) %></td>
+    <td><%= link_to 'Destroy', reservacion, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Reservacion', new_reservacion_path %>

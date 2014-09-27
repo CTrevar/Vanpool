@@ -1,0 +1,79 @@
+<div class="box box-success">
+    <div class="box-header">
+        <i class="fa fa-road"></i>
+        <h3 class="box-title">Próximos viajes</h3>
+    </div>
+    <div class="box-body">
+        
+        <% if @validareservas==false then %>
+        <div class="msg-vacio">
+            <h4><b>Aún no tienes viajes</b></h4>
+            (Mensaje de la empresa)
+        </div>
+    <% else %>
+
+        <% @reservaciones_pagadas.each do |reservacion| %>
+            
+            <div class="item">
+        <div class="row-fluid">
+            <div class="span6">
+                <label>ID Viaje:</label><%=reservacion.viaje_id%></br>
+                <label>Ruta:</label><%=reservacion.viaje.ruta.nombre%></br>
+                <label>km:</label><%=reservacion.viaje.ruta.kilometros%></br>
+                <label>Fecha:</label><%=reservacion.viaje.fecha%> </br>
+                <label>Hora de salida:</label><%=reservacion.viaje.horainicio%> </br>
+                <label>Hora de llegada:</label></br>
+            </div>
+            <div class="span6">
+                <button type="button" class="btn btn-success">Ver detalle</button>
+                <button type="button" class="btn btn-primary">Invitar amigos</button>
+                <%= link_to "Checkin", "checkin?id=#{reservacion.id}", class:"btn btn-default btn-flat" %>  
+
+                <div class="msg-amigos">
+                    <p>¡Solo faltan 3 personas para alcanzar el SOLD OUT! <a href="#">Invita a tus amigos y gana más puntos</a></p>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.item -->
+<hr></hr>
+        <% end %>
+    <% end %>
+    </div><!-- /.boxbody -->
+</div><!-- /.box --> 
+
+<div class="box box-success">
+    <div class="box-header">
+        <i class="fa fa-road"></i>
+        <h3 class="box-title">Viajes Realizados</h3>
+    </div>
+    <div class="box-body">
+        
+        <% if @validaviajes==false then %>
+        <div class="msg-vacio">
+            <h4><b>Aún no tienes viajes realizados</b></h4>
+            (Mensaje de la empresa)
+        </div>
+    <% else %>
+
+        <% @reservaciones_realizadas.each do |reservacion| %>
+            
+            <div class="item">
+        <div class="row-fluid">
+            <div class="span6">
+                <label>ID Viaje:</label><%=reservacion.viaje_id%></br>
+                <label>Ruta:</label>Valle-Galerias</br>
+                <label>km:</label><%=reservacion.viaje.ruta.kilometros%></br>
+                <label>Fecha:</label>Lunes 22 de septiembre de 2014 </br>
+                <label>Hora de salida:</label>13:30 horas </br>
+                <label>Hora de llegada:</label>14:50 horas</br>
+            </div>
+            <div class="span6">
+                <button type="button" class="btn btn-success">Ver detalle</button>
+            </div>
+        </div>
+    </div><!-- /.item -->
+<hr></hr>
+        <% end %>
+    <% end %>
+    </div><!-- /.boxbody -->
+</div><!-- /.box --> 

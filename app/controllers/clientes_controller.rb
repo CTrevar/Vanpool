@@ -1,11 +1,12 @@
 class ClientesController < ApplicationController
-  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :dashboard, :profile, :obtener_cliente]
+  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :dashboard, 
+    :profile, :muro, :reservaciones, :checkin]
 
   # GET /clientes
   # GET /clientes.json
   def index
     @clientes = Cliente.all
-
+    @cliente = obtener_cliente
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @clientes }
@@ -36,7 +37,8 @@ class ClientesController < ApplicationController
 
   # GET /clientes/1/edit
   def edit
-    @cliente = Cliente.find(params[:id])
+    #@cliente = Cliente.find(params[:id])
+    #@cliente = obtener_cliente(current_user)
   end
 
   # POST /clientes
@@ -83,10 +85,15 @@ class ClientesController < ApplicationController
     end
   end
 
+  def checkin
+    @cliente = obtener_cliente(current_user)
+    @cliente.puntaje=@cliente.puntaje+500
+    @cliente.save
+    redirect_to :controller => 'clientes', :action => 'reservaciones'
+  end
   
   def dashboard
-    #@users = User.paginate(page: params[:page])
-    @cliente = obtener_cliente
+    @current_cliente = obtener_cliente(current_user)
   end
 
 
@@ -94,50 +101,133 @@ class ClientesController < ApplicationController
   def profile
     @title = "Perfil"
     @user = User.find(params[:id])
-
-    ##revisar linea mala
-    @cliente = Cliente.find(@user.id)
+    @current_cliente=Cliente.find_by_user_id(current_user.id)
     
-    if valida_ultimo_nivel==false then
-      @mensaje="Solo te faltan #{calcula_puntos_siguiente_nivel} 
-      para el nivel #{calcula_siguiente_nivel.nombre}" 
-    else
-      @mensaje=""
-    end
-    
-    @co2 = calcula_co2
-    @kilometros = 200
-    @litros = 30
+    @cliente=obtener_cliente(@user)
+    @mensaje=obtener_mensaje_nivel(@cliente)
+    @validamedallas=valida_medallas(@cliente)
+    @muro = obtener_ultimas_medallas(@cliente)
+    @co2 = calcula_co2(@cliente)
+    @kilometros = @cliente.kilometraje
+    @litros = calcula_litros(@cliente)
 
-    @muro= @cliente.medallas
+    @reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
+    @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
+    @reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
 
     render 'show_profile'
   end
 
-  def obtener_cliente
-    ##revisar linea mala
-    @cliente = Cliente.find(current_user.id)
+  # GET /clientes/1/profile
+  def muro
+    @title="Muro de medallas"
+    @user=User.find(params[:id])
+    @current_cliente=Cliente.find_by_user_id(current_user.id)
+
+    @cliente=obtener_cliente(@user)
+    @mensaje=obtener_mensaje_nivel(@cliente)
+    @validamedallas=valida_medallas(@cliente)
+    @muro=obtener_muro(@cliente)
+    @co2 = calcula_co2(@cliente)
+    @kilometros = @cliente.kilometraje
+    @litros = calcula_litros(@cliente)
+    render 'show_muro'
   end
 
+  # GET /clientes/1/profile
+  def reservaciones
+    @title="Reservaciones"
+    @current_cliente = obtener_cliente(current_user)
+    @validareservas=valida_viajes(@cliente)
+    @validaviajes=valida_viajes_completos(@cliente)
+
+    @reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
+    @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
+    @reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
+    @reservaciones_canceladas=@current_cliente.reservacions.find_all_by_estadotipo_id(4)
+    
+    render 'show_reservaciones'
+  end
+
+
   private
-    def calcula_co2
-      return(Cliente.find(@user.id).puntaje*196)/1000
+    #Obtener cliente del usuario
+    def obtener_cliente(user)
+      @cliente = Cliente.find_by_user_id(user.id)
     end
 
-    def valida_ultimo_nivel
-      if Nivel.find(@cliente.nivel.id).id==Nivel.last.id 
+    #Obtener las ultimas 3 medallas del cliente
+    def obtener_ultimas_medallas(cliente)
+      return cliente.medallas.order("created_at DESC").last(3)
+    end
+
+    #obtener todo las medallas del cliente
+    def obtener_muro(cliente)
+      return cliente.medallas.order("created_at ASC").all
+    end
+
+    #Obtener el CO2 del cliente
+    def calcula_co2(cliente)
+      vanco2=(cliente.kilometraje*80)/1000
+      autoco2=(cliente.kilometraje*196)/1000
+      return autoco2-vanco2
+    end
+
+     #Obtener el litros del cliente
+    def calcula_litros(cliente)
+      autolitros=(cliente.kilometraje*(2))
+      return autolitros
+    end
+
+    ##NIVELES
+    #Validar si el cliente esta en el último nivel del cliente
+    def valida_ultimo_nivel(cliente)
+      if cliente.nivel.id==Nivel.last.id 
         return true
       else
         return false
       end
     end
 
-    def calcula_siguiente_nivel
-        return Nivel.find(@cliente.nivel.id+1)
+    #Obtener mensaje para el siguiente nivel del cliente
+    def obtener_mensaje_nivel(cliente)
+      if valida_ultimo_nivel(cliente)==false then
+        return "Solo te faltan #{calcula_puntos_siguiente_nivel(cliente)} 
+        para el nivel #{calcula_siguiente_nivel(cliente).nombre}" 
+      end
+    end
+
+    #Calcula el siguiente nivel del cliente
+    def calcula_siguiente_nivel(cliente)
+        return Nivel.find(cliente.nivel.id+1)
     end
     
-    def calcula_puntos_siguiente_nivel
-      return calcula_siguiente_nivel.rangomaximo-Cliente.find(@user.id).puntaje
+    #Calcula los puntos necesarios para el siguiente nivel del cliente
+    def calcula_puntos_siguiente_nivel(cliente)
+      return calcula_siguiente_nivel(cliente).rangomaximo-cliente.puntaje
+    end
+
+    ##MEDALLAS
+    #Validar si el cliente tiene medallas
+    def valida_medallas(cliente)
+      if cliente.medallas.count==0 
+        return false
+      end
+    end
+
+    ##MEDALLAS
+    #Validar si el cliente tiene medallas
+    def valida_viajes(cliente)
+      if cliente.reservacions.find_all_by_estadotipo_id(2).count==0 
+        return false
+      end
+    end
+
+    #Validar si el cliente tiene medallas
+    def valida_viajes_completos(cliente)
+      if cliente.reservacions.find_all_by_estadotipo_id(3).count==0 
+        return false
+      end
     end
 
 end

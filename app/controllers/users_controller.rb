@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+	class UsersController < ApplicationController
   	before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :following, :followers, :obtener_cliente]
 	before_filter :correct_user, only: [:edit, :update]
 	before_filter :admin_user, only:[:dashboard], destroy:
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 			sign_in @user
 			@cliente = Cliente.create(puntaje:0,nivel_id:1,user_id:@user.id)
 			#flash[:success] = "Welcome to the Sample App!"
-			redirect_to @user
+			redirect_to :controller => 'clientes', :action => 'dashboard'
 		else
 			render 'new'
 		end
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
 
 	def edit
 		@user = User.find(params[:id])
-		@cliente = obtener_cliente
+		@current_cliente = obtener_cliente(current_user)
 	end
 
 	def update
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
 		if @user.update_attributes(params[:user])
 			#flash[:success] = "Profile updated"
 			sign_in @user
-			redirect_to @user
+			redirect_to :controller => 'clientes', :action => 'dashboard'
 		else
 			render 'edit'
 		end
@@ -73,6 +73,7 @@ class UsersController < ApplicationController
 	end
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	def obtener_cliente
     	@cliente = Cliente.find(current_user.id)
   	end
@@ -95,6 +96,11 @@ class UsersController < ApplicationController
       end
   end
 >>>>>>> jTables
+=======
+    def obtener_cliente(user)
+      @cliente = Cliente.find_by_user_id(user.id)
+    end
+>>>>>>> bbe988770409e80f7e6c8acf72c8150a9ac74846
 
 	private
 		def signed_in_user

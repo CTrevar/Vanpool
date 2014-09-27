@@ -4,7 +4,11 @@ class StaticPagesController < ApplicationController
     
     if signed_in?
 <<<<<<< HEAD
+<<<<<<< HEAD
       @cliente=obtener_cliente
+=======
+      @current_cliente=obtener_cliente
+>>>>>>> bbe988770409e80f7e6c8acf72c8150a9ac74846
   	  render 'clientes/dashboard'
 =======
       if @user.admin?
@@ -26,7 +30,7 @@ class StaticPagesController < ApplicationController
   end
 
   def obtener_cliente
-      @cliente = Cliente.find(current_user.id)
-    end
+      @cliente = Cliente.find_by_user_id(current_user.id)
+  end
   
 end

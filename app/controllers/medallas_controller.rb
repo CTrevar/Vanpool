@@ -4,6 +4,7 @@ class MedallasController < ApplicationController
   def index
       @user = User.new
     @medallas = Medalla.all
+    @cliente = obtener_cliente
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,6 +16,7 @@ class MedallasController < ApplicationController
   # GET /medallas/1.json
   def show
       @user = User.new
+      @cliente = obtener_cliente
     @medalla = Medalla.find(params[:id])
 
     respond_to do |format|
@@ -28,6 +30,7 @@ class MedallasController < ApplicationController
   def new
     @user = User.new
     @medalla = Medalla.new
+    @cliente = obtener_cliente
 
     respond_to do |format|
       format.html # new.html.erb
@@ -83,4 +86,21 @@ class MedallasController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+def muro
+  @user = User.new
+  @cliente=obtener_cliente
+  @muro=obtener_muro
+  render 'muro'
+end
+
+def obtener_cliente
+    @cliente = Cliente.find_by_user_id(current_user.id)
+  end
+
+def obtener_muro
+  @cliente=obtener_cliente
+  @muro= @cliente.medallas.all
+end
+
 end
