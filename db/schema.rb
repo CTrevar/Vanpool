@@ -11,11 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20140921051624) do
-=======
+
 ActiveRecord::Schema.define(:version => 20140925163115) do
->>>>>>> bbe988770409e80f7e6c8acf72c8150a9ac74846
+
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -31,10 +29,6 @@ ActiveRecord::Schema.define(:version => 20140925163115) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
-<<<<<<< HEAD
->>>>>>> jTables
-=======
->>>>>>> bbe988770409e80f7e6c8acf72c8150a9ac74846
 
   create_table "clientes", :force => true do |t|
     t.integer  "puntaje"
