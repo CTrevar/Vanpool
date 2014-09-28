@@ -8,6 +8,7 @@ module CheckinHelper
     	aumenta_puntos_kilometraje(@reservacion)
     	calcula_co2(@reservacion)
     	asigna_medalla_viaje(@reservacion.cliente)
+        asigna_medalla_llenototal(@reservacion.cliente)
     	cambio_nivel(@reservacion.cliente)
     	redirect_to :controller => 'clientes', :action => 'reservaciones'
   	end
