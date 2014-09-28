@@ -8,5 +8,7 @@ class ApplicationController < ActionController::Base
   include CheckinHelper
   include NivelsHelper
   include MedallasHelper
+  include ReservacionsHelper
+  include VanHelper
 
 end
