@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140929052539) do
+ActiveRecord::Schema.define(:version => 20140929175036) do
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -46,6 +46,16 @@ ActiveRecord::Schema.define(:version => 20140929052539) do
     t.datetime "updated_at",                 :null => false
     t.integer  "user_id"
     t.integer  "kilometraje", :default => 0
+    t.integer  "co2",         :default => 0
+    t.string   "facebook_id"
+    t.string   "openpay_id"
+  end
+
+  create_table "configuracions", :force => true do |t|
+    t.string   "nombre"
+    t.string   "valor"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "estadotipos", :force => true do |t|
@@ -60,8 +70,10 @@ ActiveRecord::Schema.define(:version => 20140929052539) do
     t.integer  "puntos"
     t.string   "imagen"
     t.boolean  "estatus"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.integer  "estado",         :default => 0
+    t.string   "descripcion"
   end
 
   create_table "medallasmuros", :force => true do |t|
@@ -98,6 +110,15 @@ ActiveRecord::Schema.define(:version => 20140929052539) do
     t.datetime "updated_at",                :null => false
   end
 
+  create_table "parada_ruta", :force => true do |t|
+    t.integer  "posicion"
+    t.integer  "tiempo"
+    t.integer  "distancia"
+    t.text     "via_puntos"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "paradas", :force => true do |t|
     t.string   "nombre",     :limit => 100
     t.float    "longitud"
@@ -128,7 +149,14 @@ ActiveRecord::Schema.define(:version => 20140929052539) do
     t.datetime "updated_at",        :null => false
   end
 
-  create_table "ruta", :force => true do |t|
+  create_table "retroalimentacions", :force => true do |t|
+    t.integer  "reservacion_id"
+    t.boolean  "estatus"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "rutas", :force => true do |t|
     t.integer  "conductor_id"
     t.integer  "van_id"
     t.string   "nombre"

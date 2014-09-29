@@ -4,6 +4,7 @@ class CreateVans < ActiveRecord::Migration
       t.string :placa, :limit => 45
       t.string :modelo, :limit => 45
       t.integer :capacidad
+      t.integer :co2gxkm
       t.date :fecha_compra
       t.integer :kilometro_recorrido
       t.boolean :activa

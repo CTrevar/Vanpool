@@ -87,20 +87,4 @@ class MedallasController < ApplicationController
     end
   end
 
-def muro
-  @user = User.new
-  @cliente=obtener_cliente
-  @muro=obtener_muro
-  render 'muro'
-end
-
-def obtener_cliente
-    @cliente = Cliente.find_by_user_id(current_user.id)
-  end
-
-def obtener_muro
-  @cliente=obtener_cliente
-  @muro= @cliente.medallas.all
-end
-
 end

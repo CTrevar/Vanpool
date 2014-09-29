@@ -54,6 +54,8 @@
 		end
 	end
 
+<<<<<<< HEAD
+=======
 	def following
 		@title = "Following"
 		@user = User.find(params[:id])
@@ -72,12 +74,15 @@
 		Micropost.from_users_followed_by(self)
 	end
 
+<<<<<<< HEAD
 # <<<<<<< HEAD
 # <<<<<<< HEAD
 	def obtener_cliente
     	@cliente = Cliente.find(current_user.id)
   	end
 #=======
+=======
+>>>>>>> 466b84c7eee686c1eff3d96cc9e8c68d2816b3c2
 	def profile
 		@title = "Perfil"
 		@user = User.find(params[:id])
@@ -95,13 +100,20 @@
         render 'users/dashboard'
       end
   end
+<<<<<<< HEAD
 # >>>>>>> jTables
 # =======
     def obtener_cliente(user)
       @cliente = Cliente.find_by_user_id(user.id)
     end
 #>>>>>>> bbe988770409e80f7e6c8acf72c8150a9ac74846
+=======
+    def obtener_cliente(user)
+      @cliente = Cliente.find_by_user_id(user.id)
+    end
+>>>>>>> 466b84c7eee686c1eff3d96cc9e8c68d2816b3c2
 
+>>>>>>> e3093baf7c695de9b063471e9f6ff7cbbd66dce4
 	private
 		def signed_in_user
 			store_location

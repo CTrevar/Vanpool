@@ -1,5 +1,5 @@
 class ReservacionsController < ApplicationController
-  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :checkin]
+  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
   # GET /reservacions
   # GET /reservacions.json
   def index
@@ -82,28 +82,5 @@ class ReservacionsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-def checkin
-    @reservacion = Reservacion.find(params[:id])
-    @reservacion.estadotipo_id=3
-    @reservacion.cliente.puntaje=@reservacion.cliente.puntaje+5000
-    @reservacion.cliente.kilometraje=@reservacion.cliente.kilometraje+@reservacion.viaje.ruta.kilometros
-    if(@reservacion.cliente.puntaje>14999)then
-      @reservacion.cliente.nivel_id=2
-    end
-    @reservacion.save
-    @reservacion.cliente.save
-
-    if(obtener_cliente(current_user).reservacions.find_all_by_estadotipo_id(3).count  ==1) then
-      @medallamuro = Medallasmuro.create(cliente_id:obtener_cliente(current_user).id,medalla_id:1)
-      @medallamuro.save
-    end
-    
-    redirect_to :controller => 'clientes', :action => 'reservaciones'
-  end
-
-  def obtener_cliente(user)
-      @cliente = Cliente.find_by_user_id(user.id)
-    end
 
 end

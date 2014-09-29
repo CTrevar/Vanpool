@@ -3,6 +3,7 @@ class StaticPagesController < ApplicationController
     @user = User.new
     
     if signed_in?
+<<<<<<< HEAD
 # <<<<<<< HEAD
 # <<<<<<< HEAD
       @cliente=obtener_cliente
@@ -11,12 +12,18 @@ class StaticPagesController < ApplicationController
 #>>>>>>> bbe988770409e80f7e6c8acf72c8150a9ac74846
   	  render 'clientes/dashboard'
 #=======
+=======
+      @current_cliente=obtener_cliente(current_user)
+>>>>>>> 466b84c7eee686c1eff3d96cc9e8c68d2816b3c2
       if @user.admin?
         render 'administradors/dashboard'
       else
-        render 'users/dashboard'
+        render 'clientes/dashboard'
       end
+<<<<<<< HEAD
 #>>>>>>> jTables
+=======
+>>>>>>> 466b84c7eee686c1eff3d96cc9e8c68d2816b3c2
     end
   end
 
@@ -27,10 +34,6 @@ class StaticPagesController < ApplicationController
   end
 
   def contact
-  end
-
-  def obtener_cliente
-      @cliente = Cliente.find_by_user_id(current_user.id)
   end
   
 end

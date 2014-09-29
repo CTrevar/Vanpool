@@ -3,7 +3,7 @@ class CreateParadaRuta < ActiveRecord::Migration
     create_table :parada_ruta do |t|
       t.integer :posicion
       t.integer :tiempo
-      t.double :distancia
+      t.integer :distancia
       t.text :via_puntos
 
       t.timestamps
