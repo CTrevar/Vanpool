@@ -4,12 +4,20 @@ class RutasController < ApplicationController
 	end
 
 	def new
+		@ruta = Ruta.new
+		@parada = Parada.new
 	end
 
 	def create
 		@ruta = Ruta.new(params[:ruta])
+		@parada = Parada.new(params[:parada])
+		@viaje = Viaje.new(params[:viaje])
+
 		@ruta.save
-		redirect_to @ruta
+		@parada.save
+		@viaje.save
+		
+		redirect_to rutas_path
 	end
 
 	def show

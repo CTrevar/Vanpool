@@ -24,6 +24,7 @@ SampleApp::Application.routes.draw do
 #>>>>>>> jTables
 
   resources :rutas
+  resources :paradas
 
   resources :vans
 

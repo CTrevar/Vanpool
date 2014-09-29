@@ -10,11 +10,6 @@ class VansController < ApplicationController
 
 		@van.save
 
-		# if !@van.errors.empty?
-  # 			flash[:error] = "You are missing required fields."
-  # 			redirect_to new_van_path
-  # 		end
-
 		if @van.save
 			redirect_to @van
 		else

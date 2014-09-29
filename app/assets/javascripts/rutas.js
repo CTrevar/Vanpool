@@ -152,7 +152,7 @@ function agregarMarcador(location) {
             //document.getElementById("origenRuta").value = response.routes[0].legs[0].distance.value;
           }
           else
-            alert ('más de 8 marcadores');
+            alert ('no se pudo obtener direcciones');
         });
 
         
