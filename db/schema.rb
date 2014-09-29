@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140927215117) do
+ActiveRecord::Schema.define(:version => 20140928185537) do
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(:version => 20140927215117) do
     t.string   "kilometros"
     t.integer  "kilometraje"
     t.integer  "co2",         :default => 0
+    t.string   "facebook_id"
+    t.string   "openpay_id"
   end
 
   create_table "configuracions", :force => true do |t|
@@ -108,6 +110,13 @@ ActiveRecord::Schema.define(:version => 20140927215117) do
     t.boolean  "estatus"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+  end
+
+  create_table "retroalimentacions", :force => true do |t|
+    t.integer  "reservacion_id"
+    t.boolean  "estatus"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "ruta", :force => true do |t|
