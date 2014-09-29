@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20140928185537) do
+=======
+
+ActiveRecord::Schema.define(:version => 20140925163115) do
+>>>>>>> e3093baf7c695de9b063471e9f6ff7cbbd66dce4
+
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"

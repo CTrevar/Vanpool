@@ -1,7 +1,7 @@
 	class UsersController < ApplicationController
   	before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :following, :followers, :obtener_cliente]
 	before_filter :correct_user, only: [:edit, :update]
-	before_filter :admin_user, only: :destroy
+	before_filter :admin_user, only:[:dashboard], destroy:
   	
   	def index
   		@users = User.paginate(page: params[:page])
@@ -54,6 +54,48 @@
 		end
 	end
 
+<<<<<<< HEAD
+=======
+	def following
+		@title = "Following"
+		@user = User.find(params[:id])
+		@users = @user.followed_users.paginate(page: params[:page])
+		render 'show_follow'
+	end
+
+	def followers
+		@title = "Followers"
+		@user = User.find(params[:id])
+		@users = @user.followers.paginate(page: params[:page])
+		render 'show_follow'
+	end
+
+	def feed
+		Micropost.from_users_followed_by(self)
+	end
+
+	def profile
+		@title = "Perfil"
+		@user = User.find(params[:id])
+		@co2 = 2300
+		@kilometros = 12000
+		@dinero = 450
+		render 'show_profile'
+	end
+
+	def dashboard
+  		@users = User.paginate(page: params[:page])
+      if current_user.admin?
+        render 'administradors/dashboard'
+      else
+        render 'users/dashboard'
+      end
+  end
+    def obtener_cliente(user)
+      @cliente = Cliente.find_by_user_id(user.id)
+    end
+
+>>>>>>> e3093baf7c695de9b063471e9f6ff7cbbd66dce4
 	private
 		def signed_in_user
 			store_location

@@ -12,8 +12,15 @@
   <%= stylesheet_link_tag "timepicker/bootstrap-timepicker", media: "all" %>
 
 
-  <%= javascript_include_tag "jquery" %>
+
+  
   <%= javascript_include_tag "bootstrap" %>
+
+  <%= stylesheet_link_tag "application", media: "all" %>
+
+  <%= javascript_include_tag "bootstrap/jquery" %>
+  <%= javascript_include_tag "bootstrap/bootstrap" %>
+
   <%= javascript_include_tag "bootstrap/bootstrap-modal" %>
   <%= javascript_include_tag "plugins/input-mask/jquery.inputmask" %>
   <%= javascript_include_tag "plugins/input-mask/jquery.inputmask.date.extensions" %>
@@ -22,6 +29,25 @@
   <%= javascript_include_tag "plugins/timepicker/bootstrap-timepicker.min" %>
   <%= javascript_include_tag "AdminLTE/app" %>
   <%= javascript_include_tag "application" %>
+
+
+  <!-- Javascripts para jTables. -->
+  <%= javascript_include_tag "jquery.ui.all" %>
+  <!-- Incluir uno de los estilos para la jTable. -->
+  <%= stylesheet_link_tag "themes/metro/darkgray/jtable.min.css" %>
+  <%= javascript_include_tag "jquery.jtable.js" %>
+
+  <!-- Importación del CSS para la validación. -->
+  <%= stylesheet_link_tag "css/validationEngine.jquery.css" %>
+
+  <!-- Importación de Javascript para la validación. -->
+  <%= javascript_include_tag "js/jquery.validationEngine.js" %>
+  <%= javascript_include_tag "js/languages/jquery.validationEngine-es.js" %>
+
+
+
+  <%= javascript_include_tag "application" %>
+
 
   <%= csrf_meta_tags %>
   <%= render 'layouts/shim' %>
