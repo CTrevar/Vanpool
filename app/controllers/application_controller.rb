@@ -10,5 +10,6 @@ class ApplicationController < ActionController::Base
   include MedallasHelper
   include ReservacionsHelper
   include VanHelper
+  include RetroaspectosHelper
 
 end

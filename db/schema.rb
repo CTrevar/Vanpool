@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140929175036) do
+ActiveRecord::Schema.define(:version => 20140930151125) do
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -102,6 +102,14 @@ ActiveRecord::Schema.define(:version => 20140929175036) do
   add_index "relationships", ["follower_id", "followed_id"], :name => "index_relationships_on_follower_id_and_followed_id", :unique => true
   add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
 
+  create_table "reportes", :force => true do |t|
+    t.integer  "cliente_id"
+    t.string   "descripcion"
+    t.boolean  "estatus"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "reservacions", :force => true do |t|
     t.integer  "viaje_id"
     t.integer  "cliente_id"
@@ -117,6 +125,15 @@ ActiveRecord::Schema.define(:version => 20140929175036) do
     t.boolean  "estatus"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.integer  "aspecto_id"
+    t.integer  "calificacion"
+  end
+
+  create_table "retroaspectos", :force => true do |t|
+    t.string   "nombre"
+    t.boolean  "estatus"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "rutas", :force => true do |t|

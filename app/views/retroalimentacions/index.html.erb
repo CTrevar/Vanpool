@@ -1,0 +1,23 @@
+<h1>Listing retroalimentacions</h1>
+
+<table>
+  <tr>
+    <th>Reservacion</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @retroalimentacions.each do |retroalimentacion| %>
+  <tr>
+    <td><%= retroalimentacion.reservacion_id %></td>
+    <td><%= link_to 'Show', retroalimentacion %></td>
+    <td><%= link_to 'Edit', edit_retroalimentacion_path(retroalimentacion) %></td>
+    <td><%= link_to 'Destroy', retroalimentacion, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Retroalimentacion', new_retroalimentacion_path %>

@@ -6,5 +6,6 @@ class Cliente < ActiveRecord::Base
   has_many :medallasmuros
   has_many :medallas, through: :medallasmuros, source: :medalla
   has_many :reservacions
+  has_many :reportes
 
 end
