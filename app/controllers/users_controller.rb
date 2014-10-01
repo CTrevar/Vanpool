@@ -19,10 +19,14 @@
 
 	def create
 		@user = User.new(params[:user])
-		if @user.save	
+		if @user.save
+			
+        	
 			sign_in @user
 			@cliente = Cliente.create(puntaje:0,nivel_id:1,user_id:@user.id)
 			#flash[:success] = "Welcome to the Sample App!"
+			# Tell the UserMailer to send a welcome email after save
+			#UserMailer.welcome_email(@user).deliver
 			redirect_to :controller => 'clientes', :action => 'dashboard'
 		else
 			render 'new'
@@ -54,8 +58,6 @@
 		end
 	end
 
-<<<<<<< HEAD
-=======
 	def following
 		@title = "Following"
 		@user = User.find(params[:id])
@@ -95,7 +97,6 @@
       @cliente = Cliente.find_by_user_id(user.id)
     end
 
->>>>>>> e3093baf7c695de9b063471e9f6ff7cbbd66dce4
 	private
 		def signed_in_user
 			store_location
