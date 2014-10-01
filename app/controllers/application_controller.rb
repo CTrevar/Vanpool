@@ -11,5 +11,6 @@ class ApplicationController < ActionController::Base
   include ReservacionsHelper
   include VanHelper
   include RetroaspectosHelper
+  include DescuentosHelper
 
 end

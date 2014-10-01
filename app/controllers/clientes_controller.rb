@@ -110,6 +110,8 @@ class ClientesController < ApplicationController
     @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
     @reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
 
+    @descuentos=obtener_ultimo_descuento(@cliente)
+
     render 'show_profile'
   end
 
