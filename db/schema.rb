@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140929175036) do
+ActiveRecord::Schema.define(:version => 20140930222133) do
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -62,6 +62,18 @@ ActiveRecord::Schema.define(:version => 20140929175036) do
     t.string   "nombre"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "frecuencias", :force => true do |t|
+    t.boolean  "lunes"
+    t.boolean  "martes"
+    t.boolean  "miercoles"
+    t.boolean  "jueves"
+    t.boolean  "viernes"
+    t.boolean  "sabado"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "ruta_id"
   end
 
   create_table "medallas", :force => true do |t|
@@ -126,6 +138,10 @@ ActiveRecord::Schema.define(:version => 20140929175036) do
     t.boolean  "estatus"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
+    t.integer  "posicion"
+    t.float    "tiempo"
+    t.float    "distancia"
+    t.integer  "ruta_id"
   end
 
   create_table "relationships", :force => true do |t|

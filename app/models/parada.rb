@@ -1,3 +1,4 @@
 class Parada < ActiveRecord::Base
-  attr_accessible :estatus, :latitud, :longitud, :nombre
+	belongs_to :ruta
+  attr_accessible :estatus, :latitud, :longitud, :nombre, :posicion, :tiempo, :distancia
 end

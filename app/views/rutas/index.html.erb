@@ -1,0 +1,16 @@
+<h1> rutas </h1>
+
+<table>
+	<tr>
+		<th>Nombre</th>
+		<th>Precio</th>
+	</tr>
+
+	<%= @rutas.each do |ruta| %>
+		<tr>
+			<td> <%= ruta.nombre %> </td>
+			<td> <%= ruta.precio %> </td>
+		</tr>
+	<%end%>
+
+</table>
