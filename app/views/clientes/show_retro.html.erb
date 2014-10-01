@@ -1,0 +1,24 @@
+ <% provide(:title, @title) %>
+ <div class="wrapper row-offcanvas row-offcanvas-left">
+    <aside class="left-side sidebar-offcanvas">
+        <%= render 'shared/user_sidebar' %> 
+    </aside>
+    <aside class="right-side">
+    <section class="content-header">
+        <h1>Evaluación del servicio<small>Detalle</small></h1>
+        <ol class="breadcrumb">
+            <li><a href="/dashboard"><i class="fa fa-home"></i> Inicio</a></li>
+            <li class="active">Feedback</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <%= render 'shared/user_feedback' %>
+                </div>
+            </div>
+        </div>
+    </section>                                  
+    </aside><!-- /.right-side -->
+</div><!-- ./wrapper -->

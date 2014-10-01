@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nombre:</b>
+  <%= @retroaspecto.nombre %>
+</p>
+
+<p>
+  <b>Estatus:</b>
+  <%= @retroaspecto.estatus %>
+</p>
+
+
+<%= link_to 'Edit', edit_retroaspecto_path(@retroaspecto) %> |
+<%= link_to 'Back', retroaspectos_path %>

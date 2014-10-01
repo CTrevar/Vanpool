@@ -25,3 +25,5 @@
 #	{placa:"XD-344",modelo:"Ducato",capacidad:15,co2gxkm:245, pais_id:1,fechacompra:"19/02/2004"},
 #	{placa:"XD-343",modelo:"Ducato",capacidad:15,co2gxkm:245, pais_id:1,fechacompra:"19/02/2004"}])
 #configuraciones = Configuracion.create([{ nombre: 'CO2gxkmauto', valor: 196 }])
+#retroaspectos=Retroaspecto.create([{nombre:"Limpieza de la van", estatus:true},{nombre:"Trato de conductor",estatus:true},
+#	{nombre:"Comodidad de la van",estatus:true}])

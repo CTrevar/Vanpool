@@ -1,6 +1,6 @@
 class ClientesController < ApplicationController
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :dashboard, 
-    :profile, :muro, :reservaciones, :checkin]
+    :profile, :muro, :reservaciones, :checkin, :retro, :reporte]
 
   # GET /clientes
   # GET /clientes.json
@@ -110,6 +110,8 @@ class ClientesController < ApplicationController
     @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
     @reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
 
+    @descuentos=obtener_ultimo_descuento(@cliente)
+
     render 'show_profile'
   end
 
@@ -141,6 +143,22 @@ class ClientesController < ApplicationController
     @reservaciones_canceladas=@current_cliente.reservacions.find_all_by_estadotipo_id(4)
     
     render 'show_reservaciones'
+  end
+
+  def retro
+    @title="Evalua el servicio"
+    @current_cliente = obtener_cliente(current_user)
+    @aspectos=aspectos
+
+    render 'show_retro'
+  end
+
+  def reporte
+    @title="Reporta el servicio"
+    @current_cliente = obtener_cliente(current_user)
+    @reporte = Reporte.new
+
+    render 'show_reporte'
   end
 
 

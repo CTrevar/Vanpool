@@ -1,5 +1,9 @@
 <% if signed_in? %>
-    <%= render 'shared/header_signin' %>
+	<%if (current_user.admin?)%>
+      <%= render 'shared/header_signin_admin' %>
+    <%else%>
+      <%= render 'shared/header_signin' %>
+    <%end%>
 <% else %>
     <%= render 'shared/header_no_signin' %>
 <% end %>

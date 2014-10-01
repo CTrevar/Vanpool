@@ -3,4 +3,5 @@ class Medalla < ActiveRecord::Base
 	belongs_to :tipomedalla 
 	has_many :medallasmuros
 	has_many :clientes, through: :medallasmuros, source: :cliente
+	has_one :descuentos
 end
