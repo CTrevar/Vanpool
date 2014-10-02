@@ -18,9 +18,14 @@
                     <img src="/assets/Foodzy_Badges.png" class="img-circle" alt="User Image" />
                 </div>
                 <div class="span3">
-                    <h3><%= @user.name %></br><%= @cliente.nivel.nombre %></h3>
-                    <h4><%= @cliente.puntaje %> puntos</h4>
-                    <b><%= @mensaje %></b>
+                    <h3><%= @user.name %></h3>
+                    <h4><%= @cliente.nivel.nombre %></h4>
+                    <b><%= @cliente.puntaje %> puntos</b>
+                    <p><%= @mensaje %></p>
+                    </br>
+                    <%= link_to "Comprar saldo", "/recarga", class:"btn btn-default btn-flat" %>  
+                    <%= link_to "Pago viaje", "/compra", class:"btn btn-default btn-flat" %>
+                    <hr></hr>
                 </div>
                 <div class="span7">
                     <div class="row-fluid">

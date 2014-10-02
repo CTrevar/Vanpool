@@ -27,6 +27,20 @@
 			#flash[:success] = "Welcome to the Sample App!"
 			# Tell the UserMailer to send a welcome email after save
 			UserMailer.welcome_email(@user).deliver
+
+			@openpay=OpenpayApi.new('muvdvkft3dzo57bfzv5g','sk_aa543af9dc964f83b41418a26aa6104f')
+   
+			@customers=@openpay.create(:customers)
+    		request_hash={
+     			"external_id" => nil,
+     			"name" => @cliente.user.name,
+     			"last_name" => nil,
+     			"email" => @cliente.user.email,
+     			"requires_account" => true,
+     		}
+    		response_hash=@customers.create(request_hash.to_hash)
+    		@cliente.openpay_id=response_hash["id"]
+    		@cliente.save
 			redirect_to :controller => 'clientes', :action => 'dashboard'
 		else
 			render 'new'

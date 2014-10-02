@@ -45,7 +45,6 @@ class ClientesController < ApplicationController
   # POST /clientes.json
   def create
     @cliente = Cliente.new(params[:cliente])
-
     respond_to do |format|
       if @cliente.save
         format.html { redirect_to @cliente, notice: 'Cliente was successfully created.' }
@@ -90,28 +89,10 @@ class ClientesController < ApplicationController
   
   def dashboard
     @current_cliente = obtener_cliente(current_user)
+    
+    #puts @request_hash["name"]
+    #print "hola"
 
-    #@openpay=OpenpayApi.new('muvdvkft3dzo57bfzv5g','sk_aa543af9dc964f83b41418a26aa6104f')
-    #@customers=@openpay.create(:customers)
-    #address_hash={
-    #  "line1" => "Calle 10",
-    #  "line2" => "col. san pablo",
-    #  "line3" => "entre la calle 1 y la 2",
-    #  "state" => "Queretaro",
-    #  "city" => "Queretaro",
-    #  "postal_code" => "76000",
-    #  "country_code" => "MX"
-    #}
-    #request_hash={
-    # "external_id" => nil,
-    # "name" => "customer name",
-    # "last_name" => nil,
-    # "email" => "customer_email@me.com",
-    # "requires_account" => true,
-    # "phone_number" => "44209087654",
-    # "address" => address_hash
-    # }
-    #response_hash=@customers.create(request_hash.to_hash)
   end
 
 
@@ -125,14 +106,14 @@ class ClientesController < ApplicationController
     @mensaje=obtener_mensaje_nivel(@cliente)
     @validamedallas=valida_medallas(@cliente)
     @muro = obtener_ultimas_medallas(@cliente)
-    @co2 = @cliente.co2
-    @kilometros = @cliente.kilometraje
+    @co2 = @cliente.co2ahorrado
+    @kilometros = @cliente.kilometros
 
     @reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
     @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
     @reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
 
-    @descuentos=obtener_ultimo_descuento(@cliente)
+    #@descuentos=obtener_ultimo_descuento(@cliente)
 
     render 'show_profile'
   end

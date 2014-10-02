@@ -52,6 +52,8 @@ SampleApp::Application.routes.draw do
   match '/reporte', to: 'clientes#reporte'
   match '/retroalimentacion', to: 'clientes#retro'
   match '/checkin', to: 'reservacions#checkin'
+  match '/recarga', to: 'pagos#recarga'
+  match '/compra', to: 'pagos#compra'
 
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'
