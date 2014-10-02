@@ -6,6 +6,7 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"
 require "sprockets/railtie"
+require 'openpay'
 # require "rails/test_unit/railtie"
 
 if defined?(Bundler)
@@ -68,6 +69,37 @@ module SampleApp
     config.active_record.whitelist_attributes = true
 
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
+
+   #merchant and private key
+merchant_id='muvdvkft3dzo57bfzv5g'
+private_key='sk_aa543af9dc964f83b41418a26aa6104f'
+
+
+#An openpay resource factory instance is created out of the OpenpayApi
+#it  points to the development environment  by default.
+openpay=OpenpayApi.new(merchant_id,private_key)
+
+#To enable production mode you should pass a third argument as true.
+#openpay_prod=OpenpayApi.new(merchant_id,private_key,true)
+
+#This ruby client manages a default timeout of 90 seconds to make the request 
+#    to Openpay services, if you need to modify this value, you need to explicitly 
+#    define the type of environment and followed by the new value for the timeout.
+#Syntax:
+#   openpay_prod=OpenpayApi.new(merchant_id,private_key,isProduction,timeout)
+#Example:
+#   openpay_prod=OpenpayApi.new(merchant_id,private_key,false,30)
+
+#creating an instance for each available resource
+bankaccounts=openpay.create(:bankaccounts)
+cards=openpay.create(:cards)
+charges=openpay.create(:charges)
+customers=openpay.create(:customers)
+fees=openpay.create(:fees)
+payouts=openpay.create(:payouts)
+plans=openpay.create(:plans)
+subscriptions=openpay.create(:subscriptions)
+transfers=openpay.create(:transfers)
 
   end
 end

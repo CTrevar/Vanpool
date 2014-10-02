@@ -90,6 +90,28 @@ class ClientesController < ApplicationController
   
   def dashboard
     @current_cliente = obtener_cliente(current_user)
+
+    #@openpay=OpenpayApi.new('muvdvkft3dzo57bfzv5g','sk_aa543af9dc964f83b41418a26aa6104f')
+    #@customers=@openpay.create(:customers)
+    #address_hash={
+    #  "line1" => "Calle 10",
+    #  "line2" => "col. san pablo",
+    #  "line3" => "entre la calle 1 y la 2",
+    #  "state" => "Queretaro",
+    #  "city" => "Queretaro",
+    #  "postal_code" => "76000",
+    #  "country_code" => "MX"
+    #}
+    #request_hash={
+    # "external_id" => nil,
+    # "name" => "customer name",
+    # "last_name" => nil,
+    # "email" => "customer_email@me.com",
+    # "requires_account" => true,
+    # "phone_number" => "44209087654",
+    # "address" => address_hash
+    # }
+    #response_hash=@customers.create(request_hash.to_hash)
   end
 
 

@@ -26,7 +26,7 @@
 			@cliente = Cliente.create(puntaje:0,nivel_id:1,user_id:@user.id)
 			#flash[:success] = "Welcome to the Sample App!"
 			# Tell the UserMailer to send a welcome email after save
-			#UserMailer.welcome_email(@user).deliver
+			UserMailer.welcome_email(@user).deliver
 			redirect_to :controller => 'clientes', :action => 'dashboard'
 		else
 			render 'new'
