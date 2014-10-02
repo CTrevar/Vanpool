@@ -171,7 +171,7 @@ class ClientesController < ApplicationController
     @title="Evalua el servicio"
     @current_cliente = obtener_cliente(current_user)
     @aspectos=aspectos
-
+    @retro = Retroalimentacion.new
     render 'show_retro'
   end
 
