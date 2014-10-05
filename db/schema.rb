@@ -11,9 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
 ActiveRecord::Schema.define(:version => 20141002220507) do
-
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -30,20 +28,9 @@ ActiveRecord::Schema.define(:version => 20141002220507) do
     t.datetime "updated_at",        :null => false
   end
 
-  create_table "conductors", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "licenciaConductor"
-    t.boolean  "estatusConductor"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-  end
-
   create_table "clientes", :force => true do |t|
     t.integer  "puntaje"
     t.integer  "nivel_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.integer  "user_id"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
     t.integer  "user_id"
@@ -52,6 +39,14 @@ ActiveRecord::Schema.define(:version => 20141002220507) do
     t.string   "openpay_id"
     t.decimal  "co2ahorrado", :default => 0.0
     t.decimal  "kilometros",  :default => 0.0
+  end
+
+  create_table "conductors", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "licenciaConductor"
+    t.boolean  "estatusConductor"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "configuracions", :force => true do |t|
@@ -70,7 +65,6 @@ ActiveRecord::Schema.define(:version => 20141002220507) do
     t.boolean  "estatus"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
->>>>>>> 6073098819c701d3b049cf60c2b64caeceb5ff87
   end
 
   create_table "estadotipos", :force => true do |t|
