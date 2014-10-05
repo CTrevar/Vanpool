@@ -4,6 +4,11 @@ gem 'rails', '3.2.13'
 gem 'bcrypt-ruby','3.0.1'
 gem 'faker', '1.0.1'
 gem 'jquery-rails'
+gem 'mail'
+gem 'openpay'
+gem 'railties', '3.2.13'
+
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -32,6 +37,9 @@ group :assets do
   gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
   gem 'jquery-ui-rails'
   # Gemas para las datatables
+
+  gem 'sprockets', '2.2.1' 
+  gem 'sprockets-rails'
 
 end
 

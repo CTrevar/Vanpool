@@ -2,20 +2,20 @@
 <ul class="thumbnails">
     <li class="span4">
         <div class="small-box bg-blue text-center">
-            <h1><%= @kilometros%> </h1>
+            <h1><%= number_with_precision(@kilometros,:precision => 1) %> </h1>
             <h4>Kilometros recorridos</h4>
         </div>
     </li>
     <li class="span4">
         <div class="small-box bg-green text-center">
-            <h1><%= @co2 %></h1>
-            <h4>Kilos de CO2 ahorrados</h4>
+            <h1><%= number_with_precision(@co2,:precision => 1) %></h1>
+            <h4>Gramos de CO2 ahorrados</h4>
         </div>
     </li>
     <li class="span4">
         <div class="small-box bg-yellow text-center">
             <h1><%= @litros %> </h1>
-            <h4>Pesos en gasolina ahorrados</h4>   
+            <h4>na</h4>   
         </div>
     </li>
 </ul>

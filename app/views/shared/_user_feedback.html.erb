@@ -1,0 +1,34 @@
+<div class="box">
+    <div class="box-header">
+        <i class="fa fa-trophy"></i>
+        <h3 class="box-title">Aspectos a evaluar</h3>
+    </div>
+    <div class="side-wall">
+
+        <table class="table table-bordered">
+<%= form_for @retro, url: {action: "create"}, html: {class: "nifty_form"} do |f| %>
+<% @aspectos.each do |aspecto| %>
+  <tr>
+    <td><%= aspecto.nombre%></td>
+    <td><%= radio_button_tag(:calificacion, aspecto.id ) %>
+        <%= label_tag(:excelente, "Excelente") %>
+            </td>
+    <td><%= radio_button_tag(:calificacion, aspecto.id) %>
+        <%= label_tag(:bueno, "Bueno") %>
+            </td>
+    <td><%= radio_button_tag(:calificacion, aspecto.id) %>
+        <%= label_tag(:regular, "Regular") %>
+            </td>
+    <td><%= radio_button_tag(:calificacion, aspecto.id) %>
+        <%= label_tag(:malo, "Malo") %>
+            </td>   
+<% end %>
+  </tr>
+</table>
+<%= f.submit "Create" %>
+<% end %>
+    </div>
+    <hr></hr>
+    </br>
+</div>
+

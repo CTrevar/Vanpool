@@ -11,7 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140929015027) do
+
+ActiveRecord::Schema.define(:version => 20141002220507) do
+
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -28,20 +30,47 @@ ActiveRecord::Schema.define(:version => 20140929015027) do
     t.datetime "updated_at",        :null => false
   end
 
-  create_table "clientes", :force => true do |t|
-    t.integer  "puntaje"
-    t.integer  "nivel_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.integer  "user_id"
-  end
-
   create_table "conductors", :force => true do |t|
     t.integer  "user_id"
     t.string   "licenciaConductor"
     t.boolean  "estatusConductor"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+  end
+
+  create_table "clientes", :force => true do |t|
+    t.integer  "puntaje"
+    t.integer  "nivel_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "user_id"
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.integer  "user_id"
+    t.integer  "co2",         :default => 0
+    t.string   "facebook_id"
+    t.string   "openpay_id"
+    t.decimal  "co2ahorrado", :default => 0.0
+    t.decimal  "kilometros",  :default => 0.0
+  end
+
+  create_table "configuracions", :force => true do |t|
+    t.string   "nombre"
+    t.string   "valor"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "descuentos", :force => true do |t|
+    t.string   "nombre"
+    t.string   "descripcion"
+    t.integer  "porcentaje"
+    t.integer  "vigencia"
+    t.integer  "medalla_id"
+    t.boolean  "estatus"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+>>>>>>> 6073098819c701d3b049cf60c2b64caeceb5ff87
   end
 
   create_table "estadotipos", :force => true do |t|
@@ -56,8 +85,10 @@ ActiveRecord::Schema.define(:version => 20140929015027) do
     t.integer  "puntos"
     t.string   "imagen"
     t.boolean  "estatus"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.integer  "estado",         :default => 0
+    t.string   "descripcion"
   end
 
   create_table "medallasmuros", :force => true do |t|
@@ -96,6 +127,14 @@ ActiveRecord::Schema.define(:version => 20140929015027) do
   add_index "relationships", ["follower_id", "followed_id"], :name => "index_relationships_on_follower_id_and_followed_id", :unique => true
   add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
 
+  create_table "reportes", :force => true do |t|
+    t.integer  "cliente_id"
+    t.string   "descripcion"
+    t.boolean  "estatus"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "reservacions", :force => true do |t|
     t.integer  "viaje_id"
     t.integer  "cliente_id"
@@ -106,7 +145,23 @@ ActiveRecord::Schema.define(:version => 20140929015027) do
     t.datetime "updated_at",        :null => false
   end
 
-  create_table "ruta", :force => true do |t|
+  create_table "retroalimentacions", :force => true do |t|
+    t.integer  "reservacion_id"
+    t.boolean  "estatus"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "aspecto_id"
+    t.integer  "calificacion"
+  end
+
+  create_table "retroaspectos", :force => true do |t|
+    t.string   "nombre"
+    t.boolean  "estatus"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "rutas", :force => true do |t|
     t.integer  "conductor_id"
     t.integer  "van_id"
     t.string   "nombre"
@@ -145,6 +200,19 @@ ActiveRecord::Schema.define(:version => 20140929015027) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+
+  create_table "vans", :force => true do |t|
+    t.string   "placa"
+    t.string   "modelo"
+    t.integer  "capacidad"
+    t.integer  "co2gxkm"
+    t.integer  "pais_id"
+    t.date     "fechacompra"
+    t.boolean  "activa"
+    t.boolean  "estatus"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "viajes", :force => true do |t|
     t.integer  "ruta_id"

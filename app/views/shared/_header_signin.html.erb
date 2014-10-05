@@ -44,10 +44,10 @@
                                     </div>
                                     <div class="col-xs-6 text-center "> 
                                         <i class="fa fa-money"></i>
-                                        <a href="#">$500.00</a>
+                                        <a href="#"><%=number_to_currency(obtener_cuenta["balance"], :precision => 2)%></a>
                                         <a href="#">Pesos</a>
                                         </br>
-                                        <a class="call-to" href="#">Comprar saldo</a>
+                                        <a class="call-to" href="/recarga">Comprar saldo</a>
                                         
                                     </div>
                                 </li>

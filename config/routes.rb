@@ -1,6 +1,19 @@
 SampleApp::Application.routes.draw do
 
+
   resources :conductors
+
+  resources :descuentos
+
+
+  resources :reportes
+
+
+  resources :retroaspectos
+
+
+  resources :retroalimentacions
+
 
 
   resources :reservacions
@@ -37,10 +50,14 @@ SampleApp::Application.routes.draw do
   resources :relationships, only: [:create, :destroy]
   resources :reservacions, only: [:checkin]
 
-  
+  match '/listareportes', to: 'administradors#listareportes'
   match '/dashboard', to: 'clientes#dashboard'
   match '/reservaciones', to: 'clientes#reservaciones'
+  match '/reporte', to: 'clientes#reporte'
+  match '/retroalimentacion', to: 'clientes#retro'
   match '/checkin', to: 'reservacions#checkin'
+  match '/recarga', to: 'pagos#recarga'
+  match '/compra', to: 'pagos#compra'
 
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'

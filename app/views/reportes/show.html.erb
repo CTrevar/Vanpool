@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Cliente:</b>
+  <%= @reporte.cliente_id %>
+</p>
+
+<p>
+  <b>Descripcion:</b>
+  <%= @reporte.descripcion %>
+</p>
+
+<p>
+  <b>Estatus:</b>
+  <%= @reporte.estatus %>
+</p>
+
+
+<%= link_to 'Edit', edit_reporte_path(@reporte) %> |
+<%= link_to 'Back', reportes_path %>

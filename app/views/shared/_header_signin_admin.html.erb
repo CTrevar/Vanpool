@@ -1,0 +1,32 @@
+
+        <header class="header">
+            <a href="<%=root_path%>" class="logo">
+                <img src="/assets/logo.png" class="img" alt="logo Image" />
+            </a>
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav">                        
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-user"></i>
+                                <span><%= @current_user.name %><i class="caret"></i></span>
+                            </a>
+                             <ul class="dropdown-menu">
+                                <!-- Menu Body -->
+                                <li class="user-footer">
+                                        <%= link_to "Salir", signout_path, method: "delete", class:"btn btn-default btn-flat" %>        
+                                        <li> </li>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>

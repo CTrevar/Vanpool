@@ -6,6 +6,7 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"
 require "sprockets/railtie"
+require 'openpay'
 # require "rails/test_unit/railtie"
 
 if defined?(Bundler)
@@ -68,6 +69,19 @@ module SampleApp
     config.active_record.whitelist_attributes = true
 
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
+
+#To enable production mode you should pass a third argument as true.
+#openpay_prod=OpenpayApi.new(merchant_id,private_key,true)
+
+#This ruby client manages a default timeout of 90 seconds to make the request 
+#    to Openpay services, if you need to modify this value, you need to explicitly 
+#    define the type of environment and followed by the new value for the timeout.
+#Syntax:
+#   openpay_prod=OpenpayApi.new(merchant_id,private_key,isProduction,timeout)
+#Example:
+#   openpay_prod=OpenpayApi.new(merchant_id,private_key,false,30)
+
+
 
   end
 end

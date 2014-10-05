@@ -1,6 +1,6 @@
 class ClientesController < ApplicationController
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :dashboard, 
-    :profile, :muro, :reservaciones, :checkin]
+    :profile, :muro, :reservaciones, :checkin, :retro, :reporte]
 
   # GET /clientes
   # GET /clientes.json
@@ -45,7 +45,6 @@ class ClientesController < ApplicationController
   # POST /clientes.json
   def create
     @cliente = Cliente.new(params[:cliente])
-
     respond_to do |format|
       if @cliente.save
         format.html { redirect_to @cliente, notice: 'Cliente was successfully created.' }
@@ -85,15 +84,15 @@ class ClientesController < ApplicationController
     end
   end
 
-  def checkin
-    @cliente = obtener_cliente(current_user)
-    @cliente.puntaje=@cliente.puntaje+500
-    @cliente.save
-    redirect_to :controller => 'clientes', :action => 'reservaciones'
-  end
+
+  
   
   def dashboard
     @current_cliente = obtener_cliente(current_user)
+    
+    #puts @request_hash["name"]
+    #print "hola"
+
   end
 
 
@@ -107,18 +106,19 @@ class ClientesController < ApplicationController
     @mensaje=obtener_mensaje_nivel(@cliente)
     @validamedallas=valida_medallas(@cliente)
     @muro = obtener_ultimas_medallas(@cliente)
-    @co2 = calcula_co2(@cliente)
-    @kilometros = @cliente.kilometraje
-    @litros = calcula_litros(@cliente)
+    @co2 = @cliente.co2ahorrado
+    @kilometros = @cliente.kilometros
 
     @reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
     @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
     @reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
 
+    #@descuentos=obtener_ultimo_descuento(@cliente)
+
     render 'show_profile'
   end
 
-  # GET /clientes/1/profile
+  # GET /clientes/1/muro
   def muro
     @title="Muro de medallas"
     @user=User.find(params[:id])
@@ -128,13 +128,12 @@ class ClientesController < ApplicationController
     @mensaje=obtener_mensaje_nivel(@cliente)
     @validamedallas=valida_medallas(@cliente)
     @muro=obtener_muro(@cliente)
-    @co2 = calcula_co2(@cliente)
+    @co2 = @cliente.co2
     @kilometros = @cliente.kilometraje
-    @litros = calcula_litros(@cliente)
     render 'show_muro'
   end
 
-  # GET /clientes/1/profile
+  # GET /reservaciones
   def reservaciones
     @title="Reservaciones"
     @current_cliente = obtener_cliente(current_user)
@@ -149,87 +148,26 @@ class ClientesController < ApplicationController
     render 'show_reservaciones'
   end
 
+  def retro
+    @title="Evalua el servicio"
+    @current_cliente = obtener_cliente(current_user)
+    @aspectos=aspectos
+    @retro = Retroalimentacion.new
+    render 'show_retro'
+  end
+
+  def reporte
+    @title="Reporta el servicio"
+    @current_cliente = obtener_cliente(current_user)
+    @reporte = Reporte.new
+
+    render 'show_reporte'
+  end
+
 
   private
-    #Obtener cliente del usuario
-    def obtener_cliente(user)
-      @cliente = Cliente.find_by_user_id(user.id)
-    end
+  end
 
-    #Obtener las ultimas 3 medallas del cliente
-    def obtener_ultimas_medallas(cliente)
-      return cliente.medallas.order("created_at DESC").last(3)
-    end
 
-    #obtener todo las medallas del cliente
-    def obtener_muro(cliente)
-      return cliente.medallas.order("created_at ASC").all
-    end
-
-    #Obtener el CO2 del cliente
-    def calcula_co2(cliente)
-      vanco2=(cliente.kilometraje*80)/1000
-      autoco2=(cliente.kilometraje*196)/1000
-      return autoco2-vanco2
-    end
-
-     #Obtener el litros del cliente
-    def calcula_litros(cliente)
-      autolitros=(cliente.kilometraje*(2))
-      return autolitros
-    end
-
-    ##NIVELES
-    #Validar si el cliente esta en el último nivel del cliente
-    def valida_ultimo_nivel(cliente)
-      if cliente.nivel.id==Nivel.last.id 
-        return true
-      else
-        return false
-      end
-    end
-
-    #Obtener mensaje para el siguiente nivel del cliente
-    def obtener_mensaje_nivel(cliente)
-      if valida_ultimo_nivel(cliente)==false then
-        return "Solo te faltan #{calcula_puntos_siguiente_nivel(cliente)} 
-        para el nivel #{calcula_siguiente_nivel(cliente).nombre}" 
-      end
-    end
-
-    #Calcula el siguiente nivel del cliente
-    def calcula_siguiente_nivel(cliente)
-        return Nivel.find(cliente.nivel.id+1)
-    end
-    
-    #Calcula los puntos necesarios para el siguiente nivel del cliente
-    def calcula_puntos_siguiente_nivel(cliente)
-      return calcula_siguiente_nivel(cliente).rangomaximo-cliente.puntaje
-    end
-
-    ##MEDALLAS
-    #Validar si el cliente tiene medallas
-    def valida_medallas(cliente)
-      if cliente.medallas.count==0 
-        return false
-      end
-    end
-
-    ##MEDALLAS
-    #Validar si el cliente tiene medallas
-    def valida_viajes(cliente)
-      if cliente.reservacions.find_all_by_estadotipo_id(2).count==0 
-        return false
-      end
-    end
-
-    #Validar si el cliente tiene medallas
-    def valida_viajes_completos(cliente)
-      if cliente.reservacions.find_all_by_estadotipo_id(3).count==0 
-        return false
-      end
-    end
-
-end
 
 

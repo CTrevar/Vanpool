@@ -1,0 +1,41 @@
+<%= form_for(@descuento) do |f| %>
+  <% if @descuento.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@descuento.errors.count, "error") %> prohibited this descuento from being saved:</h2>
+
+      <ul>
+      <% @descuento.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nombre %><br />
+    <%= f.text_field :nombre %>
+  </div>
+  <div class="field">
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </div>
+  <div class="field">
+    <%= f.label :porcentaje %><br />
+    <%= f.text_field :porcentaje %>
+  </div>
+  <div class="field">
+    <%= f.label :vigencia %><br />
+    <%= f.text_field :vigencia %>
+  </div>
+  <div class="field">
+    <%= f.label :medalla_id %><br />
+    <%= f.number_field :medalla_id %>
+  </div>
+  <div class="field">
+    <%= f.label :estatus %><br />
+    <%= f.check_box :estatus %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
