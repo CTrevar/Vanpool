@@ -11,9 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
-ActiveRecord::Schema.define(:version => 20140925163115) do
-
+ActiveRecord::Schema.define(:version => 20140929015027) do
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -33,11 +31,17 @@ ActiveRecord::Schema.define(:version => 20140925163115) do
   create_table "clientes", :force => true do |t|
     t.integer  "puntaje"
     t.integer  "nivel_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "user_id"
-    t.string   "kilometros"
-    t.integer  "kilometraje"
+  end
+
+  create_table "conductors", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "licenciaConductor"
+    t.boolean  "estatusConductor"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "estadotipos", :force => true do |t|
@@ -123,11 +127,20 @@ ActiveRecord::Schema.define(:version => 20140925163115) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.integer  "heir_id"
+    t.string   "heir_type"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "admin",           :default => false
+    t.boolean  "admin",             :default => false
+    t.integer  "idTipoUsuario"
+    t.string   "facebookidUsuario"
+    t.string   "openpayidUsuario"
+    t.string   "apellidoPaterno"
+    t.string   "apellidoMaterno"
+    t.datetime "fechaNacimiento"
+    t.boolean  "estatusUsuario"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

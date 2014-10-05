@@ -1,5 +1,8 @@
 SampleApp::Application.routes.draw do
 
+  resources :conductors
+
+
   resources :reservacions
 
 
@@ -57,14 +60,25 @@ SampleApp::Application.routes.draw do
   match '/listadministradores', to: 'administradors#listadministradores'
   match '/administradors', to: 'administradors#index'
 
-
+  match '/administradores', to: 'administradors#administradores', via:[:get, :post, :put]
   match '/administrador_controller/jtable_list',   to: 'administradors#jtable_list',   via: [:get, :post]
   match '/administrador_controller/jtable_filterlist',   to: 'administradors#jtable_filterlist',   via: [:get, :post]
   match '/administrador_controller/jtable_create',   to: 'administradors#jtable_create',   via: [:get, :post]
   match '/administrador_controller/jtable_delete',   to: 'administradors#jtable_delete',   via: [:post]
   match '/administrador_controller/jtable_update',   to: 'administradors#jtable_update',   via: [:post]
   # match '/administradoresTableContainer/delete',   to: 'tables#administradoresTableContainer_delete',   via: [:post]
+  match '/administrador_controller/update',   to: 'administradors#update',   via: [:post,:put]
+  match '/administrador_controller/create',   to: 'administradors#create',   via: [:post,:put]
 
+
+  match '/conductores', to: 'administradors#conductores', via:[:get, :post, :put]
+  match '/conductor_controller/jtable_list',   to: 'conductors#jtable_list',   via: [:post, :get]
+  match '/conductor_controller/jtable_filterlist',   to: 'conductors#jtable_filterlist',   via: [:get, :post]
+  match '/conductor_controller/jtable_create',   to: 'conductors#jtable_create',   via: [:get, :post]
+  match '/conductor_controller/jtable_delete',   to: 'conductors#jtable_delete',   via: [:post]
+  match '/conductor_controller/jtable_update',   to: 'conductors#jtable_update',   via: [:post]
+  match '/conductor_controller/update',   to: 'conductors#update',   via: [:post,:put]
+  match '/conductor_controller/create',   to: 'conductors#create',   via: [:post,:put]
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

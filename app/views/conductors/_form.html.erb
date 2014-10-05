@@ -1,0 +1,29 @@
+<%= form_for(@conductor) do |f| %>
+  <% if @conductor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@conductor.errors.count, "error") %> prohibited this conductor from being saved:</h2>
+
+      <ul>
+      <% @conductor.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :licenciaConductor %><br />
+    <%= f.text_field :licenciaConductor %>
+  </div>
+  <div class="field">
+    <%= f.label :estatusConductor %><br />
+    <%= f.check_box :estatusConductor %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

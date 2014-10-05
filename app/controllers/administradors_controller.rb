@@ -39,35 +39,35 @@ class AdministradorsController < ApplicationController
 
   # POST /administradors
   # POST /administradors.json
-  def create
-    @administrador = Administrador.new(params[:administrador])
+  # def create
+  #   @administrador = Administrador.new(params[:administrador])
+  #
+  #   respond_to do |format|
+  #     if @administrador.save
+  #       format.html { redirect_to @administrador, notice: 'Administrador was successfully created.' }
+  #       format.json { render json: @administrador, status: :created, location: @administrador }
+  #     else
+  #       format.html { render action: "new" }
+  #       format.json { render json: @administrador.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
-    respond_to do |format|
-      if @administrador.save
-        format.html { redirect_to @administrador, notice: 'Administrador was successfully created.' }
-        format.json { render json: @administrador, status: :created, location: @administrador }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @administrador.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PUT /administradors/1
-  # PUT /administradors/1.json
-  def update
-    @administrador = Administrador.find(params[:id])
-
-    respond_to do |format|
-      if @administrador.update_attributes(params[:administrador])
-        format.html { redirect_to @administrador, notice: 'Administrador was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @administrador.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # # PUT /administradors/1
+  # # PUT /administradors/1.json
+  # def update
+  #   @administrador = Administrador.find(params[:id])
+  #
+  #   respond_to do |format|
+  #     if @administrador.update_attributes(params[:administrador])
+  #       format.html { redirect_to @administrador, notice: 'Administrador was successfully updated.' }
+  #       format.json { head :no_content }
+  #     else
+  #       format.html { render action: "edit" }
+  #       format.json { render json: @administrador.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # DELETE /administradors/1
   # DELETE /administradors/1.json
@@ -91,7 +91,111 @@ class AdministradorsController < ApplicationController
   end
 
 
+  def conductores
+    user_id = params[:user_id]
+    if user_id.nil?
+      @conductor = Conductor.new
+      @conductor.user = User.new
+      @action = 'create'
+      # respond_to do |format|
+      #   format.html #listaconductores.html.erb
+      # end
+    else
+      @conductor = Conductor.find_by_user_id(user_id)
+      @action = 'update'
+      respond_to do |format|
+        format.html {render partial: 'shared/administrador_detalleconductor', locals: { conductor: @conductor, aciton: @action }}
+      end
+    end
+  end
 
+
+  def administradores
+    user_id = params[:id]
+    if user_id.nil?
+      @administrador = User.new
+      @action = 'create'
+      # respond_to do |format|
+      #   format.html #listaconductores.html.erb
+      # end
+    else
+      @administrador = User.find(user_id)
+      @action = 'update'
+      respond_to do |format|
+        format.html {render partial: 'shared/administrador_detalleadministrador', locals: { administrador: @administrador, aciton: @action }}
+      end
+    end
+  end
+
+
+  def update
+    paramsuser = OpenStruct.new params[:user]
+    @administrador = User.find(paramsuser.id)
+
+    if paramsuser.password.present?
+      @administrador.attributes = {:name => paramsuser.name, :email => paramsuser.email,
+                                   :fechaNacimiento => paramsuser.fechaNacimiento,
+                                   :apellidoPaterno => paramsuser.apellidoPaterno,
+                                   :apellidoMaterno => paramsuser.apellidoMaterno,
+                                   :password => paramsuser.password,
+                                   :password_confirmation => paramsuser.password_confirmation }
+    else
+      @administrador.attributes = {:name => paramsuser.name, :email => paramsuser.email,
+                                   :fechaNacimiento => paramsuser.fechaNacimiento,
+                                   :apellidoPaterno => paramsuser.apellidoPaterno,
+                                   :apellidoMaterno => paramsuser.apellidoMaterno }
+    end
+
+
+    @action = 'update'
+    if @administrador.valid?
+      @administrador.save!
+      respond_to do |format|
+        # format.js { render :js => "window.location = '#{forma_detalle_conductor @conductor}'" }
+        format.html { render partial: 'administradors/form_administrador', administrador:@administrador, locals: {exito:true}}
+      end
+    else
+      respond_to do |format|
+        # format.js { render :js => "window.location = '#{forma_detalle_conductor @conductor}'" }
+        format.html { render partial: 'administradors/form_administrador', administrador:@administrador }
+        format.json { render json: @conductor.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def create
+    paramsuser = OpenStruct.new params[:user]
+    @administrador = User.new
+    @administrador.attributes = {:name => paramsuser.name, :email => paramsuser.email,
+                                 :fechaNacimiento => paramsuser.fechaNacimiento,
+                                 :apellidoPaterno => paramsuser.apellidoPaterno,
+                                 :apellidoMaterno => paramsuser.apellidoMaterno,
+                                 :password => paramsuser.password,
+                                 :password_confirmation => paramsuser.password_confirmation,
+                                 :admin => true,
+                                 :estatusUsuario => true}
+    @action = 'create'
+    if @administrador.valid?
+      if @administrador.save!
+        respond_to do |format|
+          # format.js { render :js => "window.location = '#{forma_detalle_conductor @conductor}'" }
+          format.html { render partial: 'administradors/form_administrador', administrador:@conductor, locals: {exito:true}, create: true}
+        end
+      else
+        respond_to do |format|
+          # format.js { render :js => "window.location = '#{forma_detalle_conductor @conductor}'" }
+          format.html { render partial: 'administradors/form_administrador', administrador:@conductor, create: true }
+          format.json { render json: @conductor.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      respond_to do |format|
+        # format.js { render :js => "window.location = '#{forma_detalle_conductor @conductor}'" }
+        format.html { render partial: 'administradors/form_administrador', administrador:@conductor, create: true }
+        format.json { render json: @conductor.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # =======================================================
   # =======================================================
@@ -134,20 +238,20 @@ class AdministradorsController < ApplicationController
 
     # Si el campo de busqueda tiene solo espacios en blanco.
     if jtTextoBusqueda.blank? || jtTextoBusqueda.to_s == ''
-      @results = Administrador.order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+      @results = User.where("admin = 't'").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     else
       # Si contiene algo más realiza la búsqueda en todos los atributos de la tabla.
-      @results = Administrador.where( "LOWER(apellidoMaterno) LIKE '%#{jtTextoBusqueda.downcase}%' OR LOWER(apellidoPaterno) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                                       LOWER(emailUsuario) LIKE '%#{jtTextoBusqueda.downcase}%' OR LOWER(estatusUsuario) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                                       LOWER(facebookidUsuario) LIKE '%#{jtTextoBusqueda.downcase}%' OR LOWER(fechaNacimiento) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                                       LOWER(idTipoUsuario) LIKE '%#{jtTextoBusqueda.downcase}%' OR LOWER(nombrePilaUsuario) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                                       LOWER(nombreUsuario) LIKE '%#{jtTextoBusqueda.downcase}%' OR LOWER(openpayidUsuario) LIKE '%#{jtTextoBusqueda.downcase}%'"
-      ).order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+      @results = User.where("( LOWER(name) LIKE '%#{jtTextoBusqueda.downcase}%' OR
+                                 LOWER(apellidoMaterno) LIKE '%#{jtTextoBusqueda.downcase}%' OR LOWER(apellidoPaterno) LIKE '%#{jtTextoBusqueda.downcase}%' OR
+                                 LOWER(email) LIKE '%#{jtTextoBusqueda.downcase}%' OR
+                                 LOWER(facebookidUsuario) LIKE '%#{jtTextoBusqueda.downcase}%' OR LOWER(fechaNacimiento) LIKE '%#{jtTextoBusqueda.downcase}%' OR
+                                 LOWER(idTipoUsuario) LIKE '%#{jtTextoBusqueda.downcase}%' OR LOWER(openpayidUsuario) LIKE '%#{jtTextoBusqueda.downcase}%'
+                                ) AND estatusUsuario = 't' AND admin = 't'").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     end
     respond_to do |format|
       # Regresamos el resultado de la operación a la jTable
       jTableResult = {:Result => "OK",
-                      :TotalRecordCount => Administrador.count,
+                      :TotalRecordCount => @results.count,
                       :Records => @results
                       }
       format.json { render json: jTableResult}
@@ -160,17 +264,24 @@ class AdministradorsController < ApplicationController
   # Método para eliminar registro de la BD
   #
   def jtable_delete
-    @administrador = Administrador.find(params[:id])
+    @administrador = User.find(params[:id])
 
     # Iniciamos la eliminación del registro, si no se elimina, almacenamos el resultado en un boleano.
     bolExito = true
     errMensaje = ''
-    begin
-      @administrador.delete
-    rescue => e
+    if @administrador.id != current_user.id
+      begin
+        @administrador.admin = false
+        @administrador.save!
+      rescue => e
+        bolExito = false
+        errMensaje = "No se pudo eliminar. Revise el error: #{e}"
+      end
+    else
       bolExito = false
-      errMensaje = "No se pudo eliminar. Revise el error: #{e}"
+      errMensaje = "No se puede eliminar a usted mismo."
     end
+
     respond_to do |format|
       # Regresamos el resultado de la operación a la jTable
       if bolExito
@@ -246,7 +357,7 @@ class AdministradorsController < ApplicationController
     begin
       actualrow = Administrador.find(id)
       actualrow.attributes = {:nombrePilaUsuario => nombrePilaUsuario, :emailUsuario => emailUsuario,
-                              :apellidoPaterno => apellidoPaterno, :apellidoMaterno => apellidoMaterno,
+                              :apellidoMaterno => apellidoMaterno, :apellidoPaterno => apellidoPaterno,
                               :fechaNacimiento => fechaNacimiento}
       if actualrow.invalid?
         errmensaje = "No se pudo actualizar.</br>"
