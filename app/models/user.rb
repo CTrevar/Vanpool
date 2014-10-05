@@ -23,9 +23,9 @@ class User < ActiveRecord::Base
   validates :email, presence: true,
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
-  validates :apellidoPaterno, presence: true, length: { maximum: 50 }
-  validates :apellidoMaterno, presence: true, length: { maximum: 50 }
-  validates :fechaNacimiento, presence: true, length: { maximum: 50 }
+  validates :apellidoPaterno, length: { maximum: 50 }
+  validates :apellidoMaterno, length: { maximum: 50 }
+  validates :fechaNacimiento, length: { maximum: 50 }
     def feed
     # This is preliminary. See "Following users" for the full implementation.
     #Micropost.where("user id = ?", id)
