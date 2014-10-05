@@ -128,8 +128,8 @@ class ClientesController < ApplicationController
     @mensaje=obtener_mensaje_nivel(@cliente)
     @validamedallas=valida_medallas(@cliente)
     @muro=obtener_muro(@cliente)
-    @co2 = @cliente.co2
-    @kilometros = @cliente.kilometraje
+    @co2 = @cliente.co2ahorrado
+    @kilometros = @cliente.kilometros
     render 'show_muro'
   end
 

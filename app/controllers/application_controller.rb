@@ -13,5 +13,6 @@ class ApplicationController < ActionController::Base
   include RetroaspectosHelper
   include DescuentosHelper
   include PagosHelper
+  include RutasHelper
 
 end

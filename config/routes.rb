@@ -53,6 +53,8 @@ SampleApp::Application.routes.draw do
   resources :reservacions, only: [:checkin]
 
   match '/listareportes', to: 'administradors#listareportes'
+  match '/retroalimentaciones', to: 'administradors#reporteretros'
+  
   match '/dashboard', to: 'clientes#dashboard'
   match '/reservaciones', to: 'clientes#reservaciones'
   match '/reporte', to: 'clientes#reporte'
