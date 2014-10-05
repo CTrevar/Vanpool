@@ -5,4 +5,12 @@ module ReservacionsHelper
 		reservacion.save
 	end
 
+	def existe_retroalimentacion(reservacion)
+		if(Retroalimentacion.find_all_by_reservacion_id(reservacion.id).count>0)
+			return true
+		else
+			return false
+		end
+	end
+
 end

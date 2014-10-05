@@ -1,6 +1,6 @@
 class ClientesController < ApplicationController
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :dashboard, 
-    :profile, :muro, :reservaciones, :checkin, :retro, :reporte]
+    :profile, :muro, :reservaciones, :checkin, :retro, :reporte, :create_retro, :guardaretro]
 
   # GET /clientes
   # GET /clientes.json
@@ -148,13 +148,6 @@ class ClientesController < ApplicationController
     render 'show_reservaciones'
   end
 
-  def retro
-    @title="Evalua el servicio"
-    @current_cliente = obtener_cliente(current_user)
-    @aspectos=aspectos
-    @retro = Retroalimentacion.new
-    render 'show_retro'
-  end
 
   def reporte
     @title="Reporta el servicio"
@@ -165,7 +158,6 @@ class ClientesController < ApplicationController
   end
 
 
-  private
   end
 
 

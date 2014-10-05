@@ -1,10 +1,10 @@
-<%= form_for(@retroalimentacion) do |f| %>
-  <% if @retroalimentacion.errors.any? %>
+<%= form_for(@retro) do |f| %>
+  <% if @retro.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@retroalimentacion.errors.count, "error") %> prohibited this retroalimentacion from being saved:</h2>
 
       <ul>
-      <% @retroalimentacion.errors.full_messages.each do |msg| %>
+      <% @retro.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
@@ -15,6 +15,28 @@
     <%= f.label :reservacion_id %><br />
     <%= f.number_field :reservacion_id %>
   </div>
+
+  <table class="table table-bordered">
+<% @aspectos.each do |aspecto| %>
+  <tr>
+    <td><%= aspecto.nombre%></td>
+    <td><%= radio_button_tag(aspecto.id,4) %>
+        <%= label_tag(:excelente, "Excelente") %>
+            </td>
+    <td><%= radio_button_tag(aspecto.id,3) %>
+        <%= label_tag(:bueno, "Bueno") %>
+            </td>
+    <td><%= radio_button_tag(aspecto.id,2) %>
+        <%= label_tag(:regular, "Regular") %>
+            </td>
+    <td><%= radio_button_tag(aspecto.id,1) %>
+        <%= label_tag(:malo, "Malo") %>
+            </td>   
+<% end %>
+  </tr>
+</table>
+
+
   <div class="actions">
     <%= f.submit %>
   </div>

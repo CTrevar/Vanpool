@@ -1,19 +1,17 @@
 <div class="box box-success">
     <div class="box-header">
         <i class="fa fa-road"></i>
-        <h3 class="box-title">Próximos viajes</h3>
+        <h3 class="box-title">Viajes Realizados</h3>
     </div>
     <div class="box-body">
         
-        <% if @validareservas==false then %>
+        <% if @validaviajes==false then %>
         <div class="msg-vacio">
-            <h4><b>Aún no tienes viajes</b></h4>
+            <h4><b>Aún no tienes viajes realizados</b></h4>
             (Mensaje de la empresa)
         </div>
     <% else %>
-
-        <% @reservaciones_pagadas.each do |reservacion| %>
-            
+        <% @reservaciones_realizadas.each do |reservacion| %>
             <div class="item">
         <div class="row-fluid">
             <div class="span6">
@@ -26,12 +24,9 @@
             </div>
             <div class="span6">
                 <button type="button" class="btn btn-success">Ver detalle</button>
-                <button type="button" class="btn btn-primary">Invitar amigos</button>
-                <%= link_to "Checkin", "checkin?id=#{reservacion.id}", class:"btn btn-default btn-flat" %>  
-
-                <div class="msg-amigos">
-                    <p>¡Solo faltan 3 personas para alcanzar el SOLD OUT! <a href="#">Invita a tus amigos y gana más puntos</a></p>
-                </div>
+                <% if existe_retroalimentacion(reservacion)==false then %>
+                <%= link_to "Evaluar", "reservacions/#{reservacion.id}/retroalimentacion", class:"btn btn-default btn-flat" %>
+                <% end %>
             </div>
         </div>
     </div><!-- /.item -->
@@ -40,4 +35,3 @@
     <% end %>
     </div><!-- /.boxbody -->
 </div><!-- /.box --> 
-
