@@ -55,6 +55,7 @@ SampleApp::Application.routes.draw do
   match '/listareportes', to: 'administradors#listareportes'
   match '/retroalimentaciones', to: 'administradors#reporteretros'
   
+  match '/inicio', to: 'administradors#dashboard'
   match '/dashboard', to: 'clientes#dashboard'
   match '/reservaciones', to: 'clientes#reservaciones'
   match '/reporte', to: 'clientes#reporte'
