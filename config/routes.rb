@@ -41,6 +41,12 @@ SampleApp::Application.routes.draw do
     end
   end
 
+  resources :viajes do
+    member do
+      get :detalleviaje
+    end
+  end
+
   resources :reservacions do
     member do
       get :retroalimentacion
@@ -62,6 +68,10 @@ SampleApp::Application.routes.draw do
   match '/retro', to: 'reservacions#create_retro'
   match '/retro', to: 'reservacions#retro'
   match '/checkin', to: 'reservacions#checkin'
+
+  match '/formapago', to: 'clientes#formapago'
+  match '/compracredito', to: 'clientes#compracredito'
+
   match '/recarga', to: 'pagos#recarga'
   match '/compra', to: 'pagos#compra'
 
