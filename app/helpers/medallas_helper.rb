@@ -15,7 +15,7 @@ module MedallasHelper
 
     #obtener todo las medallas del cliente
     def obtener_muro(cliente)
-      return cliente.medallas.order("created_at ASC").all
+      return cliente.medallas.order("tipomedalla_id ASC").all
     end
 	
 end

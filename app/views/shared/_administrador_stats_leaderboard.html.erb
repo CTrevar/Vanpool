@@ -1,0 +1,13 @@
+<table class="table table-bordered">
+  <tr>
+    <th>Cliente</th>
+    <th>Puntos</th>
+  </tr>
+
+<% clientes_top10.each do |cliente| %>
+  <tr>
+    <td><%=cliente.user.name%></td>
+    <td><%=cliente.puntaje%></td>
+  </tr>
+<% end %>
+</table>

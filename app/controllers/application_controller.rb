@@ -14,5 +14,6 @@ class ApplicationController < ActionController::Base
   include DescuentosHelper
   include PagosHelper
   include RutasHelper
+  include AdministradorsHelper
 
 end

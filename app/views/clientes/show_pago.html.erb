@@ -1,0 +1,127 @@
+ <% provide(:title, @title) %>
+ <div class="wrapper row-offcanvas row-offcanvas-left">
+    <aside class="left-side sidebar-offcanvas">
+        <%= render 'shared/user_sidebar' %> 
+    </aside>
+    <aside class="right-side">
+    <section class="content-header">
+        <h1>Recarga de saldo<small>Detalle</small></h1>
+        <ol class="breadcrumb">
+            <li><a href="/dashboard"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="/clientes/<%= @cliente.user.id %>/profile"><i class="fa fa-user"></i> Recarga</a></li>
+            <li class="active">Recarga</li>
+        </ol>
+    </section>
+    <section class="content">
+                   <!-- title row -->
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <section class="content-header">
+                    
+                </section>
+                            <h2 class="page-header">
+                                Redes de Aventones SAPI de CV.
+                                <small class="pull-right">Fecha: 2/10/2014</small>
+                            </h2>
+                        </div><!-- /.col -->
+                    </div>
+                    <!-- info row -->
+                    <div class="row-fluid invoice-info">
+                        <div class="span4 invoice-col">
+                            De
+                            <address>
+                                <strong>Redes de Aventones SAPI de CV.</strong><br>
+                                795 Folsom Ave, Suite 600<br>
+                                San Francisco, CA 94107<br>
+                                Phone: (804) 123-5432<br/>
+                                Email: info@almasaeedstudio.com
+                            </address>
+                        </div><!-- /.col -->
+                        <div class="span4 invoice-col">
+                            Para
+                            <address>
+                                <strong>John Doe</strong><br>
+                                795 Folsom Ave, Suite 600<br>
+                                San Francisco, CA 94107<br>
+                                Phone: (555) 539-1037<br/>
+                                Email: john.doe@example.com</br>
+                                <a href="#">Modificar</a>
+                            </address>
+
+                        </div><!-- /.col -->
+                        <div class="span4 invoice-col">
+                            <b>Pago #007612</b><br/>
+                            <br/>
+                            <b>ID de la orden:</b> 4F3S8J<br/>
+                            <b>Cuenta:</b> Nombre de usuario OpenPay</br>
+                            <b class="aviso-pago">Fecha límite de pago: 2/22/2014</b>
+                            
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+
+                    <!-- Table row -->
+                    <div class="row-fluid">
+                        <div class="span12 table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Cantidad</th>
+                                        <th>Producto</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Recarga de saldo <%=number_to_currency(@recarga, :precision => 2)%></td>
+                                        <td><%=number_to_currency(@subtotal, :precision => 2)%></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+
+                    <div class="row-fluid">
+                        <!-- accepted payments column -->
+                        <div class="span6">
+                            <p class="lead">Métodos de pago:</p>
+                            <img src="/assets/credit/visa.png" alt="Visa"/>
+                            <img src="/assetscredit/mastercard.png" alt="Mastercard"/>
+                            <img src="/assets/credit/american-express.png" alt="American Express"/>
+                            <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                                <b>Instrucciones de pago</b>
+                                Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
+                            </p>
+                        </div><!-- /.col -->
+                        <div class="span6">
+                            
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tr>
+                                        <th style="width:50%">Subtotal:</th>
+                                        <td><%=number_to_currency(@subtotal, :precision => 2)%></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Impuesto (16%)</th>
+                                        <td><%=number_to_currency(@impuesto, :precision => 2)%></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total:</th>
+                                        <td><%=number_to_currency(@recarga, :precision => 2)%></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+
+                    <!-- this row will not appear when printing -->
+                    <div class="row-fluid no-print">
+                        <div class="span12">
+                             <button class="btn btn-danger btn-flat"><i class="fa fa-times"></i> Cancelar</button>
+                            <%= link_to "Pagar", "/recarga", class:"btn btn-flat pull-right btn-pagar-l" %>  
+                            <button class="btn btn-default btn-flat pull-right" style="margin-right: 5px;" onclick="window.print();"><i class="fa fa-print"></i> Imprimir</button>
+                        </div>
+                    </div>
+                </section><!-- /.content -->                                 
+    </aside><!-- /.right-side -->
+</div><!-- ./wrapper -->

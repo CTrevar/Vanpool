@@ -1,6 +1,7 @@
 class ClientesController < ApplicationController
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :dashboard, 
-    :profile, :muro, :reservaciones, :checkin, :retro, :reporte, :create_retro, :guardaretro]
+    :profile, :muro, :reservaciones, :checkin, :retro, :reporte, :create_retro, :guardaretro,
+    :formapago, :compracredito]
 
   # GET /clientes
   # GET /clientes.json
@@ -96,6 +97,46 @@ class ClientesController < ApplicationController
   end
 
 
+  def compracredito
+    @current_cliente = obtener_cliente(current_user)
+    
+    #puts @request_hash["name"]
+    #print "hola"
+    render 'show_compra_credito'
+  end
+
+  def formapago
+    @current_cliente = obtener_cliente(current_user)
+    @recarga=params[:cantidad]
+    @subtotal=subtotal(@recarga)
+    @impuesto=impuesto(@recarga)
+    #aspectos.each do |aspecto|
+    #  calificacion=params[:"#{aspecto.id}"]
+    #  retro = Retroalimentacion.create(reservacion_id:reservacion,aspecto_id:aspecto.id,calificacion:calificacion)
+    #end
+    #puts @request_hash["name"]
+    #print "hola"
+    render 'show_pago'
+  end
+
+  def subtotal(recarga)
+    return (recarga.to_i-impuesto(recarga)).to_d
+  end
+
+  def impuesto(recarga)
+    imp=Configuracion.find(2).valor
+    return recarga.to_i*(imp.to_d/100)
+  end
+
+  def detalleviaje
+    @current_cliente = obtener_cliente(current_user)
+    
+    #puts @request_hash["name"]
+    #print "hola"
+    render 'show_detalleviaje'
+  end
+
+
   # GET /clientes/1/profile
   def profile
     @title = "Perfil"
@@ -157,6 +198,10 @@ class ClientesController < ApplicationController
     render 'show_reporte'
   end
 
+  def comprar
+    
+    redirect_to :controller => 'clientes', :action => 'formapago'
+  end
 
   end
 

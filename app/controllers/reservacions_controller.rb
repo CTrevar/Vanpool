@@ -83,7 +83,7 @@ class ReservacionsController < ApplicationController
     end
   end
 
-   def retroalimentacion
+  def retroalimentacion
     @title="Evalua el servicio"
     @current_cliente = obtener_cliente(current_user)
     @aspectos=aspectos

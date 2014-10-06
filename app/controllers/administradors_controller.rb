@@ -1,6 +1,6 @@
 class AdministradorsController < ApplicationController
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :listadministradores, 
-    :listareportes, :reporteretros]
+    :listareportes, :reporteretros, :dashboard]
   # GET /administradors
   # GET /administradors.json
   def index
@@ -83,6 +83,10 @@ class AdministradorsController < ApplicationController
     end
   end
 
+  def dashboard
+    
+
+  end
 
   def listadministradores
     respond_to do |format|
