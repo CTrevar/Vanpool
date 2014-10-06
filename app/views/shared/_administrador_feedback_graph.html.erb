@@ -1,0 +1,10 @@
+<% @aspectos.each do |aspecto| %>
+<div class="span4">
+  <div id="donut-chart" style="height: 300px;"></div>
+    <td><%= Retroaspecto.find(aspecto.id).nombre %></td>
+    <td><%= Retroalimentacion.where(:aspecto_id => aspecto.id, :calificacion =>1).count%></td>
+    <td><%= Retroalimentacion.where(:aspecto_id => aspecto.id, :calificacion =>2).count%></td>
+    <td><%= Retroalimentacion.where(:aspecto_id => aspecto.id, :calificacion =>3).count%></td>
+    <td><%= Retroalimentacion.where(:aspecto_id => aspecto.id, :calificacion =>4).count%></td>
+</div>
+<% end %>

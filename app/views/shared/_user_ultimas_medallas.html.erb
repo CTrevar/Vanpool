@@ -12,8 +12,9 @@
     <% else %>
 
         <% @muro.each do |medalla| %>
-            <img src="/assets/<%= medalla.imagen%>" class="img-circle" alt="<%= medalla.nombre%>" /></br>
-            <b><%= medalla.nombre%><b>
+            <img src="/assets/medals/<%= medalla.imagen%>" class="img-circle" alt="<%= medalla.nombre%>" /></br>
+            <center><h4><%= medalla.nombre%></h4></center>
+            <hr>
         <% end %>
     </div>
     <hr></hr>

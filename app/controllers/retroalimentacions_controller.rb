@@ -3,7 +3,7 @@ class RetroalimentacionsController < ApplicationController
   # GET /retroalimentacions.json
   def index
     @retroalimentacions = Retroalimentacion.all
-
+    @current_cliente=obtener_cliente(current_user)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @retroalimentacions }
@@ -14,7 +14,7 @@ class RetroalimentacionsController < ApplicationController
   # GET /retroalimentacions/1.json
   def show
     @retroalimentacion = Retroalimentacion.find(params[:id])
-
+    @current_cliente=obtener_cliente(current_user)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @retroalimentacion }
@@ -40,7 +40,7 @@ class RetroalimentacionsController < ApplicationController
   # POST /retroalimentacions
   # POST /retroalimentacions.json
   def create
-    @retroalimentacion = Retroalimentacion.new(params[:retroalimentacion])
+    @retroalimentacion = Retroalimentacion.new(params[:retro])
 
     respond_to do |format|
       if @retroalimentacion.save
@@ -80,4 +80,6 @@ class RetroalimentacionsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
 end

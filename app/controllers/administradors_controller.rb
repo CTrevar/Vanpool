@@ -1,5 +1,6 @@
 class AdministradorsController < ApplicationController
-  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :listadministradores, :listareportes]
+  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :listadministradores, 
+    :listareportes, :reporteretros]
   # GET /administradors
   # GET /administradors.json
   def index
@@ -131,6 +132,14 @@ class AdministradorsController < ApplicationController
       end
     end
   end
+
+  def reporteretros
+    @aspectos =aspectos
+    @rutas=rutas
+    @retrosjoin=Retroalimentacion.joins(:reservacion=>[{:viaje=>:ruta}])
+    render 'show_reporte_retro'
+  end
+
 
 
   def update

@@ -45,16 +45,25 @@ SampleApp::Application.routes.draw do
     end
   end
 
+  resources :reservacions do
+    member do
+      get :retroalimentacion
+    end
+  end
+
   resources :sessions, only: [:new, :create, :destroy]
-  resources :microposts, only: [:create, :destroy]
+  resources :retroalimentacion, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
   resources :reservacions, only: [:checkin]
 
   match '/listareportes', to: 'administradors#listareportes'
+  match '/retroalimentaciones', to: 'administradors#reporteretros'
+  
   match '/dashboard', to: 'clientes#dashboard'
   match '/reservaciones', to: 'clientes#reservaciones'
   match '/reporte', to: 'clientes#reporte'
-  match '/retroalimentacion', to: 'clientes#retro'
+  match '/retro', to: 'reservacions#create_retro'
+  match '/retro', to: 'reservacions#retro'
   match '/checkin', to: 'reservacions#checkin'
   match '/recarga', to: 'pagos#recarga'
   match '/compra', to: 'pagos#compra'

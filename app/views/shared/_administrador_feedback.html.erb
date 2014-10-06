@@ -1,0 +1,21 @@
+<table class="table table-bordered">
+  <tr>
+    <th>aspecto</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+    <th>promedio</th>
+  </tr>
+
+<% @aspectos.each do |aspecto| %>
+  <tr>
+    <td><%= Retroaspecto.find(aspecto.id).nombre %></td>
+    <td><%= Retroalimentacion.where(:aspecto_id => aspecto.id, :calificacion =>1).count%></td>
+    <td><%= Retroalimentacion.where(:aspecto_id => aspecto.id, :calificacion =>2).count%></td>
+    <td><%= Retroalimentacion.where(:aspecto_id => aspecto.id, :calificacion =>3).count%></td>
+    <td><%= Retroalimentacion.where(:aspecto_id => aspecto.id, :calificacion =>4).count%></td>
+    <td><%= Retroalimentacion.where(:aspecto_id => aspecto.id).average(:calificacion).to_s%></td>
+  </tr>
+<% end %>
+</table>

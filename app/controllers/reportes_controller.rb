@@ -2,7 +2,6 @@ class ReportesController < ApplicationController
   # GET /reportes
   # GET /reportes.json
   def index
-    @current_cliente = obtener_cliente(current_user)
     #@reportes = Reporte.find_all_by_estatus(true)
     @reportes = Reporte.all
 
@@ -15,7 +14,6 @@ class ReportesController < ApplicationController
   # GET /reportes/1
   # GET /reportes/1.json
   def show
-    @current_cliente = obtener_cliente(current_user)
     @reporte = Reporte.find(params[:id])
 
     respond_to do |format|
@@ -27,7 +25,6 @@ class ReportesController < ApplicationController
   # GET /reportes/new
   # GET /reportes/new.json
   def new
-    @current_cliente = obtener_cliente(current_user)
     @reporte = Reporte.new
 
     respond_to do |format|

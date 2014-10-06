@@ -4,29 +4,29 @@
         <h3 class="box-title">Aspectos a evaluar</h3>
     </div>
     <div class="side-wall">
-
-        <table class="table table-bordered">
-<%= form_for @retro, url: {action: "create"}, html: {class: "nifty_form"} do |f| %>
-<% @aspectos.each do |aspecto| %>
-  <tr>
-    <td><%= aspecto.nombre%></td>
-    <td><%= radio_button_tag(:calificacion, aspecto.id ) %>
-        <%= label_tag(:excelente, "Excelente") %>
-            </td>
-    <td><%= radio_button_tag(:calificacion, aspecto.id) %>
-        <%= label_tag(:bueno, "Bueno") %>
-            </td>
-    <td><%= radio_button_tag(:calificacion, aspecto.id) %>
-        <%= label_tag(:regular, "Regular") %>
-            </td>
-    <td><%= radio_button_tag(:calificacion, aspecto.id) %>
-        <%= label_tag(:malo, "Malo") %>
-            </td>   
-<% end %>
-  </tr>
-</table>
-<%= f.submit "Create" %>
-<% end %>
+        <%= form_tag(controller: "reservacions", action: "retro", method: "get", class: "nifty_form") do %>
+    		<%= hidden_field_tag(:reservacion_id, @reservacion) %>
+  			<table class="table table-bordered">
+				<% @aspectos.each do |aspecto| %>
+  				<tr>
+    			<td><%= aspecto.nombre%></td>
+    			<td><%= radio_button_tag(aspecto.id,4) %>
+        			<%= label_tag(:excelente, "Excelente") %>
+            	</td>
+    			<td><%= radio_button_tag(aspecto.id,3) %>
+        			<%= label_tag(:bueno, "Bueno") %>
+            	</td>
+    			<td><%= radio_button_tag(aspecto.id,2) %>
+        			<%= label_tag(:regular, "Regular") %>
+            	</td>
+    			<td><%= radio_button_tag(aspecto.id,1) %>
+        			<%= label_tag(:malo, "Malo") %>
+            	</td>   
+				<% end %>
+  				</tr>
+			</table>
+  			<%= submit_tag("Enviar") %>
+		<% end %>
     </div>
     <hr></hr>
     </br>
