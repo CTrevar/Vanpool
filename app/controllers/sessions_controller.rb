@@ -10,7 +10,7 @@ def create
 	if user && user.authenticate(params[:session][:password])
     sign_in user
     if (user.admin?)
-      redirect_to :controller => 'administradors', :action => 'index'
+      redirect_to :controller => 'administradors', :action => 'inicio'
     else
       redirect_to :controller => 'clientes', :action => 'dashboard'
     end
