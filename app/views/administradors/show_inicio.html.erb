@@ -12,6 +12,8 @@
         <div class="row-fluid">
             <div class="row-fluid">
                 <div class="span9">
+                  <%= pie_chart Medalla.group(:tipomedalla_id).count %>
+
                   <%= render 'shared/administrador_stats_box' %>
                   <%= render 'shared/administrador_stats_leaderboard' %> 
                 </div>

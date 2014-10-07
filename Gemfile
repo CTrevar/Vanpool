@@ -7,6 +7,7 @@ gem 'jquery-rails'
 gem 'mail'
 gem 'openpay'
 gem 'railties', '3.2.13'
+gem 'chartkick'
 
 
 # Bundle edge Rails instead:
