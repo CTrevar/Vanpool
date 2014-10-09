@@ -1,0 +1,3 @@
+<%= line_chart Reservacion.group("DATE(created_at)").count.take(30), {library: {title: "Reservaciones pagadas"}} %>
+<%= line_chart User.group("DATE(created_at)").count.take(30), {library: {title: "Usuarios registrados"}} %>
+<%= line_chart Reservacion.group("strftime('%m', created_at)").order('created_at').count.take(30), {library: {title: "Ventas mensuales"}} %>

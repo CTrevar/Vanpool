@@ -8,6 +8,8 @@ gem 'mail'
 gem 'openpay'
 gem 'railties', '3.2.13'
 gem 'chartkick'
+gem 'groupdate', '~> 2.1.1'
+gem 'active_median', '~> 0.1.0'
 
 
 # Bundle edge Rails instead:

@@ -1,30 +1,32 @@
-<% provide(:title, 'Inicio') %>
-<div class="wrapper row-offcanvas row-offcanvas-left">
-  <!-- Left side column. contains the logo and sidebar -->
-  <aside class="left-side sidebar-offcanvas">
-    <%= render 'shared/administrador_sidebar' %>
-  </aside>
-
-  <!-- Right side column. Contains the navbar and content of the page -->
-  <aside class="right-side">
-    <!-- Content Header (Page header) -->
+ <% provide(:title, @title) %>
+ <div class="wrapper row-offcanvas row-offcanvas-left">
+    <aside class="left-side sidebar-offcanvas">
+        <%= render 'shared/administrador_sidebar' %> 
+    </aside>
+    <aside class="right-side">
+    <section class="content-header">
+        <h1>Dashboard<small>Detalle</small></h1>
+        <ol class="breadcrumb">
+            <li class="active"><a href="/dashboard"><i class="fa fa-home"></i> Inicio</a></li>
+        </ol>
+    </section>
     <section class="content">
-        <div class="row-fluid">
             <div class="row-fluid">
-                <div class="span9">
-                  <%= pie_chart Medalla.group(:tipomedalla_id).count %>
+                <div class="span12">
+                     <div class="span9">
 
                   <%= render 'shared/administrador_stats_box' %>
-                  <%= render 'shared/administrador_stats_leaderboard' %> 
+                  <%= render 'shared/administrador_stats_graph' %>
+                  
+
                 </div>
                 <div class="span3">
                     <%= render 'shared/administrador_stats_general' %> 
                     <%= render 'shared/administrador_stats_leaderboard' %> 
                 </div>
+                </div>
             </div>
-        </div>
-    </section>     
-
-  </aside><!-- /.right-side -->
+    </section>                                  
+    </aside><!-- /.right-side -->
 </div><!-- ./wrapper -->
 
