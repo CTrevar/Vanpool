@@ -111,9 +111,7 @@ function agregarMarcador(location) {
         trazarRuta();
       }//(if) más de 2 marcadores
 
-      $("#agregarParadas").html("<%= render :partial => 'paradas_form' %>"); 
-
-                       
+        
   }
 
   function trazarRuta(){
@@ -253,10 +251,13 @@ function agregarMarcador(location) {
   }
 
   function geocodeMarcador(){
+    //obtener dirección de input
     var address = document.getElementById("origenRuta").value;
 
+    //con esta dirección, obtener la localización
     geocoder.geocode( { 'address': address}, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
+      //agregar el marcador
       agregarMarcador(results[0].geometry.location);
     } else {
       alert('Geocode falló por: ' + status);

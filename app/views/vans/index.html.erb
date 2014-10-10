@@ -1,26 +1,194 @@
-<h1>Vans</h1>
+<% provide(:title, 'Vans') %>
+<div class="wrapper row-offcanvas row-offcanvas-left">
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="left-side sidebar-offcanvas">
+    <%= render 'shared/administrador_sidebar' %>
+  </aside>
 
-<table>
-	<tr>
-		<th>Placa</th>
-		<th>Modelo</th>
-		<th>Capacidad</th>
-		<th>Fecha</th>
-		<th>Activa</th>
-	</tr>
+  <!-- Right side column. Contains the navbar and content of the page -->
+  <aside class="right-side">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Inicio
+      </h1>
+      <ol class="breadcrumb">
+        <li >Inicio</li>
+        <li class="active">Vans</li>
+      </ol>
+    </section>
 
-	<% @vans.each do |van| %>
-		<tr>
-			<td> <%= van.placa %> </td>
-			<td> <%= van.modelo %> </td>
-			<td> <%= van.capacidad %> </td>
-			<td> <%= van.fecha_compra %> </td>
-			<td> <%= van.activa %> </td>
-			<td><%= link_to 'Mostrar', van_path(van) %></td>
-    		<td><%= link_to 'Editar', edit_van_path(van) %></td>
-    		<td><%= button_to 'Eliminar', van_path(van),
-                    method: :delete %></td>
-		</tr>
-	<%end%>
+    <!-- Main content -->
+    <section class="content">
+      <h1>Vans</h1>
+      <hr>
+      <div class="filtering">
+        <!-- search form -->
+        <form >
+          <div class="input-group">
+            <input type="text" placeholder="Buscar..." class="form-control" name="textoABuscar" id="textoABuscar" />
+            <span class="input-group-btn">
+              <button type="submit" id="btnBuscar" class="btn btn-flat">
+                <i class="fa fa-search"></i>
+              </button>
+            </span>
+          </div>
+        </form>
+        <!-- /.search form -->
+      </div>
+      <hr>
+        <div class="row">
+          <div id="vansTableContainer" class="col-lg-12 col-xs-12">
+          </div>
+        </div>
+        <script type="text/javascript">
+  $(document).ready(function () {
+              $('#vansTableContainer').jtable({
+                  messages: {
+                      serverCommunicationError: 'Ocurri&oacute; un error al comunicarse con el servidor.',
+                      loadingMessage: 'Cargando Registros...',
+                      noDataAvailable: '&iexcl;No hay Datos!',
+                      addNewRecord: 'Agregar Van',
+                      editRecord: 'Editar pregunta',
+                      areYouSure: '¿Está seguro?',
+                      deleteConfirmation: '&iquest;Est&aacute; seguro de eliminar esta van?',
+                      save: 'Guardar',
+                      saving: 'Guardando',
+                      cancel: 'Cancelar',
+                      deleteText: 'Eliminar',
+                      deleting: 'Eliminando',
+                      error: 'Error',
+                      close: 'Cerrar',
+                      cannotLoadOptionsFor: 'No se pueden cargar las opciones para el campo {0}',
+                      pagingInfo: 'Mostrando {0} a {1} de {2} vans',
+                      pageSizeChangeLabel: 'N&uacute;mero de registros',
+                      gotoPageLabel: 'Ir a la p&aacute;gina',
+                      canNotDeletedRecords: '&excl;¡No se pudieron eliminar {0} de {1} registros!',
+                      deleteProgress: 'Eliminadas {0} de {1} vans, procesando...'
+                  },
+                  title: 'Tabla de vans',
+                  useBootstrap: true,
+                  paging: true, //Habilitamos paginación.
+                  pageSize: 10, //Definimos el número de registros a mostrar a 10.
+                  sorting: true, //Habilitamos ordenación.
+                  defaultSorting: 'placa ASC', //Definimos la columna default de ordenación.
+                  defaultDateFormat: 'yy-mm-dd',
+                  gotoPageArea: 'combobox',
+                  selecting: true, //Habilitar Seleccion.
+                  selectingCheckboxes: true, //Mostrar checkbox en la primer columna
+                  selectOnRowClick: true, //Habilitamos selección con la fila
+                  deleteConfirm: true,
+                  actions: {
+                      //Aquí va el URL del método del controlador, debemos definirlos primero en config/routes.
+                      listAction: '/van_controller/jtable_filterlist',
+                      deleteAction: '/van_controller/jtable_delete',
+                      createAction: '/van_controller/jtable_create',
+                      updateAction: '/van_controller/jtable_update'
+                  },
+                  fields: {
+                      //Columna en la tabla. Deben ponerse todas las columnas, si no deben ser visible, solamente
+                      //habilitamos la opción list:false. Si un campo no debe editarse configuramos edit:false.
+                      id: {
+                          key: true,
+                          list: false
+                      },
+                      placa: {
+                          title: 'Placa',
+                          width: '10%'
+                      },
+                      modelo: {
+                          title: 'Modelo',
+                          width: '20%'
+                      },
+                      capacidad: {
+                          title: 'Capacidad',
+                          width: '10%'
+                      },
+                      pais_id: {
+                          list: false,
+                          edit: false,
+                          create: false
+                      },
+                      kilometro_recorrido: {
+                        title: 'Km',
+                          width: '10%'
+                      },
+                      fecha_compra: {
+                        title: 'Fecha Compra',
+                          width: '10%'
+                      },
+                      activa: {
+                          list: false,
+                          edit: false,
+                          create: false
+                      },
+                      estatus: {
+                          list: false,
+                          edit: false,
+                          create: false
+                      },
+                      created_at: {
+                          list: false,
+                          edit: false,
+                          create: false
+                      },
+                      updated_at: {
+                          list: false,
+                          edit: false,
+                          create: false
+                      }
+                  },
 
-</table>
+                  selectionChanged: function(){
+                    var $selectedRows = $("#vansTableContainer").jtable('selectedRows');
+                    if ($selectedRows.length > 0) {
+                      $selectedRows.each(function(){
+                        var record = $(this).data('record');
+                        
+                      });
+                      
+                    }
+                    
+                  }
+
+              });
+
+              //Realiza la búsqueda al presiona el botón de bsucar.
+              $('#btnBuscar').click(function (e) {
+                  e.preventDefault();
+                  $('#vansTableContainer').jtable('load', {
+                      textoABuscar: $('#textoABuscar').val()
+                  });
+              });
+              //Realiza la búsqueda al teclear en el campo de búsqueda si solo hay espacios, muestra todos los campos.
+              $('#textoABuscar').keyup(function() {
+                  var texto = $('#textoABuscar').val();
+                  if(texto.trim().length == 0){
+                      $('#vansTableContainer').jtable('load');
+                  }else{
+                      $('#vansTableContainer').jtable('load', {
+                          textoABuscar: $('#textoABuscar').val()
+                      });
+                  }
+              });
+              // Esta línea carga los datos de la jTable al desplegar la página.
+              $('#vansTableContainer').jtable('load');
+          });
+
+
+
+</script>
+        <br/>
+      <hr>
+
+
+
+      </table>
+
+      <br />
+
+     
+    </section>
+
+  </aside><!-- /.right-side -->
+</div><!-- ./wrapper -->

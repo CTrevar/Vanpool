@@ -1,33 +1,4 @@
-<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp" %>
-<%= javascript_include_tag "rutas_mostrar" %>
-<%= stylesheet_link_tag "rutas", media: "all" %>
 
-
-<div class="wrapper row-offcanvas row-offcanvas-left">
-
-	<aside class="left-side sidebar-offcanvas">
-        <%= render 'shared/administrador_sidebar' %>
-    </aside>
-
-    <aside class="right-side">
-    	<section class="content-header">
-                    <h1>
-                        Ruta
-                    </h1>
-                    <ol class="breadcrumb">
-                    	<li>Rutas</li>
-                        <li class="active"><%= @ruta.nombre %></li>
-                    </ol>
-         </section>
-
-		<%= render 'shared/show_ruta_form' %>
-	</aside>
-
-
-</div>
-
-
-<script type="text/javascript">
 var map;
 var arregloMarcadores = [];
 var geocoder = new google.maps.Geocoder();
@@ -49,7 +20,7 @@ function initialize() {
 
     var rendererOptions = { 
       map: map,
-      draggable: true
+      draggable: false
     };
 
     directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
@@ -62,20 +33,31 @@ function initialize() {
 
 
    function trazarRuta(){
-   	var arregloMarcadores= <%= raw @paradas_ruta.to_json %>;
-    var origen = arregloMarcadores[0].latitud+", "+arregloMarcadores[0].longitud;
-    var destino = arregloMarcadores[arregloMarcadores.length-1].latitud+", "+arregloMarcadores[arregloMarcadores.length-1].longitud;
+    var arregloMarcadores= <%= raw @paradas_ruta.to_json %>;
+    for(i= 0; i<=arregloMarcadores.length-1;i++){
+      if(arregloMarcadores[i].posicion==0)
+            var primera = arregloMarcadores[i];
+        if(arregloMarcadores[i].posicion==arregloMarcadores.length-1)
+          var ultima = arregloMarcadores[i];
+            
+    }
+
+    var origen = primera.latitud+", "+primera.longitud;
+    var destino = ultima.latitud+", "+ultima.longitud;
     var arregloParadas=[];
 
         if(arregloMarcadores.length>2){
 
-          for(i= 1; i<arregloMarcadores.length-1;i++){
+          for(i= 0; i<=arregloMarcadores.length-1;i++){
             var posicionParada = arregloMarcadores[i].latitud+", "+arregloMarcadores[i].longitud;
-            arregloParadas.push({
-                              location: posicionParada,
-                              stopover: true
-                            });
             
+            if(arregloMarcadores[i].posicion!=arregloMarcadores.length-1 && arregloMarcadores[i].posicion!=0){
+              arregloParadas[arregloMarcadores[i].posicion-1]={
+                                location: posicionParada,
+                                stopover: true
+                              };  
+            }
+                        
           }
 
         }
@@ -103,5 +85,5 @@ function initialize() {
 
         
 
-  }
-  </script>
+    }
+  

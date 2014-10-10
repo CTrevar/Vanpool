@@ -1,48 +1,39 @@
-         </section>
-
-        <section class="content">
-        <div id="map-canvas">
-        </div>
+<section class="content">
+		<div id="map-canvas">
+		</div>
         </br>
 
-         <div class="col-md-6">
+		 <div class="col-md-6">
 
-            <%= form_for @ruta, url:rutas_path do |ruta_form| %>
-                <div class="form-group">
+            <%= form_for @ruta, url:rutas_path do |f| %>
+    		 	<div class="form-group">
                     <label for="nombreRuta">Nombre</label>
-                    <%= ruta_form.text_field :nombre %>
+                    <%= f.text_field :nombre, :class =>"form-control" , :placeholder => "Nombre"  %>
                 </div>
 
-                <div class="form-group">
-                  <label for="origen">Origen</label>
-                  <input  class="form-control" id="origenRuta" placeholder="Origen">
-                </div>
-                <div class="form-group">
-                  <label for="destino">Destino</label>
-                  <input  class="form-control" id="destinoRuta" placeholder="Destino">
-                </div>
+    		  	<div class="form-group">
+    		      <label for="origen">Origen</label>
+    		      <input  class="form-control" id="origenRuta" value="<%= @ruta.paradas.first.nombre %>" />
 
-                <div class="form-group">
+
+    		    </div>
+    		    <div class="form-group">
+    		      <label for="destino">Destino</label>
+    		      <input  class="form-control" id="destinoRuta" value="<%= @ruta.paradas.last.nombre %>">
+    		    </div>
+
+    		    <div class="form-group">
                     <label for="precioRuta">Precio</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                        <%= ruta_form.text_field :precio %>
+                        <%= f.text_field :precio %>
                     </div>
                 </div>
 
-            
 
-            <div class="bootstrap-timepicker">
-                <div class="form-group">
-                    <%= ruta_form.fields_for :viajes do |viaje_fields| %>
-                          Hora de Inicio <%= viaje_fields.text_field :horainicio, html: {class: "form-control timepicker"} %>
-                    <% end %>
-                </div><!-- /.form group -->
-                    
-            </div>
 
             <div class="form-group">
-                <%= ruta_form.fields_for :frecuencia do |frecuencia_fields| %>
+                <%= f.fields_for :frecuencia do |frecuencia_fields| %>
                     <label>Frecuencia:</label>
                     <div class="input-group">
                     
@@ -88,8 +79,37 @@
                     </div>
             </div>
 
+          <div class="form-group ">
+                <label for="vanRuta">Van</label>
+                    <div class="user-panel bg-gray">
+                        <div class="pull-left image">
+                            <i class="fa fa-truck"></i>
+                        </div>
+                        <div class="pull-left info">
+                            
+                            <b>Id: </b>
+                            <%= f.text_field :van_id, :disabled => true, style: 'background-color:rgba(0, 0, 0, 0); border:none'%> </br>
+                            <b>Placa: </b><input id ="vanPlaca" disabled style="background-color:rgba(0, 0, 0, 0); border:none" value="<%= @van.placa %>"></input> </br>
+                            <b>Modelo: </b>
+                            <input id ="vanModelo" disabled style="background-color:rgba(0, 0, 0, 0); border:none" value="<%= @van.modelo %>"></input></br></br>
+
+                            <button type="button" data-toggle="modal" data-target="#myModal">Cambiar Van</button>
+                           
+                        </div>
+                    </div>
+            </div>
+
+		 </div><!--div class column6-->
+
+         <div class="col-md-6">
+            <div class="box box-success">
+            <div class="box-header">
+                <i class="ion ion-clipboard"></i>
+                <h3 class="box-title">Traza la ruta</h3>
+                
+            </div><!-- /.box-header -->
             <div id="agregarParadas" class="box-body">
-                <%= ruta_form.fields_for :paradas do |parada_fields| %>
+                <%= f.fields_for :paradas do |parada_fields| %>
                     <ul id="paradasLista" class="todo-list">
                         <li>
                             <!-- drag handle -->
@@ -97,13 +117,12 @@
                                 <i class="fa fa-arrows"></i>
                             </span>
                                        
-                             <%= parada_fields.text_field :nombre, :placeholder => "Origen" %>
+                             <%= parada_fields.text_field :nombre %>
                              <%= parada_fields.text_field :latitud, style: 'display: none' %>
                              <%= parada_fields.text_field :longitud, style: 'display: none' %>
                              <%= parada_fields.text_field :posicion, style: 'display: none' %>
                              <%= parada_fields.text_field :tiempo, style: 'display: none' %>
                              <%= parada_fields.text_field :distancia, style: 'display: none' %>
-                             <input type="button" value="Buscar" onclick="geocodeMarcador()">
                             
                             <div class="tools">
                                 <i class="fa fa-times"></i>
@@ -113,44 +132,43 @@
                           
                     </ul>
                 <%end%>
-            </div>
+
+                <div id="paradasIntermedias">
+
+                </div>
+
+                <script type="text/javascript">
+
+    function renderizarForma(){
+        $("#paradasIntermedias").append("<%= escape_javascript (render :partial => 'shared/paradas_form', :locals => {:f => f})%>"); 
+
+    }
+</script>
 
 
 
-            <div class="form-group ">
-                <label for="vanRuta">Van</label>
-                    <div class="user-panel bg-gray">
-                        <div class="pull-left image">
-                            <i class="fa fa-truck"></i>
-                        </div>
-                        <div class="pull-left info">
-                            
-                            <b>Id: </b>
-                            <%= ruta_form.text_field :van_id,  style: 'background-color:rgba(0, 0, 0, 0); border:none'%> </br>
-                            <b>Placa: </b>
-                            <input id ="vanPlaca" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
-                            <b>Modelo: </b>
-                            <input id ="vanModelo" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input></br>
 
-                            <button type="button" data-toggle="modal" data-target="#myModal">Ver Vans</button>
-                           
-                        </div>
-                    </div>
-            </div>
+                <input id="agregarParadosas" type="button" value="Agregar Parada" onclick="renderizarForma()"/>
+
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
 
 
+                        </br>
 
-            <input id="latitud_label">Latitud</label>
-            <input id="longitud_label">Logitud</label>
-
-          </br>
-            <textarea id="textoArea" rows="4" cols="50">
-            </textarea>
-         </div><!--div class column6-->
+                        <%= render 'shared/modal_vans' %>
 
 
-         <%= ruta_form.submit "Guardar", class: "btn btn-flat btn-success pull-right" %>
-         <%end%>
-<%= render 'shared/modal_vans' %>
-          </section>
- 
+            
+                     <%end%>
+         </div>
+
+         
+
+		  </section>
+
+
+
+
+
+
