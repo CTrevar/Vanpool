@@ -78,6 +78,8 @@ SampleApp::Application.routes.draw do
   match '/ruta_controller/jtable_filterlist',   to: 'rutas#jtable_filterlist',   via: [:get, :post]
   match '/ruta_controller/jtable_delete',   to: 'rutas#jtable_delete',   via: [:post]
 
+  match '/administrar_ruta_detalle',   to: 'rutas#administrador_detalleruta',   via: [:get, :post, :put]
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

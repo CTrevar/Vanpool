@@ -41,10 +41,14 @@
       
       <input id="agregarRuta" type="button" value="+ Agregar Ruta" /> </br> </br>
 
-        <div class="row">
+   
           <div id="rutasTableContainer" class="col-lg-12 col-xs-12">
           </div>
-        </div>
+
+        <div id="detalleRuta" class="col-lg-4 col-md-4 col-xs-12 nav-tabs-custom">
+
+
+
         <script type="text/javascript">
   $(document).ready(function () {
               $('#rutasTableContainer').jtable({
@@ -89,7 +93,7 @@
                   fields: {
                       //Columna en la tabla. Deben ponerse todas las columnas, si no deben ser visible, solamente
                       //habilitamos la opción list:false. Si un campo no debe editarse configuramos edit:false.
-                      id: {
+                      ruta_id: {
                           key: true,
                           list: false
                       },
@@ -126,14 +130,30 @@
 
                   selectionChanged: function(){
                     var $selectedRows = $("#rutasTableContainer").jtable('selectedRows');
+                    $('#SelectedRowList').empty();
                     if ($selectedRows.length > 0) {
                       $selectedRows.each(function(){
                         var record = $(this).data('record');
-                      });
                       
-                    }
-                    
+                      $.get('/administrar_ruta_detalle', record, function(result){
+                            $("#detalleRuta").html(result);
+                        }).success();
+                      $("#rutasTableContainer").removeClass('col-md-12');
+                        $("#rutasTableContainer").removeClass('col-lg-12');
+                        $("#rutasTableContainer").addClass('col-md-8');
+                        $("#rutasTableContainer").addClass('col-lg-8');
+                        $("#detalleRuta").show('fast');
+                      });
+                    }else {
+                      //Ninguna fila seleccionada
+                      $("#rutasTableContainer").removeClass('col-md-8');
+                      $("#crutasTableContainer").removeClass('col-lg-8');
+                      $("#rutasTableContainer").addClass('col-md-12');
+                      $("#rutasTableContainer").addClass('col-lg-12');
+                      $("#detalleRuta").hide('fast');
                   }
+                    
+                }
 
               });
 
@@ -157,6 +177,8 @@
               });
               // Esta línea carga los datos de la jTable al desplegar la página.
               $('#rutasTableContainer').jtable('load');
+              // Esta línea oculta el detalle al cargar la jTable
+              $("#detalleRuta").hide();
           });
 
       

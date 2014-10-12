@@ -66,6 +66,37 @@ class RutasController < ApplicationController
     end
   end
 
+  #
+  # Metodo para desplegar la información de ruta en un div lateral.
+  #
+  def administrador_detalleruta
+    ruta_id = params[:ruta_id]
+    #@ruta = Ruta.new
+    @ruta = Ruta.find(ruta_id)
+      @ruta.paradas.sort! { |a, b| a.posicion <=> b.posicion }
+      
+      @action = 'update'
+      respond_to do |format|
+        #format.html {render layout:false}
+        format.html { render partial: 'shared/administrador_detalleruta', locals: { ruta: @ruta, action: @action }, layout:false}
+        
+      end
+    # if ruta_id.nil?
+    #   @action = 'create'
+    #   redirect_to vans_path
+    # else
+    #   @ruta = Ruta.find(ruta_id)
+    #   @ruta.paradas.sort! { |a, b| a.posicion <=> b.posicion }
+      
+    #   @action = 'update'
+    #   # respond_to do |format|
+    #   #   #format.html {render layout:false}
+    #   #   format.html { render partial: 'shared/administrador_detalleruta', locals: { ruta: @ruta, action: @action }, layout:false}
+        
+    #   # end
+    # end
+  end
+
 
    # =======================================================
   # =======================================================
@@ -108,10 +139,10 @@ class RutasController < ApplicationController
 
     # Si el campo de busqueda tiene solo espacios en blanco.
     if jtTextoBusqueda.blank? || jtTextoBusqueda.to_s == ''
-      @results = Ruta.joins(:van).select("*").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+      @results = Ruta.joins(:van).select(" rutas.id as ruta_id, *").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     else
       # Si contiene algo más realiza la búsqueda en todos los atributos de la tabla.
-      @results = Ruta.joins(:van).select("*").where( "LOWER(nombre) LIKE '%#{jtTextoBusqueda.downcase}%'"
+      @results = Ruta.joins(:van).select(" ruta.id as ruta_id, *").where( "LOWER(nombre) LIKE '%#{jtTextoBusqueda.downcase}%'"
       ).order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     end
     respond_to do |format|

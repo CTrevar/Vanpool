@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141002001150) do
+ActiveRecord::Schema.define(:version => 20141010230333) do
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -183,6 +183,7 @@ ActiveRecord::Schema.define(:version => 20141002001150) do
     t.boolean  "estatus"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.string   "hora_inicio"
   end
 
   create_table "tipomedallas", :force => true do |t|
