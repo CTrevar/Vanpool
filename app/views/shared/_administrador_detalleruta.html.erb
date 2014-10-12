@@ -21,7 +21,7 @@
         </div>
         <div class="col-xs-6">
           <h4><small>Van</small></h4>
-          <h4></h4>
+          <h4><%= ruta.van.placa %></h4>
         </div>
       </div>
       <div class="col-xs-1" style="border-right:1px solid rgba(147, 147, 147, 0.53);">
@@ -46,13 +46,21 @@
     <hr>
     
     <div class="row" align=" right">
-      <button class="btn btn-default"><i class="fa fa-fw fa-info"></i> Ver M&aacute;s</button>
+      <button class="btn btn-default" id="verDetalle"><i class="fa fa-fw fa-info"></i> Ver M&aacute;s</button>
     </div>
   </div><!-- /.tab-pane -->
-  <!--<div class="tab-pane" id="tab_2-2">-->
-    <!--Sin partial-->
-    <!--</br>-->
-  <!--</div><!-- /.tab-pane -->
+  
 
 
 </div><!-- /.tab-content -->
+
+
+<script type="text/javascript">
+
+  $('#verDetalle').click(function() {
+    var rutaId= <%= @ruta.id %> ;
+    window.location.href = '/rutas/'+rutaId;
+    return false;
+});
+
+</script>
