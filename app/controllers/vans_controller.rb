@@ -11,7 +11,7 @@ class VansController < ApplicationController
     @van.save
 
     if @van.save
-      redirect_to @van
+      redirect_to vans_path
     else
       render 'new'
     end
@@ -40,7 +40,7 @@ class VansController < ApplicationController
   def update
     @van = Van.find(params[:id])
     if @van.update_attributes(params[:van])
-      redirect_to @van
+      redirect_to vans_path
     else
       render 'edit'
     end

@@ -6,7 +6,7 @@ class RutasController < ApplicationController
 	def new
 		@ruta = Ruta.new
     @vans = Van.all
-    @ruta.viajes.build
+    #@ruta.viajes.build
     @ruta.paradas.build
     @ruta.build_van
     @ruta.build_frecuencia
@@ -17,12 +17,12 @@ class RutasController < ApplicationController
     @ruta.estatus = true
 
     
-    @viajes = @ruta.viajes
+    # @viajes = @ruta.viajes
 
-    @viajes.each do|viaje|
-      viaje.estadoviaje_id=1
-      viaje.estatus = true
-    end
+    # @viajes.each do|viaje|
+    #   viaje.estadoviaje_id=1
+    #   viaje.estatus = true
+    # end
 
     @paradas = @ruta.paradas
 
@@ -39,7 +39,7 @@ class RutasController < ApplicationController
 
     @ruta.save
     genera_viajes_ruta_nueva(@ruta)
-    #@viaje.save
+    
 
     redirect_to rutas_path
 	end
@@ -205,6 +205,7 @@ class RutasController < ApplicationController
         viaje.estatus= 1
         viaje.estadoviaje_id= 1 
         viaje.ruta_id= ruta.id
+        viaje.horainicio = ruta.hora_inicio
         viaje.save
       end
 

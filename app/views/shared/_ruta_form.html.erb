@@ -34,9 +34,9 @@
 
             <div class="bootstrap-timepicker">
                 <div class="form-group">
-                    <%= ruta_form.fields_for :viajes do |viaje_fields| %>
-                          Hora de Inicio <%= viaje_fields.text_field :horainicio, html: {class: "form-control timepicker"} %>
-                    <% end %>
+                    
+                          Hora de Inicio <%= ruta_form.text_field :horainicio, html: {class: "form-control timepicker"} %>
+                    
                 </div><!-- /.form group -->
                     
             </div>
