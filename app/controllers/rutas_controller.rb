@@ -7,7 +7,11 @@ class RutasController < ApplicationController
 		@ruta = Ruta.new
     @vans = Van.all
     #@ruta.viajes.build
-    @ruta.paradas.build
+    8.times do
+      @ruta.paradas.build
+    end
+
+    #@ruta.paradas.build
     @ruta.build_van
     @ruta.build_frecuencia
 	end
@@ -74,6 +78,17 @@ class RutasController < ApplicationController
     @ruta = Ruta.new
     @ruta = Ruta.find(ruta_id)
       @ruta.paradas.sort! { |a, b| a.posicion <=> b.posicion }
+    @tiempo = 0
+    @distancia = 0
+    @ruta.paradas.each { |parada|
+      @tiempo += parada.tiempo
+      @distancia += parada.distancia
+    }
+
+    @tiempo = @tiempo/60
+    @tiempo = (@tiempo*100).round / 100.0
+    @distancia = @distancia/1000
+    @distancia = (@distancia*100).round / 100.0
       
       # @action = 'update'
       # respond_to do |format|
@@ -83,7 +98,6 @@ class RutasController < ApplicationController
       # end
     if ruta_id.nil?
       @action = 'create'
-      redirect_to vans_path
     else
       @ruta = Ruta.find(ruta_id)
       @ruta.paradas.sort! { |a, b| a.posicion <=> b.posicion }
@@ -91,7 +105,7 @@ class RutasController < ApplicationController
       @action = 'update'
       respond_to do |format|
         #format.html {render layout:false}
-        format.html { render partial: 'shared/administrador_detalleruta', locals: { ruta: @ruta, action: @action }, layout:false}
+        format.html { render partial: 'shared/administrador_detalleruta', locals: { ruta: @ruta, action: @action, tiempo: @tiempo, distancia: @distancia }, layout:false}
         
       end
     end

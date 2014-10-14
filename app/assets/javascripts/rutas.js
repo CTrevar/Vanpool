@@ -6,6 +6,7 @@ var dir;
 
 var currentLat;
 var currentLng;
+var paradaId= 0;
 
 function obtenerLocalizacion() {
     if (navigator.geolocation) {
@@ -110,6 +111,8 @@ function agregarMarcador(location) {
       if(arregloMarcadores.length>=2){
         trazarRuta();
       }//(if) más de 2 marcadores
+
+
 
         
   }
@@ -243,16 +246,20 @@ function agregarMarcador(location) {
           document.getElementById("ruta_paradas_attributes_"+largo+"_latitud").value = routeDrawn.legs[posicionFinal].end_location.lat();
           document.getElementById("ruta_paradas_attributes_"+largo+"_longitud").value = routeDrawn.legs[posicionFinal].end_location.lng();
           document.getElementById("ruta_paradas_attributes_"+largo+"_posicion").value = largo;
-          document.getElementById("ruta_paradas_attributes_"+largo+"_tiempo").value = routeDrawn.legs[posicionFinal].duration.value;
-          document.getElementById("ruta_paradas_attributes_"+largo+"_distancia").value =  routeDrawn.legs[posicionFinal].distance.value;
+          //document.getElementById("ruta_paradas_attributes_"+largo+"_tiempo").value = routeDrawn.legs[posicionFinal].duration.value;
+          //document.getElementById("ruta_paradas_attributes_"+largo+"_distancia").value =  routeDrawn.legs[posicionFinal].distance.value;
 
     //$('#agregarParadas').html(<%= j render(:partial => 'shared/paradas_form') %>);
 
   }
 
-  function geocodeMarcador(){
+  function borrarParada(){
+
+  }
+
+  function geocodeMarcador(address){
     //obtener dirección de input
-    var address = document.getElementById("origenRuta").value;
+    //var address = document.getElementById("origenRuta").value;
 
     //con esta dirección, obtener la localización
     geocoder.geocode( { 'address': address}, function(results, status) {
@@ -266,3 +273,16 @@ function agregarMarcador(location) {
 
 
   }
+
+
+function remove_fields(link) {
+  $(link).prev("input[type=hidden]").val("1");
+  $(link).closest(".fields").hide();
+}
+
+function add_fields(link, association, content) {
+  var new_id = new Date().getTime();
+  //paradaId +=1;
+  var regexp = new RegExp("new_" + association, "g")
+  $(link).parent().before(content.replace(regexp, new_id));
+}

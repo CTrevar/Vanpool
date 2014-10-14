@@ -7,10 +7,10 @@
 
          <div class="col-md-6">
 
-            <%= form_for @ruta, url:rutas_path do |ruta_form| %>
+            <%= form_for @ruta, url:rutas_path do |f| %>
                 <div class="form-group">
                     <label for="nombreRuta">Nombre</label>
-                    <%= ruta_form.text_field :nombre %>
+                    <%= f.text_field :nombre %>
                 </div>
 
                 <div class="form-group">
@@ -26,7 +26,7 @@
                     <label for="precioRuta">Precio</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                        <%= ruta_form.text_field :precio %>
+                        <%= f.text_field :precio %>
                     </div>
                 </div>
 
@@ -35,14 +35,14 @@
             <div class="bootstrap-timepicker">
                 <div class="form-group">
                     
-                          Hora de Inicio <%= ruta_form.text_field :horainicio, html: {class: "form-control timepicker"} %>
+                          Hora de Inicio <%= f.text_field :hora_inicio, html: {class: "form-control timepicker"} %>
                     
                 </div><!-- /.form group -->
                     
             </div>
 
             <div class="form-group">
-                <%= ruta_form.fields_for :frecuencia do |frecuencia_fields| %>
+                <%= f.fields_for :frecuencia do |frecuencia_fields| %>
                     <label>Frecuencia:</label>
                     <div class="input-group">
                     
@@ -88,35 +88,6 @@
                     </div>
             </div>
 
-            <div id="agregarParadas" class="box-body">
-                <%= ruta_form.fields_for :paradas do |parada_fields| %>
-                    <ul id="paradasLista" class="todo-list">
-                        <li>
-                            <!-- drag handle -->
-                            <span class="handle">
-                                <i class="fa fa-arrows"></i>
-                            </span>
-                                       
-                             <%= parada_fields.text_field :nombre, :placeholder => "Origen" %>
-                             <%= parada_fields.text_field :latitud, style: 'display: none' %>
-                             <%= parada_fields.text_field :longitud, style: 'display: none' %>
-                             <%= parada_fields.text_field :posicion, style: 'display: none' %>
-                             <%= parada_fields.text_field :tiempo, style: 'display: none' %>
-                             <%= parada_fields.text_field :distancia, style: 'display: none' %>
-                             <input type="button" value="Buscar" onclick="geocodeMarcador()">
-                            
-                            <div class="tools">
-                                <i class="fa fa-times"></i>
-                            </div>
-                        </li>
-                        
-                          
-                    </ul>
-                <%end%>
-            </div>
-
-
-
             <div class="form-group ">
                 <label for="vanRuta">Van</label>
                     <div class="user-panel bg-gray">
@@ -126,7 +97,7 @@
                         <div class="pull-left info">
                             
                             <b>Id: </b>
-                            <%= ruta_form.text_field :van_id,  style: 'background-color:rgba(0, 0, 0, 0); border:none'%> </br>
+                            <%= f.text_field :van_id,  style: 'background-color:rgba(0, 0, 0, 0); border:none'%> </br>
                             <b>Placa: </b>
                             <input id ="vanPlaca" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
                             <b>Modelo: </b>
@@ -138,19 +109,49 @@
                     </div>
             </div>
 
+            </div><!--div class column6-->
+
+            <div class="col-md-6">
+                <div class="box box-success">
+                    <div class="box-header">
+                        <i class="ion ion-clipboard"></i>
+                        <h3 class="box-title">Traza la ruta</h3>
+                        
+                    </div><!-- /.box-header -->
+
+                        <%= f.fields_for :paradas do |builder| %>
+                            <%= render "parada_fields", :f => builder %>
+                        <% end %>
 
 
-            <input id="latitud_label">Latitud</label>
-            <input id="longitud_label">Logitud</label>
+                
 
-          </br>
-            <textarea id="textoArea" rows="4" cols="50">
-            </textarea>
+                <p><%= link_to_add_fields "Agregar Parada", f, :paradas %></p>
+
+
+
+                </div><!-- /.box-body -->
+             </div><!-- /.box -->
+        </div>
+
+        
+
+
+
+
+                <input id="latitud_label">Latitud</label>
+                <input id="longitud_label">Logitud</label>
+
+              </br>
+                <textarea id="textoArea" rows="4" cols="50">
+                </textarea>
+             
+
+
+             <%= f.submit "Guardar", class: "btn btn-flat btn-success pull-right" %>
+             <%end%>
+
          </div><!--div class column6-->
-
-
-         <%= ruta_form.submit "Guardar", class: "btn btn-flat btn-success pull-right" %>
-         <%end%>
 <%= render 'shared/modal_vans' %>
           </section>
  
