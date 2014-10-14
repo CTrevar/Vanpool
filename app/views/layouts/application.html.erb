@@ -1,6 +1,7 @@
-	<!DOCTYPE html>
+  <!DOCTYPE html>
 <html>
 <head>
+
   <title><%= full_title(yield(:title)) %></title>
 
   <%= stylesheet_link_tag "bootstrap.min", media: "all" %>
@@ -16,10 +17,10 @@
 
   <%= javascript_include_tag "bootstrap/jquery" %>
 
-<!--   <%= javascript_include_tag "bootstrap/bootstrap" %>
- -->
+  <%= javascript_include_tag "bootstrap/bootstrap" %>
+ 
 
-  <%= javascript_include_tag "bootstrap/bootstrap-modal" %>
+ <!--  <%= javascript_include_tag "bootstrap/bootstrap-modal" %> -->
 
   
 
@@ -51,18 +52,18 @@
 
   <%= csrf_meta_tags %>
   <%= render 'layouts/shim' %>
+
 </head>
+
 <body class="skin-green">
-	<%= render 'layouts/header' %>
-	<div>
-		<% flash.each do |key, value| %>
-			<div class="alert alert-<%= key %>"><%= value %></div>
-		<% end %>
-		<%= yield %>
-		
-	</div>
-	<%= render 'layouts/footer' %>
+  <%= render 'layouts/header' %>
+  <div>
+  <% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+  <%= yield %>
+  </div>
+  <%= render 'layouts/footer' %>
   <%= debug(params) if Rails.env.development? %>
 </body>
-
 </html>

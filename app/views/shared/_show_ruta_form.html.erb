@@ -1,0 +1,174 @@
+<section class="content">
+		<div id="map-canvas">
+		</div>
+        </br>
+
+		 <div class="col-md-6">
+
+            <%= form_for @ruta, url:rutas_path do |f| %>
+    		 	<div class="form-group">
+                    <label for="nombreRuta">Nombre</label>
+                    <%= f.text_field :nombre, :class =>"form-control" , :placeholder => "Nombre"  %>
+                </div>
+
+    		  	<div class="form-group">
+    		      <label for="origen">Origen</label>
+    		      <input  class="form-control" id="origenRuta" value="<%= @ruta.paradas.first.nombre %>" />
+
+
+    		    </div>
+    		    <div class="form-group">
+    		      <label for="destino">Destino</label>
+    		      <input  class="form-control" id="destinoRuta" value="<%= @ruta.paradas.last.nombre %>">
+    		    </div>
+
+    		    <div class="form-group">
+                    <label for="precioRuta">Precio</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                        <%= f.text_field :precio %>
+                    </div>
+                </div>
+
+
+
+            <div class="form-group">
+                <%= f.fields_for :frecuencia do |frecuencia_fields| %>
+                    <label>Frecuencia:</label>
+                    <div class="input-group">
+                    
+
+                        <table class="table">
+                            <tr>
+                                <td><%= frecuencia_fields.check_box :lunes %></td>
+                                <td><%= frecuencia_fields.check_box :martes %></td>
+                                <td><%= frecuencia_fields.check_box :miercoles %></td>
+                                <td><%= frecuencia_fields.check_box :jueves %></td>
+                                <td><%= frecuencia_fields.check_box :viernes %></td>
+                                <td><%= frecuencia_fields.check_box :sabado %></td>
+                                <td><%= frecuencia_fields.check_box :domingo %></td>
+                            </tr>
+                            <tr>
+                                <td><%= frecuencia_fields.label "L" %></td>
+                                <td><%= frecuencia_fields.label  "M" %></td>
+                                <td><%= frecuencia_fields.label  "Mie" %></td>
+                                <td><%= frecuencia_fields.label "J"%></td>
+                                <td><%= frecuencia_fields.label  "V" %></td>
+                                <td><%= frecuencia_fields.label "S" %></td>
+                                <td><%= frecuencia_fields.label "D" %></td>
+                            </tr>
+                        </table>
+                    
+                    </div>
+                <% end %>
+            </div><!-- /.form group frecuencia -->
+
+            <div class="form-group ">
+                <label for="conductorRuta">Conductor</label>
+                    <div class="user-panel bg-gray">
+                    <div class="pull-left image">
+                        <img src="../img/avatar3.png" class="img-circle" alt="User Image" />
+                    </div>
+                    <div class="pull-left info">
+                        <b>Nombre: </b>Luis Rodríguez
+                        <br>
+                        <b>Licencia: </b>XKG-19383
+                       
+                    </div>
+                     <button type="submit" class="btn btn-flat btn-default pull-right">Agregar</button>
+                    </div>
+            </div>
+
+          <div class="form-group ">
+                <label for="vanRuta">Van</label>
+                    <div class="user-panel bg-gray">
+                        <div class="pull-left image">
+                            <i class="fa fa-truck"></i>
+                        </div>
+                        <div class="pull-left info">
+                            
+                            <b>Id: </b>
+                            <%= f.text_field :van_id, :disabled => true, style: 'background-color:rgba(0, 0, 0, 0); border:none'%> </br>
+                            <b>Placa: </b><input id ="vanPlaca" disabled style="background-color:rgba(0, 0, 0, 0); border:none" value="<%= @van.placa %>"></input> </br>
+                            <b>Modelo: </b>
+                            <input id ="vanModelo" disabled style="background-color:rgba(0, 0, 0, 0); border:none" value="<%= @van.modelo %>"></input></br></br>
+
+                            <button type="button" data-toggle="modal" data-target="#myModal">Cambiar Van</button>
+                           
+                        </div>
+                    </div>
+            </div>
+
+		 </div><!--div class column6-->
+
+         <div class="col-md-6">
+            <div class="box box-success">
+            <div class="box-header">
+                <i class="ion ion-clipboard"></i>
+                <h3 class="box-title">Traza la ruta</h3>
+                
+            </div><!-- /.box-header -->
+            <div id="agregarParadas" class="box-body">
+                <%= f.fields_for :paradas do |parada_fields| %>
+                    <ul id="paradasLista" class="todo-list">
+                        <li>
+                            <!-- drag handle -->
+                            <span class="handle">
+                                <i class="fa fa-arrows"></i>
+                            </span>
+                                       
+                             <%= parada_fields.text_field :nombre %>
+                             <%= parada_fields.text_field :latitud, style: 'display: none' %>
+                             <%= parada_fields.text_field :longitud, style: 'display: none' %>
+                             <%= parada_fields.text_field :posicion, style: 'display: none' %>
+                             <%= parada_fields.text_field :tiempo, style: 'display: none' %>
+                             <%= parada_fields.text_field :distancia, style: 'display: none' %>
+                            
+                            <div class="tools">
+                                <i class="fa fa-times"></i>
+                            </div>
+                        </li>
+                        
+                          
+                    </ul>
+                <%end%>
+
+                <div id="paradasIntermedias">
+
+                </div>
+
+                <script type="text/javascript">
+
+    function renderizarForma(){
+        $("#paradasIntermedias").append("<%= escape_javascript (render :partial => 'shared/paradas_form', :locals => {:f => f})%>"); 
+
+    }
+</script>
+
+
+
+
+                <input id="agregarParadosas" type="button" value="Agregar Parada" onclick="renderizarForma()"/>
+
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+
+
+                        </br>
+
+                        <%= render 'shared/modal_vans' %>
+
+
+            
+                     <%end%>
+         </div>
+
+         
+
+		  </section>
+
+
+
+
+
+

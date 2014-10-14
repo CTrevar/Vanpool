@@ -96,10 +96,34 @@ class AdministradorsController < ApplicationController
 
   end
 
+
   def listareportes
     @reportes=Reporte.find_all_by_estatus(true)
     render 'show_reportes'
   end
+  #
+  # Metodo para desplegar la información de ruta en un div lateral.
+  #
+  def administrador_detallevan
+    van_id = params[:id]
+    @van = Van.new
+    @van = Van.find(van_id)
+      
+    if van_id.nil?
+      @action = 'create'
+    else
+      @van = Van.find(van_id)
+      
+      @action = 'update'
+      respond_to do |format|
+        #format.html {render layout:false}
+        format.html { render partial: 'shared/administrador_detallevan', locals: { van: @van, action: @action }, layout:false}
+        
+      end
+    end
+  end
+
+
 
   def conductores
     user_id = params[:user_id]

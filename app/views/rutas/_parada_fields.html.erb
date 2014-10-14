@@ -1,0 +1,23 @@
+<ul name="paradasLista" class="todo-list">
+        <li>
+            <!-- drag handle -->
+            <span class="handle">
+                <i class="fa fa-arrows"></i>
+            </span>
+                       
+             <%= f.text_field :nombre %>
+             <%= f.text_field :latitud, style: 'display: none' %>
+             <%= f.text_field :longitud, style: 'display: none' %>
+             <%= f.text_field :posicion, style: 'display: none' %>
+             <%= f.text_field :tiempo, style: 'display: none' %>
+             <%= f.text_field :distancia, style: 'display: none' %>
+             <input type="button" value="Buscar" onclick="geocodeMarcador(this.form.valueId.value)">
+            
+            <div class="tools">
+                <i class="fa fa-times"></i>
+            </div>
+        </li>
+        
+          
+    </ul>
+

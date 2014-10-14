@@ -1,15 +1,16 @@
 
 
-<%= javascript_include_tag "google_maps_api" %>
+<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp" %>
 <%= javascript_include_tag "rutas" %>
 
 <%= stylesheet_link_tag "rutas", media: "all" %>
+<%= javascript_include_tag "plugins/timepicker/bootstrap-timepicker.min" %>
 
-
+<% provide(:title, 'Nueva Ruta') %>
 <div class="wrapper row-offcanvas row-offcanvas-left">
 
 	<aside class="left-side sidebar-offcanvas">
-        
+        <%= render 'shared/administrador_sidebar' %>
     </aside>
 
     <aside class="right-side">
@@ -21,124 +22,9 @@
                     	<li>Rutas</li>
                         <li class="active">Nueva Ruta</li>
                     </ol>
-         </section>
 
-		<section class="content">
-		<div id="map-canvas">
-		</div>
-
-		 <div class="col-md-6">
-
-            <%= form_tag :action => 'create' %>
-    		 	<div class="form-group">
-                    <label for="nombreRuta">Nombre</label>
-                      <%= text_field :ruta, :nombre %>
-                   
-                </div>
-
-    		  	<div class="form-group">
-    		      <label for="origen">Origen</label>
-    		      <input  class="form-control" id="origenRuta" placeholder="Origen">
-    		    </div>
-    		    <div class="form-group">
-    		      <label for="destino">Destino</label>
-    		      <input  class="form-control" id="destinoRuta" placeholder="Destino">
-    		    </div>
-
-    		    <div class="form-group">
-                    <label for="precioRuta">Precio</label>
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-
-            
-
-            <div class="bootstrap-timepicker">
-                <div class="form-group">
-                    <label>Hora de inicio:</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control timepicker"/>
-                        <div class="input-group-addon">
-                            <i class="fa fa-clock-o"></i>
-                        </div>
-                    </div><!-- /.input group -->
-                </div><!-- /.form group -->
-            </div>
-
-            <div class="form-group">
-                <label>Frecuencia:</label>
-                <div class="input-group">
-                    <table class="table">
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>L</td>
-                            <td>M</td>
-                            <td>Mie</td>
-                            <td>J</td>
-                            <td>V</td>
-                            <td>S</td>
-                            <td>D</td>
-                        </tr>
-                    </table>
-                    
-                </div>
-            </div><!-- /.form group frecuencia -->
-
-            <div class="form-group ">
-                <label for="conductorRuta">Conductor</label>
-                    <div class="user-panel bg-gray">
-                    <div class="pull-left image">
-                        <img src="../img/avatar3.png" class="img-circle" alt="User Image" />
-                    </div>
-                    <div class="pull-left info">
-                        <b>Nombre: </b>Luis Rodríguez
-                        <br>
-                        <b>Licencia: </b>XKG-19383
-                       
-                    </div>
-                     <button type="submit" class="btn btn-flat btn-default pull-right">Cambiar</button>
-                    </div>
-            </div>
-
-            <div class="form-group ">
-                <label for="vanRuta">Van</label>
-                    <div class="user-panel bg-gray">
-                    <div class="pull-left image">
-                        <i class="fa fa-truck"></i>
-                    </div>
-                    <div class="pull-left info">
-                       <b>Sin asignar</b>
-                       
-                    </div>
-                     <button type="submit" class="btn btn-flat btn-default pull-right">Agregar</button>
-                    </div>
-            </div>
-
-
-
-		    <input id="latitud_label">Latitud</label>
-		    <input id="longitud_label">Logitud</label>
-
-		  </br>
-		    <textarea id="textoArea" rows="4" cols="50">
-		    </textarea>
-		 </div><!--div class column6-->
-
-
-          <%= submit_tag  "Guardar", class: "btn btn-flat btn-success pull-right" %>
-
-		  </section>
-	</aside>
+                    <%= render 'shared/ruta_form' %>
+    </aside>
 
 
 </div>

@@ -1,0 +1,279 @@
+
+
+<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp" %>
+<%= javascript_include_tag "rutasmostrar" %>
+
+<%= stylesheet_link_tag "rutas", media: "all" %>
+<%= javascript_include_tag "plugins/timepicker/bootstrap-timepicker.min" %>
+
+<% provide(:title, 'Editar Ruta') %>
+<div class="wrapper row-offcanvas row-offcanvas-left">
+
+	<aside class="left-side sidebar-offcanvas">
+        <%= render 'shared/administrador_sidebar' %>
+    </aside>
+
+    <aside class="right-side">
+    	<section class="content-header">
+                    <h1>
+                        Editar Ruta
+                    </h1>
+                    <ol class="breadcrumb">
+                    	<li>Rutas</li>
+                        <li class="active"><%= @ruta.nombre %></li>
+                    </ol>
+         </section>
+
+		         </section>
+
+        <section class="content">
+        <div id="map-canvas">
+        </div>
+        </br>
+
+         <div class="col-md-6">
+
+            <%= form_for @ruta, url:ruta_path do |ruta_form| %>
+                <div class="form-group">
+                    <label for="nombreRuta">Nombre</label>
+                    <%= ruta_form.text_field :nombre %>
+                </div>
+
+                <div class="form-group">
+                  <label for="origen">Origen</label>
+                  <input  class="form-control" id="origenRuta" placeholder="Origen">
+                </div>
+                <div class="form-group">
+                  <label for="destino">Destino</label>
+                  <input  class="form-control" id="destinoRuta" placeholder="Destino">
+                </div>
+
+                <div class="form-group">
+                    <label for="precioRuta">Precio</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                        <%= ruta_form.text_field :precio %>
+                    </div>
+                </div>
+
+            
+
+            <div class="bootstrap-timepicker">
+                <div class="form-group">
+                    <%= ruta_form.fields_for :viajes do |viaje_fields| %>
+                          Hora de Inicio <%= viaje_fields.text_field :horainicio, html: {class: "form-control timepicker"} %>
+                    <% end %>
+                </div><!-- /.form group -->
+                    
+            </div>
+
+            <div class="form-group">
+                <%= ruta_form.fields_for :frecuencia do |frecuencia_fields| %>
+                    <label>Frecuencia:</label>
+                    <div class="input-group">
+                    
+
+                        <table class="table">
+                            <tr>
+                                <td><%= frecuencia_fields.check_box :lunes %></td>
+                                <td><%= frecuencia_fields.check_box :martes %></td>
+                                <td><%= frecuencia_fields.check_box :miercoles %></td>
+                                <td><%= frecuencia_fields.check_box :jueves %></td>
+                                <td><%= frecuencia_fields.check_box :viernes %></td>
+                                <td><%= frecuencia_fields.check_box :sabado %></td>
+                                <td><%= frecuencia_fields.check_box :domingo %></td>
+                            </tr>
+                            <tr>
+                                <td><%= frecuencia_fields.label "L" %></td>
+                                <td><%= frecuencia_fields.label  "M" %></td>
+                                <td><%= frecuencia_fields.label  "Mie" %></td>
+                                <td><%= frecuencia_fields.label "J"%></td>
+                                <td><%= frecuencia_fields.label  "V" %></td>
+                                <td><%= frecuencia_fields.label "S" %></td>
+                                <td><%= frecuencia_fields.label "D" %></td>
+                            </tr>
+                        </table>
+                    
+                    </div>
+                <% end %>
+            </div><!-- /.form group frecuencia -->
+
+            <div class="form-group ">
+                <label for="conductorRuta">Conductor</label>
+                    <div class="user-panel bg-gray">
+                    <div class="pull-left image">
+                        <img src="../img/avatar3.png" class="img-circle" alt="User Image" />
+                    </div>
+                    <div class="pull-left info">
+                        <b>Nombre: </b>Luis Rodríguez
+                        <br>
+                        <b>Licencia: </b>XKG-19383
+                       
+                    </div>
+                     <button type="submit" class="btn btn-flat btn-default pull-right">Agregar</button>
+                    </div>
+            </div>
+
+            <div id="agregarParadas" class="box-body">
+                <%= ruta_form.fields_for :paradas do |parada_fields| %>
+                    <ul id="paradasLista" class="todo-list">
+                        <li>
+                            <!-- drag handle -->
+                            <span class="handle">
+                                <i class="fa fa-arrows"></i>
+                            </span>
+                                       
+                             <%= parada_fields.text_field :nombre, :placeholder => "Origen" %>
+                             <%= parada_fields.text_field :latitud, style: 'display: none' %>
+                             <%= parada_fields.text_field :longitud, style: 'display: none' %>
+                             <%= parada_fields.text_field :posicion, style: 'display: none' %>
+                             <%= parada_fields.text_field :tiempo, style: 'display: none' %>
+                             <%= parada_fields.text_field :distancia, style: 'display: none' %>
+                             <input type="button" value="Buscar" onclick="geocodeMarcador()">
+                            
+                            <div class="tools">
+                                <i class="fa fa-times"></i>
+                            </div>
+                        </li>
+                        
+                          
+                    </ul>
+                <%end%>
+            </div>
+
+
+
+            <div class="form-group ">
+                <label for="vanRuta">Van</label>
+                    <div class="user-panel bg-gray">
+                        <div class="pull-left image">
+                            <i class="fa fa-truck"></i>
+                        </div>
+                        <div class="pull-left info">
+                            
+                            <b>Id: </b>
+                            <%= ruta_form.text_field :van_id,  style: 'background-color:rgba(0, 0, 0, 0); border:none'%> </br>
+                            <b>Placa: </b>
+                            <input id ="vanPlaca" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
+                            <b>Modelo: </b>
+                            <input id ="vanModelo" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input></br>
+
+                            <button type="button" data-toggle="modal" data-target="#myModal">Ver Vans</button>
+                           
+                        </div>
+                    </div>
+            </div>
+
+
+
+            <input id="latitud_label">Latitud</label>
+            <input id="longitud_label">Logitud</label>
+
+          </br>
+            <textarea id="textoArea" rows="4" cols="50">
+            </textarea>
+         </div><!--div class column6-->
+
+
+         <%= ruta_form.submit "Guardar", class: "btn btn-flat btn-success pull-right" %>
+         <%end%>
+<%= render 'shared/modal_vans' %>
+          </section>
+ 
+	</aside>
+
+
+</div>
+
+
+<script type="text/javascript">
+
+var map;
+var arregloMarcadores = [];
+var geocoder = new google.maps.Geocoder();
+var infowindow = new google.maps.InfoWindow();
+var dir;
+
+
+function initialize() {
+    
+        //set up del mapa, zoom, centro
+      var mapOptions = {
+        zoom: 13,
+        center: new google.maps.LatLng(19.4329459, -99.1384108)
+      };
+    
+    map = new google.maps.Map(document.getElementById('map-canvas'),
+        mapOptions);
+
+
+    var rendererOptions = { 
+      map: map,
+      draggable: false
+    };
+
+    directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+    trazarRuta();
+    
+}
+
+  google.maps.event.addDomListener(window, 'load', initialize);
+
+
+
+   function trazarRuta(){
+    var arregloMarcadores= <%= raw @paradas_ruta.to_json %>;
+    for(i= 0; i<=arregloMarcadores.length-1;i++){
+      if(arregloMarcadores[i].posicion==0)
+            var primera = arregloMarcadores[i];
+        if(arregloMarcadores[i].posicion==arregloMarcadores.length-1)
+          var ultima = arregloMarcadores[i];
+            
+    }
+
+    var origen = primera.latitud+", "+primera.longitud;
+    var destino = ultima.latitud+", "+ultima.longitud;
+    var arregloParadas=[];
+
+        if(arregloMarcadores.length>2){
+
+          for(i= 0; i<=arregloMarcadores.length-1;i++){
+            var posicionParada = arregloMarcadores[i].latitud+", "+arregloMarcadores[i].longitud;
+            
+            if(arregloMarcadores[i].posicion!=arregloMarcadores.length-1 && arregloMarcadores[i].posicion!=0){
+              arregloParadas[arregloMarcadores[i].posicion-1]={
+                                location: posicionParada,
+                                stopover: true
+                              };  
+            }
+                        
+          }
+
+        }
+
+        //optimize waypoints for admin false, for client will be true
+        var request = {
+          origin: origen,
+          destination: destino,
+          waypoints: arregloParadas,
+          travelMode: google.maps.DirectionsTravelMode.DRIVING,
+          unitSystem: google.maps.UnitSystem.METRIC,
+          optimizeWaypoints: false
+        }
+
+        directionsService = new google.maps.DirectionsService();
+        var rutaa= directionsService.route(request, function(response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+            var routeDrawn = response.routes[0];
+                 
+          }
+          else
+            alert ('no se pudo obtener direcciones');
+        });
+
+        
+
+    }
+  
+</script>

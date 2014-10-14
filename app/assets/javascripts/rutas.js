@@ -6,6 +6,7 @@ var dir;
 
 var currentLat;
 var currentLng;
+var paradaId= 0;
 
 function obtenerLocalizacion() {
     if (navigator.geolocation) {
@@ -68,6 +69,7 @@ function initialize() {
   google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
                 calcularDistancia(directionsDisplay.getDirections());
                 guardarParadas(directionsDisplay.getDirections().routes[0]);
+                desplegarParadas(directionsDisplay.getDirections().routes[0]);
   });
 
 
@@ -110,7 +112,9 @@ function agregarMarcador(location) {
         trazarRuta();
       }//(if) más de 2 marcadores
 
-                       
+
+
+        
   }
 
   function trazarRuta(){
@@ -147,6 +151,8 @@ function agregarMarcador(location) {
             directionsDisplay.setDirections(response);
             var routeDrawn = response.routes[0];
             guardarParadas(routeDrawn);
+            desplegarParadas(routeDrawn);
+                 
 
                                //document.getElementById("destinoRuta").value = response.routes[0].legs[0].distance.text;
             //document.getElementById("origenRuta").value = response.routes[0].legs[0].distance.value;
@@ -156,8 +162,6 @@ function agregarMarcador(location) {
         });
 
         
-
-
         borrarMarcadores();
         
 
@@ -214,5 +218,71 @@ function agregarMarcador(location) {
     document.getElementById("origenRuta").value = routeDrawn.legs[0].start_address;
     document.getElementById("destinoRuta").value = routeDrawn.legs[routeDrawn.legs.length-1].end_address;
 
-                  
+    
   }
+
+
+  function desplegarParadas(routeDrawn){
+    //posicion = routeDrawn.legs.length-1;
+    // var ulparadas = document.getElementById("paradasLista");
+    //     var liparadas = document.createElement("li");
+    //     liparadas.appendChild(document.createTextNode(routeDrawn.legs[posicion].start_address));
+    //     liparadas.setAttribute("id","ruta_paradas_attribute_"+posicion+"_nombre");
+    //     liparadas.setAttribute("name","ruta[paradas_attributes]["+posicion+"][nombre]");
+    //     ulparadas.appendChild(liparadas);
+        for (var posicion = 0; posicion < routeDrawn.legs.length; posicion++) {
+
+          document.getElementById("ruta_paradas_attributes_"+posicion+"_nombre").value = routeDrawn.legs[posicion].start_address;
+          document.getElementById("ruta_paradas_attributes_"+posicion+"_latitud").value = routeDrawn.legs[posicion].start_location.lat();
+          document.getElementById("ruta_paradas_attributes_"+posicion+"_longitud").value = routeDrawn.legs[posicion].start_location.lng();
+          document.getElementById("ruta_paradas_attributes_"+posicion+"_posicion").value = posicion;
+          document.getElementById("ruta_paradas_attributes_"+posicion+"_tiempo").value = routeDrawn.legs[posicion].duration.value;
+          document.getElementById("ruta_paradas_attributes_"+posicion+"_distancia").value =  routeDrawn.legs[posicion].distance.value;
+        }
+
+        largo = routeDrawn.legs.length;
+        posicionFinal = largo-1;
+        document.getElementById("ruta_paradas_attributes_"+largo+"_nombre").value = routeDrawn.legs[posicionFinal].end_address;
+          document.getElementById("ruta_paradas_attributes_"+largo+"_latitud").value = routeDrawn.legs[posicionFinal].end_location.lat();
+          document.getElementById("ruta_paradas_attributes_"+largo+"_longitud").value = routeDrawn.legs[posicionFinal].end_location.lng();
+          document.getElementById("ruta_paradas_attributes_"+largo+"_posicion").value = largo;
+          //document.getElementById("ruta_paradas_attributes_"+largo+"_tiempo").value = routeDrawn.legs[posicionFinal].duration.value;
+          //document.getElementById("ruta_paradas_attributes_"+largo+"_distancia").value =  routeDrawn.legs[posicionFinal].distance.value;
+
+    //$('#agregarParadas').html(<%= j render(:partial => 'shared/paradas_form') %>);
+
+  }
+
+  function borrarParada(){
+
+  }
+
+  function geocodeMarcador(address){
+    //obtener dirección de input
+    //var address = document.getElementById("origenRuta").value;
+
+    //con esta dirección, obtener la localización
+    geocoder.geocode( { 'address': address}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      //agregar el marcador
+      agregarMarcador(results[0].geometry.location);
+    } else {
+      alert('Geocode falló por: ' + status);
+    }
+  });
+
+
+  }
+
+
+function remove_fields(link) {
+  $(link).prev("input[type=hidden]").val("1");
+  $(link).closest(".fields").hide();
+}
+
+function add_fields(link, association, content) {
+  var new_id = new Date().getTime();
+  //paradaId +=1;
+  var regexp = new RegExp("new_" + association, "g")
+  $(link).parent().before(content.replace(regexp, new_id));
+}

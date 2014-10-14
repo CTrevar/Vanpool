@@ -1,0 +1,157 @@
+         </section>
+
+        <section class="content">
+        <div id="map-canvas">
+        </div>
+        </br>
+
+         <div class="col-md-6">
+
+            <%= form_for @ruta, url:rutas_path do |f| %>
+                <div class="form-group">
+                    <label for="nombreRuta">Nombre</label>
+                    <%= f.text_field :nombre %>
+                </div>
+
+                <div class="form-group">
+                  <label for="origen">Origen</label>
+                  <input  class="form-control" id="origenRuta" placeholder="Origen">
+                </div>
+                <div class="form-group">
+                  <label for="destino">Destino</label>
+                  <input  class="form-control" id="destinoRuta" placeholder="Destino">
+                </div>
+
+                <div class="form-group">
+                    <label for="precioRuta">Precio</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                        <%= f.text_field :precio %>
+                    </div>
+                </div>
+
+            
+
+            <div class="bootstrap-timepicker">
+                <div class="form-group">
+                    
+                          Hora de Inicio <%= f.text_field :hora_inicio, html: {class: "form-control timepicker"} %>
+                    
+                </div><!-- /.form group -->
+                    
+            </div>
+
+            <div class="form-group">
+                <%= f.fields_for :frecuencia do |frecuencia_fields| %>
+                    <label>Frecuencia:</label>
+                    <div class="input-group">
+                    
+
+                        <table class="table">
+                            <tr>
+                                <td><%= frecuencia_fields.check_box :lunes %></td>
+                                <td><%= frecuencia_fields.check_box :martes %></td>
+                                <td><%= frecuencia_fields.check_box :miercoles %></td>
+                                <td><%= frecuencia_fields.check_box :jueves %></td>
+                                <td><%= frecuencia_fields.check_box :viernes %></td>
+                                <td><%= frecuencia_fields.check_box :sabado %></td>
+                                <td><%= frecuencia_fields.check_box :domingo %></td>
+                            </tr>
+                            <tr>
+                                <td><%= frecuencia_fields.label "L" %></td>
+                                <td><%= frecuencia_fields.label  "M" %></td>
+                                <td><%= frecuencia_fields.label  "Mie" %></td>
+                                <td><%= frecuencia_fields.label "J"%></td>
+                                <td><%= frecuencia_fields.label  "V" %></td>
+                                <td><%= frecuencia_fields.label "S" %></td>
+                                <td><%= frecuencia_fields.label "D" %></td>
+                            </tr>
+                        </table>
+                    
+                    </div>
+                <% end %>
+            </div><!-- /.form group frecuencia -->
+
+            <div class="form-group ">
+                <label for="conductorRuta">Conductor</label>
+                    <div class="user-panel bg-gray">
+                    <div class="pull-left image">
+                        <img src="../img/avatar3.png" class="img-circle" alt="User Image" />
+                    </div>
+                    <div class="pull-left info">
+                        <b>Nombre: </b>Luis Rodríguez
+                        <br>
+                        <b>Licencia: </b>XKG-19383
+                       
+                    </div>
+                     <button type="submit" class="btn btn-flat btn-default pull-right">Agregar</button>
+                    </div>
+            </div>
+
+            <div class="form-group ">
+                <label for="vanRuta">Van</label>
+                    <div class="user-panel bg-gray">
+                        <div class="pull-left image">
+                            <i class="fa fa-truck"></i>
+                        </div>
+                        <div class="pull-left info">
+                            
+                            <b>Id: </b>
+                            <%= f.text_field :van_id,  style: 'background-color:rgba(0, 0, 0, 0); border:none'%> </br>
+                            <b>Placa: </b>
+                            <input id ="vanPlaca" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
+                            <b>Modelo: </b>
+                            <input id ="vanModelo" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input></br>
+
+                            <button type="button" data-toggle="modal" data-target="#myModal">Ver Vans</button>
+                           
+                        </div>
+                    </div>
+            </div>
+
+            </div><!--div class column6-->
+
+            <div class="col-md-6">
+                <div class="box box-success">
+                    <div class="box-header">
+                        <i class="ion ion-clipboard"></i>
+                        <h3 class="box-title">Traza la ruta</h3>
+                        
+                    </div><!-- /.box-header -->
+
+                        <%= f.fields_for :paradas do |builder| %>
+                            <%= render "parada_fields", :f => builder %>
+                        <% end %>
+
+
+                
+
+                <p><%= link_to_add_fields "Agregar Parada", f, :paradas %></p>
+
+
+
+                </div><!-- /.box-body -->
+             </div><!-- /.box -->
+        </div>
+
+        
+
+
+
+
+                <input id="latitud_label">Latitud</label>
+                <input id="longitud_label">Logitud</label>
+
+              </br>
+                <textarea id="textoArea" rows="4" cols="50">
+                </textarea>
+             
+
+
+             <%= f.submit "Guardar", class: "btn btn-flat btn-success pull-right" %>
+             <%end%>
+
+         </div><!--div class column6-->
+<%= render 'shared/modal_vans' %>
+          </section>
+ 

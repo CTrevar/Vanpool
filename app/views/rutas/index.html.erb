@@ -1,4 +1,4 @@
-<% provide(:title, 'Vans') %>
+<% provide(:title, 'Rutas') %>
 <div class="wrapper row-offcanvas row-offcanvas-left">
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="left-side sidebar-offcanvas">
@@ -10,17 +10,17 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Inicio
+        Rutas
       </h1>
       <ol class="breadcrumb">
         <li >Inicio</li>
-        <li class="active">Vans</li>
+        <li class="active">Rutas</li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
-      <h1>Vans</h1>
+      <h1>Rutas</h1>
       <hr>
       <div class="filtering">
         <!-- search form -->
@@ -37,29 +37,31 @@
         <!-- /.search form -->
       </div>
       <hr>
-        <!-- jTable Administradores -->
-      <div id="vansTableContainer" class="col-lg-12 col-md-12 col-xs-12">
-        <button id="btnAgregar" class="btn btn-default btn-sm"  data-toggle="modal" data-target="#basicModal">
-          <i class="fa fa-plus"></i> Agregar Van
-        </button>
-        <br/>
-        <br/>
-      </div>
-      <!-- /jTable Administradores -->
-      <div id="detalleVan" class="col-lg-4 col-md-4 col-xs-12 nav-tabs-custom">
-      </div>
+
+      
+ 
+   
+          <div id="rutasTableContainer" class="col-lg-12 col-xs-12">
+            <button id="btnAgregar" class="btn btn-default btn-sm">
+              <i class="fa fa-plus"></i> Agregar Ruta
+            </button>
+          </div>
+
+        <div id="detalleRuta" class="col-lg-4 col-md-4 col-xs-12 nav-tabs-custom">
+
+
 
         <script type="text/javascript">
   $(document).ready(function () {
-              $('#vansTableContainer').jtable({
+              $('#rutasTableContainer').jtable({
                   messages: {
                       serverCommunicationError: 'Ocurri&oacute; un error al comunicarse con el servidor.',
                       loadingMessage: 'Cargando Registros...',
                       noDataAvailable: '&iexcl;No hay Datos!',
-                      addNewRecord: 'Agregar Van',
+                      addNewRecord: 'Agregar Ruta',
                       editRecord: 'Editar pregunta',
                       areYouSure: '¿Está seguro?',
-                      deleteConfirmation: '&iquest;Est&aacute; seguro de eliminar esta van?',
+                      deleteConfirmation: '&iquest;Est&aacute; seguro de eliminar esta ruta?',
                       save: 'Guardar',
                       saving: 'Guardando',
                       cancel: 'Cancelar',
@@ -68,18 +70,18 @@
                       error: 'Error',
                       close: 'Cerrar',
                       cannotLoadOptionsFor: 'No se pueden cargar las opciones para el campo {0}',
-                      pagingInfo: 'Mostrando {0} a {1} de {2} vans',
+                      pagingInfo: 'Mostrando {0} a {1} de {2} rutas',
                       pageSizeChangeLabel: 'N&uacute;mero de registros',
                       gotoPageLabel: 'Ir a la p&aacute;gina',
                       canNotDeletedRecords: '&excl;¡No se pudieron eliminar {0} de {1} registros!',
-                      deleteProgress: 'Eliminadas {0} de {1} vans, procesando...'
+                      deleteProgress: 'Eliminadas {0} de {1} rutas, procesando...'
                   },
-                  title: 'Tabla de vans',
+                  title: 'Tabla de rutas',
                   useBootstrap: true,
                   paging: true, //Habilitamos paginación.
                   pageSize: 10, //Definimos el número de registros a mostrar a 10.
                   sorting: true, //Habilitamos ordenación.
-                  defaultSorting: 'placa ASC', //Definimos la columna default de ordenación.
+                  defaultSorting: 'nombre ASC', //Definimos la columna default de ordenación.
                   defaultDateFormat: 'yy-mm-dd',
                   gotoPageArea: 'combobox',
                   selecting: true, //Habilitar Seleccion.
@@ -88,43 +90,26 @@
                   deleteConfirm: true,
                   actions: {
                       //Aquí va el URL del método del controlador, debemos definirlos primero en config/routes.
-                      listAction: '/van_controller/jtable_filterlist',
-                      deleteAction: '/van_controller/jtable_delete'
+                      listAction: '/ruta_controller/jtable_filterlist'
                   },
                   fields: {
                       //Columna en la tabla. Deben ponerse todas las columnas, si no deben ser visible, solamente
                       //habilitamos la opción list:false. Si un campo no debe editarse configuramos edit:false.
-                      id: {
+                      ruta_id: {
                           key: true,
                           list: false
                       },
-                      placa: {
-                          title: 'Placa',
+                      nombre: {
+                          title: 'Nombre',
                           width: '10%'
                       },
-                      modelo: {
-                          title: 'Modelo',
+                      precio: {
+                          title: 'Precio',
                           width: '20%'
                       },
-                      capacidad: {
-                          title: 'Capacidad',
-                          width: '10%'
-                      },
-                      pais_id: {
-                          list: false,
-                          edit: false,
-                          create: false
-                      },
-                      kilometro_recorrido: {
-                        title: 'Km',
-                          width: '10%'
-                      },
-                      fecha_compra: {
-                        title: 'Fecha Compra',
-                          width: '10%'
-                      },
-                      activa: {
-                          list: false,
+                      placa: {
+                        title: 'Van',
+                          width: '20%',
                           edit: false,
                           create: false
                       },
@@ -145,39 +130,39 @@
                       }
                   },
 
-                  //Se crea el evento de selectionchanged
-                selectionChanged: function () {
-                    //Obtener todas las filas seleccionadas.
-                    var $selectedRows = $('#vansTableContainer').jtable('selectedRows');
+                  selectionChanged: function(){
+                    var $selectedRows = $("#rutasTableContainer").jtable('selectedRows');
                     $('#SelectedRowList').empty();
                     if ($selectedRows.length > 0) {
-                        //Mostrar filas seleccionadas
-                        $selectedRows.each(function () {
-                            var record = $(this).data('record');
-                            $.get('/administrar_van_detalle', record, function(result){
-                                $("#detalleVan").html(result);
-                            }).success();
-                            $("#vansTableContainer").removeClass('col-md-12');
-                            $("#vansTableContainer").removeClass('col-lg-12');
-                            $("#vansTableContainer").addClass('col-md-8');
-                            $("#vansTableContainer").addClass('col-lg-8');
-                            $("#detalleVan").show('fast');
-                        });
-                    } else {
-                        //Ninguna fila seleccionada
-                        $("#vansTableContainer").removeClass('col-md-8');
-                        $("#vansTableContainer").removeClass('col-lg-8');
-                        $("#vansTableContainer").addClass('col-md-12');
-                        $("#vansTableContainer").addClass('col-lg-12');
-                        $("#detalleVan").hide('fast');
-                    }
+                      $selectedRows.each(function(){
+                        var record = $(this).data('record');
+                      
+                      $.get('/administrar_ruta_detalle', record, function(result){
+                            $("#detalleRuta").html(result);
+                        }).success();
+                      $("#rutasTableContainer").removeClass('col-md-12');
+                        $("#rutasTableContainer").removeClass('col-lg-12');
+                        $("#rutasTableContainer").addClass('col-md-8');
+                        $("#rutasTableContainer").addClass('col-lg-8');
+                        $("#detalleRuta").show('fast');
+                      });
+                    }else {
+                      //Ninguna fila seleccionada
+                      $("#rutasTableContainer").removeClass('col-md-8');
+                      $("#crutasTableContainer").removeClass('col-lg-8');
+                      $("#rutasTableContainer").addClass('col-md-12');
+                      $("#rutasTableContainer").addClass('col-lg-12');
+                      $("#detalleRuta").hide('fast');
+                  }
+                    
                 }
+
               });
 
               //Realiza la búsqueda al presiona el botón de bsucar.
               $('#btnBuscar').click(function (e) {
                   e.preventDefault();
-                  $('#vansTableContainer').jtable('load', {
+                  $('#rutasTableContainer').jtable('load', {
                       textoABuscar: $('#textoABuscar').val()
                   });
               });
@@ -185,16 +170,28 @@
               $('#textoABuscar').keyup(function() {
                   var texto = $('#textoABuscar').val();
                   if(texto.trim().length == 0){
-                      $('#vansTableContainer').jtable('load');
+                      $('#rutasTableContainer').jtable('load');
                   }else{
-                      $('#vansTableContainer').jtable('load', {
+                      $('#rutasTableContainer').jtable('load', {
                           textoABuscar: $('#textoABuscar').val()
                       });
                   }
               });
               // Esta línea carga los datos de la jTable al desplegar la página.
-              $('#vansTableContainer').jtable('load');
+              $('#rutasTableContainer').jtable('load');
+              // Esta línea oculta el detalle al cargar la jTable
+              $("#detalleRuta").hide();
           });
+
+      
+
+
+$('#btnAgregar').click(function() {
+    window.location.href = '/rutas/new';
+    return false;
+});
+
+
 
 
 
@@ -203,42 +200,10 @@
       <hr>
 
 
-      <!-- Modal de creación de usuario -->
-      <script type="text/javascript" charset="utf-8">
-          $(document).ready(function (){
-              $("#btnAgregar").click(function(event){
-                  
-              });
-          });
-      </script>
-      <style>
-          #basicModal .modal-dialog
-          {
-              height: 100%;
-          }
-          #basicModal .modal-content
-          {
-              border: 1px solid blue;
-              overflow: auto;
-              height: 90%;
-          }
-      </style>
-      <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">
-                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-              </button>
-              <h4 class="modal-title" id="myModalLabel">Nueva Van</h4>
-            </div>
-            <div id="modal-body" class="modal-body nav-tabs-custom">
-              <%= render partial: 'shared/van_form' %>
-              <!-- Aquí va el render de detalleVan que carga la forma para agregar. -->
-            </div>
-          </div>
-        </div>
-      </div>
+
+      </table>
+
+      <br />
 
      
     </section>

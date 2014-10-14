@@ -106,6 +106,7 @@ SampleApp::Application.routes.draw do
   match '/administrador_controller/jtable_delete',   to: 'administradors#jtable_delete',   via: [:post]
   match '/administrador_controller/jtable_update',   to: 'administradors#jtable_update',   via: [:post]
   # match '/administradoresTableContainer/delete',   to: 'tables#administradoresTableContainer_delete',   via: [:post]
+
   match '/administrador_controller/update',   to: 'administradors#update',   via: [:post,:put]
   match '/administrador_controller/create',   to: 'administradors#create',   via: [:post,:put]
 
@@ -118,6 +119,24 @@ SampleApp::Application.routes.draw do
   match '/conductor_controller/jtable_update',   to: 'conductors#jtable_update',   via: [:post]
   match '/conductor_controller/update',   to: 'conductors#update',   via: [:post,:put]
   match '/conductor_controller/create',   to: 'conductors#create',   via: [:post,:put]
+
+
+
+  match '/van_controller/jtable_list',   to: 'vans#jtable_list',   via: [:get, :post]
+  match '/van_controller/jtable_filterlist',   to: 'vans#jtable_filterlist',   via: [:get, :post]
+  match '/van_controller/jtable_create',   to: 'vans#jtable_create',   via: [:get, :post]
+  match '/van_controller/jtable_delete',   to: 'vans#jtable_delete',   via: [:post]
+  match '/van_controller/jtable_update',   to: 'vans#jtable_update',   via: [:post]
+
+  match '/administrar_van_detalle',   to: 'administradors#administrador_detallevan',   via: [:get, :post, :put]
+
+  match '/ruta_controller/jtable_list',   to: 'rutas#jtable_list',   via: [:get, :post, :put]
+  match '/ruta_controller/jtable_filterlist',   to: 'rutas#jtable_filterlist',   via: [:get, :post]
+  match '/ruta_controller/jtable_delete',   to: 'rutas#jtable_delete',   via: [:post]
+
+  match '/administrar_ruta_detalle',   to: 'rutas#administrador_detalleruta',   via: [:get, :post, :put]
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
