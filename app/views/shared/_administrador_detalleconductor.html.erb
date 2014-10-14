@@ -1,0 +1,29 @@
+<ul class="nav nav-tabs pull-right">
+  <li><a href="#tab_2-2" data-toggle="tab">Rutas de Conductor</a></li>
+  <li class="active"><a href="#tab_1-1" data-toggle="tab">Datos de Conductor</a></li>
+  <!--<li class="pull-left header"><i class="fa fa-th"></i></li>-->
+</ul>
+<div class="tab-content">
+  <div class="tab-pane active" id="tab_1-1">
+    <div id="forma_detalle_conductor">
+      <%=
+          render 'administradors/form_conductor', locals: { conductor: @conductor, action: @action } #, :disabled => false, :exito => false
+         # if :action == 'create'
+         #   # @conductor = Conductor.new
+         #   # @conductor.user = User.new
+         #   render 'administradors/form_conductor', locals: { conductor: @conductor, action: 'create' } , :disabled => false, :exito => false
+         # else
+         #   if @conductor.present?
+         #     render 'administradors/form_conductor', locals: { conductor: @conductor, action: 'update' } , :disabled => false, :exito => false
+         #   end
+         # end
+      %>
+    </div>
+  </div><!-- /.tab-pane -->
+  <div class="tab-pane" id="tab_2-2">
+    Sin partial
+    </br>
+  </div><!-- /.tab-pane -->
+
+
+</div><!-- /.tab-content -->

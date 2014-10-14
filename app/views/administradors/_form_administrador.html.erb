@@ -1,0 +1,298 @@
+<% disabled ||= false %>
+<% exito ||= false %>
+<% create ||= false %>
+<%= form_for @administrador, remote: true, :url => "/administrador_controller/#{@action}" do |user| %>
+    </br>
+    <%  if exito %>
+        <div class="alert alert-success alert-dismissable">
+          <i class="fa fa-check"></i>
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <% if @action=='create' %>
+              <p>Se creó el administrador correctamente.</p>
+          <% else%>
+              <p>Se acutalizó el administrador correctamente.</p>
+          <% end%>
+        </div>
+    <%  end %>
+    <% if @administrador.errors.any? %>
+        <div class="alert alert-danger alert-dismissable">
+          <i class="fa fa-times"></i>
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <b><%= pluralize(@administrador.errors.count, "error") %>:</b>
+          <ul>
+            <% @administrador.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <%= user.hidden_field :id, :value => @administrador.id%>
+    <!------------------------------------------------->
+    <!-- Validación y creación de campos de usuario. -->
+    <!------------------------------------------------->
+    <%   if @administrador.errors.any? %>
+        <!------------------------------------------------------>
+        <!-- Validación y creación de campo de usuario email. -->
+        <!------------------------------------------------------>
+        <%   if @administrador.errors[:email].present? %>
+            <div class="form-group has-error">
+              <%= user.label :email,'email', class: "control-label" %><br />
+              <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="fa fa-envelope"></i>
+                        </span>
+                <%= user.text_field :email, class: "form-control", :disabled => disabled %>
+              </div>
+              <div class="callout callout-danger">
+                <%= @administrador.errors[:email] %>
+              </div>
+            </div>
+        <%   else   %>
+            <div class="form-group">
+              <%= user.label :email,'email', class: "control-label" %><br />
+              <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="fa fa-envelope"></i>
+                        </span>
+                <%= user.text_field :email, class: "form-control", :disabled => disabled %>
+              </div>
+            </div>
+        <%   end   %>
+        <% #if @action == "create"%>
+            <!------------------------------------------------------>
+            <!-- Validación y creación de campo de usuario password->
+            <!------------------------------------------------------>
+            <%   if @administrador.errors[:password].present? %>
+                <div class="form-group has-error">
+                  <div class="form-group">
+                    <%= user.label :password,'Contraseña', class: "control-label" %><br />
+                    <%= user.password_field :password, class:"form-control"%>
+                  </div>
+                  <div class="callout callout-danger">
+                    <%= @administrador.errors[:password] %>
+                  </div>
+                </div>
+            <%   else   %>
+                <div class="form-group">
+                  <%= user.label :password,'Contraseña', class: "control-label" %><br />
+                  <%= user.password_field :password, class:"form-control", disabled: 'true'%>
+                </div>
+            <%   end   %>
+            <!---------------------------------------------------------------------->
+            <!-- Validación y creación de campo de usuario confimración de password->
+            <!---------------------------------------------------------------------->
+            <%   if @administrador.errors[:password_confirmation].present? %>
+                <div class="form-group has-error">
+                  <div class="form-group">
+                    <%= user.label :password_confirmation,'Concifrme Contraseña', class: "control-label" %><br />
+                    <%= user.password_field :password_confirmation, class:"form-control"%>
+                  </div>
+                  <div class="callout callout-danger">
+                    <%= @administrador.errors[:password_confirmation] %>
+                  </div>
+                </div>
+            <%   else   %>
+                <div class="form-group">
+                  <%= user.label :password_confirmation,'Concifrme Contraseña', class: "control-label" %><br />
+                  <%= user.password_field :password_confirmation, class:"form-control", disabled: 'true'%>
+                </div>
+            <%   end   %>
+        <% #end %>
+        <% if @action == "update"%>
+            <div class="row-fluid" align="right">
+              <div class="col-lg-3">
+              </div>
+              <div class="col-lg-9">
+                <a id="changePassword" href="#" onClick="return false;" class="text-red">Cambiar password</a>
+              </div>
+            </div>
+        <% end %>
+
+
+
+
+
+        <!------------------------------------------------------>
+        <!-- Validación y creación de campo de usuario nombre. -->
+        <!------------------------------------------------------>
+        <%   if @administrador.errors[:name].present? %>
+            <div class="form-group has-error">
+              <%= user.label :name,'Nombre', class: "control-label" %><br />
+              <%= user.text_field :name, class: "form-control", :disabled => disabled %>
+              <div class="callout callout-danger">
+                <%= @administrador.errors[:name] %>
+              </div>
+            </div>
+        <%   else   %>
+            <div class="form-group">
+              <%= user.label :name,'Nombre', class: "control-label" %><br />
+              <%= user.text_field :name, class: "form-control", :disabled => disabled %>
+            </div>
+        <%   end   %>
+        <!---------------------------------------------------------------->
+        <!-- Validación y creación de campo de usuario apellidoPaterno. -->
+        <!---------------------------------------------------------------->
+        <%   if @administrador.errors[:apellidoPaterno].present? %>
+            <div class="form-group has-error">
+              <%= user.label :apellidoPaterno,'Apellido Paterno', class: "control-label" %><br />
+              <%= user.text_field :apellidoPaterno, class: "form-control", :disabled => disabled %>
+              <div class="callout callout-danger">
+                <%= @administrador.errors[:apellidoPaterno] %>
+              </div>
+            </div>
+        <%   else   %>
+            <div class="form-group">
+              <%= user.label :apellidoPaterno,'Apellido Paterno', class: "control-label" %><br />
+              <%= user.text_field :apellidoPaterno, class: "form-control", :disabled => disabled %>
+            </div>
+        <%   end   %>
+        <!---------------------------------------------------------------->
+        <!-- Validación y creación de campo de usuario apellidoMaterno. -->
+        <!---------------------------------------------------------------->
+        <%   if @administrador.errors[:apellidoMaterno].present? %>
+            <div class="form-group has-error">
+              <%= user.label :apellidoMaterno,'Apellido Materno', class: "control-label" %><br />
+              <%= user.text_field :apellidoMaterno, class: "form-control", :disabled => disabled %>
+              <div class="callout callout-danger">
+                <%= @administrador.errors[:apellidoMaterno] %>
+              </div>
+            </div>
+        <%   else   %>
+            <div class="form-group">
+              <%= user.label :apellidoMaterno,'Apellido Materno', class: "control-label" %><br />
+              <%= user.text_field :apellidoMaterno, class: "form-control", :disabled => disabled %>
+            </div>
+        <%   end   %>
+        <!---------------------------------------------------------------->
+        <!-- Validación y creación de campo de usuario fechaNacimiento. -->
+        <!---------------------------------------------------------------->
+        <%   if @administrador.errors[:fechaNacimiento].present? %>
+            <div class="form-group has-error">
+              <%= user.label :fechaNacimiento,'Fecha de Nacimiento', class: "control-label" %><br />
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <%= user.text_field :fechaNacimiento, class: "form-control", data: {inputmask:"'alias': 'dd/mm/yyyy'", mask:''}, :disabled => disabled %>
+              </div>
+              <div class="callout callout-danger">
+                <%= @administrador.errors[:fechaNacimiento] %>
+              </div>
+            </div>
+        <%   else   %>
+            <div class="form-group">
+              <%= user.label :fechaNacimiento,'Fecha de Nacimiento', class: "control-label" %><br />
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <%= user.text_field :fechaNacimiento, class: "form-control", data: {inputmask:"'alias': 'dd/mm/yyyy'", mask:''}, :disabled => disabled %>
+              </div>
+            </div>
+        <%   end   %>
+    <%   else   %>
+        <div class="form-group">
+          <%= user.label :email,'email', class: "control-label" %><br />
+          <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="fa fa-envelope"></i>
+                    </span>
+            <%= user.text_field :email, class: "form-control", :disabled => disabled %>
+          </div>
+        </div>
+
+
+        <% if @action == "update"%>
+            <div class="form-group">
+              <%= user.label :password,'Contraseña', class: "control-label" %><br />
+              <%= user.password_field :password, class:"form-control", disabled: 'true'%>
+            </div>
+            <div class="form-group">
+              <%= user.label :password_confirmation,'Concifrme Contraseña', class: "control-label" %><br />
+              <%= user.password_field :password_confirmation, class:"form-control", disabled: 'true'%>
+            </div>
+            <div class="row-fluid" align="right">
+              <div class="col-lg-3">
+                </div>
+              <div class="col-lg-9">
+                  <a id="changePassword" href="#" onClick="return false;" class="text-red">Cambiar password</a>
+                </div>
+            </div>
+        <%else%>
+            <div class="form-group">
+              <%= user.label :password,'Contraseña', class: "control-label" %><br />
+              <%= user.password_field :password, class:"form-control"%>
+            </div>
+            <div class="form-group">
+              <%= user.label :password_confirmation,'Concifrme Contraseña', class: "control-label" %><br />
+              <%= user.password_field :password_confirmation, class:"form-control"%>
+            </div>
+        <% end %>
+        <div class="form-group">
+          <%= user.label :name,'Nombre', class: "control-label" %><br />
+          <%= user.text_field :name, class: "form-control", :disabled => disabled %>
+        </div>
+        <div class="form-group">
+          <%= user.label :apellidoPaterno,'Apellido Paterno', class: "control-label" %><br />
+          <%= user.text_field :apellidoPaterno, class: "form-control", :disabled => disabled %>
+        </div>
+        <div class="form-group">
+          <%= user.label :apellidoMaterno,'Apellido Materno', class: "control-label" %><br />
+          <%= user.text_field :apellidoMaterno, class: "form-control", :disabled => disabled %>
+        </div>
+        <div class="form-group">
+          <%= user.label :fechaNacimiento,'Fecha de Nacimiento', class: "control-label" %><br />
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class="fa fa-calendar"></i>
+            </div>
+            <%= user.text_field :fechaNacimiento, class: "form-control", data: {inputmask:"'alias': 'dd/mm/yyyy'", mask:''}, :disabled => disabled %>
+          </div>
+        </div>
+    <%   end %>
+    <hr>
+    <div class="actions" align="right">
+      <button id="btnSubmit" class="btn btn-success">
+        <i class="fa fa-save"></i>  Guardar
+      </button>
+      <script type="text/javascript" charset="utf-8">
+          //Link cambiar password habilitar campos
+          $("#changePassword").click(function () {
+              if ($("#user_password").is(":disabled")){
+                  $("#changePassword").text("Cancelar");
+                  $("#user_password").prop('disabled', false);
+                  $("#user_password_confirmation").prop('disabled', false);
+              }else{
+                  $("#changePassword").text("Cambiar password");
+                  $("#user_password").prop('disabled', true);
+                  $("#user_password_confirmation").prop('disabled', true);
+                  $("#user_password").val("");
+                  $("#user_password_confirmation").val("");
+              }
+          });
+          //Datemask dd/mm/yyyy
+          $("#user_fechaNacimiento").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+          $("#user_fechaNacimiento").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+          $("form").submit(function (event) {
+              event.preventDefault();
+              var request = $.ajax({
+                  type: "POST",
+                  url: '<%= "/administrador_controller/#{@action}" %>',
+                  data: $(this).serialize()
+              });
+              request.done(function( msg ) {
+                  <% if @action == 'create' %>
+                  $("#modal-body #forma_detalle_administrador").html(msg);
+                  <% else %>
+                  $("#forma_detalle_administrador").html(msg);
+                  <% end %>
+              });
+              request.fail(function( jqXHR, textStatus ) {
+                  alert(textStatus);
+              });
+              $('#administradorsTableContainer').jtable('reload');
+              return false;
+          });
+      </script>
+    </div>
+<% end %>

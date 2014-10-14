@@ -1,0 +1,41 @@
+<div class="row-fluid">
+    <li class="span2">
+        <div class="small-box bg-blue text-center">
+            <h1><%= cantidad_clientes %> </h1>
+            <h4>Clientes registrados</h4>
+        </div>
+    </li>
+    <li class="span3">
+        <div class="small-box bg-green text-center">
+            <% if(existen_reservaciones) then %>
+            <h1><%= reservaciones_realizados_vs_cancelados %>%</h1>
+            <%else%>
+            <h1>NA</h1>
+            <%end%>
+            <h4>éxito de reservaciones vendidas</h4>
+        </div>
+    </li>
+    <li class="span3">
+        <div class="small-box bg-yellow text-center">
+            <% if(existen_viajes) then %>
+            <h1><%= viajes_realizados_vs_cancelados %>%</h1>
+            <%else%>
+            <h1>NA</h1>
+            <%end%>
+            <h4>éxito de viajes completados</h4>
+        </div>
+    </li>
+    <li class="span2">
+        <div class="small-box bg-yellow text-center">
+            <h1><%= number_with_precision(co2ahorrado,:precision => 2)%> </h1>
+            <h4>kilos de CO2 ahorrado</h4>   
+        </div>
+    </li>
+    <li class="span2">
+        <div class="small-box bg-yellow text-center">
+            <h1><%= number_with_precision(kilometros_vans,:precision => 2)%> </h1>
+            <h4>Kilometros recorridos por las vans</h4>   
+        </div>
+    </li>
+
+</div>

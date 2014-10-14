@@ -1,0 +1,37 @@
+ <% provide(:title, @title) %>
+ <div class="wrapper row-offcanvas row-offcanvas-left">
+    <aside class="left-side sidebar-offcanvas">
+        <%= render 'shared/administrador_sidebar' %> 
+    </aside>
+    <aside class="right-side">
+    <section class="content-header">
+        <h1>Reportes<small>Detalle</small></h1>
+        <ol class="breadcrumb">
+            <li><a href="/dashboard"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="/listareportes"><i class="fa fa-user"></i> Reportes</a></li>
+            <li class="active">Reportes</li>
+        </ol>
+    </section>
+    <section class="content">
+            <div class="row-fluid">
+                <div class="span12">
+                    <table class="table table-bordered">
+  <tr>
+    <th>Cliente</th>
+    <th>Descripcion</th>
+    <th></th>
+  </tr>
+
+<% @reportes.each do |reporte| %>
+  <tr>
+    <td><%= reporte.cliente_id %></td>
+    <td><%= reporte.descripcion %></td>
+    <td><%= link_to 'Destroy', reporte, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+                </div>
+            </div>
+    </section>                                  
+    </aside><!-- /.right-side -->
+</div><!-- ./wrapper -->

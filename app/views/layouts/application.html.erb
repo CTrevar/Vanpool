@@ -10,35 +10,30 @@
   <%= stylesheet_link_tag "AdminLTE", media: "all" %>
   <%= stylesheet_link_tag "vanpool", media: "all" %>
   <%= stylesheet_link_tag "timepicker/bootstrap-timepicker", media: "all" %>
-<<<<<<< HEAD
 
-=======
->>>>>>> 466b84c7eee686c1eff3d96cc9e8c68d2816b3c2
-
-
-
-  
-  <%= javascript_include_tag "bootstrap" %>
 
   <%= stylesheet_link_tag "application", media: "all" %>
 
   <%= javascript_include_tag "bootstrap/jquery" %>
-<<<<<<< HEAD
+
 <!--   <%= javascript_include_tag "bootstrap/bootstrap" %>
  -->
-=======
-  <%= javascript_include_tag "bootstrap/bootstrap" %>
 
->>>>>>> 466b84c7eee686c1eff3d96cc9e8c68d2816b3c2
   <%= javascript_include_tag "bootstrap/bootstrap-modal" %>
+
+  
+
   <%= javascript_include_tag "plugins/input-mask/jquery.inputmask" %>
   <%= javascript_include_tag "plugins/input-mask/jquery.inputmask.date.extensions" %>
   <%= javascript_include_tag "plugins/daterangepicker/daterangepicker" %>
   <%= javascript_include_tag "plugins/colorpicker/bootstrap-colorpicker.min" %>
   <%= javascript_include_tag "plugins/timepicker/bootstrap-timepicker.min" %>
+  <!-- Importación de Javascript para la validación. -->
+  <%= javascript_include_tag "js/jquery.validationEngine.js" %>
+  <%= javascript_include_tag "js/languages/jquery.validationEngine-es.js" %>
+
+  
   <%= javascript_include_tag "AdminLTE/app" %>
-<!--   <%= javascript_include_tag "application" %>
- -->
 
   <!-- Javascripts para jTables. -->
   <%= javascript_include_tag "jquery.ui.all" %>
@@ -49,14 +44,10 @@
   <!-- Importación del CSS para la validación. -->
   <%= stylesheet_link_tag "css/validationEngine.jquery.css" %>
 
-  <!-- Importación de Javascript para la validación. -->
-  <%= javascript_include_tag "js/jquery.validationEngine.js" %>
-  <%= javascript_include_tag "js/languages/jquery.validationEngine-es.js" %>
+  <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+  <script src="//www.google.com/jsapi"></script>
 
 
-
-<!--   <%= javascript_include_tag "application" %>
- -->
 
   <%= csrf_meta_tags %>
   <%= render 'layouts/shim' %>

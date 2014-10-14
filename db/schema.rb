@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140929175036) do
+ActiveRecord::Schema.define(:version => 20141010230333) do
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -42,13 +42,22 @@ ActiveRecord::Schema.define(:version => 20140929175036) do
   create_table "clientes", :force => true do |t|
     t.integer  "puntaje"
     t.integer  "nivel_id"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
     t.integer  "user_id"
-    t.integer  "kilometraje", :default => 0
     t.integer  "co2",         :default => 0
     t.string   "facebook_id"
     t.string   "openpay_id"
+    t.decimal  "co2ahorrado", :default => 0.0
+    t.decimal  "kilometros",  :default => 0.0
+  end
+
+  create_table "conductors", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "licenciaConductor"
+    t.boolean  "estatusConductor"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "configuracions", :force => true do |t|
@@ -58,10 +67,34 @@ ActiveRecord::Schema.define(:version => 20140929175036) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "descuentos", :force => true do |t|
+    t.string   "nombre"
+    t.string   "descripcion"
+    t.integer  "porcentaje"
+    t.integer  "vigencia"
+    t.integer  "medalla_id"
+    t.boolean  "estatus"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "estadotipos", :force => true do |t|
     t.string   "nombre"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "frecuencias", :force => true do |t|
+    t.boolean  "lunes"
+    t.boolean  "martes"
+    t.boolean  "miercoles"
+    t.boolean  "jueves"
+    t.boolean  "viernes"
+    t.boolean  "sabado"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "ruta_id"
+    t.boolean  "domingo"
   end
 
   create_table "medallas", :force => true do |t|
@@ -126,6 +159,10 @@ ActiveRecord::Schema.define(:version => 20140929175036) do
     t.boolean  "estatus"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
+    t.integer  "posicion"
+    t.float    "tiempo"
+    t.float    "distancia"
+    t.integer  "ruta_id"
   end
 
   create_table "relationships", :force => true do |t|
@@ -138,6 +175,14 @@ ActiveRecord::Schema.define(:version => 20140929175036) do
   add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
   add_index "relationships", ["follower_id", "followed_id"], :name => "index_relationships_on_follower_id_and_followed_id", :unique => true
   add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
+
+  create_table "reportes", :force => true do |t|
+    t.integer  "cliente_id"
+    t.string   "descripcion"
+    t.boolean  "estatus"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "reservacions", :force => true do |t|
     t.integer  "viaje_id"
@@ -154,6 +199,15 @@ ActiveRecord::Schema.define(:version => 20140929175036) do
     t.boolean  "estatus"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.integer  "aspecto_id"
+    t.integer  "calificacion"
+  end
+
+  create_table "retroaspectos", :force => true do |t|
+    t.string   "nombre"
+    t.boolean  "estatus"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "rutas", :force => true do |t|
@@ -166,6 +220,7 @@ ActiveRecord::Schema.define(:version => 20140929175036) do
     t.boolean  "estatus"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.string   "hora_inicio"
   end
 
   create_table "tipomedallas", :force => true do |t|
@@ -179,11 +234,18 @@ ActiveRecord::Schema.define(:version => 20140929175036) do
     t.string   "email"
     t.integer  "heir_id"
     t.string   "heir_type"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "admin",           :default => false
+    t.boolean  "admin",             :default => false
+    t.integer  "idTipoUsuario"
+    t.string   "facebookidUsuario"
+    t.string   "openpayidUsuario"
+    t.string   "apellidoPaterno"
+    t.string   "apellidoMaterno"
+    t.datetime "fechaNacimiento"
+    t.boolean  "estatusUsuario"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

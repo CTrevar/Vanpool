@@ -1,6 +1,6 @@
 <%= form_for(@administrador) do |f| %>
   <% if @administrador.errors.any? %>
-    <div id="error_explanation">
+    <div class="callout callout-danger">
       <h2><%= pluralize(@administrador.errors.count, "error") %> prohibited this administrador from being saved:</h2>
 
       <ul>
@@ -15,10 +15,27 @@
     <%= f.label :nombreUsuario %><br />
     <%= f.text_field :nombreUsuario %>
   </div>
-  <div class="field">
-    <%= f.label :emailUsuario %><br />
-    <%= f.text_field :emailUsuario %>
-  </div>
+    <% if @administrador.errors.any?
+         if @administrador.errors[:emailUsuario].present? %>
+            <div class="form-group has-error">
+              <%= f.label :emailUsuario, class: "control-label" %><br />
+              <%= f.text_field :emailUsuario, class: "form-control" %>
+              <div class="callout callout-danger">
+                <%= @administrador.errors[:emailUsuario] %>
+              </div>
+            </div>
+    <%   else   %>
+            <div class="form-group">
+              <%= f.label :emailUsuario, class: "control-label" %><br />
+              <%= f.text_field :emailUsuario, class: "form-control" %>
+            </div>
+    <%   end
+       else   %>
+        <div class="form-group">
+          <%= f.label :emailUsuario %><br />
+          <%= f.text_field :emailUsuario %>
+        </div>
+    <% end %>
   <div class="field">
     <%= f.label :idTipoUsuario %><br />
     <%= f.number_field :idTipoUsuario %>

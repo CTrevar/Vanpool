@@ -1,6 +1,7 @@
 class ClientesController < ApplicationController
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :dashboard, 
-    :profile, :muro, :reservaciones, :checkin]
+    :profile, :muro, :reservaciones, :checkin, :retro, :reporte, :create_retro, :guardaretro,
+    :formapago, :compracredito]
 
   # GET /clientes
   # GET /clientes.json
@@ -45,7 +46,6 @@ class ClientesController < ApplicationController
   # POST /clientes.json
   def create
     @cliente = Cliente.new(params[:cliente])
-
     respond_to do |format|
       if @cliente.save
         format.html { redirect_to @cliente, notice: 'Cliente was successfully created.' }
@@ -90,6 +90,50 @@ class ClientesController < ApplicationController
   
   def dashboard
     @current_cliente = obtener_cliente(current_user)
+    
+    #puts @request_hash["name"]
+    #print "hola"
+
+  end
+
+
+  def compracredito
+    @current_cliente = obtener_cliente(current_user)
+    
+    #puts @request_hash["name"]
+    #print "hola"
+    render 'show_compra_credito'
+  end
+
+  def formapago
+    @current_cliente = obtener_cliente(current_user)
+    @recarga=params[:cantidad]
+    @subtotal=subtotal(@recarga)
+    @impuesto=impuesto(@recarga)
+    #aspectos.each do |aspecto|
+    #  calificacion=params[:"#{aspecto.id}"]
+    #  retro = Retroalimentacion.create(reservacion_id:reservacion,aspecto_id:aspecto.id,calificacion:calificacion)
+    #end
+    #puts @request_hash["name"]
+    #print "hola"
+    render 'show_pago'
+  end
+
+  def subtotal(recarga)
+    return (recarga.to_i-impuesto(recarga)).to_d
+  end
+
+  def impuesto(recarga)
+    imp=Configuracion.find(2).valor
+    return recarga.to_i*(imp.to_d/100)
+  end
+
+  def detalleviaje
+    @current_cliente = obtener_cliente(current_user)
+    
+    #puts @request_hash["name"]
+    #print "hola"
+    render 'show_detalleviaje'
   end
 
 
@@ -103,12 +147,14 @@ class ClientesController < ApplicationController
     @mensaje=obtener_mensaje_nivel(@cliente)
     @validamedallas=valida_medallas(@cliente)
     @muro = obtener_ultimas_medallas(@cliente)
-    @co2 = @cliente.co2
-    @kilometros = @cliente.kilometraje
+    @co2 = @cliente.co2ahorrado
+    @kilometros = @cliente.kilometros
 
     @reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
     @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
     @reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
+
+    #@descuentos=obtener_ultimo_descuento(@cliente)
 
     render 'show_profile'
   end
@@ -123,8 +169,8 @@ class ClientesController < ApplicationController
     @mensaje=obtener_mensaje_nivel(@cliente)
     @validamedallas=valida_medallas(@cliente)
     @muro=obtener_muro(@cliente)
-    @co2 = @cliente.co2
-    @kilometros = @cliente.kilometraje
+    @co2 = @cliente.co2ahorrado
+    @kilometros = @cliente.kilometros
     render 'show_muro'
   end
 
@@ -144,7 +190,19 @@ class ClientesController < ApplicationController
   end
 
 
-  private
+  def reporte
+    @title="Reporta el servicio"
+    @current_cliente = obtener_cliente(current_user)
+    @reporte = Reporte.new
+
+    render 'show_reporte'
+  end
+
+  def comprar
+    
+    redirect_to :controller => 'clientes', :action => 'formapago'
+  end
+
   end
 
 

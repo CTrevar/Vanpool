@@ -1,0 +1,30 @@
+<% provide(:title, @title) %>
+ <div class="wrapper row-offcanvas row-offcanvas-left">
+    <aside class="left-side sidebar-offcanvas">
+        <%= render 'shared/administrador_sidebar' %> 
+    </aside>
+    <aside class="right-side">
+    <section class="content-header">
+        <h1>Reportes<small>Detalle</small></h1>
+        <ol class="breadcrumb">
+            <li><a href="/dashboard"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="/listareportes"><i class="fa fa-user"></i> Reportes</a></li>
+            <li class="active">Reportes</li>
+        </ol>
+    </section>
+    <section class="content">
+            <div class="row-fluid">
+                <div class="row-fluid">
+
+                    <%= render 'shared/administrador_feedback_graph' %>
+                </div>
+                <div class="row-fluid">
+                    <%= render 'shared/administrador_feedback' %>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <%= render 'shared/administrador_feedback_ruta' %>
+            </div>
+    </section>                                  
+    </aside><!-- /.right-side -->
+</div><!-- ./wrapper -->

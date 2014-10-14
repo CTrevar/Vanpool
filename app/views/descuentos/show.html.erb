@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nombre:</b>
+  <%= @descuento.nombre %>
+</p>
+
+<p>
+  <b>Descripcion:</b>
+  <%= @descuento.descripcion %>
+</p>
+
+<p>
+  <b>Porcentaje:</b>
+  <%= @descuento.porcentaje %>
+</p>
+
+<p>
+  <b>Vigencia:</b>
+  <%= @descuento.vigencia %>
+</p>
+
+<p>
+  <b>Medalla:</b>
+  <%= @descuento.medalla_id %>
+</p>
+
+<p>
+  <b>Estatus:</b>
+  <%= @descuento.estatus %>
+</p>
+
+
+<%= link_to 'Edit', edit_descuento_path(@descuento) %> |
+<%= link_to 'Back', descuentos_path %>

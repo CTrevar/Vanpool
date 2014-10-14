@@ -15,4 +15,20 @@ module ViajesHelper
       end
     end
 
+    def existen_viajes
+      if(Viaje.find_all_by_estadoviaje_id([3,4]).count>0) 
+        return true
+      else
+        return false
+      end
+    end
+
+    def existen_reservaciones
+      if(Reservacion.find_all_by_estadotipo_id([3,4]).count>0) 
+        return true
+      else
+        return false
+      end
+    end
+
 end

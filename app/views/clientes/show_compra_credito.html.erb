@@ -1,0 +1,42 @@
+ <% provide(:title, @title) %>
+ <div class="wrapper row-offcanvas row-offcanvas-left">
+    <aside class="left-side sidebar-offcanvas">
+        <%= render 'shared/user_sidebar' %> 
+    </aside>
+    <aside class="right-side">
+    <section class="content-header">
+        <h1>Reporte<small>Detalle</small></h1>
+        <ol class="breadcrumb">
+            <li><a href="/dashboard"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="/clientes/<%= @cliente.user.id %>/profile"><i class="fa fa-user"></i> Reporte</a></li>
+            <li class="active">Reporte</li>
+        </ol>
+    </section>
+    <section class="content">
+            <div class="row-fluid">
+                <div class="span12">
+                    <%= form_tag(controller: "clientes", action: "formapago", method: "get", class: "nifty_form") do %>
+            <table class="table table-bordered">
+                <tr>               
+                <td><%= radio_button_tag("cantidad",50) %>
+                    <%= label_tag(:cantidad, "$50 pesos") %>
+                </td>
+                <td><%= radio_button_tag("cantidad",100) %>
+                    <%= label_tag(:cantidad, "$100 pesos") %>
+                </td>
+                <td><%= radio_button_tag("cantidad",200) %>
+                    <%= label_tag(:cantidad, "$200 pesos") %>
+                </td>
+                <td><%= radio_button_tag("cantidad",300) %>
+                    <%= label_tag(:cantidad, "$300 pesos") %>
+                </td>  
+                </tr>
+            </table>
+            <%= submit_tag("Recargar") %>
+        <% end %>
+
+                </div>
+            </div>
+    </section>                                  
+    </aside><!-- /.right-side -->
+</div><!-- ./wrapper -->

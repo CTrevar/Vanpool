@@ -196,8 +196,8 @@ module GamificationHelper
     	vanco2=reservacion.viaje.ruta.kilometros*(@reservacion.viaje.ruta.van.co2gxkm/Reservacion.find_all_by_estadotipo_id_and_viaje_id([2,3],@reservacion.viaje_id).count)
     	#autoco2=@reservacion.viaje.ruta.kilometros*Configuracion.find_by_nombre("CO2gxkmauto").valor
     	autoco2=reservacion.viaje.ruta.kilometros*196
-    	reservacion.cliente.co2=autoco2-vanco2
-    	reservacion.save
+    	reservacion.cliente.co2ahorrado=autoco2-vanco2
+    	reservacion.cliente.save
 	end
 
 end

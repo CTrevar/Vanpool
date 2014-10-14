@@ -19,10 +19,28 @@
 
 	def create
 		@user = User.new(params[:user])
-		if @user.save	
+		if @user.save
+			
+        	
 			sign_in @user
 			@cliente = Cliente.create(puntaje:0,nivel_id:1,user_id:@user.id)
 			#flash[:success] = "Welcome to the Sample App!"
+			# Tell the UserMailer to send a welcome email after save
+			UserMailer.welcome_email(@user).deliver
+
+			@openpay=OpenpayApi.new('muvdvkft3dzo57bfzv5g','sk_aa543af9dc964f83b41418a26aa6104f')
+   
+			@customers=@openpay.create(:customers)
+    		request_hash={
+     			"external_id" => nil,
+     			"name" => @cliente.user.name,
+     			"last_name" => nil,
+     			"email" => @cliente.user.email,
+     			"requires_account" => true,
+     		}
+    		response_hash=@customers.create(request_hash.to_hash)
+    		@cliente.openpay_id=response_hash["id"]
+    		@cliente.save
 			redirect_to :controller => 'clientes', :action => 'dashboard'
 		else
 			render 'new'
@@ -54,8 +72,6 @@
 		end
 	end
 
-<<<<<<< HEAD
-=======
 	def following
 		@title = "Following"
 		@user = User.find(params[:id])
@@ -74,15 +90,7 @@
 		Micropost.from_users_followed_by(self)
 	end
 
-<<<<<<< HEAD
-# <<<<<<< HEAD
-# <<<<<<< HEAD
-	def obtener_cliente
-    	@cliente = Cliente.find(current_user.id)
-  	end
-#=======
-=======
->>>>>>> 466b84c7eee686c1eff3d96cc9e8c68d2816b3c2
+
 	def profile
 		@title = "Perfil"
 		@user = User.find(params[:id])
@@ -100,20 +108,11 @@
         render 'users/dashboard'
       end
   end
-<<<<<<< HEAD
-# >>>>>>> jTables
-# =======
-    def obtener_cliente(user)
-      @cliente = Cliente.find_by_user_id(user.id)
-    end
-#>>>>>>> bbe988770409e80f7e6c8acf72c8150a9ac74846
-=======
-    def obtener_cliente(user)
-      @cliente = Cliente.find_by_user_id(user.id)
-    end
->>>>>>> 466b84c7eee686c1eff3d96cc9e8c68d2816b3c2
 
->>>>>>> e3093baf7c695de9b063471e9f6ff7cbbd66dce4
+    def obtener_cliente(user)
+      @cliente = Cliente.find_by_user_id(user.id)
+    end
+
 	private
 		def signed_in_user
 			store_location

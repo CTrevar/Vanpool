@@ -1,0 +1,8 @@
+<div class="row-fluid">
+<% @aspectos.each do |aspecto| %>
+<div class="span4">
+    <%= pie_chart Retroalimentacion.where(:aspecto_id=> aspecto.id).group(:calificacion).count, {library: {title: aspecto.nombre}}%>
+    <center><p></p></center>
+</div>
+<% end %>
+</div>

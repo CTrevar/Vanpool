@@ -10,9 +10,9 @@
 </div>
 <div class="row-fluid">
     <% @muro.each do |medalla| %>
-    <div class="span3">
+    <div class="span2">
         <div class="row-fluid">
-                <img src="/assets/Foodzy_Badges.png" class="img-circle" alt="<%= medalla.nombre%>" /></br>
+                <img src="/assets/medals/<%= medalla.imagen%>" class="img-circle" alt="<%= medalla.nombre%>" /></br>
                 <center><b><%= medalla.nombre%></b></center>
                 <center><%= medalla.created_at%></center>
         </div>

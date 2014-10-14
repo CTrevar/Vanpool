@@ -1,0 +1,27 @@
+<h1>Listing conductors</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Licenciaconductor</th>
+    <th>Estatusconductor</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @conductors.each do |conductor| %>
+  <tr>
+    <td><%= conductor.user_id %></td>
+    <td><%= conductor.licenciaConductor %></td>
+    <td><%= conductor.estatusConductor %></td>
+    <td><%= link_to 'Show', conductor %></td>
+    <td><%= link_to 'Edit', edit_conductor_path(conductor) %></td>
+    <td><%= link_to 'Destroy', conductor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Conductor', new_conductor_path %>

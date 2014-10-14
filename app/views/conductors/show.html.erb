@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @conductor.user_id %>
+</p>
+
+<p>
+  <b>Licenciaconductor:</b>
+  <%= @conductor.licenciaConductor %>
+</p>
+
+<p>
+  <b>Estatusconductor:</b>
+  <%= @conductor.estatusConductor %>
+</p>
+
+
+<%= link_to 'Edit', edit_conductor_path(@conductor) %> |
+<%= link_to 'Back', conductors_path %>

@@ -1,0 +1,33 @@
+<h1>Listing descuentos</h1>
+
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>Descripcion</th>
+    <th>Porcentaje</th>
+    <th>Vigencia</th>
+    <th>Medalla</th>
+    <th>Estatus</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @descuentos.each do |descuento| %>
+  <tr>
+    <td><%= descuento.nombre %></td>
+    <td><%= descuento.descripcion %></td>
+    <td><%= descuento.porcentaje %></td>
+    <td><%= descuento.vigencia %></td>
+    <td><%= descuento.medalla_id %></td>
+    <td><%= descuento.estatus %></td>
+    <td><%= link_to 'Show', descuento %></td>
+    <td><%= link_to 'Edit', edit_descuento_path(descuento) %></td>
+    <td><%= link_to 'Destroy', descuento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Descuento', new_descuento_path %>

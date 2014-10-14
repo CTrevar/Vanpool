@@ -1,0 +1,25 @@
+<h1>Listing retroaspectos</h1>
+
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>Estatus</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @retroaspectos.each do |retroaspecto| %>
+  <tr>
+    <td><%= retroaspecto.nombre %></td>
+    <td><%= retroaspecto.estatus %></td>
+    <td><%= link_to 'Show', retroaspecto %></td>
+    <td><%= link_to 'Edit', edit_retroaspecto_path(retroaspecto) %></td>
+    <td><%= link_to 'Destroy', retroaspecto, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Retroaspecto', new_retroaspecto_path %>

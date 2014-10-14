@@ -1,5 +1,21 @@
 SampleApp::Application.routes.draw do
 
+
+  resources :conductors
+
+  resources :descuentos
+
+
+  resources :reportes
+
+
+  resources :retroaspectos
+
+
+  resources :retroalimentacions
+
+
+
   resources :reservacions
 
   resources :niveles
@@ -31,15 +47,39 @@ SampleApp::Application.routes.draw do
     end
   end
 
+  resources :viajes do
+    member do
+      get :detalleviaje
+    end
+  end
+
+  resources :reservacions do
+    member do
+      get :retroalimentacion
+    end
+  end
+
   resources :sessions, only: [:new, :create, :destroy]
-  resources :microposts, only: [:create, :destroy]
+  resources :retroalimentacion, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
   resources :reservacions, only: [:checkin]
 
+  match '/listareportes', to: 'administradors#listareportes'
+  match '/retroalimentaciones', to: 'administradors#reporteretros'
   
+  match '/inicio', to: 'administradors#inicio'
   match '/dashboard', to: 'clientes#dashboard'
   match '/reservaciones', to: 'clientes#reservaciones'
+  match '/reporte', to: 'clientes#reporte'
+  match '/retro', to: 'reservacions#create_retro'
+  match '/retro', to: 'reservacions#retro'
   match '/checkin', to: 'reservacions#checkin'
+
+  match '/formapago', to: 'clientes#formapago'
+  match '/compracredito', to: 'clientes#compracredito'
+
+  match '/recarga', to: 'pagos#recarga'
+  match '/compra', to: 'pagos#compra'
 
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'
@@ -59,14 +99,25 @@ SampleApp::Application.routes.draw do
   match '/listadministradores', to: 'administradors#listadministradores'
   match '/administradors', to: 'administradors#index'
 
-
+  match '/administradores', to: 'administradors#administradores', via:[:get, :post, :put]
   match '/administrador_controller/jtable_list',   to: 'administradors#jtable_list',   via: [:get, :post]
   match '/administrador_controller/jtable_filterlist',   to: 'administradors#jtable_filterlist',   via: [:get, :post]
   match '/administrador_controller/jtable_create',   to: 'administradors#jtable_create',   via: [:get, :post]
   match '/administrador_controller/jtable_delete',   to: 'administradors#jtable_delete',   via: [:post]
   match '/administrador_controller/jtable_update',   to: 'administradors#jtable_update',   via: [:post]
   # match '/administradoresTableContainer/delete',   to: 'tables#administradoresTableContainer_delete',   via: [:post]
+  match '/administrador_controller/update',   to: 'administradors#update',   via: [:post,:put]
+  match '/administrador_controller/create',   to: 'administradors#create',   via: [:post,:put]
 
+
+  match '/conductores', to: 'administradors#conductores', via:[:get, :post, :put]
+  match '/conductor_controller/jtable_list',   to: 'conductors#jtable_list',   via: [:post, :get]
+  match '/conductor_controller/jtable_filterlist',   to: 'conductors#jtable_filterlist',   via: [:get, :post]
+  match '/conductor_controller/jtable_create',   to: 'conductors#jtable_create',   via: [:get, :post]
+  match '/conductor_controller/jtable_delete',   to: 'conductors#jtable_delete',   via: [:post]
+  match '/conductor_controller/jtable_update',   to: 'conductors#jtable_update',   via: [:post]
+  match '/conductor_controller/update',   to: 'conductors#update',   via: [:post,:put]
+  match '/conductor_controller/create',   to: 'conductors#create',   via: [:post,:put]
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
