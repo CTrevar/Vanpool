@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141010230333) do
+ActiveRecord::Schema.define(:version => 20141013002340) do
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -210,7 +210,7 @@ ActiveRecord::Schema.define(:version => 20141010230333) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "rutas", :force => true do |t|
+  create_table "ruta", :force => true do |t|
     t.integer  "conductor_id"
     t.integer  "van_id"
     t.string   "nombre"
@@ -223,6 +223,12 @@ ActiveRecord::Schema.define(:version => 20141010230333) do
     t.string   "hora_inicio"
   end
 
+  create_table "sugerencia", :force => true do |t|
+    t.string   "hora_inicio"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "tipomedallas", :force => true do |t|
     t.string   "nombre"
     t.datetime "created_at", :null => false
@@ -232,8 +238,6 @@ ActiveRecord::Schema.define(:version => 20141010230333) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.integer  "heir_id"
-    t.string   "heir_type"
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
     t.string   "password_digest"
@@ -255,6 +259,7 @@ ActiveRecord::Schema.define(:version => 20141010230333) do
     t.string   "placa",               :limit => 45
     t.string   "modelo",              :limit => 45
     t.integer  "capacidad"
+    t.integer  "co2gxkm"
     t.date     "fecha_compra"
     t.integer  "kilometro_recorrido"
     t.boolean  "activa"
