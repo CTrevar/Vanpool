@@ -156,9 +156,9 @@
                     //Mostrar filas seleccionadas
                     $selectedRows.each(function () {
                         var record = $(this).data('record');
-                        $.get('/administradores', record, function(data){
+                        $.get('/administrar_administrador_detalle', record, function(data){
                             $("#detalleAdministrador").html(data);
-                        });
+                        }).success();
                         $("#administradorsTableContainer").removeClass('col-md-12');
                         $("#administradorsTableContainer").removeClass('col-lg-12');
                         $("#administradorsTableContainer").addClass('col-md-8');
