@@ -4,7 +4,7 @@ module RutasHelper
 		return Ruta.all
 	end
 
-	def busqueda origen destino
+	def busqueda (origen, destino)
 		result=nil
 		count=0
 		origen=localizacion.new
@@ -30,14 +30,14 @@ module RutasHelper
 		return result
 	end
 
-	def proximidad origen
+	def proximidad (origen)
 		r=Configuracion.find(3).valor.to_d
 		#ejemplo
 		puntos=Parada.where(:x=>origen.x-r..origen.x+r).where(:y=>origen.y-r..origen.y+r)
 		return puntos
 	end
 
-	def buscarutas co cd 
+	def buscarutas (co,cd)
 		rutas=nil
 		count = 0
 		co.each do |origen|
@@ -52,7 +52,7 @@ module RutasHelper
 		return rutas
 	end
 
-	def paradacercana ruta punto
+	def paradacercana (ruta, punto)
 		paradacercana=nil
 		r=Configuracion.find(3).valor.to_d
 		diferenciax=r 
@@ -69,7 +69,7 @@ module RutasHelper
 		return paradacercana
 	end
 
-	def valida_direccion origen destino
+	def valida_direccion (origen, destino)
 		#solo se usa si es por nodos
 		#orden_ruta=ordenar_ruta(ruta)
 		#posicion_o=busca_posicion(orden_ruta, origen)
@@ -80,14 +80,15 @@ module RutasHelper
 			return false
 	end
 
-	def ordenar_ruta ruta
+	def ordenar_ruta (ruta)
 		return Ruta.find(ruta.id).order("posicion DESC")
 	end
 
-	def busca_posicion ruta parada
+	def busca_posicion (ruta, parada)
 		ruta.paradas.each do |parada|
 		end
 		return posicion
 	end
 
+end
 end

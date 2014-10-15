@@ -1,8 +1,9 @@
 module CheckinHelper
 
-	def checkin
+	def checkin id
 		#agregar rollback
-    	@reservacion = Reservacion.find(params[:id])
+    	#@reservacion = Reservacion.find(params[:id])
+        @reservacion = Reservacion.find(id)
  		reservacion_realizada(@reservacion)
     	aumenta_kilometraje(@reservacion)
     	aumenta_puntos_kilometraje(@reservacion)

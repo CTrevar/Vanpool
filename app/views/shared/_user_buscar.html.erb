@@ -1,22 +1,4 @@
-<% provide(:title, 'La nueva forma de llegar a tu destino') %>
-
-<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp" %>
-<%= javascript_include_tag "rutas" %>
-
-<%= stylesheet_link_tag "rutas", media: "all" %>
-
-<% if signed_in? %>
-	
-			<%= redirect_to '/dashboard' %>
-		
-<% else %>
-
-	 <div class="row-fluid map">
-      <div class="span12">
-        <div class="container">
-          <div class="row-fluid">
-                  <div class="span4">
-                    <div class="box">
+<div class="box">
                         <div class="box-header">
                         </br>
                           <h3 class="box-title">Busca tu ruta</h3>
@@ -24,13 +6,18 @@
                             <!-- form start -->
                               <form role="form">
                                 <div class="box-body">
-                                  <div class="form-group">
-                                    <label for="origen">¿Dónde comienzas tu viaje?</label>
-                                    <div class="input-group">
-                                      <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-                                      <input id="origenRuta" class="form-control"  placeholder="Origen">
-                                    </div>
+                                  
+                                    <div class="span6">
+                                      <div class="form-group">
+                                        <label for="origen">¿Dónde comienzas tu viaje?</label>
+                                        <div class="input-group">
+                                          <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                          <input id="origenRuta" class="form-control"  placeholder="Origen">
+                                        </div>
+                                    </div>                  
                                   </div>
+
+                                  <div class="span6">
                                   <div class="form-group">
                                     <label for="destino">¿Dónde terminas tu viaje?</label>
                                       <div class="input-group">
@@ -38,6 +25,7 @@
                                         <input id="destinoRuta" class="form-control"  placeholder="Destino">
                                       </div>
                                     </div>
+                                  </div>
                                   <div class="form-group">
                                     <label for="diaViaje">¿Cuándo quieres viajar?</label>
                                         <div class="row-fluid">
@@ -53,9 +41,10 @@
                                           </div>
                                           <div class="span6">
                                            <div class="bootstrap-timepicker">
+                                            
                                         <div class="form-group">
+                                          
                                             <div class="input-group">
-                                                
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-clock-o"></i>
                                                 </div>
@@ -74,27 +63,3 @@
                                     </br>
                               </form>
                     </div><!-- /.box -->
-                  </div>         
-                <div class="span8">
-                  <div class="mapbox" id="map-canvas">
-
-                  </div>
-                </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-   <!-- Container -->
-    <div class="container marketing">
-      <div class="row-fluid">
-        <div class="span4">
-          <img class="img-circle" src="/assets/van.jpg">
-        </div>
-        <div class="span8">
-          <h2>La nueva forma de llegar a tu trabajo o escuela.</h2>
-          <p>Deja que nosotros te llevemos y te recojamos en una van de lujo. Sólo paga por los trayectos que uses.</p>
-        </div>
-      </div>
-    </div><!-- /.container --> 
-<% end %>

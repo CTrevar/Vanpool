@@ -48,6 +48,7 @@ module PagosHelper
             "description" => "Compra de viaje"
         }
         response_hash=@transfers.create(request_hash.to_hash, @cuenta["id"])
+        ##generar qr y reserva cambia de status
         redirect_to :controller => 'clientes', :action => 'dashboard'
     end
 
