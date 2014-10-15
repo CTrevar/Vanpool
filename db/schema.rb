@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141010230333) do
+ActiveRecord::Schema.define(:version => 20141014212314) do
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -221,6 +221,22 @@ ActiveRecord::Schema.define(:version => 20141010230333) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.string   "hora_inicio"
+  end
+
+  create_table "sugerencia_paradas", :force => true do |t|
+    t.decimal  "latitud"
+    t.decimal  "longitud"
+    t.integer  "posicion"
+    t.integer  "sugerencia_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "nombre"
+  end
+
+  create_table "sugerencias", :force => true do |t|
+    t.string   "hora_inicio"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "tipomedallas", :force => true do |t|

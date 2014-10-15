@@ -136,6 +136,11 @@ SampleApp::Application.routes.draw do
 
   match '/administrar_ruta_detalle',   to: 'rutas#administrador_detalleruta',   via: [:get, :post, :put]
 
+  match '/sugerencias', to: 'administradors#sugerencias', via:[:get, :post, :put]
+  match '/sugerencia_controller/jtable_list',   to: 'sugerencias#jtable_list',   via: [:post, :get]
+  match '/sugerencia_controller/jtable_filterlist',   to: 'sugerencias#jtable_filterlist',   via: [:get, :post]
+  match '/administrar_sugerencia_detalle',   to: 'administradors#administrador_detallesugerencia',   via: [:get, :post, :put]
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

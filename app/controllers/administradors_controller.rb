@@ -168,6 +168,26 @@ class AdministradorsController < ApplicationController
     render 'show_reporte_retro'
   end
 
+  def sugerencias
+    @rutas = Ruta.all
+    
+  end
+
+  def administrador_detallesugerencia
+    sugerencia_id = params[:sugerencia_id]
+    if sugerencia_id.nil?
+      
+      # respond_to do |format|
+      #   format.html #listaconductores.html.erb
+      # end
+    else
+      @sugerencia = Sugerencia.find(sugerencia_id)
+      respond_to do |format|
+        format.html {render partial: 'shared/administrador_detallesugerencia', locals: { sugerencia: @sugerencia }}
+      end
+    end
+  end
+
 
 
   def update
