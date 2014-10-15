@@ -1,6 +1,6 @@
 class Cliente < ActiveRecord::Base
 
-  attr_accessible :nivel_id, :puntaje, :user_id
+  attr_accessible :nivel_id, :puntaje, :user_id, :estatus
   belongs_to :user
   belongs_to :nivel
   has_many :medallasmuros

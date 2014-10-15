@@ -143,7 +143,9 @@ class AdministradorsController < ApplicationController
     end
   end
 
-
+  #
+  # Metodo para desplegar la información básica de administrador en un div lateral.
+  #
   def administradores
     user_id = params[:id]
     if user_id.nil?
@@ -155,10 +157,80 @@ class AdministradorsController < ApplicationController
     else
       @administrador = User.find(user_id)
       @action = 'update'
+      # respond_to do |format|
+      #   format.html {render partial: 'shared/administrador_detalleadministrador', locals: { administrador: @administrador, aciton: @action }}
+      # end
+    end
+  end
+  #
+  # Metodo para ver el detalle de la información de un administrador.
+  #
+  def administrador_detalleadministrador
+    user_id = params[:id]
+    if user_id.nil?
+      @administrador = User.new
+      @action = 'create'
+      # respond_to do |format|
+      #   format.html #listaconductores.html.erb
+      # end
+    else
+      @administrador = User.find(user_id)
+      @action = 'update'
       respond_to do |format|
-        format.html {render partial: 'shared/administrador_detalleadministrador', locals: { administrador: @administrador, aciton: @action }}
+        format.html { render partial: 'shared/administrador_detalleadministrador', locals: { cliente: @cliente, aciton: @action }, layout:false}
+        # format.html {render layout:false}
       end
     end
+  end
+  #
+  # Metodo para ver información básica de un cliente en un div lateral
+  #
+  def clientes
+    cliente_id = params[:cliente_id]
+    if cliente_id.nil?
+      @cliente = Cliente.new
+      @action = 'create'
+    else
+      @cliente = Cliente.find(cliente_id)
+      @action = 'update'
+    end
+  end
+  #
+  # Metodo para ver el detalle de la información de un cliente.
+  #
+  def administrador_detallecliente
+    cliente_id = params[:cliente_id]
+    @cliente = Cliente.new
+    if cliente_id.nil?
+      @action = 'create'
+    else
+      @cliente = Cliente.find(cliente_id)
+      @cliente.user = User.find(@cliente.user_id)
+      @action = 'update'
+      respond_to do |format|
+        format.html { render partial: 'shared/administrador_detallecliente', locals: { cliente: @cliente, aciton: @action }, layout:false}
+        # format.html {render layout:false}
+      end
+    end
+  end
+  #
+  # Metodo para ver el perfil con la información de un cliente.
+  #
+  def administrador_perfilcliente
+    cliente_id = params[:cliente_id]
+    @cliente = Cliente.new
+    # if cliente_id.nil?
+    #   redirect_to '/administrar_clientes'
+    # else
+      @cliente = Cliente.find(cliente_id)
+      @cliente.user = User.find(@cliente.user_id)
+      @action = 'update'
+      respond_to do |format|
+        format.html #{ render partial: 'shared/administrador_detallecliente', locals: { cliente: @cliente, aciton: @action }, layout:false}
+        format.json
+        format.js
+      end
+    # end
   end
 
   def reporteretros
@@ -170,28 +242,36 @@ class AdministradorsController < ApplicationController
 
 
 
+  #
+  # Metodo para actualizar la información de un administrador
+  #
   def update
     paramsuser = OpenStruct.new params[:user]
+    @administrador = User.new
     @administrador = User.find(paramsuser.id)
-
-    if paramsuser.password.present?
-      @administrador.attributes = {:name => paramsuser.name, :email => paramsuser.email,
-                                   :fechaNacimiento => paramsuser.fechaNacimiento,
-                                   :apellidoPaterno => paramsuser.apellidoPaterno,
-                                   :apellidoMaterno => paramsuser.apellidoMaterno,
-                                   :password => paramsuser.password,
-                                   :password_confirmation => paramsuser.password_confirmation }
-    else
-      @administrador.attributes = {:name => paramsuser.name, :email => paramsuser.email,
-                                   :fechaNacimiento => paramsuser.fechaNacimiento,
-                                   :apellidoPaterno => paramsuser.apellidoPaterno,
-                                   :apellidoMaterno => paramsuser.apellidoMaterno }
+    mismoAdmin = false
+    if @administrador.id != paramsuser.id
+      mismoAdmin = true
     end
-
-
+    if paramsuser.password.present?
+        @administrador.attributes = {:name => paramsuser.name, :email => paramsuser.email,
+                                     :fechaNacimiento => paramsuser.fechaNacimiento,
+                                     :apellidoPaterno => paramsuser.apellidoPaterno,
+                                     :apellidoMaterno => paramsuser.apellidoMaterno,
+                                     :password => paramsuser.password,
+                                     :password_confirmation => paramsuser.password_confirmation }
+    else
+        @administrador.attributes = {:name => paramsuser.name, :email => paramsuser.email,
+                                     :fechaNacimiento => paramsuser.fechaNacimiento,
+                                     :apellidoPaterno => paramsuser.apellidoPaterno,
+                                     :apellidoMaterno => paramsuser.apellidoMaterno }
+    end
     @action = 'update'
     if @administrador.valid?
       @administrador.save!
+      if mismoAdmin
+        sign_in @administrador
+      end
       respond_to do |format|
         # format.js { render :js => "window.location = '#{forma_detalle_conductor @conductor}'" }
         format.html { render partial: 'administradors/form_administrador', administrador:@administrador, locals: {exito:true}}
@@ -204,7 +284,9 @@ class AdministradorsController < ApplicationController
       end
     end
   end
-
+  #
+  # Metodo para crear administradores
+  #
   def create
     paramsuser = OpenStruct.new params[:user]
     @administrador = User.new
@@ -297,8 +379,8 @@ class AdministradorsController < ApplicationController
                       :Records => @results
                       }
       format.json { render json: jTableResult}
-      format.html
-      format.js
+      # format.html
+      # format.js
     end
   end
 

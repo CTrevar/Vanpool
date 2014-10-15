@@ -26,7 +26,7 @@
 			@cliente = Cliente.create(puntaje:0,nivel_id:1,user_id:@user.id)
 			#flash[:success] = "Welcome to the Sample App!"
 			# Tell the UserMailer to send a welcome email after save
-			UserMailer.welcome_email(@user).deliver
+			# UserMailer.welcome_email(@user).deliver
 
 			@openpay=OpenpayApi.new('muvdvkft3dzo57bfzv5g','sk_aa543af9dc964f83b41418a26aa6104f')
    

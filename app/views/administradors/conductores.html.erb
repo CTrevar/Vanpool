@@ -172,7 +172,7 @@
                         //Mostrar filas seleccionadas
                         $selectedRows.each(function () {
                             var record = $(this).data('record');
-                            $.get('/conductores', record, function(data){
+                            $.get('/administrar_conductores', record, function(data){
                                 $("#detalleConductor").html(data);
                             });
                             $("#conductorsTableContainer").removeClass('col-md-12');

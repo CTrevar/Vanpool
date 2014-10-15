@@ -11,6 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+
 ActiveRecord::Schema.define(:version => 20141015025349) do
 
   create_table "administradors", :force => true do |t|
@@ -42,14 +43,15 @@ ActiveRecord::Schema.define(:version => 20141015025349) do
   create_table "clientes", :force => true do |t|
     t.integer  "puntaje"
     t.integer  "nivel_id"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "user_id"
     t.integer  "co2",         :default => 0
     t.string   "facebook_id"
     t.string   "openpay_id"
     t.decimal  "co2ahorrado", :default => 0.0
     t.decimal  "kilometros",  :default => 0.0
+    t.boolean  "estatus",     :default => true
   end
 
   create_table "conductors", :force => true do |t|
