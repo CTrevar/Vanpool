@@ -3,50 +3,119 @@ class RutasController < ApplicationController
 		@rutas = Ruta.all
 	end
 
-	def new
-		@ruta = Ruta.new
+	 def new
+    @ruta = Ruta.new
     @vans = Van.all
     #@ruta.viajes.build
-    8.times do
-      @ruta.paradas.build
-    end
-
-    #@ruta.paradas.build
-    @ruta.build_van
-    @ruta.build_frecuencia
-	end
-
-	def create
-		@ruta = Ruta.new(params[:ruta])
-    @ruta.estatus = true
-
     
-    # @viajes = @ruta.viajes
-
-    # @viajes.each do|viaje|
-    #   viaje.estadoviaje_id=1
-    #   viaje.estatus = true
+    # 8.times do
+    #   @ruta.paradas.build
     # end
 
-    @paradas = @ruta.paradas
+    ##@ruta.paradas.build
+    
+    #@ruta.build_van
+    #@ruta.build_frecuencia
+  end
 
-    @paradas.each do |parada|
-      parada.estatus = true
-    end
+  def create
+    # @ruta = Ruta.new(params[:ruta])
+  #   @ruta.estatus = true
 
+
+
+  #   @paradas = @ruta.paradas
+
+  #   @paradas.each do |parada|
+  #     parada.estatus = true
+  #   end
+
+
+
+
+  #   @ruta.save
+  #   genera_viajes_ruta_nueva(@ruta)
     
 
-    # @van = Van.find(:van.attributes['id'])
-    # @van.ruta_id = @ruta.attributes['id']
-    # @van.update_attributes(params[:van])
+  #   redirect_to rutas_path
+      
+      #Guardar ruta
+      @ruta = Ruta.new
+      @ruta.nombre = params[:nombreRuta]
+      @ruta.precio = params[:precio]
+      @ruta.van_id = params[:idvan]
+      @ruta.conductor_id = params[:conductorId]
+      @ruta.estatus = true
 
 
-    @ruta.save
-    genera_viajes_ruta_nueva(@ruta)
+      @ruta.save
+
+      #Guardar paradas
+      numero_paradas = params[:numeroParadas].to_i+1
+
+
+      numero_paradas.times do |num|
+        id_parada = params[:"idParada_#{num}"].to_i
+
+   
+
+        #Guardar paradas_ruta
+        #por cada parada
+        @rutaparada = Rutaparada.new
+
+        #if id_parada
+          #guarda la id de la ruta 
+          #@rutaparada.parada_id = id_parada
+        #else 
+          #si no existe parada, crea una nueva
+          @parada = Parada.new
+          @parada.nombre = params[:"nombreParada_#{num}"]
+          @parada.latitud = params[:"latitudParada_#{num}"]
+          @parada.longitud = params[:"longitudParada_#{num}"]
+          @parada.save
+          #guarda el id de la parada en la tabla de paradas_ruta
+          @rutaparada.parada_id = @parada.id
+        #end
+
+        @rutaparada.ruta_id = @ruta.id
+        @rutaparada.posicion  = params[:"posicionParada_#{num}"]
+        @rutaparada.tiempo = params[:"tiempoParada_#{num}"]
+        @rutaparada.distancia = params[:"distanciaParada_#{num}"]
+        @rutaparada.save
+
+      end #end for
+      
+      
+      
+      
+      
     
 
-    redirect_to rutas_path
-	end
+
+      #Guardar frecuencias de la ruta
+      @frecuencia = Frecuencia.new
+      @frecuencia.lunes = params[:lunes]
+      @frecuencia.martes = params[:martes]
+      @frecuencia.miercoles = params[:miercoles]
+      @frecuencia.jueves = params[:jueves]
+      @frecuencia.viernes = params[:viernes]
+      @frecuencia.sabado = params[:sabado]
+      @frecuencia.domingo = params[:domingo]
+      @frecuencia.ruta_id = @ruta.id
+      @frecuencia.save
+
+      
+
+      #Guardar horario
+      @horario = Horario.new
+      @horario.hora = params[:horarioRuta]
+      @horario.ruta_id = @ruta.id
+      @horario.save
+      
+      #genera_viajes_ruta_nueva(@ruta)
+
+      redirect_to rutas_path
+  end #end create
 
 	def show
 		@ruta = Ruta.find(params[:id])
@@ -77,6 +146,8 @@ class RutasController < ApplicationController
     ruta_id = params[:ruta_id]
     @ruta = Ruta.new
     @ruta = Ruta.find(ruta_id)
+
+    ##PARADAS!!
       @ruta.paradas.sort! { |a, b| a.posicion <=> b.posicion }
     @tiempo = 0
     @distancia = 0
@@ -112,7 +183,7 @@ class RutasController < ApplicationController
   end
 
 
-   # =======================================================
+  # =======================================================
   # =======================================================
   # Métodos para las jTables
   # =======================================================
@@ -213,13 +284,14 @@ class RutasController < ApplicationController
       }
 
       #por cada fecha obtenida, crear un viaje nuevo con la fecha indicada
+      horario = Horario.find_by_ruta_id(ruta.id)
       fechas_viaje.each do |fecha_viaje| 
         viaje = Viaje.new
         viaje.fecha = fecha_viaje 
         viaje.estatus= 1
         viaje.estadoviaje_id= 1 
         viaje.ruta_id= ruta.id
-        viaje.horainicio = ruta.hora_inicio
+        viaje.horainicio = horario.hora
         viaje.save
       end
 

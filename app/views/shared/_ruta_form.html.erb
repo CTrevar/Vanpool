@@ -7,10 +7,11 @@
 
          <div class="col-md-6">
 
-            <%= form_for @ruta, url:rutas_path do |f| %>
+            <%= form_tag(controller:"rutas", action:"create", method:"post" ) do%>
+            
                 <div class="form-group">
                     <label for="nombreRuta">Nombre</label>
-                    <%= f.text_field :nombre %>
+                    <input  class="form-control" name="nombreRuta" placeholder="Nombre de la Ruta">
                 </div>
 
                 <div class="form-group">
@@ -26,7 +27,7 @@
                     <label for="precioRuta">Precio</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                        <%= f.text_field :precio %>
+                        <input  class="form-control" name="precio" placeholder="Precio">
                     </div>
                 </div>
 
@@ -35,41 +36,39 @@
             <div class="bootstrap-timepicker">
                 <div class="form-group">
                     
-                          Hora de Inicio <%= f.text_field :hora_inicio, html: {class: "form-control timepicker"} %>
-                    
+                          Hora de Inicio <input class="form-control" name="horarioRuta" placeholder="Horario">
                 </div><!-- /.form group -->
                     
             </div>
 
             <div class="form-group">
-                <%= f.fields_for :frecuencia do |frecuencia_fields| %>
+                
                     <label>Frecuencia:</label>
                     <div class="input-group">
                     
 
                         <table class="table">
                             <tr>
-                                <td><%= frecuencia_fields.check_box :lunes %></td>
-                                <td><%= frecuencia_fields.check_box :martes %></td>
-                                <td><%= frecuencia_fields.check_box :miercoles %></td>
-                                <td><%= frecuencia_fields.check_box :jueves %></td>
-                                <td><%= frecuencia_fields.check_box :viernes %></td>
-                                <td><%= frecuencia_fields.check_box :sabado %></td>
-                                <td><%= frecuencia_fields.check_box :domingo %></td>
+                                <td><input type="checkbox" name="lunes" ></td>
+                                <td><input type="checkbox" name="martes"></td>
+                                <td><input type="checkbox" name="miercoles"></td>
+                                <td><input type="checkbox" name="jueves"></td>
+                                <td><input type="checkbox" name="viernes"></td>
+                                <td><input type="checkbox" name="sabado"></td>
+                                <td><input type="checkbox" name="domingo"></td>
                             </tr>
                             <tr>
-                                <td><%= frecuencia_fields.label "L" %></td>
-                                <td><%= frecuencia_fields.label  "M" %></td>
-                                <td><%= frecuencia_fields.label  "Mie" %></td>
-                                <td><%= frecuencia_fields.label "J"%></td>
-                                <td><%= frecuencia_fields.label  "V" %></td>
-                                <td><%= frecuencia_fields.label "S" %></td>
-                                <td><%= frecuencia_fields.label "D" %></td>
+                                <td>L</td>
+                                <td>M</td>
+                                <td>Mie</td>
+                                <td>J</td>
+                                <td>V</td>
+                                <td>S</td>
+                                <td>D</td>
                             </tr>
                         </table>
                     
                     </div>
-                <% end %>
             </div><!-- /.form group frecuencia -->
 
             <div class="form-group ">
@@ -79,12 +78,16 @@
                         <img src="../img/avatar3.png" class="img-circle" alt="User Image" />
                     </div>
                     <div class="pull-left info">
-                        <b>Nombre: </b>Luis Rodríguez
+                        <b>Id </b>
+                        <input id ="conductorId" name="conductorId" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
+                        <b>Nombre: </b>
+                        <input id ="conductorNombre" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
                         <br>
-                        <b>Licencia: </b>XKG-19383
+                        <b>Licencia: </b>
+                        <input id ="conductorLicencia" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
                        
                     </div>
-                     <button type="submit" class="btn btn-flat btn-default pull-right">Agregar</button>
+                     <button type="button" class="btn btn-flat btn-default pull-right">Escoger Conductor</button>
                     </div>
             </div>
 
@@ -97,13 +100,13 @@
                         <div class="pull-left info">
                             
                             <b>Id: </b>
-                            <%= f.text_field :van_id,  style: 'background-color:rgba(0, 0, 0, 0); border:none'%> </br>
+                            <input id ="vanId" name="idvan" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
                             <b>Placa: </b>
                             <input id ="vanPlaca" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
                             <b>Modelo: </b>
                             <input id ="vanModelo" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input></br>
 
-                            <button type="button" data-toggle="modal" data-target="#myModal">Ver Vans</button>
+                            <button type="button" class="btn btn-flat btn-default pull-right" data-toggle="modal" data-target="#myModal">Escoger Van</button>
                            
                         </div>
                     </div>
@@ -119,39 +122,57 @@
                         
                     </div><!-- /.box-header -->
 
-                        <%= f.fields_for :paradas do |builder| %>
-                            <%= render "parada_fields", :f => builder %>
-                        <% end %>
+                        
 
+                    <!-- Paradas -->
+                    <div id = "Paradas">
+                        <% count = 0 %>
+                        <input  class="form-control" id="idParada_<%=count%>" name="idParada_<%=count%>" style="display: none" > </input>
+                        <input  class="form-control" id="nombreParada_<%=count%>" name="nombreParada_<%=count%>" size="25"> </input>
+                        <input  class="form-control" id="latitudParada_<%=count%>" name="latitudParada_<%=count%>"  > </input>
+                        <input  class="form-control" id="longitudParada_<%=count%>" name="longitudParada_<%=count%>" > </input>
+                        <input  class="form-control" id="posicionParada_<%=count%>" name="posicionParada_<%=count%>" style="display: none"> </input>
+                        <input  class="form-control" id="tiempoParada_<%=count%>" name="tiempoParada_<%=count%>" style="display: none"> </input>
+                        <input  class="form-control" id="distanciaParada_<%=count%>" name="distanciaParada_<%=count%>" style="display: none"> </input>
+                        <input type="button" value="Buscar" onclick="geocodeMarcador()">
+
+                        <% count += 1 %>
+                        <input  class="form-control" id="idParada_<%=count%>" name="idParada_<%=count%>" style="display: none" > </input>
+                        <input  class="form-control" id="nombreParada_<%=count%>"  name="nombreParada_<%=count%>" size="25"> </input>
+                        <input  class="form-control" id="latitudParada_<%=count%>" name="latitudParada_<%=count%>"  > </input>
+                        <input  class="form-control" id="longitudParada_<%=count%>" name="longitudParada_<%=count%>" > </input>
+                        <input  class="form-control" id="posicionParada_<%=count%>" name="posicionParada_<%=count%>" style="display: none"> </input>
+                        <input  class="form-control" id="tiempoParada_<%=count%>" name="tiempoParada_<%=count%>" style="display: none"> </input>
+                        <input  class="form-control" id="distanciaParada_<%=count%>" name="distanciaParada_<%=count%>" style="display: none"> </input>
+                        <input type="button" value="Buscar" onclick="geocodeMarcador()">
+
+                    </div>
+
+                    <input id="numeroParadas" name="numeroParadas" placeholder="NUm" value ="1"> </input>
+                    <input type="button" value="Más Paradas" onclick="masParadas()">
 
                 
 
-                <p><%= link_to_add_fields "Agregar Parada", f, :paradas %></p>
+                <p></p>
 
 
 
                 </div><!-- /.box-body -->
              </div><!-- /.box -->
-        </div>
 
+            
+                <%= submit_tag("Guardar")%>
+             <% end %>
         
 
 
 
 
-                <input id="latitud_label">Latitud</label>
-                <input id="longitud_label">Logitud</label>
-
-              </br>
-                <textarea id="textoArea" rows="4" cols="50">
-                </textarea>
+     
              
-
-
-             <%= f.submit "Guardar", class: "btn btn-flat btn-success pull-right" %>
-             <%end%>
+        
 
          </div><!--div class column6-->
-<%= render 'shared/modal_vans' %>
-          </section>
- 
+
+    
+ <%= render 'shared/modal_vans' %>
