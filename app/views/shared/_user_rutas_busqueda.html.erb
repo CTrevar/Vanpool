@@ -1,27 +1,30 @@
-<div>
-        
+
+<div class="border green">
+<h3 class="nomargin">Rutas que coinciden contigo</h3>
+</div>
         <% @reservaciones_pagadas.each do |reservacion| %>
-            
-            <div class="item">
-                <h4><%=reservacion.viaje.ruta.nombre%></h4>
+            <div class="item-ruta border">
             <div class="row-fluid">
                 <div class="span6">
+                    <h4><%=reservacion.viaje.ruta.nombre%></h4>
                     <small>ORIGEN:</small><b><%=reservacion.viaje.ruta.nombre%></b>
                     <small>DESTINO:</small><b><%=reservacion.viaje.ruta.nombre%></b>
                     <small>FECHA:</small><b><%=reservacion.viaje.fecha%> </b>
                 </div>
                 <div class="span6">
+                    </br>
+                    </br>
                     <small>HORA DE SALIDA:</small><b>12:00</b></br>
                     <small>HORA DE LLEGADA:</small><b>12:15</b></br>
                     <small>DURACION DEL VIAJE:</small><b><%=reservacion.viaje.ruta.kilometros%> Min</b>
                 </div>
-            </div>
-        </br>
-            <%= link_to "Ver detalle", "/viajes/#{reservacion.viaje.id}/detalle", class:"span12 btn btn-default btn-flat" %>
+                </div>
+            </br>
+                <div class="row-fluid">
+                 <%= link_to "Ver detalle", "/viajes/#{reservacion.viaje.id}/detalle", class:"btn btn-buscar-nav btn-flat span12 pull-right" %>
+                </div>
+            
             </div><!-- /.item -->
-            <hr></hr>
-            <hr></hr>
     <% end %>
-</div>
 
 
