@@ -1,7 +1,7 @@
 class ClientesController < ApplicationController
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :dashboard, 
     :profile, :muro, :reservaciones, :checkin, :retro, :reporte, :create_retro, :guardaretro,
-    :formapago, :compracredito]
+    :formapago, :compracredito, :buscarviaje]
 
   # GET /clientes
   # GET /clientes.json
@@ -90,7 +90,7 @@ class ClientesController < ApplicationController
   
   def dashboard
     @current_cliente = obtener_cliente(current_user)
-    
+    @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2).last(3)
     #puts @request_hash["name"]
     #print "hola"
 
@@ -196,6 +196,13 @@ class ClientesController < ApplicationController
     @reporte = Reporte.new
 
     render 'show_reporte'
+  end
+
+  def buscarviaje
+    @title="Buscar nuevo viaje"
+    @current_cliente = obtener_cliente(current_user)
+    @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2).last(3)
+    render 'show_nuevo_viaje'
   end
 
   def comprar

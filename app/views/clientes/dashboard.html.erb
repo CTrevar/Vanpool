@@ -19,9 +19,16 @@
 
                 <!-- Main content -->
                 <section class="content">
-                     Hola usuario 
-                     <%@valor%>
-                     <h1><%= @litros %> </h1>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <%= render 'shared/user_reservaciones' %>
+                        </div>
+                        <div class="span6">
+                            <%= render 'shared/user_buscar' %>
+                            <%= render 'shared/user_rutas_busqueda' %>
+                        </div>
+                    </div>
+                     
 
                 </section>
                                                   

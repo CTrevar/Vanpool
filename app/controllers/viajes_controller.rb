@@ -1,6 +1,6 @@
 class ViajesController < ApplicationController
  
-  def detalleviaje
+  def detalle
     @current_cliente = obtener_cliente(current_user)
     @title = params[:id]
     render 'show_detalleviaje'

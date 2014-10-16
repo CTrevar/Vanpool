@@ -49,7 +49,7 @@ SampleApp::Application.routes.draw do
 
   resources :viajes do
     member do
-      get :detalleviaje
+      get :detalle
     end
   end
 
@@ -69,6 +69,7 @@ SampleApp::Application.routes.draw do
   
   match '/inicio', to: 'administradors#inicio'
   match '/dashboard', to: 'clientes#dashboard'
+  match '/buscar', to: 'clientes#buscarviaje'
   match '/reservaciones', to: 'clientes#reservaciones'
   match '/reporte', to: 'clientes#reporte'
   match '/retro', to: 'reservacions#create_retro'

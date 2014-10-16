@@ -1,7 +1,7 @@
 <div class="box box-success">
     <div class="box-header">
         <i class="fa fa-road"></i>
-        <h3 class="box-title">Próximos viajes</h3>
+        <h3 class="box-title">Tus Próximos Viajes</h3>
     </div>
     <div class="box-body">
         
@@ -17,18 +17,17 @@
             <div class="item">
         <div class="row-fluid">
             <div class="span6">
-                <label>ID Viaje:</label><%=reservacion.viaje_id%></br>
                 <label>Ruta:</label><%=reservacion.viaje.ruta.nombre%></br>
-                <label>km:</label><%=reservacion.viaje.ruta.kilometros%></br>
                 <label>Fecha:</label><%=reservacion.viaje.fecha%> </br>
                 <label>Hora de salida:</label><%=reservacion.viaje.horainicio%> </br>
                 <label>Hora de llegada:</label></br>
+                <label>km:</label><%=reservacion.viaje.ruta.kilometros%></br>
+                <label>Tiempo:</label><%=reservacion.viaje.ruta.kilometros%></br>
             </div>
             <div class="span6">
-                <button type="button" class="btn btn-success">Ver detalle</button>
-                <button type="button" class="btn btn-primary">Invitar amigos</button>
-                <%= link_to "Checkin", "checkin?id=#{reservacion.id}", class:"btn btn-default btn-flat" %>  
 
+                <%= link_to "Ver detalle", "/viajes/#{reservacion.viaje.id}/detalle", class:"btn btn-default btn-flat" %>
+                <button type="button" class="btn btn-primary">Invitar amigos</button>
                 <div class="msg-amigos">
                     <p>¡Solo faltan 3 personas para alcanzar el SOLD OUT! <a href="#">Invita a tus amigos y gana más puntos</a></p>
                 </div>
