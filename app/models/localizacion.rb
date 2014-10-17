@@ -1,6 +1,6 @@
 class Localizacion 
-	attr_accessor :x
-	attr_accessor :y
+	attr_accessor :latitud
+	attr_accessor :longitud
 
   	def persisted?
     	false

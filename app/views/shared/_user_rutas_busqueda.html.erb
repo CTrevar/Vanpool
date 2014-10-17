@@ -1,27 +1,36 @@
-<div>
-        
-        <% @reservaciones_pagadas.each do |reservacion| %>
-            
-            <div class="item">
-                <h4><%=reservacion.viaje.ruta.nombre%></h4>
+
+<div class="border green">
+<h3 class="nomargin">Rutas que coinciden contigo</h3>
+</div>
+<% if(@result.first!=nil)%>
+        <% @result.each do |viaje| %>
+            <div class="item-ruta border">
             <div class="row-fluid">
                 <div class="span6">
-                    <small>ORIGEN:</small><b><%=reservacion.viaje.ruta.nombre%></b>
-                    <small>DESTINO:</small><b><%=reservacion.viaje.ruta.nombre%></b>
-                    <small>FECHA:</small><b><%=reservacion.viaje.fecha%> </b>
+                    <h4><%=viaje.ruta.nombre%></h4>
+                    <small>ORIGEN:</small><b><%= viaje.ruta.paradas.order('posicion ASC').first.nombre %></b></br>
+                    <small>DESTINO:</small><b><%= viaje.ruta.paradas.order('posicion ASC').last.nombre %></b></br>
+                    <small>FECHA:</small><b><%=viaje.fecha%> </b>
                 </div>
                 <div class="span6">
-                    <small>HORA DE SALIDA:</small><b>12:00</b></br>
-                    <small>HORA DE LLEGADA:</small><b>12:15</b></br>
-                    <small>DURACION DEL VIAJE:</small><b><%=reservacion.viaje.ruta.kilometros%> Min</b>
+                    </br>
+                    </br>
+                    <small>HORA DE SALIDA:</small><b><%=(Time.now).strftime("%I:%M%p")%> </b></br>
+                    <small>HORA DE LLEGADA:</small><b><%=(Time.now + viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></b></br>
+                    <small>Precio:</small><b><%=number_to_currency(viaje.ruta.precio, :unit => "$")%></b>
                 </div>
-            </div>
-        </br>
-            <%= link_to "Ver detalle", "/viajes/#{reservacion.viaje.id}/detalle", class:"span12 btn btn-default btn-flat" %>
+                </div>
+            </br>
+                <div class="row-fluid">
+                 <%= link_to "Ver detalle", "/viajes/#{viaje.id}/detalle", class:"btn btn-buscar-nav btn-flat span12 pull-right" %>
+                </div>
+            
             </div><!-- /.item -->
-            <hr></hr>
-            <hr></hr>
     <% end %>
-</div>
+      <% else %>
+        <div class="item-ruta border">
+            <h2>No hay viajes disponibles para tu ruta.</h2>
+        </div>
+    <% end %>
 
 

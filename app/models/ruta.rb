@@ -7,6 +7,7 @@ class Ruta < ActiveRecord::Base
   has_one :frecuencia
   has_one :horario
   belongs_to :van
+  has_many :rutaparadas
   has_many :paradas, through: :rutaparadas, source: :parada
 	#accepts_nested_attributes_for :viajes, :allow_destroy => true
 	#accepts_nested_attributes_for :paradas

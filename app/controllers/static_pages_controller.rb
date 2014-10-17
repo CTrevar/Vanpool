@@ -4,7 +4,7 @@ class StaticPagesController < ApplicationController
       if signed_in?
         @current_cliente=obtener_cliente(current_user)
         if @user.admin?
-          render 'administradors/dashboard'
+          render 'administradors/inicio'
         else
           render 'clientes/dashboard'
         end

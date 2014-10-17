@@ -30,12 +30,34 @@
         padding: 7px 9px;
       }
 
+/*border*/
+.border{
+  border: 1px #ffffff solid;
+  padding: 10px;
+}
+
+.item-ruta{
+  margin-bottom: 10px;
+  background-color: #f5faef;
+  color: black;
+}
+
+.nomargin{
+  margin: 0px;
+}
+
+.green{
+  background-color: #8DC63D;
+  color: white;
+}
+
 
 /*Bottons */
   .btn-pagar{
       background-color: #8DC63D;
       color: white;
     }
+
     .btn-pagar:hover,
     .btn-pagar:active,
     .btn-pagar:hover{
@@ -50,26 +72,26 @@
     }
 
   .btn-buscar{
-      background-color: #723190;
+      background-color: #9264d2;
       color: white;
       font-size: 20px;
     }
     .btn-buscar:hover,
     .btn-buscar:active,
     .btn-buscar:hover{
-      background-color: #600988;
+      background-color: #9264d2;
       color:white;
     }
 
     .btn-buscar-nav{
-      background-color: #723190;
+      background-color: #9264d2;
       color: white;
-      font-size: 12px;
+      font-size: 14px;
     }
     .btn-buscar-nav:hover,
     .btn-buscar-nav:active,
     .btn-buscar-nav:hover{
-      background-color: #600988;
+      background-color: #9264d2;
       color:white;
     }
 
@@ -83,7 +105,7 @@
     .btn-registro-nav:hover,
     .btn-registro-nav:active,
     .btn-registro-nav:hover{
-      background-color: #3B4794;
+      background-color: #252d5d;
       color:white;
     }
 
@@ -91,6 +113,12 @@
       background-color: #3B4794;
       color: white;
       font-size: 16px;
+    }
+    .btn-registro:hover,
+    .btn-registro:active,
+    .btn-registro:hover{
+      background-color: #252d5d;
+      color:white;
     }
 
     .btn-ingresar{
