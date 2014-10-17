@@ -84,14 +84,14 @@
     }
 
     .btn-buscar-nav{
-      background-color: #72a12f;
+      background-color: #9264d2;
       color: white;
       font-size: 14px;
     }
     .btn-buscar-nav:hover,
     .btn-buscar-nav:active,
     .btn-buscar-nav:hover{
-      background-color: #648d29;
+      background-color: #9264d2;
       color:white;
     }
 

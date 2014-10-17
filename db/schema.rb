@@ -11,9 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
-ActiveRecord::Schema.define(:version => 20141015224849) do
-
+ActiveRecord::Schema.define(:version => 20141016163608) do
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -152,15 +150,6 @@ ActiveRecord::Schema.define(:version => 20141015224849) do
     t.datetime "updated_at",                :null => false
   end
 
-  create_table "parada_ruta", :force => true do |t|
-    t.integer  "posicion"
-    t.integer  "tiempo"
-    t.integer  "distancia"
-    t.text     "via_puntos"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "paradas", :force => true do |t|
     t.string   "nombre",     :limit => 100
     t.float    "longitud"
@@ -168,10 +157,8 @@ ActiveRecord::Schema.define(:version => 20141015224849) do
     t.boolean  "estatus"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
-    t.integer  "posicion"
-    t.float    "tiempo"
-    t.float    "distancia"
-    t.integer  "ruta_id"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   create_table "relationships", :force => true do |t|
@@ -219,7 +206,6 @@ ActiveRecord::Schema.define(:version => 20141015224849) do
     t.datetime "updated_at", :null => false
   end
 
-
   create_table "rutaparadas", :force => true do |t|
     t.integer  "posicion"
     t.float    "tiempo"
@@ -240,12 +226,6 @@ ActiveRecord::Schema.define(:version => 20141015224849) do
     t.boolean  "estatus"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
-  end
-
-  create_table "sugerencia", :force => true do |t|
-    t.string   "hora_inicio"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
   end
 
   create_table "sugerencia_paradas", :force => true do |t|
