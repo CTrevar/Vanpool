@@ -11,9 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
-ActiveRecord::Schema.define(:version => 20141015224849) do
-
+ActiveRecord::Schema.define(:version => 20141016060444) do
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -219,7 +217,6 @@ ActiveRecord::Schema.define(:version => 20141015224849) do
     t.datetime "updated_at", :null => false
   end
 
-
   create_table "rutaparadas", :force => true do |t|
     t.integer  "posicion"
     t.float    "tiempo"
@@ -240,15 +237,20 @@ ActiveRecord::Schema.define(:version => 20141015224849) do
     t.boolean  "estatus"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
-  end
-
-  create_table "sugerencia", :force => true do |t|
     t.string   "hora_inicio"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
   end
 
   create_table "sugerencia_paradas", :force => true do |t|
+    t.decimal  "latitud"
+    t.decimal  "longitud"
+    t.integer  "posicion"
+    t.integer  "sugerencia_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "nombre"
+  end
+
+  create_table "sugerenciaparadas", :force => true do |t|
     t.decimal  "latitud"
     t.decimal  "longitud"
     t.integer  "posicion"
@@ -273,6 +275,8 @@ ActiveRecord::Schema.define(:version => 20141015224849) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
+    t.integer  "heir_id"
+    t.string   "heir_type"
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
     t.string   "password_digest"
@@ -294,7 +298,6 @@ ActiveRecord::Schema.define(:version => 20141015224849) do
     t.string   "placa",               :limit => 45
     t.string   "modelo",              :limit => 45
     t.integer  "capacidad"
-    t.integer  "co2gxkm"
     t.date     "fecha_compra"
     t.integer  "kilometro_recorrido"
     t.boolean  "activa"

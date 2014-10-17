@@ -1,4 +1,47 @@
 <% provide(:title, 'Sugerencias') %>
+<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp" %>
+<style type="text/css">
+  #map-canvas img{max-width:none!important;}
+  #map-canvas {
+    height: 200px;
+    max-width:none;
+  }
+</style>
+
+<script type="text/javascript">
+var map;
+var arregloMarcadores = [];
+var geocoder = new google.maps.Geocoder();
+var infowindow = new google.maps.InfoWindow();
+var dir;
+
+
+function initialize() {
+    
+        //set up del mapa, zoom, centro
+      var mapOptions = {
+        zoom: 13,
+        center: new google.maps.LatLng(19.4329459, -99.1384108)
+      };
+    
+    map = new google.maps.Map(document.getElementById('map-canvas'),
+        mapOptions);
+
+
+    var rendererOptions = { 
+      map: map,
+      draggable: true
+    };
+
+    directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+    //trazarRuta();
+    
+}
+
+  google.maps.event.addDomListener(window, 'load', initialize);
+
+
+</script>
 <div class="wrapper row-offcanvas row-offcanvas-left">
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="left-side sidebar-offcanvas">
@@ -19,8 +62,11 @@
       </ol>
     </section>
 
+
+
     <!-- Main content -->
     <section class="content">
+      <div id="map-canvas"> </div>
       <hr>
       <div class="filtering">
         <!-- search form -->
@@ -99,12 +145,6 @@
                       },
                       hora_inicio: {
                           title: 'Hora',
-                          width: '10%',
-                          edit: false,
-                          create: false
-                      },
-                      latitud:{
-                        title: 'Lat',
                           width: '10%',
                           edit: false,
                           create: false

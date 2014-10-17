@@ -1,3 +1,51 @@
+<script type="text/javascript">
+
+
+ function trazarRuta(){
+    var arregloMarcadores= <%= raw @paradas.to_json %>;
+    var origen = arregloMarcadores[0].latitud+", "+arregloMarcadores[0].longitud;
+    var destino = arregloMarcadores[arregloMarcadores.length-1].latitud+", "+arregloMarcadores[arregloMarcadores.length-1].longitud;
+    var arregloParadas=[];
+
+        if(arregloMarcadores.length>2){
+
+          for(i= 1; i<arregloMarcadores.length-1;i++){
+            var posicionParada = arregloMarcadores[i].latitud+", "+arregloMarcadores[i].longitud;
+            arregloParadas.push({
+                              location: posicionParada,
+                              stopover: true
+                            });
+            
+          }
+
+        }
+
+        //optimize waypoints for admin false, for client will be true
+        var request = {
+          origin: origen,
+          destination: destino,
+          waypoints: arregloParadas,
+          travelMode: google.maps.DirectionsTravelMode.DRIVING,
+          unitSystem: google.maps.UnitSystem.METRIC,
+          optimizeWaypoints: false
+        }
+
+        directionsService = new google.maps.DirectionsService();
+        var rutaa= directionsService.route(request, function(response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+            var routeDrawn = response.routes[0];
+                 
+          }
+          else
+            alert ('no se pudo obtener direcciones');
+        });
+
+        
+
+  }
+</script>
+
 <ul class="nav nav-tabs pull-right">
   <li class="active"><a href="#tab_1-1" data-toggle="tab">Detalle de la Sugerencia</a></li>
   
@@ -6,24 +54,36 @@
   <div class="tab-pane active" id="tab_1-1">
     <div id="forma_detalle_conductor">
       <h2>Sugerencia</h2>
-      <%= form_for :sugerencia do |f| %>
-      
 
-   
+
 
       <p>
-        <%= f.label :hora_inicio %>
-        <%= f.text_field :hora_inicio %>
+        <b>Hora Inicio: </b>
+        <%= @sugerencia.hora_inicio %>
+      </p>
+
+      <p>
+        <b>Origen: </b>
+        <%= @origen.nombre %>
+      </p>
+
+      <p>
+        <b>Destino: </b>
+        <%= @destino.nombre %>
       </p>
 
       </p>
-    <%end%>
+    
     </div>
     <div class="row" align=" right">
-      <button class="btn btn-default"><i class="fa fa-fw fa-info"></i> Ver M&aacute;s</button>
+      <button class="btn btn-default" onclick="trazarRuta()"><i class="fa fa-fw fa-info"></i> Ver M&aacute;s</button>
     </div>
   </div><!-- /.tab-pane -->
   
 
 
 </div><!-- /.tab-content -->
+
+
+
+

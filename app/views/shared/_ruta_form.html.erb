@@ -1,5 +1,24 @@
          </section>
 
+          <script type="text/javascript">
+ function masParadas(){
+    contador+=1;
+    /*
+    $("#Paradas").append("<input  class='form-control' id='nombreParada_"+contador+"'  name='nombreParada_"+contador+"' size='25'> </input>"+
+                            "<input  class='form-control' id='latitudParada_"+contador+"' name='latitudParada_"+contador+"'  > </input>"+
+                        "<input  class='form-control' id='longitudParada_"+contador+"' name='longitudParada_"+contador+"' > </input>"+
+                        "<input  class='form-control' id='posicionParada_"+contador+"' name='posicionParada_"+contador+"' style='display: none'> </input>"+
+                        "<input  class='form-control' id='tiempoParada_"+contador+"' name='tiempoParada_"+contador+"' style='display: none'> </input>"+
+                        "<input  class='form-control' id='distanciaParada_"+contador+"' name='distanciaParada_"+contador+"' style='display: none'> </input>"+
+                        "<input type='button' value='Buscar' onclick='geocodeMarcador()'>");*/
+    //<%= text_field_tag("vanId") %>
+    $("#Paradas2").html('<%= render :partial => "paradas_form" %>');
+    document.getElementById("numeroParadas").value = contador;
+    
+
+}
+</script>
+
         <section class="content">
         <div id="map-canvas">
         </div>
@@ -87,7 +106,7 @@
                         <input id ="conductorLicencia" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
                        
                     </div>
-                     <button type="button" class="btn btn-flat btn-default pull-right">Escoger Conductor</button>
+                     <button type="button" class="btn btn-flat btn-default pull-right" data-toggle="modal" data-target="#conductorsModal">Escoger Conductor</button>
                     </div>
             </div>
 
@@ -100,7 +119,7 @@
                         <div class="pull-left info">
                             
                             <b>Id: </b>
-                            <input id ="vanId" name="idvan" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
+                            <%= text_field_tag("vanId"), :style =>  %> </br>
                             <b>Placa: </b>
                             <input id ="vanPlaca" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
                             <b>Modelo: </b>
@@ -128,9 +147,11 @@
                     <div id = "Paradas">
                         <% count = 0 %>
                         <input  class="form-control" id="idParada_<%=count%>" name="idParada_<%=count%>" style="display: none" > </input>
-                        <input  class="form-control" id="nombreParada_<%=count%>" name="nombreParada_<%=count%>" size="25"> </input>
-                        <input  class="form-control" id="latitudParada_<%=count%>" name="latitudParada_<%=count%>"  > </input>
-                        <input  class="form-control" id="longitudParada_<%=count%>" name="longitudParada_<%=count%>" > </input>
+                        <div class="paradatype">
+                            <input id="nombreParada_<%=count%>" name="nombreParada_<%=count%>" class="typeahead" type="text" placeholder="Parada" autocomplete="off" spellcheck="false"></input>
+                        </div>
+                        <input  class="form-control" id="latitudParada_<%=count%>" name="latitudParada_<%=count%>" style="display: none" > </input>
+                        <input  class="form-control" id="longitudParada_<%=count%>" name="longitudParada_<%=count%>" style="display: none"> </input>
                         <input  class="form-control" id="posicionParada_<%=count%>" name="posicionParada_<%=count%>" style="display: none"> </input>
                         <input  class="form-control" id="tiempoParada_<%=count%>" name="tiempoParada_<%=count%>" style="display: none"> </input>
                         <input  class="form-control" id="distanciaParada_<%=count%>" name="distanciaParada_<%=count%>" style="display: none"> </input>
@@ -139,8 +160,8 @@
                         <% count += 1 %>
                         <input  class="form-control" id="idParada_<%=count%>" name="idParada_<%=count%>" style="display: none" > </input>
                         <input  class="form-control" id="nombreParada_<%=count%>"  name="nombreParada_<%=count%>" size="25"> </input>
-                        <input  class="form-control" id="latitudParada_<%=count%>" name="latitudParada_<%=count%>"  > </input>
-                        <input  class="form-control" id="longitudParada_<%=count%>" name="longitudParada_<%=count%>" > </input>
+                        <input  class="form-control" id="latitudParada_<%=count%>" name="latitudParada_<%=count%>" style="display: none" > </input>
+                        <input  class="form-control" id="longitudParada_<%=count%>" name="longitudParada_<%=count%>" style="display: none" > </input>
                         <input  class="form-control" id="posicionParada_<%=count%>" name="posicionParada_<%=count%>" style="display: none"> </input>
                         <input  class="form-control" id="tiempoParada_<%=count%>" name="tiempoParada_<%=count%>" style="display: none"> </input>
                         <input  class="form-control" id="distanciaParada_<%=count%>" name="distanciaParada_<%=count%>" style="display: none"> </input>
@@ -148,7 +169,12 @@
 
                     </div>
 
-                    <input id="numeroParadas" name="numeroParadas" placeholder="NUm" value ="1"> </input>
+                    <div id="Paradas2"></div>
+
+
+
+
+                    <input id="numeroParadas" name="numeroParadas" placeholder="NUm" value ="1" style="display: none"> </input>
                     <input type="button" value="Más Paradas" onclick="masParadas()">
 
                 
@@ -176,3 +202,53 @@
 
     
  <%= render 'shared/modal_vans' %>
+  <%= render 'shared/modal_conductors' %>
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+  var substringMatcher = function(strs) {
+    return function findMatches(q, cb) {
+      var matches, substringRegex;
+
+      // an array that will be populated with substring matches
+      matches = [];
+
+      // regex used to determine if a string contains the substring `q`
+      substrRegex = new RegExp(q, 'i');
+
+      // iterate through the pool of strings and for any string that
+      // contains the substring `q`, add it to the `matches` array
+      $.each(strs, function(i, str) {
+        if (substrRegex.test(str)) {
+          // the typeahead jQuery plugin expects suggestions to a
+          // JavaScript object, refer to typeahead docs for more info
+          matches.push({ value: str });
+        }
+      });
+
+      cb(matches);
+    };
+  };
+
+
+  var paradas= <%= raw @nombres_paradas.to_json %>
+
+  $('.typeahead').typeahead({
+    hint: true,
+    highlight: true,
+    minLength: 1
+  },
+  {
+    name: 'states',
+    displayKey: 'value',
+    source: substringMatcher(paradas)
+  });
+
+}); 
+
+//;
+
+</script>

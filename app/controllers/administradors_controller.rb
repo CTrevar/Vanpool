@@ -169,7 +169,7 @@ class AdministradorsController < ApplicationController
   end
 
   def sugerencias
-    @rutas = Ruta.all
+    @sugerencias = Sugerencia.all
     
   end
 
@@ -182,8 +182,13 @@ class AdministradorsController < ApplicationController
       # end
     else
       @sugerencia = Sugerencia.find(sugerencia_id)
+      @sugerencia.sugerenciaparadas.sort { |a, b| a.posicion <=> b.posicion }
+      @origen = @sugerencia.sugerenciaparadas.first
+      @destino = @sugerencia.sugerenciaparadas.last
+      @paradas = @sugerencia.sugerenciaparadas
+
       respond_to do |format|
-        format.html {render partial: 'shared/administrador_detallesugerencia', locals: { sugerencia: @sugerencia }}
+        format.html {render partial: 'shared/administrador_detallesugerencia', locals: { sugerencia: @sugerencia, origen: @origen, destino: @destino, paradas: @paradas }}
       end
     end
   end

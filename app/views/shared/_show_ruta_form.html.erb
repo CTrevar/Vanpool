@@ -13,13 +13,13 @@
 
     		  	<div class="form-group">
     		      <label for="origen">Origen</label>
-    		      <input  class="form-control" id="origenRuta" value="<%= @ruta.paradas.first.nombre %>" />
+    		      <input  class="form-control" id="origenRuta" value="<%= @paradas_ruta.first.nombre %>" />
 
 
     		    </div>
     		    <div class="form-group">
     		      <label for="destino">Destino</label>
-    		      <input  class="form-control" id="destinoRuta" value="<%= @ruta.paradas.last.nombre %>">
+    		      <input  class="form-control" id="destinoRuta" value="<%= @paradas_ruta.last.nombre %>">
     		    </div>
 
     		    <div class="form-group">
@@ -70,9 +70,14 @@
                         <img src="../img/avatar3.png" class="img-circle" alt="User Image" />
                     </div>
                     <div class="pull-left info">
-                        <b>Nombre: </b>Luis Rodríguez
+                        <b>Id: </b>
+                            <%= f.text_field :conductor_id, :disabled => true, style: 'background-color:rgba(0, 0, 0, 0); border:none'%> </br>
+                        <b>Nombre: </b>
+                        <input id ="conductorNombre" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
                         <br>
-                        <b>Licencia: </b>XKG-19383
+                        <b>Licencia: </b>
+                        <input id ="conductorLicencia" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
+                       
                        
                     </div>
                      <button type="submit" class="btn btn-flat btn-default pull-right">Agregar</button>
@@ -109,7 +114,7 @@
                 
             </div><!-- /.box-header -->
             <div id="agregarParadas" class="box-body">
-                <%= f.fields_for :paradas do |parada_fields| %>
+                <%@paradas_ruta.each do |parada_fields| %>
                     <ul id="paradasLista" class="todo-list">
                         <li>
                             <!-- drag handle -->
@@ -117,12 +122,13 @@
                                 <i class="fa fa-arrows"></i>
                             </span>
                                        
-                             <%= parada_fields.text_field :nombre %>
-                             <%= parada_fields.text_field :latitud, style: 'display: none' %>
-                             <%= parada_fields.text_field :longitud, style: 'display: none' %>
-                             <%= parada_fields.text_field :posicion, style: 'display: none' %>
-                             <%= parada_fields.text_field :tiempo, style: 'display: none' %>
-                             <%= parada_fields.text_field :distancia, style: 'display: none' %>
+                             
+                            <input value="<%= parada_fields.nombre %>" class="form-control" />
+                            <input value="<%= parada_fields.latitud %>" style= 'display: none' />
+                            <input value="<%= parada_fields.longitud %>" style= 'display: none' />
+                            <input value="<%= parada_fields.posicion %>" style= 'display: none' />
+                            <input value="<%= parada_fields.tiempo %>" style= 'display: none' />
+                            <input value="<%= parada_fields.distancia %>" style= 'display: none' />
                             
                             <div class="tools">
                                 <i class="fa fa-times"></i>
@@ -157,6 +163,7 @@
                         </br>
 
                         <%= render 'shared/modal_vans' %>
+                        <%= render 'shared/modal_conductors' %>
 
 
             

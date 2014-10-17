@@ -42,16 +42,16 @@ class SugerenciasController < ApplicationController
 
     # Si el campo de busqueda tiene solo espacios en blanco.
     if jtTextoBusqueda.blank? || jtTextoBusqueda.to_s == ''
-      @results = SugerenciaParada.joins(:sugerencia).select(" sugerencias.id as sugerencia_id, *").group('sugerencia_id').order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+      @results = Sugerencia.select(" sugerencias.id as sugerencia_id, *").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     else
       # Si contiene algo más realiza la búsqueda en todos los atributos de la tabla.
-      @results = SugerenciaParada.joins(:sugerencia).select(" sugerencias.id as sugerencia_id, *").where( "LOWER(hora_inicio) LIKE '%#{jtTextoBusqueda.downcase}%'"
-      ).group('sugerencia_id').order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+      @results = Sugerencia.select(" sugerencias.id as sugerencia_id, *").where( "LOWER(hora_inicio) LIKE '%#{jtTextoBusqueda.downcase}%'"
+      ).order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     end
     respond_to do |format|
       # Regresamos el resultado de la operación a la jTable
       jTableResult = {:Result => "OK",
-                      :TotalRecordCount => SugerenciaParada.joins(:sugerencia).count,
+                      :TotalRecordCount => Sugerencia.count,
                       :Records => @results
                       }
       format.json { render json: jTableResult}

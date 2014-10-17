@@ -290,17 +290,4 @@ function add_fields(link, association, content) {
   $(link).parent().before(content.replace(regexp, new_id));
 }
 
-function masParadas(){
-    contador+=1;
-    $("#Paradas").append("<input  class='form-control' id='nombreParada_"+contador+"'  name='nombreParada_"+contador+"' size='25'> </input>"+
-                            "<input  class='form-control' id='latitudParada_"+contador+"' name='latitudParada_"+contador+"'  > </input>"+
-                        "<input  class='form-control' id='longitudParada_"+contador+"' name='longitudParada_"+contador+"' > </input>"+
-                        "<input  class='form-control' id='posicionParada_"+contador+"' name='posicionParada_"+contador+"' style='display: none'> </input>"+
-                        "<input  class='form-control' id='tiempoParada_"+contador+"' name='tiempoParada_"+contador+"' style='display: none'> </input>"+
-                        "<input  class='form-control' id='distanciaParada_"+contador+"' name='distanciaParada_"+contador+"' style='display: none'> </input>"+
-                        "<input type='button' value='Buscar' onclick='geocodeMarcador()'>");
-    document.getElementById("numeroParadas").value = contador;
-    
-
-}
 

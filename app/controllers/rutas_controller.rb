@@ -6,6 +6,18 @@ class RutasController < ApplicationController
 	 def new
     @ruta = Ruta.new
     @vans = Van.all
+    @paradas_existentes = Parada.all
+    @nombres_paradas = []
+
+    @paradas_existentes.each do |parada|
+      @nombres_paradas.push(parada.nombre)
+    end
+
+    @nombres_paradas.delete(nil)
+    @nombres_paradas.delete("")
+    @nombres_paradas.uniq!
+
+    
     #@ruta.viajes.build
     
     # 8.times do
@@ -43,7 +55,7 @@ class RutasController < ApplicationController
       @ruta = Ruta.new
       @ruta.nombre = params[:nombreRuta]
       @ruta.precio = params[:precio]
-      @ruta.van_id = params[:idvan]
+      @ruta.van_id = params[:vanId]
       @ruta.conductor_id = params[:conductorId]
       @ruta.estatus = true
 
@@ -120,8 +132,15 @@ class RutasController < ApplicationController
 	def show
 		@ruta = Ruta.find(params[:id])
     @van = @ruta.van
-    @paradas_ruta = @ruta.paradas
-    @ruta.paradas.sort! { |a, b| a.posicion <=> b.posicion }
+    #@conductor = @ruta.conductor
+    @rel = Rutaparada.where(:ruta_id => @ruta.id)
+    @paradas_ruta = []
+    @rel.each do |p|
+      @parada= Parada.find(p.parada_id)
+      @paradas_ruta.push(@parada)
+    end
+    #@paradas_ruta = @ruta.paradas
+    @paradas_ruta.sort! { |a, b| a.posicion <=> b.posicion }
 	end
 
   def edit
@@ -147,14 +166,27 @@ class RutasController < ApplicationController
     @ruta = Ruta.new
     @ruta = Ruta.find(ruta_id)
 
-    ##PARADAS!!
-      @ruta.paradas.sort! { |a, b| a.posicion <=> b.posicion }
     @tiempo = 0
     @distancia = 0
-    @ruta.paradas.each { |parada|
-      @tiempo += parada.tiempo
-      @distancia += parada.distancia
-    }
+
+    ##PARADAS!!
+    @rel = Rutaparada.where(:ruta_id => @ruta.id)
+    @paradas_ruta = []
+    @rel.each do |p|
+      @parada= Parada.find(p.parada_id)
+      @paradas_ruta.push(@parada)
+      @tiempo += p.tiempo
+      @distancia += p.distancia
+    end
+    #@paradas_ruta = @ruta.paradas
+    @paradas_ruta.sort! { |a, b| a.posicion <=> b.posicion }
+
+    
+
+    # @ruta.paradas.each { |parada|
+    #   @tiempo += parada.tiempo
+    #   @distancia += parada.distancia
+    # }
 
     @tiempo = @tiempo/60
     @tiempo = (@tiempo*100).round / 100.0
@@ -167,19 +199,19 @@ class RutasController < ApplicationController
       #   format.html { render partial: 'shared/administrador_detalleruta', locals: { ruta: @ruta, action: @action }, layout:false}
         
       # end
-    if ruta_id.nil?
-      @action = 'create'
-    else
-      @ruta = Ruta.find(ruta_id)
-      @ruta.paradas.sort! { |a, b| a.posicion <=> b.posicion }
+    #if ruta_id.nil?
+      #@action = 'create'
+    #else
+      #@ruta = Ruta.find(ruta_id)
+      #@ruta.paradas.sort! { |a, b| a.posicion <=> b.posicion }
       
-      @action = 'update'
+      #@action = 'update'
       respond_to do |format|
         #format.html {render layout:false}
-        format.html { render partial: 'shared/administrador_detalleruta', locals: { ruta: @ruta, action: @action, tiempo: @tiempo, distancia: @distancia }, layout:false}
+        format.html { render partial: 'shared/administrador_detalleruta', locals: { ruta: @ruta, tiempo: @tiempo, distancia: @distancia, paradas_ruta: @paradas_ruta }, layout:false}
         
       end
-    end
+    #end
   end
 
 

@@ -32,6 +32,14 @@ module ViajesHelper
       end
     end
 
+    def calcula_disponibilidad_viaje(viaje)
+      ruta = Ruta.find(viaje.ruta_id)
+      van = Van.find(ruta.van_id)
+      capacidad = van.capacidad
+      pasajeros = viaje.reservacions.find_all_by_estadotipo_id([2,3]).count
+      return capacidad - pasajeros
+    end
+
     #Crea viajes por primera vez de la rutas con las fechas indicadas en la frecuencia semanal cada primero de mes
     def genera_viajes_mensuales()
       #obtener fecha actual
