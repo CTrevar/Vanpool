@@ -1,12 +1,24 @@
- <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp" %>
- <%= javascript_include_tag "rutas" %>
+
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places" %>
+ <%= javascript_include_tag "busquedarutas" %>
 <%= stylesheet_link_tag "rutas", media: "all" %>
 <script>
 $(document).ready(function(){
   $("#show").click(function(){
+    var data={
+     origenLat: $('#origenLat').val(),
+     origenLng: $('#origenLng').val(),
+     destinoLat: $('#destinoLat').val(),
+     destinoLng: $('#destinoLng').val()
+    }
+
+    $.post('/procesar_busqueda' , data, function(result){
+                                $("#lista").html(result);
+    }).success();
     $("#lista").show();
     $("#mapa").removeClass('span12');
     $("#mapa").addClass('span8');
+    
   });
 });
 </script>
@@ -37,7 +49,7 @@ $(document).ready(function(){
                         </div>
                     </div>
                     <div id="lista" class="span4" style="display:none">
-                        <%= render 'shared/user_rutas_busqueda' %>
+                        
                     </div>
             </div>
         </div>

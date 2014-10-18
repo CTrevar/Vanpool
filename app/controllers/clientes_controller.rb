@@ -204,9 +204,26 @@ class ClientesController < ApplicationController
     @title="Buscar nuevo viaje"
     @current_cliente = obtener_cliente(current_user)
     @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2).last(3)
-    @result=busqueda
-    #@result=Viaje.all
+    
+        #@result=Viaje.all
     render 'show_nuevo_viaje'
+  end
+
+  def procesarbusquedaviaje
+    @origen=Localizacion.new
+    @origen.longitud= params[:origenLng]
+    @origen.latitud= params[:origenLat]
+
+    @destino = Localizacion.new
+    @destino.longitud = params[:destinoLng]
+    @destino.latitud = params[:destinoLat]
+
+    @result=busqueda(@origen, @destino)
+
+    respond_to do |format|
+        format.html { render partial: 'shared/user_rutas_busqueda', locals: { result: @result, origen: @origen }, layout:false}
+        
+    end
   end
 
   def comprar

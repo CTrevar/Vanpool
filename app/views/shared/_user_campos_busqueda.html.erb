@@ -4,8 +4,11 @@
   <div class="form-group">
       <label for="origen">¿Dónde comienzas tu viaje?</label>
         <div class="input-group">
+
         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-        <input id="origenRuta" class="form-control"  placeholder="Origen">
+        <input id="origenRuta" class="form-control"  placeholder="Origen" autocomplete="false">
+        <input id="origenLat" name="origenLat" >
+        <input id="origenLng" name="origenLng" >
         </div>
     </div>                  
 </div>
@@ -14,7 +17,9 @@
        <label for="destino">¿Dónde terminas tu viaje?</label>
         <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-        <input id="origenRuta" class="form-control"  placeholder="Origen">
+        <input id="destinoRuta" class="form-control"  placeholder="Destino" autocomplete="false">
+        <input id="destinoLat" name="destinoLat" >
+        <input id="destinoLng" name="destinoLng" >
         </div>
     </div>                  
 </div>
@@ -37,7 +42,9 @@
     </div>                  
 </div>
 <div class="span2">
-  <button id="show" type="submit" class="btn btn-flat btn-registro span12" style="margin-top:20px">Buscar mi ruta</button>        
+  
+ <button id="show" type="submit" class="btn btn-flat btn-registro span12" style="margin-top:20px">Buscar mi ruta</button> 
+      
 </div>
 </div>
                                     

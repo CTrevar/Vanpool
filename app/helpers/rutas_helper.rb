@@ -4,20 +4,20 @@ module RutasHelper
 		return Ruta.all
 	end
 
-	def busqueda
+	def busqueda (origen, destino)
 		result=Array.new
 		count=0
-		origen=Localizacion.new
-		#origen.longitud=-100.3857256
-		#origen.latitud=25.6553285
-		origen.longitud=-100.51224869999999
-		origen.latitud=25.7055795
+		# origen=Localizacion.new
+		# #origen.longitud=-100.3857256
+		# #origen.latitud=25.6553285
+		# origen.longitud=-100.51224869999999
+		# origen.latitud=25.7055795
 
-		destino=Localizacion.new
-		#destino.longitud=-100.41445799999997
-		#destino.latitud=25.6631166
-		destino.longitud=-100.50140679999998
-		destino.latitud=25.6896305
+		# destino=Localizacion.new
+		# #destino.longitud=-100.41445799999997
+		# #destino.latitud=25.6631166
+		# destino.longitud=-100.50140679999998
+		# destino.latitud=25.6896305
 
 		cercaorigen=proximidad(origen)
 		cercadestino=proximidad(destino)
