@@ -84,7 +84,7 @@ class ConductorsController < ApplicationController
 
 
 
-
+  # Método para crear un conductor a través de la forma del panel lateral.
   # POST /conductors
   # POST /conductors.json
   def create
@@ -134,7 +134,7 @@ class ConductorsController < ApplicationController
     end
   end
 
-
+  # Método para actualizar los datos de un conductor a través dela forma del panel lateral.
   def update
     paramsconductor = OpenStruct.new params[:conductor]
     paramsuser = OpenStruct.new paramsconductor.user
@@ -161,12 +161,22 @@ class ConductorsController < ApplicationController
     end
   end
 
-
-
-
-
-
-
+  def registrar_subida
+    reserva_id = params[:reserva_id]
+    @reservacion = Reservacion.find(reserva_id)
+    if @reservacion.estadotipo_id == 3
+      @reservacion[:resultado] = "Ya se habia registrado la subida del usuario"
+    else
+      checkin(reserva_id)
+      @reservacion = Reservacion.find(reserva_id)
+      if @reservacion.estadotipo_id == 3
+        @reservacion[:resultado] = "Subida registrada"
+      else
+        @reservacion[:resultado] = "No se pudo registrar la subida"
+      end
+    end
+    render json:@reservacion
+  end
 
 
   # =======================================================

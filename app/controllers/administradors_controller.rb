@@ -216,22 +216,22 @@ class AdministradorsController < ApplicationController
   #
   # Metodo para ver el perfil con la información de un cliente.
   #
-  def administrador_perfilcliente
-    cliente_id = params[:cliente_id]
-    @cliente = Cliente.new
-    # if cliente_id.nil?
-    #   redirect_to '/administrar_clientes'
-    # else
-      @cliente = Cliente.find(cliente_id)
-      @cliente.user = User.find(@cliente.user_id)
-      @action = 'update'
-      respond_to do |format|
-        format.html #{ render partial: 'shared/administrador_detallecliente', locals: { cliente: @cliente, aciton: @action }, layout:false}
-        format.json
-        format.js
-      end
-    # end
-  end
+  # def administrador_perfilcliente
+  #   cliente_id = params[:cliente_id]
+  #   @cliente = Cliente.new
+  #   # if cliente_id.nil?
+  #   #   redirect_to '/administrar_clientes'
+  #   # else
+  #     @cliente = Cliente.find(cliente_id)
+  #     @cliente.user = User.find(@cliente.user_id)
+  #     @action = 'update'
+  #     respond_to do |format|
+  #       format.html #{ render partial: 'shared/administrador_detallecliente', locals: { cliente: @cliente, aciton: @action }, layout:false}
+  #       format.json
+  #       format.js
+  #     end
+  #   # end
+  # end
 
   def reporteretros
     @aspectos =aspectos
