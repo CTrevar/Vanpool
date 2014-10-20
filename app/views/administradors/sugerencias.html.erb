@@ -1,4 +1,4 @@
-<% provide(:title, 'Rutas') %>
+<% provide(:title, 'Sugerencias') %>
 <div class="wrapper row-offcanvas row-offcanvas-left">
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="left-side sidebar-offcanvas">
@@ -10,17 +10,18 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <i class="fa fa-fw fa-map-marker"></i>
-        Rutas
+        <i class="fa fa-fw fa-inbox"></i>
+        Sugerencias
       </h1>
       <ol class="breadcrumb">
         <li >Inicio</li>
-        <li class="active">Rutas</li>
+        <li class="active">Sugerencias</li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
+      <hr>
       <div class="filtering">
         <!-- search form -->
         <form >
@@ -40,27 +41,25 @@
       
  
    
-          <div id="rutasTableContainer" class="col-lg-12 col-xs-12">
-            <button id="btnAgregar" class="btn btn-default btn-sm">
-              <i class="fa fa-plus"></i> Agregar Ruta
-            </button>
+          <div id="sugerenciasTableContainer" class="col-lg-12 col-xs-12">
+            
           </div>
 
-        <div id="detalleRuta" class="col-lg-4 col-md-4 col-xs-12 nav-tabs-custom">
+        <div id="detalleSugerencia" class="col-lg-4 col-md-4 col-xs-12 nav-tabs-custom">
 
 
 
         <script type="text/javascript">
   $(document).ready(function () {
-              $('#rutasTableContainer').jtable({
+              $('#sugerenciasTableContainer').jtable({
                   messages: {
                       serverCommunicationError: 'Ocurri&oacute; un error al comunicarse con el servidor.',
                       loadingMessage: 'Cargando Registros...',
                       noDataAvailable: '&iexcl;No hay Datos!',
-                      addNewRecord: 'Agregar Ruta',
+                      addNewRecord: 'Agregar Sugerencia',
                       editRecord: 'Editar pregunta',
                       areYouSure: '¿Está seguro?',
-                      deleteConfirmation: '&iquest;Est&aacute; seguro de eliminar esta ruta?',
+                      deleteConfirmation: '&iquest;Est&aacute; seguro de eliminar esta sugerencia?',
                       save: 'Guardar',
                       saving: 'Guardando',
                       cancel: 'Cancelar',
@@ -69,18 +68,18 @@
                       error: 'Error',
                       close: 'Cerrar',
                       cannotLoadOptionsFor: 'No se pueden cargar las opciones para el campo {0}',
-                      pagingInfo: 'Mostrando {0} a {1} de {2} rutas',
+                      pagingInfo: 'Mostrando {0} a {1} de {2} sugerencias',
                       pageSizeChangeLabel: 'N&uacute;mero de registros',
                       gotoPageLabel: 'Ir a la p&aacute;gina',
                       canNotDeletedRecords: '&excl;¡No se pudieron eliminar {0} de {1} registros!',
-                      deleteProgress: 'Eliminadas {0} de {1} rutas, procesando...'
+                      deleteProgress: 'Eliminadas {0} de {1} sugerencias, procesando...'
                   },
-                  title: 'Tabla de rutas',
+                  title: 'Tabla de sugerencias',
                   useBootstrap: true,
                   paging: true, //Habilitamos paginación.
                   pageSize: 10, //Definimos el número de registros a mostrar a 10.
                   sorting: true, //Habilitamos ordenación.
-                  defaultSorting: 'nombre ASC', //Definimos la columna default de ordenación.
+                  defaultSorting: 'hora_inicio ASC', //Definimos la columna default de ordenación.
                   defaultDateFormat: 'yy-mm-dd',
                   gotoPageArea: 'combobox',
                   selecting: true, //Habilitar Seleccion.
@@ -89,31 +88,24 @@
                   deleteConfirm: true,
                   actions: {
                       //Aquí va el URL del método del controlador, debemos definirlos primero en config/routes.
-                      listAction: '/ruta_controller/jtable_filterlist'
+                      listAction: '/sugerencia_controller/jtable_filterlist'
                   },
                   fields: {
                       //Columna en la tabla. Deben ponerse todas las columnas, si no deben ser visible, solamente
                       //habilitamos la opción list:false. Si un campo no debe editarse configuramos edit:false.
-                      ruta_id: {
+                      sugerencia_id: {
                           key: true,
                           list: false
                       },
-                      nombre: {
-                          title: 'Nombre',
-                          width: '10%'
-                      },
-                      precio: {
-                          title: 'Precio',
-                          width: '20%'
-                      },
-                      placa: {
-                        title: 'Van',
-                          width: '20%',
+                      hora_inicio: {
+                          title: 'Hora',
+                          width: '10%',
                           edit: false,
                           create: false
                       },
-                      estatus: {
-                          list: false,
+                      latitud:{
+                        title: 'Lat',
+                          width: '10%',
                           edit: false,
                           create: false
                       },
@@ -130,28 +122,28 @@
                   },
 
                   selectionChanged: function(){
-                    var $selectedRows = $("#rutasTableContainer").jtable('selectedRows');
+                    var $selectedRows = $("#sugerenciasTableContainer").jtable('selectedRows');
                     $('#SelectedRowList').empty();
                     if ($selectedRows.length > 0) {
                       $selectedRows.each(function(){
                         var record = $(this).data('record');
                       
-                      $.get('/administrar_ruta_detalle', record, function(result){
-                            $("#detalleRuta").html(result);
+                      $.get('/administrar_sugerencia_detalle', record, function(result){
+                            $("#detalleSugerencia").html(result);
                         }).success();
-                      $("#rutasTableContainer").removeClass('col-md-12');
-                        $("#rutasTableContainer").removeClass('col-lg-12');
-                        $("#rutasTableContainer").addClass('col-md-8');
-                        $("#rutasTableContainer").addClass('col-lg-8');
-                        $("#detalleRuta").show('fast');
+                      $("#sugerenciasTableContainer").removeClass('col-md-12');
+                        $("#sugerenciasTableContainer").removeClass('col-lg-12');
+                        $("#sugerenciasTableContainer").addClass('col-md-8');
+                        $("#sugerenciasTableContainer").addClass('col-lg-8');
+                        $("#detalleSugerencia").show('fast');
                       });
                     }else {
                       //Ninguna fila seleccionada
-                      $("#rutasTableContainer").removeClass('col-md-8');
-                      $("#rutasTableContainer").removeClass('col-lg-8');
-                      $("#rutasTableContainer").addClass('col-md-12');
-                      $("#rutasTableContainer").addClass('col-lg-12');
-                      $("#detalleRuta").hide('fast');
+                      $("#sugerenciasTableContainer").removeClass('col-md-8');
+                      $("#sugerenciasTableContainer").removeClass('col-lg-8');
+                      $("#sugerenciasTableContainer").addClass('col-md-12');
+                      $("#sugerenciasTableContainer").addClass('col-lg-12');
+                      $("#detalleSugerencia").hide('fast');
                   }
                     
                 }
@@ -161,7 +153,7 @@
               //Realiza la búsqueda al presiona el botón de bsucar.
               $('#btnBuscar').click(function (e) {
                   e.preventDefault();
-                  $('#rutasTableContainer').jtable('load', {
+                  $('#sugerenciasTableContainer').jtable('load', {
                       textoABuscar: $('#textoABuscar').val()
                   });
               });
@@ -169,27 +161,20 @@
               $('#textoABuscar').keyup(function() {
                   var texto = $('#textoABuscar').val();
                   if(texto.trim().length == 0){
-                      $('#rutasTableContainer').jtable('load');
+                      $('#sugerenciasTableContainer').jtable('load');
                   }else{
-                      $('#rutasTableContainer').jtable('load', {
+                      $('#sugerenciasTableContainer').jtable('load', {
                           textoABuscar: $('#textoABuscar').val()
                       });
                   }
               });
               // Esta línea carga los datos de la jTable al desplegar la página.
-              $('#rutasTableContainer').jtable('load');
+              $('#sugerenciasTableContainer').jtable('load');
               // Esta línea oculta el detalle al cargar la jTable
-              $("#detalleRuta").hide();
+              $("#detalleSugerencia").hide();
           });
 
       
-
-
-$('#btnAgregar').click(function() {
-    window.location.href = '/rutas/new';
-    return false;
-});
-
 
 
 

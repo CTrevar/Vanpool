@@ -1,0 +1,29 @@
+<ul class="nav nav-tabs pull-right">
+  <li class="active"><a href="#tab_1-1" data-toggle="tab">Detalle de la Sugerencia</a></li>
+  
+</ul>
+<div class="tab-content">
+  <div class="tab-pane active" id="tab_1-1">
+    <div id="forma_detalle_conductor">
+      <h2>Sugerencia</h2>
+      <%= form_for :sugerencia do |f| %>
+      
+
+   
+
+      <p>
+        <%= f.label :hora_inicio %>
+        <%= f.text_field :hora_inicio %>
+      </p>
+
+      </p>
+    <%end%>
+    </div>
+    <div class="row" align=" right">
+      <button class="btn btn-default"><i class="fa fa-fw fa-info"></i> Ver M&aacute;s</button>
+    </div>
+  </div><!-- /.tab-pane -->
+  
+
+
+</div><!-- /.tab-content -->

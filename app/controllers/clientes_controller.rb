@@ -91,6 +91,8 @@ class ClientesController < ApplicationController
   def dashboard
     @current_cliente = obtener_cliente(current_user)
     @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2).last(3)
+    @result=busqueda
+    #@result=Viaje.all
     #puts @request_hash["name"]
     #print "hola"
 
@@ -202,6 +204,8 @@ class ClientesController < ApplicationController
     @title="Buscar nuevo viaje"
     @current_cliente = obtener_cliente(current_user)
     @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2).last(3)
+    @result=busqueda
+    #@result=Viaje.all
     render 'show_nuevo_viaje'
   end
 

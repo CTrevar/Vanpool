@@ -1,3 +1,6 @@
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp" %>
+ <%= javascript_include_tag "rutas" %>
+<%= stylesheet_link_tag "rutas", media: "all" %>
  <% provide(:title, @title) %>
  <div class="wrapper row-offcanvas row-offcanvas-left">
     <aside class="left-side sidebar-offcanvas">
@@ -5,11 +8,11 @@
     </aside>
     <aside class="right-side">
     <section class="content-header">
-        <h1>Reporte<small>Detalle</small></h1>
+        <h1>Ruta<small>Detalle</small></h1>
         <ol class="breadcrumb">
             <li><a href="/dashboard"><i class="fa fa-home"></i> Inicio</a></li>
-            <li><a href="/clientes/<%= @cliente.user.id %>/profile"><i class="fa fa-user"></i> Reporte</a></li>
-            <li class="active">Reporte</li>
+            <li><a href="/buscar"><i class="fa fa-user"></i>Búsqueda</a></li>
+            <li class="active">Detalle de ruta</li>
         </ol>
     </section>
      <section class="content">
@@ -17,48 +20,45 @@
                     <!-- Main content -->
                 <div class="form-group">
                         <h2 class="page-header">
-                        Ruta Valle-Galerías 
+                        Ruta <%= @viaje.ruta.nombre %> 
                         </h2>
                 </div>
                 <div class="row-fluid">
-                <div class="span4">
-                    <div class="box box-primary">
-                        <div class="box-header">
-                            <h3 class="box-title">Comprar Tickets</h3>
-                        </div><!-- /.box-header -->
-                                <!-- form start -->
-                        <form role="form">
-                            <div class="box-body">
-                                <label>Parada Origen:</label>Humberto Lobo #201, Col. Valle, San Pedro Garza García, N.L. <a href="#">Cambiar</a></br>
-                                <label>Parada Destino:</label>Fleteros #1014, Col. Cumbres, Monterrey, N.L.<a href="#">Cambiar</a></br>
-                                </br>
-                                <label>Fecha:</label>Lunes 22 de septiembre de 2014 <a href="#">Cambiar</a></br>
-                                <label>Hora de salida:</label>13:30 horas <a href="#">Cambiar</a></br>
-                                <label>Hora de llegada:</label>14:50 horas</br>
-                                <label>Precio:</label>$40.00</br>
-                                <form class="form-horizontal">
-                                <div class="control-group">
-                                <label class="control-label">Tickets <span class="label label-danger">Últimos 5 lugares</span></label> 
-                                <div class="controls">
-                                <input type="text" placeholder="0">
-                                </div>
-                                </div>
-                                </form>
-                                <h4><b>Total: $80.00</b></h4>
-                            </div><!-- /.box-body -->
-                            <div class="box-footer">
+                <div class="span12">
+                    
+                            <div class="span4">
+                                <div class="span6">
+                                    <small>PARADA ORIGEN:</small>
+                                <h4><%= @viaje.ruta.paradas.order('posicion ASC').first.nombre %> <a href="#">Cambiar</a></h4>
+                                <small>PARADA DESTINO:</small>
+                                <h4><%= @viaje.ruta.paradas.order('posicion ASC').last.nombre %><a href="#">Cambiar</a></h4>
+
                                 
-                                <%= link_to "Pago viaje", "/compra", class:"btn btn-pagar-l btn-flat pull-right" %>
-                                <button type="submit" class="btn btn-flat btn-buscar-nav">Buscar otra ruta</button>
-                                    </br>
-                                    </br>
-                                    </div>
-                        </form>
-                    </div><!-- /.box -->
+                                </div>
+
+                                <div class="span6">
+                                     <small>FECHA:</small>
+                                <h4><%= @viaje.fecha%> <a href="#">Cambiar</a></h4>
+                                <small>HORA DE SALIDA:</small>
+                                <h4><%=(Time.now).strftime("%I:%M%p")%> <a href="#">Cambiar</a></h4>
+                                <small>HORA DE LLEGADA:</small>
+                                <h4><%=(Time.now + @viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></h4>
+                                <small>PRECIO:</small>
+                                <h4><%=number_to_currency(@viaje.ruta.precio, :unit => "$")%></h4>
+                                </br>
+                                
+                                </div>
+                                <div class="row-fluid">
+                                    <%= link_to "Buscar otra ruta", "/buscar", class:"btn btn-buscar-nav btn-flat" %>
+                                    <%= link_to "Comprar viaje", "/compra", class:"btn btn-pagar-l btn-flat pull-right" %>
+                                </div>
+                            </div>
+                               
+                            <div class="span8">
+                            <div class="mapbox" id="map-canvas"></div>
+                            </div> 
                 </div>
-                <div class="span8">
-                    <div id="world-map"><img src="../img/mapa.png"></div>  
-                </div>
+                
             </div>
             </section>                                  
       </div>

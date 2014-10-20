@@ -7,6 +7,7 @@ var dir;
 var currentLat;
 var currentLng;
 var paradaId= 0;
+var contador = 1;
 
 function obtenerLocalizacion() {
     if (navigator.geolocation) {
@@ -19,7 +20,7 @@ function obtenerLocalizacion() {
 function mostrarPosicion(position) {
   currentLat = position.coords.latitude;
   currentLng = position.coords.longitude;
-  document.getElementById("latitud_label").value = currentLat;
+  
   //al obtener la localización, centra el mapa en donde estés
   map.setCenter(new google.maps.LatLng(currentLat, currentLng));
 }
@@ -61,14 +62,12 @@ function initialize() {
           agregarMarcador(event.latLng);
 
           // desplegar latitud y longitud en pantalla
-          obtenerLatLong(event);
-          obtenerDireccion();
+          //obtenerLatLong(event);
+          //obtenerDireccion();
           
       });
 
   google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
-                calcularDistancia(directionsDisplay.getDirections());
-                guardarParadas(directionsDisplay.getDirections().routes[0]);
                 desplegarParadas(directionsDisplay.getDirections().routes[0]);
   });
 
@@ -94,7 +93,7 @@ function agregarMarcador(location) {
 
       //cuando mueva un marcador, se mueva en el mapa y se muestre dirección y latlong en pantalla
       google.maps.event.addListener(marker, 'dragend', function(event) {
-          obtenerLatLong(event);
+          
           obtenerDireccion(marker);
       });
 
@@ -150,7 +149,7 @@ function agregarMarcador(location) {
           if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
             var routeDrawn = response.routes[0];
-            guardarParadas(routeDrawn);
+            //guardarParadas(routeDrawn);
             desplegarParadas(routeDrawn);
                  
 
@@ -174,7 +173,7 @@ function agregarMarcador(location) {
       total += mi_ruta.legs[i].distance.value;
     }
     total = total / 1000.0;
-    document.getElementById("latitud_label").value = total;
+    //document.getElementById("latitud_label").value = total;
   }
 
 
@@ -223,33 +222,37 @@ function agregarMarcador(location) {
 
 
   function desplegarParadas(routeDrawn){
-    //posicion = routeDrawn.legs.length-1;
-    // var ulparadas = document.getElementById("paradasLista");
-    //     var liparadas = document.createElement("li");
-    //     liparadas.appendChild(document.createTextNode(routeDrawn.legs[posicion].start_address));
-    //     liparadas.setAttribute("id","ruta_paradas_attribute_"+posicion+"_nombre");
-    //     liparadas.setAttribute("name","ruta[paradas_attributes]["+posicion+"][nombre]");
-    //     ulparadas.appendChild(liparadas);
         for (var posicion = 0; posicion < routeDrawn.legs.length; posicion++) {
+          
+          document.getElementById("nombreParada_"+posicion).value = routeDrawn.legs[posicion].start_address;
+          document.getElementById("latitudParada_"+posicion).value = routeDrawn.legs[posicion].start_location.lat();
+          document.getElementById("longitudParada_"+posicion).value = routeDrawn.legs[posicion].start_location.lng();
+          document.getElementById("posicionParada_"+posicion).value = posicion;
+          
+          if(posicion == 0){
+            document.getElementById("tiempoParada_"+posicion).value = 0;
+            document.getElementById("distanciaParada_"+posicion).value =  0;
 
-          document.getElementById("ruta_paradas_attributes_"+posicion+"_nombre").value = routeDrawn.legs[posicion].start_address;
-          document.getElementById("ruta_paradas_attributes_"+posicion+"_latitud").value = routeDrawn.legs[posicion].start_location.lat();
-          document.getElementById("ruta_paradas_attributes_"+posicion+"_longitud").value = routeDrawn.legs[posicion].start_location.lng();
-          document.getElementById("ruta_paradas_attributes_"+posicion+"_posicion").value = posicion;
-          document.getElementById("ruta_paradas_attributes_"+posicion+"_tiempo").value = routeDrawn.legs[posicion].duration.value;
-          document.getElementById("ruta_paradas_attributes_"+posicion+"_distancia").value =  routeDrawn.legs[posicion].distance.value;
+          } else {
+            document.getElementById("tiempoParada_"+posicion).value = routeDrawn.legs[posicion].duration.value;
+            document.getElementById("distanciaParada_"+posicion).value =  routeDrawn.legs[posicion].distance.value;
+          }
+
+          
+          
         }
 
         largo = routeDrawn.legs.length;
-        posicionFinal = largo-1;
-        document.getElementById("ruta_paradas_attributes_"+largo+"_nombre").value = routeDrawn.legs[posicionFinal].end_address;
-          document.getElementById("ruta_paradas_attributes_"+largo+"_latitud").value = routeDrawn.legs[posicionFinal].end_location.lat();
-          document.getElementById("ruta_paradas_attributes_"+largo+"_longitud").value = routeDrawn.legs[posicionFinal].end_location.lng();
-          document.getElementById("ruta_paradas_attributes_"+largo+"_posicion").value = largo;
-          //document.getElementById("ruta_paradas_attributes_"+largo+"_tiempo").value = routeDrawn.legs[posicionFinal].duration.value;
-          //document.getElementById("ruta_paradas_attributes_"+largo+"_distancia").value =  routeDrawn.legs[posicionFinal].distance.value;
+          posicionFinal = largo-1;
+        
+          document.getElementById("nombreParada_"+largo).value = routeDrawn.legs[posicionFinal].end_address;
+          document.getElementById("latitudParada_"+largo).value = routeDrawn.legs[posicionFinal].end_location.lat();
+          document.getElementById("longitudParada_"+largo).value = routeDrawn.legs[posicionFinal].end_location.lng();
+          document.getElementById("posicionParada_"+largo).value = largo;
+          document.getElementById("tiempoParada_"+largo).value = routeDrawn.legs[posicionFinal].duration.value;
+          document.getElementById("distanciaParada_"+largo).value =  routeDrawn.legs[posicionFinal].distance.value;
 
-    //$('#agregarParadas').html(<%= j render(:partial => 'shared/paradas_form') %>);
+ 
 
   }
 
@@ -286,3 +289,18 @@ function add_fields(link, association, content) {
   var regexp = new RegExp("new_" + association, "g")
   $(link).parent().before(content.replace(regexp, new_id));
 }
+
+function masParadas(){
+    contador+=1;
+    $("#Paradas").append("<input  class='form-control' id='nombreParada_"+contador+"'  name='nombreParada_"+contador+"' size='25'> </input>"+
+                            "<input  class='form-control' id='latitudParada_"+contador+"' name='latitudParada_"+contador+"'  > </input>"+
+                        "<input  class='form-control' id='longitudParada_"+contador+"' name='longitudParada_"+contador+"' > </input>"+
+                        "<input  class='form-control' id='posicionParada_"+contador+"' name='posicionParada_"+contador+"' style='display: none'> </input>"+
+                        "<input  class='form-control' id='tiempoParada_"+contador+"' name='tiempoParada_"+contador+"' style='display: none'> </input>"+
+                        "<input  class='form-control' id='distanciaParada_"+contador+"' name='distanciaParada_"+contador+"' style='display: none'> </input>"+
+                        "<input type='button' value='Buscar' onclick='geocodeMarcador()'>");
+    document.getElementById("numeroParadas").value = contador;
+    
+
+}
+

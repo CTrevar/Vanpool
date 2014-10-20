@@ -12,7 +12,7 @@
 # It's strongly recommended to check this file into your version control system.
 
 
-ActiveRecord::Schema.define(:version => 20141015025349) do
+ActiveRecord::Schema.define(:version => 20141016163608) do
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -99,6 +99,13 @@ ActiveRecord::Schema.define(:version => 20141015025349) do
     t.boolean  "domingo"
   end
 
+  create_table "horarios", :force => true do |t|
+    t.time     "hora"
+    t.integer  "ruta_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "medallas", :force => true do |t|
     t.integer  "tipomedalla_id"
     t.string   "nombre"
@@ -145,15 +152,6 @@ ActiveRecord::Schema.define(:version => 20141015025349) do
     t.datetime "updated_at",                :null => false
   end
 
-  create_table "parada_ruta", :force => true do |t|
-    t.integer  "posicion"
-    t.integer  "tiempo"
-    t.integer  "distancia"
-    t.text     "via_puntos"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "paradas", :force => true do |t|
     t.string   "nombre",     :limit => 100
     t.float    "longitud"
@@ -161,10 +159,8 @@ ActiveRecord::Schema.define(:version => 20141015025349) do
     t.boolean  "estatus"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
-    t.integer  "posicion"
-    t.float    "tiempo"
-    t.float    "distancia"
-    t.integer  "ruta_id"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   create_table "relationships", :force => true do |t|
@@ -212,16 +208,14 @@ ActiveRecord::Schema.define(:version => 20141015025349) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "ruta", :force => true do |t|
-    t.integer  "conductor_id"
-    t.integer  "van_id"
-    t.string   "nombre"
-    t.string   "gmaps"
-    t.string   "precio"
-    t.integer  "kilometros"
-    t.boolean  "estatus"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+  create_table "rutaparadas", :force => true do |t|
+    t.integer  "posicion"
+    t.float    "tiempo"
+    t.float    "distancia"
+    t.integer  "ruta_id"
+    t.integer  "parada_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "rutas", :force => true do |t|
@@ -236,7 +230,17 @@ ActiveRecord::Schema.define(:version => 20141015025349) do
     t.datetime "updated_at",   :null => false
   end
 
-  create_table "sugerencia", :force => true do |t|
+  create_table "sugerencia_paradas", :force => true do |t|
+    t.decimal  "latitud"
+    t.decimal  "longitud"
+    t.integer  "posicion"
+    t.integer  "sugerencia_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "nombre"
+  end
+
+  create_table "sugerencias", :force => true do |t|
     t.string   "hora_inicio"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
