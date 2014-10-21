@@ -15,6 +15,12 @@ module PagosHelper
         return cuenta=@customers.get(@cliente.openpay_id)
     end
 
+    def obtener_cuenta_admin
+      @openpay=OpenpayApi.new(get_merchant,get_private)
+      @customers=@openpay.create(:customers)
+      return cuenta=@customers.get(@cliente.openpay_id)
+    end
+
 	def recarga
         @cuenta=obtener_cuenta
         

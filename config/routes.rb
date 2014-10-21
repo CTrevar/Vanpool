@@ -100,7 +100,8 @@ SampleApp::Application.routes.draw do
   match '/listadministradores', to: 'administradors#listadministradores'
   match '/administradors', to: 'administradors#index'
 
-  match '/administradores', to: 'administradors#administradores', via:[:get, :post, :put]
+  match '/administrar_administradores', to: 'administradors#administradores', via:[:get, :post, :put]
+  match '/administrar_administrador_detalle', to: 'administradors#administrador_detalleadministrador', via:[:get, :post, :put]
   match '/administrador_controller/jtable_list',   to: 'administradors#jtable_list',   via: [:get, :post]
   match '/administrador_controller/jtable_filterlist',   to: 'administradors#jtable_filterlist',   via: [:get, :post]
   match '/administrador_controller/jtable_create',   to: 'administradors#jtable_create',   via: [:get, :post]
@@ -112,7 +113,7 @@ SampleApp::Application.routes.draw do
   match '/administrador_controller/create',   to: 'administradors#create',   via: [:post,:put]
 
 
-  match '/conductores', to: 'administradors#conductores', via:[:get, :post, :put]
+  match '/administrar_conductores', to: 'administradors#conductores', via:[:get, :post, :put]
   match '/conductor_controller/jtable_list',   to: 'conductors#jtable_list',   via: [:post, :get]
   match '/conductor_controller/jtable_filterlist',   to: 'conductors#jtable_filterlist',   via: [:get, :post]
   match '/conductor_controller/jtable_create',   to: 'conductors#jtable_create',   via: [:get, :post]
@@ -136,6 +137,16 @@ SampleApp::Application.routes.draw do
   match '/ruta_controller/jtable_delete',   to: 'rutas#jtable_delete',   via: [:post]
 
   match '/administrar_ruta_detalle',   to: 'rutas#administrador_detalleruta',   via: [:get, :post, :put]
+  match '/administrar_clientes', to: 'administradors#clientes', via:[:get, :post, :put]
+  # match '/administrador_perfilcliente', to: 'administradors#administrador_perfilcliente', via:[:get]
+  match '/administrar_cliente_detalle', to: 'administradors#administrador_detallecliente', via:[:get, :post, :put]
+  match '/cliente_controller/jtable_list',   to: 'clientes#jtable_list',   via: [:post, :get]
+  match '/cliente_controller/jtable_filterlist',   to: 'clientes#jtable_filterlist',   via: [:get, :post]
+  # match '/cliente_controller/jtable_create',   to: 'clientes#jtable_create',   via: [:get, :post]
+  match '/cliente_controller/jtable_delete',   to: 'clientes#jtable_delete',   via: [:post]
+  match '/cliente_controller/jtable_update',   to: 'clientes#jtable_update',   via: [:post]
+  match '/cliente_controller/update',   to: 'clientes#update',   via: [:post,:put]
+  match '/cliente_controller/create',   to: 'clientes#create',   via: [:post,:put]
 
   match '/sugerencias', to: 'administradors#sugerencias', via:[:get, :post, :put]
   match '/sugerencia_controller/jtable_list',   to: 'sugerencias#jtable_list',   via: [:post, :get]
@@ -143,6 +154,9 @@ SampleApp::Application.routes.draw do
   match '/administrar_sugerencia_detalle',   to: 'administradors#administrador_detallesugerencia',   via: [:get, :post, :put]
 
   match '/procesar_busqueda',   to: 'clientes#procesarbusquedaviaje',   via: [:get, :post]
+
+  match '/registrar_subida',   to: 'conductors#registrar_subida',   via: [:post,:get]
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
