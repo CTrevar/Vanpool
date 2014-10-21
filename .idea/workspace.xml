@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="85393af2-bf32-4f70-8a32-8d14eac63c81" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/administradors/administrador_perfilcliente.html.erb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/cache/ffi-1.9.3-x86-mingw32.gem" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/cache/websocket-1.0.7.gem" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/runConfigurations/Development__Vanpool.xml" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Development__Vanpool.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Vanpool.iml" afterPath="$PROJECT_DIR$/.idea/Vanpool.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/shared/_administrador_detallecliente.html.erb" afterPath="$PROJECT_DIR$/app/views/shared/_administrador_detallecliente.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/administradors_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/administradors_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/helpers/checkin_helper.rb" afterPath="$PROJECT_DIR$/app/helpers/checkin_helper.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/conductors_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/conductors_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="85393af2-bf32-4f70-8a32-8d14eac63c81" name="Default" comment="" />
     <ignored path="Vanpool.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
