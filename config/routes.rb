@@ -128,6 +128,7 @@ SampleApp::Application.routes.draw do
   match '/van_controller/jtable_create',   to: 'vans#jtable_create',   via: [:get, :post]
   match '/van_controller/jtable_delete',   to: 'vans#jtable_delete',   via: [:post]
   match '/van_controller/jtable_update',   to: 'vans#jtable_update',   via: [:post]
+  match '/van_controller/update',   to: 'vans#update',   via: [:post,:put]
 
   match '/administrar_van_detalle',   to: 'administradors#administrador_detallevan',   via: [:get, :post, :put]
 

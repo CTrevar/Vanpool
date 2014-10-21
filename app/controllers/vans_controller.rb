@@ -38,12 +38,15 @@ class VansController < ApplicationController
   end
 
   def update
-    @van = Van.find(params[:id])
+    @van = Van.find(params[:van][:id])
     if @van.update_attributes(params[:van])
-      redirect_to vans_path
+      respond_to do |format|
+        format.html { render partial: 'shared/administrador_detallevan', van:@van}
+      end
     else
-      render 'edit'
+      #render 'edit'
     end
+
   end
 
 

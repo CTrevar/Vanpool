@@ -9,7 +9,10 @@ $(document).ready(function(){
      origenLat: $('#origenLat').val(),
      origenLng: $('#origenLng').val(),
      destinoLat: $('#destinoLat').val(),
-     destinoLng: $('#destinoLng').val()
+     destinoLng: $('#destinoLng').val(),
+     horainicio: $('#horainicio').val(),
+     origenRuta: $('#origenRuta').val(),
+     destinoRuta: $('#destinoRuta').val()
     }
 
     $.post('/procesar_busqueda' , data, function(result){
