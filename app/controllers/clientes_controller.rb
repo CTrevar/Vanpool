@@ -91,7 +91,7 @@ class ClientesController < ApplicationController
   def dashboard
     @current_cliente = obtener_cliente(current_user)
     @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2).last(3)
-    @result=busqueda
+    #@result=busqueda
     #@result=Viaje.all
     #puts @request_hash["name"]
     #print "hola"
@@ -213,15 +213,23 @@ class ClientesController < ApplicationController
     @origen=Localizacion.new
     @origen.longitud= params[:origenLng]
     @origen.latitud= params[:origenLat]
+    @origenDireccion = params[:origenRuta]
 
     @destino = Localizacion.new
     @destino.longitud = params[:destinoLng]
     @destino.latitud = params[:destinoLat]
+    @destinoDireccion = params[:destinoRuta]
+
+    @horainicio = params[:horainicio]
 
     @result=busqueda(@origen, @destino)
 
+    if @result.blank?
+      create_sugerencia(@origen, @destino, @horainicio, @origenDireccion, @destinoDireccion)
+    end
+
     respond_to do |format|
-        format.html { render partial: 'shared/user_rutas_busqueda', locals: { result: @result, origen: @origen }, layout:false}
+        format.html { render partial: 'shared/user_rutas_busqueda', locals: { result: @result }, layout:false}
         
     end
   end

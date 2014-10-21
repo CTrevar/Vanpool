@@ -10,7 +10,7 @@
 
 	<p>
 		<%= f.label :modelo %>
-		<%= f.text_field :modelo %>
+		<%= f.text_field :modelo,  class: "form-control" %>
 	</p>
 
 	<p>
@@ -25,10 +25,10 @@
 
 	<p>
 		<%= f.label :fecha_compra %>
-		<%= f.text_field :fecha_compra %>
+		<%= f.text_field :fecha_compra,  class: "form-control" %>
 	</p>
 
 	<p>
-		<%= f.submit "Guardar" %>
+		<%= f.submit "Guardar", class: "btn btn-success" %>
 	</p>
 <%end%>

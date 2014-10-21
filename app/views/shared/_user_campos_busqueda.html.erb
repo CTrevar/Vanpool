@@ -7,8 +7,8 @@
 
         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
         <input id="origenRuta" class="form-control"  placeholder="Origen" autocomplete="false">
-        <input id="origenLat" name="origenLat" >
-        <input id="origenLng" name="origenLng" >
+        <input id="origenLat" name="origenLat" style="display: none">
+        <input id="origenLng" name="origenLng" style="display: none">
         </div>
     </div>                  
 </div>
@@ -18,8 +18,8 @@
         <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
         <input id="destinoRuta" class="form-control"  placeholder="Destino" autocomplete="false">
-        <input id="destinoLat" name="destinoLat" >
-        <input id="destinoLng" name="destinoLng" >
+        <input id="destinoLat" name="destinoLat" style="display: none">
+        <input id="destinoLng" name="destinoLng" style="display: none">
         </div>
     </div>                  
 </div>
@@ -27,19 +27,24 @@
   <div class="form-group">
       <label for="diaViaje">¿Cuándo quieres viajar?</label>
         <div class="input-group">
-        <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+        <span class="input-group-addon"><i class="fa  fa-calendar"></i></span>
         <input  id="diaViajeRuta" type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
         </div>
     </div>                  
 </div>
 <div class="span2">
-  <div class="form-group">
-      <label for="diaViaje">¿Cuándo quieres viajar?</label>
+  <div class="bootstrap-timepicker">
+    <div class="form-group">
+      <label for="diaViaje">¿A qué hora quieres viajar?</label>
         <div class="input-group">
-        <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-        <input  id="diaViajeRuta" type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
-        </div>
-    </div>                  
+        <span class="input-group-addon"><i class="fa  fa-clock-o"></i></span>
+        
+                  
+          <input type="text" id="horainicio" name="horainicio" class="form-control timepicker">
+        
+        </div> <!-- input-group -->
+    </div>  <!-- form group -->
+  </div><!-- /.timepicker -->                
 </div>
 <div class="span2">
   

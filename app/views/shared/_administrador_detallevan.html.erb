@@ -25,12 +25,12 @@
 
       <p>
         <%= f.label :placa %>
-        <%= f.text_field :placa %>
+        <%= f.text_field :placa, class: "form-control" %>
       </p>
 
       <p>
         <%= f.label :modelo %>
-        <%= f.text_field :modelo %>
+        <%= f.text_field :modelo, class: "form-control" %>
       </p>
 
       <p>
@@ -45,19 +45,38 @@
 
       <p>
         <%= f.label :fecha_compra %>
-        <%= f.text_field :fecha_compra %>
+        <%= f.text_field :fecha_compra, class: "form-control", data: {inputmask:"'alias': 'dd/mm/yyyy'", mask:''} %>
       </p>
 
       <p>
-        <%= f.submit "Editar" %>
+        
+    </div>
+    <%= f.submit "Guardar", class: "btn btn-success"  %>
       </p>
     <%end%>
-    </div>
-    <div class="row" align=" right">
-      <button class="btn btn-default"><i class="fa fa-fw fa-info"></i> Ver M&aacute;s</button>
     </div>
   </div><!-- /.tab-pane -->
   
 
 
 </div><!-- /.tab-content -->
+
+
+<script type="text/javascript">
+$("form").submit(function (event) {
+                event.preventDefault();
+                var request = $.ajax({
+                    type: "POST",
+                    url: '<%= "/van_controller/update" %>',
+                    data: $(this).serialize()
+                });
+                request.done(function( msg ) {
+                    
+                });
+                request.fail(function( jqXHR, textStatus ) {
+                    alert(textStatus);
+                });
+                $('#vansTableContainer').jtable('reload');
+                return false;
+            });
+</script>
