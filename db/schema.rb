@@ -11,7 +11,6 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
 ActiveRecord::Schema.define(:version => 20141016163608) do
 
   create_table "administradors", :force => true do |t|
@@ -192,15 +191,6 @@ ActiveRecord::Schema.define(:version => 20141016163608) do
     t.datetime "updated_at",        :null => false
   end
 
-  create_table "retroalimentacions", :force => true do |t|
-    t.integer  "reservacion_id"
-    t.boolean  "estatus"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-    t.integer  "aspecto_id"
-    t.integer  "calificacion"
-  end
-
   create_table "retroaspectos", :force => true do |t|
     t.string   "nombre"
     t.boolean  "estatus"
@@ -255,6 +245,8 @@ ActiveRecord::Schema.define(:version => 20141016163608) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
+    t.integer  "heir_id"
+    t.string   "heir_type"
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
     t.string   "password_digest"
