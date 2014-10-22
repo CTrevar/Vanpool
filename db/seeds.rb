@@ -11,7 +11,7 @@
 # medallasmuros = Medallasmuro.create([{ cliente_id:1, medalla_id:1 }, { cliente_id:1, medalla_id:2 }, { cliente_id:1, medalla_id:5 }])
 # estadotipos = Estadotipo.create([{ nombre:'Pendiente'},{ nombre:'Pagado'},{ nombre:'Realizado'},{ nombre:'Cancelado'}])
 
-#estadotiposviaje = Estadotipo.create([{ nombre:'Pendiente'},{ nombre:'Iniciado'},{ nombre:'Finalizado'},{ nombre:'Cancelado'})
+#estadotiposviaje = Estadotipo.create([{ nombre:'Pendiente'},{ nombre:'Iniciado'},{ nombre:'Finalizado'},{ nombre:'Cancelado'}])
 #reservaciones = Reservacion.create([{viaje_id:1,cliente_id:2,referenciapago_id:3456789,estadotipo_id:1,estatus:true},
 #	{viaje_id:1,cliente_id:2,referenciapago_id:3456789,estadotipo_id:2,estatus:true},
 #	{viaje_id:2,cliente_id:2,referenciapago_id:34887879,estadotipo_id:2,estatus:true},
@@ -32,7 +32,7 @@ configuraciones = Configuracion.create([{ nombre: 'CO2gxkmauto', valor: 196 }, {
 # 	{van_id:3,conductor_id:3,gmaps:3456789,kilometros:20, nombre:"Centro-Cumbres",precio:30.00},
 # 	{van_id:2,conductor_id:2,gmaps:3456789,kilometros:25, nombre:"Country-Valle",precio:50.00}])
 
-#paises = Pais.create(clave:'CL', nombre:'Chile', divisa: 'CLP', estatus: true)
+#paises = Pais.create({clave:'MX', nombre:'Mexico', divisa: 'MXN', estatus: true},{clave:'CL', nombre:'Chile', divisa: 'CLP', estatus: true})
 
 #frecuencias = Frecuencia.create([{lunes: true, martes: false, miercoles: false, jueves:false, viernes: false, sabado: false, domingo: false, ruta_id: 1}])
 #paradas = Parada.create([{nombre: "Durango 110 A, Los TreviNo", longitud: -100.4366063, latitud: 25.67093},{nombre: "Rio Danubio 325, Del Valle", longitud: -100.3793322, latitud: 25.67093}])

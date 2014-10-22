@@ -127,12 +127,12 @@
                 },
                 //Se crea el evento de selectionchanged
                 selectionChanged: function(){
-                  	var $selectedRows = $("#vansTableContainer").jtable('selectedRows');
+                  	var $selectedRows = $("#conductorsTableContainer").jtable('selectedRows');
                   	if ($selectedRows.length > 0) {
                   		$selectedRows.each(function(){
                   			var record = $(this).data('record');
-                  			$("#conductorId").val(record.id);
-                  			$("#conductorNombre").val(record.name);
+                  			$("#conductorId").val(record.conductor_id);
+                  			$("#conductorNombre").val(record.name+" "+record.apellidoPaterno);
                   			$("#conductorLicencia").val(record.licenciaConductor);
                   		});
                   		

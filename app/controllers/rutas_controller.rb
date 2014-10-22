@@ -50,97 +50,105 @@ class RutasController < ApplicationController
     
 
   #   redirect_to rutas_path
+     
       
-      #Guardar ruta
-      @ruta = Ruta.new
-      @ruta.nombre = params[:nombreRuta]
-      @ruta.precio = params[:precio]
-      @ruta.van_id = params[:vanId]
-      @ruta.conductor_id = params[:conductorId]
-      @ruta.estatus = true
+          #Guardar ruta
+        @ruta = Ruta.new
+        @ruta.nombre = params[:nombreRuta]
+        @ruta.precio = params[:precio]
+        @ruta.van_id = params[:vanId]
+        @ruta.conductor_id = Conductor.find_by_user_id(params[:conductorId])
+        @ruta.estatus = true
+
+      if @ruta.valid?
+        @ruta.save
+
+        #Guardar paradas
+        numero_paradas = params[:numeroParadas].to_i+1
 
 
-      @ruta.save
+        numero_paradas.times do |num|
+          id_parada = params[:"idParada_#{num}"].to_i
 
-      #Guardar paradas
-      numero_paradas = params[:numeroParadas].to_i+1
+     
 
+          #Guardar paradas_ruta
+          #por cada parada
+          @rutaparada = Rutaparada.new
 
-      numero_paradas.times do |num|
-        id_parada = params[:"idParada_#{num}"].to_i
+          #if id_parada
+            #guarda la id de la ruta 
+            #@rutaparada.parada_id = id_parada
+          #else 
+            #si no existe parada, crea una nueva
+            @parada = Parada.new
+            @parada.nombre = params[:"nombreParada_#{num}"]
+            @parada.latitud = params[:"latitudParada_#{num}"]
+            @parada.longitud = params[:"longitudParada_#{num}"]
+            @parada.save
+            #guarda el id de la parada en la tabla de paradas_ruta
+            @rutaparada.parada_id = @parada.id
+          #end
 
-   
+          @rutaparada.ruta_id = @ruta.id
+          @rutaparada.posicion  = params[:"posicionParada_#{num}"]
+          @rutaparada.tiempo = params[:"tiempoParada_#{num}"]
+          @rutaparada.distancia = params[:"distanciaParada_#{num}"]
+          @rutaparada.save
 
-        #Guardar paradas_ruta
-        #por cada parada
-        @rutaparada = Rutaparada.new
-
-        #if id_parada
-          #guarda la id de la ruta 
-          #@rutaparada.parada_id = id_parada
-        #else 
-          #si no existe parada, crea una nueva
-          @parada = Parada.new
-          @parada.nombre = params[:"nombreParada_#{num}"]
-          @parada.latitud = params[:"latitudParada_#{num}"]
-          @parada.longitud = params[:"longitudParada_#{num}"]
-          @parada.save
-          #guarda el id de la parada en la tabla de paradas_ruta
-          @rutaparada.parada_id = @parada.id
-        #end
-
-        @rutaparada.ruta_id = @ruta.id
-        @rutaparada.posicion  = params[:"posicionParada_#{num}"]
-        @rutaparada.tiempo = params[:"tiempoParada_#{num}"]
-        @rutaparada.distancia = params[:"distanciaParada_#{num}"]
-        @rutaparada.save
-
-      end #end for
-      
-      
-      
-      
-      
-    
-
-
-      #Guardar frecuencias de la ruta
-      @frecuencia = Frecuencia.new
-      @frecuencia.lunes = params[:lunes]
-      @frecuencia.martes = params[:martes]
-      @frecuencia.miercoles = params[:miercoles]
-      @frecuencia.jueves = params[:jueves]
-      @frecuencia.viernes = params[:viernes]
-      @frecuencia.sabado = params[:sabado]
-      @frecuencia.domingo = params[:domingo]
-      @frecuencia.ruta_id = @ruta.id
-      @frecuencia.save
-
+        end #end for
+        
+        
+        
+        
+        
       
 
-      #Guardar horario
-      @horario = Horario.new
-      @horario.hora = params[:horarioRuta]
-      @horario.ruta_id = @ruta.id
-      @horario.save
-      
-      #genera_viajes_ruta_nueva(@ruta)
 
-      redirect_to rutas_path
+        #Guardar frecuencias de la ruta
+        @frecuencia = Frecuencia.new
+        @frecuencia.lunes = params[:lunes]
+        @frecuencia.martes = params[:martes]
+        @frecuencia.miercoles = params[:miercoles]
+        @frecuencia.jueves = params[:jueves]
+        @frecuencia.viernes = params[:viernes]
+        @frecuencia.sabado = params[:sabado]
+        @frecuencia.domingo = params[:domingo]
+        @frecuencia.ruta_id = @ruta.id
+        @frecuencia.save
+
+        
+
+        #Guardar horario
+        @horario = Horario.new
+        @horario.hora = params[:horarioRuta]
+        @horario.ruta_id = @ruta.id
+        @horario.save
+        
+        #genera_viajes_ruta_nueva(@ruta)
+
+        redirect_to rutas_path
+      else
+        render 'new'
+      end #end if ruta is valid
+      
+      
   end #end create
 
 	def show
 		@ruta = Ruta.find(params[:id])
     @van = @ruta.van
-    #@conductor = @ruta.conductor
+    @conductor = Conductor.find(@ruta.conductor_id)
+    @conductorUser = User.find(@conductor.user_id)
     @rel = Rutaparada.where(:ruta_id => @ruta.id)
+    @rel.sort! { |a, b| a.posicion <=> b.posicion }
     @paradas_ruta = []
     @rel.each do |p|
       @parada= Parada.find(p.parada_id)
       @paradas_ruta.push(@parada)
     end
     #@paradas_ruta = @ruta.paradas
-    @paradas_ruta.sort! { |a, b| a.posicion <=> b.posicion }
+    
 	end
 
   def edit
@@ -171,6 +179,7 @@ class RutasController < ApplicationController
 
     ##PARADAS!!
     @rel = Rutaparada.where(:ruta_id => @ruta.id)
+    @rel.sort! { |a, b| a.posicion <=> b.posicion }
     @paradas_ruta = []
     @rel.each do |p|
       @parada= Parada.find(p.parada_id)
@@ -179,7 +188,7 @@ class RutasController < ApplicationController
       @distancia += p.distancia
     end
     #@paradas_ruta = @ruta.paradas
-    @paradas_ruta.sort! { |a, b| a.posicion <=> b.posicion }
+    
 
     
 

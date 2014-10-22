@@ -1,4 +1,15 @@
   Puedes buscar tu dirección de origen y tu dirección de destino en el cuadro de búsqueda o haciendo click en el mapa
+  <script type="text/javascript">
+   $(function() {
+                //Datemask dd/mm/yyyy
+                $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+
+                //Timepicker
+                $(".timepicker").timepicker({
+                    showInputs: false
+                });
+            });
+   </script>
 <div class="row-fluid">
 <div class="span3">
   <div class="form-group">

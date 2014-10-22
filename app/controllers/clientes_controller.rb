@@ -229,7 +229,7 @@ class ClientesController < ApplicationController
     end
 
     respond_to do |format|
-        format.html { render partial: 'shared/user_rutas_busqueda', locals: { result: @result }, layout:false}
+        format.html { render partial: 'shared/user_rutas_busqueda', locals: { result: @result, horainicio: @horainicio }, layout:false}
         
     end
   end

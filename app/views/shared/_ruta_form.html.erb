@@ -19,6 +19,7 @@
 }
 </script>
 
+
         <section class="content">
         <div id="map-canvas">
         </div>
@@ -28,6 +29,19 @@
 
             <%= form_tag(controller:"rutas", action:"create", method:"post" ) do%>
             
+            <% if @ruta.errors.any? %>
+                <div class="alert alert-danger alert-dismissable">
+                  <i class="fa fa-times"></i>
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  
+                  <ul>
+                    <% @ruta.errors.full_messages.each do |msg| %>
+                        <li><%= msg %></li>
+                    <% end %>
+                  </ul>
+                </div>
+            <% end %>
+
                 <div class="form-group">
                     <label for="nombreRuta">Nombre</label>
                     <input  class="form-control" name="nombreRuta" placeholder="Nombre de la Ruta">
@@ -98,15 +112,17 @@
                     </div>
                     <div class="pull-left info">
                         <b>Id </b>
-                        <input id ="conductorId" name="conductorId" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
+                        <%= text_field_tag("conductorId", nil, :style => "background-color:rgba(0, 0, 0, 0); border:none")   %> 
+                         </br>
                         <b>Nombre: </b>
                         <input id ="conductorNombre" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
                         <br>
                         <b>Licencia: </b>
                         <input id ="conductorLicencia" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
                        
+                       <button type="button" class="btn btn-flat btn-default pull-right" data-toggle="modal" data-target="#conductorsModal">Escoger Conductor</button>
                     </div>
-                     <button type="button" class="btn btn-flat btn-default pull-right" data-toggle="modal" data-target="#conductorsModal">Escoger Conductor</button>
+                     
                     </div>
             </div>
 
@@ -119,7 +135,7 @@
                         <div class="pull-left info">
                             
                             <b>Id: </b>
-                            <%= text_field_tag("vanId"), :style =>  %> </br>
+                            <%= text_field_tag("vanId") %> </br>
                             <b>Placa: </b>
                             <input id ="vanPlaca" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
                             <b>Modelo: </b>

@@ -6,4 +6,7 @@ class Van < ActiveRecord::Base
     
    has_many :rutas
    accepts_nested_attributes_for :rutas
+
+   #validates :modelo, :presence => { :message => "no puede estar en blanco" }
+   #validates :placa, :presence => { :message => "no puede estar en blanco" }
 end

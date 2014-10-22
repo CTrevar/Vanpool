@@ -3,5 +3,6 @@ class Conductor < ActiveRecord::Base
   validates :licenciaConductor, presence: true, length: { maximum: 50 }
 
   belongs_to :user
+  has_many :rutas
   accepts_nested_attributes_for :user
 end

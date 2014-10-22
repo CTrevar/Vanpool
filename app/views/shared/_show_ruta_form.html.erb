@@ -73,10 +73,10 @@
                         <b>Id: </b>
                             <%= f.text_field :conductor_id, :disabled => true, style: 'background-color:rgba(0, 0, 0, 0); border:none'%> </br>
                         <b>Nombre: </b>
-                        <input id ="conductorNombre" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
+                        <input id ="conductorNombre" disabled style="background-color:rgba(0, 0, 0, 0); border:none" value="<%= @conductorUser.name %> <%= @conductorUser.apellidoPaterno %>"></input> </br>
                         <br>
                         <b>Licencia: </b>
-                        <input id ="conductorLicencia" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
+                        <input id ="conductorLicencia" disabled style="background-color:rgba(0, 0, 0, 0); border:none" value="<%= @conductor.licenciaConductor %>"></input> </br>
                        
                        
                     </div>
@@ -124,11 +124,6 @@
                                        
                              
                             <input value="<%= parada_fields.nombre %>" class="form-control" />
-                            <input value="<%= parada_fields.latitud %>" style= 'display: none' />
-                            <input value="<%= parada_fields.longitud %>" style= 'display: none' />
-                            <input value="<%= parada_fields.posicion %>" style= 'display: none' />
-                            <input value="<%= parada_fields.tiempo %>" style= 'display: none' />
-                            <input value="<%= parada_fields.distancia %>" style= 'display: none' />
                             
                             <div class="tools">
                                 <i class="fa fa-times"></i>
