@@ -1,0 +1,327 @@
+<% provide(:title, 'Administradores') %>
+<div class="wrapper row-offcanvas row-offcanvas-left">
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="left-side sidebar-offcanvas">
+  <%= render 'shared/administrador_sidebar' %>
+</aside>
+
+<!-- Right side column. Contains the navbar and content of the page -->
+<aside class="right-side">
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    <i class="fa fa-fw fa-users"></i>
+    medallas
+  </h1>
+  <ol class="breadcrumb">
+    <li >Inicio</li>
+    <li class="active">
+      <i class="fa fa-fw fa-users"></i>
+      medallas
+    </li>
+  </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+<div class="filtering">
+  <!-- search form -->
+  <form >
+    <div class="row">
+      <div class="col-xs-11">
+        <div class="input-group">
+          <input type="text" placeholder="Buscar..." class="form-control" name="textoABuscar" id="textoABuscar" />
+        <span class="input-group-btn">
+            <button type="submit" id="btnBuscar" class="btn btn-flat">
+              <i class="fa fa-search"></i>
+            </button>
+        </span>
+        </div>
+      </div>
+      <div class="col-xs-1">
+        <button type="button" id="btnFiltrar" class="btn btn-default btn-flat">
+          <i class="fa fa-filter"></i> Filtrar
+        </button>
+      </div>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+        $('#btnFiltrar').click(function(e) {
+            e.preventDefault();
+            $('#filtro').toggle();
+            $("#valorCondicion").val("");
+        });
+    </script>
+    <br/>
+    <div id="filtro" class="row collapse well">
+        <div class="col-xs-4">
+          <label>Mostrar medallas con:</label>
+          <select id="atributoCondicion" class="form-control">
+            <option value="puntaje">Nombre</option>
+          </select>
+        </div>
+        <div class="col-xs-4">
+          <label>Condici&oacute;n</label>
+          <select id="condicion" class="form-control">
+            <option value="=">Igual que (=) </option>
+          </select>
+        </div>
+        <div class="col-xs-4">
+          <label>Valor</label>
+          <input id="valorCondicion" type="text" class="form-control" placeholder="Valor...">
+        </div>
+        <br/>
+        <br/>
+    </div>
+
+  </form>
+  <!-- /.search form -->
+</div>
+<hr>
+<!-- jTable Medallas -->
+<div id="medallasTableContainer" class="col-lg-12 col-md-12 col-xs-12">
+  <button id="btnAgregar" class="btn btn-default btn-sm" data-toggle="modal" data-target="#basicModal">
+    <i class="fa fa-plus"></i> Agregar Medalla
+  </button>
+  <br/>
+  <br/>
+</div>
+<!-- /jTable Medallas -->
+<div id="detallemedalla" class="col-lg-4 col-md-4 col-xs-12 nav-tabs-custom">
+</div>
+<!-- nav-tabs-custom -->
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        $('#medallasTableContainer').jtable({
+            messages: {
+                serverCommunicationError: 'Ocurri&oacute; un error al comunicarse con el servidor.',
+                loadingMessage: 'Cargando Registros...',
+                noDataAvailable: '&iexcl;No hay Datos!',
+                addNewRecord: 'Agregar medalla',
+                editRecord: 'Editar medalla',
+                areYouSure: '¿Está seguro?',
+                deleteConfirmation: '&iquest;Est&aacute; seguro de eliminar este medalla?',
+                save: 'Guardar',
+                saving: 'Guardando',
+                cancel: 'Cancelar',
+                deleteText: 'Eliminar',
+                deleting: 'Eliminando',
+                error: 'Error',
+                close: 'Cerrar',
+                cannotLoadOptionsFor: 'No se pueden cargar las opciones para el campo {0}',
+                pagingInfo: 'Mostrando {0} a {1} de {2} medallas',
+                pageSizeChangeLabel: 'N&uacute;mero de registros',
+                gotoPageLabel: 'Ir a la p&aacute;gina',
+                canNotDeletedRecords: '&excl;No se pudieron eliminar {0} de {1} registros!',
+                deleteProgress: 'Eliminadas {0} de {1} medallas, procesando...'
+            },
+            title: 'Tabla de medallas',
+            useBootstrap: true,
+            paging: true, //Habilitamos paginación.
+            pageSize: 10, //Definimos el número de registros a mostrar a 10.
+            sorting: true, //Habilitamos ordenación.
+            defaultSorting: 'name ASC', //Definimos la columna default de ordenación.
+            defaultDateFormat: 'yy-mm-dd',
+            gotoPageArea: 'combobox',
+            selecting: true, //Habilitar Seleccion.
+            selectingCheckboxes: true, //Mostrar checkbox en la primer columna
+            selectOnRowClick: true, //Habilitamos selección con la fila
+            deleteConfirm: true,
+            actions: {
+                //Aquí va el URL del método del controlador, debemos definirlos primero en config/routes.
+                listAction: '/medalla_controller/jtable_filterlist'
+                ,deleteAction: '/medalla_controller/jtable_delete'
+            },
+            fields: {
+                //Columna en la tabla. Deben ponerse todas las columnas, si no deben ser visible, solamente
+                //habilitamos la opción list:false. Si un campo no debe editarse configuramos edit:false.
+                medalla_id: {
+                    key: true,
+                    list: false
+                },
+                nombre: {
+                    title: 'Nombre',
+                    width: '10%'
+                },
+                descripcion: {
+                    title: 'Descripcion',
+                    width: '10%'
+                },
+                :puntos {
+                    title: 'Puntos',
+                    width: '10%'
+                },
+                tipomedalla_id: {
+                    title: 'Tipo',
+                    width: '20%'
+                },
+                imagen: {
+                    list: false,
+                    title: 'Imagen',
+                    width: '10%'
+                }
+//                ,
+//                DeleteIcon: {
+//                    title: '',
+//                    display: function(data){
+//                        var $img = $('<button title="Eliminar" class="jtable-command-button jtable-delete-command-button"><span>Eliminar</span></button>');
+//                        $img.click(function(){
+//                            $('#MyTableContainer').jtable('deleteRecord', {
+//                                key: data.record.Id,url: '/medalla_controller/jtable_delete?user_id=' + data.record.user_id
+//                            });
+//                        });
+//                        return $img;
+//                    }
+//                }
+            },
+            //Se crea el evento de selectionchanged
+            selectionChanged: function () {
+                //Obtener todas las filas seleccionadas.
+                var $selectedRows = $('#medallasTableContainer').jtable('selectedRows');
+                $('#SelectedRowList').empty();
+                if ($selectedRows.length > 0) {
+                    //Mostrar filas seleccionadas
+                    $selectedRows.each(function () {
+                        $("#detallemedalla").html("" +
+                                "<div class='box box-primary'><div class='box-header'><h3 class='box-title'>Cargando</h3>" +
+                                "<div class='box-tools pull-right'></div></div>" +
+                                "<div class='box-body'><h2>Cargando...</h2></div>"+"<div class='overlay'></div><div class='loading-img'></div></div>");
+                        var record = $(this).data('record');
+                        $.post('/administrar_medalla_detalle', record, function(result){
+                            $("#detallemedalla").html(result);
+                        }).success();
+//                        var request = $.ajax({
+//                                    url: "/administrar_medallas",
+//                                    type: "POST",
+//                                    data: record,
+//                                    dataType: "html"});
+//                        request.done(
+//                            function(msg){
+//                                $( "#detallemedalla" ).replaceWith( msg );
+//                            }
+//                        );
+                        $("#medallasTableContainer").removeClass('col-md-12');
+                        $("#medallasTableContainer").removeClass('col-lg-12');
+                        $("#medallasTableContainer").addClass('col-md-8');
+                        $("#medallasTableContainer").addClass('col-lg-8');
+                        $("#detallemedalla").show('fast');
+                    });
+                } else {
+                    //Ninguna fila seleccionada
+                    $("#medallasTableContainer").removeClass('col-md-8');
+                    $("#medallasTableContainer").removeClass('col-lg-8');
+                    $("#medallasTableContainer").addClass('col-md-12');
+                    $("#medallasTableContainer").addClass('col-lg-12');
+                    $("#detallemedalla").hide('fast');
+                }
+            }
+        });
+        //Realiza la búsqueda al presiona el botón de bsucar.
+        $('#btnBuscar').click(function (e) {
+            e.preventDefault();
+            $('#medallasTableContainer').jtable('load', {
+                textoABuscar: $('#textoABuscar').val(),
+                atributoCondicion: $('#atributoCondicion').val(),
+                condicion: $('#condicion').val(),
+                valorCondicion: $('#valorCondicion').val()
+            });
+        });
+        //Realiza la búsqueda al teclear en el campo de búsqueda si solo hay espacios, muestra todos los campos.
+        $('#textoABuscar').keyup(function() {
+            var texto = $('#textoABuscar').val();
+            if(texto.trim().length == 0){
+                $('#medallasTableContainer').jtable('load');
+            }else{
+                $('#medallasTableContainer').jtable('load', {
+                    textoABuscar: $('#textoABuscar').val(),
+                    atributoCondicion: $('#atributoCondicion').val(),
+                    condicion: $('#condicion').val(),
+                    valorCondicion: $('#valorCondicion').val()
+                });
+            }
+        });
+        //Realiza la búsqueda al teclear en el campo de valor si solo hay espacios, muestra todos los campos.
+        $('#valorCondicion').keyup(function() {
+            var texto = $('#valorCondicion').val();
+            if(texto.trim().length == 0){
+                $('#medallasTableContainer').jtable('load');
+            }else{
+                $('#medallasTableContainer').jtable('load', {
+                    textoABuscar: $('#textoABuscar').val(),
+                    atributoCondicion: $('#atributoCondicion').val(),
+                    condicion: $('#condicion').val(),
+                    valorCondicion: $('#valorCondicion').val()
+                });
+            }
+        });
+        $('#atributoCondicion').change(function() {
+            var texto = $('#valorCondicion').val();
+            if(texto.trim().length == 0){
+                $('#medallasTableContainer').jtable('load');
+            }else{
+                $('#medallasTableContainer').jtable('load', {
+                    textoABuscar: $('#textoABuscar').val(),
+                    atributoCondicion: $('#atributoCondicion').val(),
+                    condicion: $('#condicion').val(),
+                    valorCondicion: $('#valorCondicion').val()
+                });
+            }
+        });
+        $('#condicion').change(function() {
+            var texto = $('#valorCondicion').val();
+            if(texto.trim().length == 0){
+                $('#medallasTableContainer').jtable('load');
+            }else{
+                $('#medallasTableContainer').jtable('load', {
+                    textoABuscar: $('#textoABuscar').val(),
+                    atributoCondicion: $('#atributoCondicion').val(),
+                    condicion: $('#condicion').val(),
+                    valorCondicion: $('#valorCondicion').val()
+                });
+            }
+        });
+        // Esta línea carga los datos de la jTable al desplegar la página.
+        $('#medallasTableContainer').jtable('load');
+        // Esta línea oculta el detalle al cargar la jTable
+        $("#detallemedalla").hide();
+    });
+</script>
+<br/>
+<hr>
+<!-- Modal de creación de usuario -->
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function (){
+        $("#btnAgregar").click(function(event){
+            
+        });
+    });
+</script>
+<style>
+    #basicModal .modal-dialog
+    {
+        height: 100%;
+    }
+    #basicModal .modal-content
+    {
+        border: 1px solid blue;
+        overflow: auto;
+        height: 90%;
+    }
+</style>
+<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Nueva Medalla</h4>
+      </div>
+      <div id="modal-body" class="modal-body nav-tabs-custom">
+        <!-- Aquí va el render de detallemedalla que carga la forma para agregar Administradores. -->
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+</aside><!-- /.right-side -->
+</div><!-- ./wrapper -->
