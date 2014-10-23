@@ -5,7 +5,7 @@ class Parada < ActiveRecord::Base
   has_many :rutaparadas
   has_many :rutas, through: :rutaparadas, source: :ruta
 
-  reverse_geocoded_by :latitud, :longitud
+  reverse_geocoded_by :latitud, :longitud, :address => :nombre
 	after_validation :reverse_geocode  # auto-fetch address
 
 

@@ -24,21 +24,28 @@ module RutasHelper
 
 		if(cercadestino !=nil or cercaorigen !=nil)
 			rutas=buscarutas(cercaorigen, cercadestino)
-			if(rutas!=nil)
+			
+			if(!rutas.blank?)
+
 				rutas.each do |ruta|
+					
 					paradaorigen=paradacercana(ruta,origen)
 					paradadestino=paradacercana(ruta,destino)
-					if(valida_direccion(paradadestino,paradaorigen,ruta))
+					
+					if(valida_direccion(paradaorigen,paradadestino,ruta))
 						#validacion de fecha
+						
 						fecha="27/09/2014"
 						porfecha=ruta.viajes.find_all_by_fecha_and_estadoviaje_id(fecha,[1,2])
 						porfecha.each do |v|
 							result<<v
-						end
-					end
-				end
-			end
-		end
+						end #porfechaeach
+					end #if validadireccion
+
+				end #rutaseach
+			end # if rutas not nil
+		end #if cercadestino not nil or cercaorigen not nil
+
 		return result
 	end
 
@@ -69,16 +76,22 @@ module RutasHelper
 
 	def paradacercana (ruta, punto)
 		r=Configuracion.find(3).valor.to_d
+		#r = 5.to_d
 		return ruta.paradas.near([punto.latitud, punto.longitud], r, :units => :km, :order => :distance).first
 	end
 
 	def valida_direccion (origen, destino, ruta)
+		valida = false
 		posicion_o=Rutaparada.find_by_ruta_id_and_parada_id(ruta.id,origen.id).posicion
 		posicion_d=Rutaparada.find_by_ruta_id_and_parada_id(ruta.id,destino.id).posicion
 		if(posicion_o<posicion_d)
 			return true
 		else
 			return false
+		end
+
+		
+
 	end
 
 	def ordenar_ruta (ruta)
@@ -86,4 +99,4 @@ module RutasHelper
 	end
 
 end
-end
+

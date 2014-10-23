@@ -125,7 +125,7 @@ class RutasController < ApplicationController
         @horario.ruta_id = @ruta.id
         @horario.save
         
-        #genera_viajes_ruta_nueva(@ruta)
+        genera_viajes_ruta_nueva(@ruta)
 
         redirect_to rutas_path
       else

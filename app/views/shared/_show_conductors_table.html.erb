@@ -131,7 +131,7 @@
                   	if ($selectedRows.length > 0) {
                   		$selectedRows.each(function(){
                   			var record = $(this).data('record');
-                  			$("#conductorId").val(record.conductor_id);
+                  			$("#conductorId").val(record.id);
                   			$("#conductorNombre").val(record.name+" "+record.apellidoPaterno);
                   			$("#conductorLicencia").val(record.licenciaConductor);
                   		});
