@@ -1,6 +1,16 @@
          </section>
 
           <script type="text/javascript">
+
+          $(function() {
+                //Datemask dd/mm/yyyy
+                $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+
+                //Timepicker
+                $(".timepicker").timepicker({
+                    showInputs: false
+                });
+            });
  function masParadas(){
     contador+=1;
     /*
@@ -14,9 +24,18 @@
     //<%= text_field_tag("vanId") %>
     $("#Paradas2").html('<%= render :partial => "paradas_form" %>');
     document.getElementById("numeroParadas").value = contador;
+
+ 
+   
     
 
 }
+
+    function unhideParadas(countParadas){
+        $( "#nombreParada_"+countParadas).show();
+        var c = parseInt($("#numeroParadas").val())+1;
+        $("#numeroParadas").val(c);
+    }
 </script>
 
 
@@ -64,15 +83,26 @@
                     </div>
                 </div>
 
-            
-
-            <div class="bootstrap-timepicker">
                 <div class="form-group">
-                    
-                          Hora de Inicio <input class="form-control" name="horarioRuta" placeholder="Horario">
-                </div><!-- /.form group -->
-                    
-            </div>
+                    <label for="precioRuta">Zona</label>
+                    <div class="input-group">
+                        <%= collection_select(:ruta, :zona_id, Zona.all(:order => 'nombre'), :id, :nombre, { :prompt => 'Zona' }, :class => "form-control" ) %>
+                    </div>
+                </div>
+
+                <div class="bootstrap-timepicker">
+                    <div class="form-group">
+                      <label for="horario">Hora de Inicio</label>
+                        <div class="input-group">
+                        <span class="input-group-addon"><i class="fa  fa-clock-o"></i></span>
+                        
+                            <input type="text" id="horarioRuta" name="horarioRuta" class="form-control timepicker">
+                        
+                        </div> <!-- input-group -->
+                    </div>  <!-- form group -->
+              </div><!-- /.timepicker -->
+
+
 
             <div class="form-group">
                 
@@ -135,7 +165,7 @@
                         <div class="pull-left info">
                             
                             <b>Id: </b>
-                            <%= text_field_tag("vanId") %> </br>
+                            <%= text_field_tag("vanId", nil, :style => "background-color:rgba(0, 0, 0, 0); border:none") %> </br>
                             <b>Placa: </b>
                             <input id ="vanPlaca" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
                             <b>Modelo: </b>
@@ -183,6 +213,16 @@
                         <input  class="form-control" id="distanciaParada_<%=count%>" name="distanciaParada_<%=count%>" style="display: none"> </input>
                         <input type="button" value="Buscar" onclick="geocodeMarcador()">
 
+                        <% count += 1 %>
+                        <input  class="form-control" id="idParada_<%=count%>" name="idParada_<%=count%>" style="display: none" > </input>
+                        <input  class="form-control" id="nombreParada_<%=count%>"  name="nombreParada_<%=count%>" size="25" style="display:none"> </input>
+                        <input  class="form-control" id="latitudParada_<%=count%>" name="latitudParada_<%=count%>" style="display: none" > </input>
+                        <input  class="form-control" id="longitudParada_<%=count%>" name="longitudParada_<%=count%>" style="display: none" > </input>
+                        <input  class="form-control" id="posicionParada_<%=count%>" name="posicionParada_<%=count%>" style="display: none"> </input>
+                        <input  class="form-control" id="tiempoParada_<%=count%>" name="tiempoParada_<%=count%>" style="display: none"> </input>
+                        <input  class="form-control" id="distanciaParada_<%=count%>" name="distanciaParada_<%=count%>" style="display: none"> </input>
+                        <input type="button" value="Buscar" onclick="geocodeMarcador()">
+
                     </div>
 
                     <div id="Paradas2"></div>
@@ -191,7 +231,7 @@
 
 
                     <input id="numeroParadas" name="numeroParadas" placeholder="NUm" value ="1" style="display: none"> </input>
-                    <input type="button" value="Más Paradas" onclick="masParadas()">
+                    <%= link_to "Mas Paradas", '#', onclick: "unhideParadas(#{count});" %>
 
                 
 
@@ -200,12 +240,13 @@
 
 
                 </div><!-- /.box-body -->
+                <%= submit_tag("Guardar", :class => "btn btn-success")%>
+             <% end %>
+        
              </div><!-- /.box -->
 
             
-                <%= submit_tag("Guardar")%>
-             <% end %>
-        
+                
 
 
 

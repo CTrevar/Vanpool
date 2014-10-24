@@ -240,6 +240,30 @@ class ClientesController < ApplicationController
   end
 
 
+  def buscar_viaje_zona
+    @title="Buscar viaje por zona"
+    @current_cliente = obtener_cliente(current_user)
+    @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2).last(3)
+
+    rutas = Ruta.joins(:viajes)
+    @result = []
+    
+    #buscar viajes de cada ruta
+    rutas.each do |ruta|
+      viajes_ruta = Viaje.where("viajes.ruta_id = #{ruta.id}")
+      #checar las fechas de todos los viajes
+      ahora = Time.now
+      una_semana = ahora +1.week
+      viajes_ruta.each do |viaje|
+        #si está entre 2 fechas, se agrega al arreglo de viajes por zona encontrados
+        if viaje.fecha < una_semana or viaje.fecha >= ahora
+          @result << viaje
+        end
+      end
+    end
+
+    render 'buscar_zona'
+  end
 
 
 

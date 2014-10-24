@@ -47,9 +47,25 @@ function initialize() {
         mapOptions);
 
 
+    var lineSymbol = {
+      path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+    };
+
+
     var rendererOptions = { 
       map: map,
-      draggable: true
+      draggable: false,
+      polylineOptions: {
+          strokeWeight: 4,
+          strokeOpacity: 0.8,
+          strokeColor: '#D84743',
+          icons: [{
+            icon: lineSymbol,
+            offset: '25%'
+          }, {icon: lineSymbol,
+            offset: '75%'
+          }]
+      }
     };
 
     directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);

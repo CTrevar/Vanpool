@@ -1,4 +1,5 @@
 class Zona < ActiveRecord::Base
   belongs_to :ciudad
-  attr_accessible :clave, :estauts, :nombre
+  has_many :rutas
+  attr_accessible :clave, :estauts, :nombre, :id, :ciudad_id
 end

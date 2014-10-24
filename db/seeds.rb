@@ -23,7 +23,7 @@
 #retroaspectos=Retroaspecto.create([{nombre:"Limpieza de la van", estatus:true},{nombre:"Trato de conductor",estatus:true},
 #	{nombre:"Comodidad de la van",estatus:true}])
 
-configuraciones = Configuracion.create([{ nombre: 'CO2gxkmauto', valor: 196 }, {nombre: 'impuesto', valor: 16}, {nombre: 'radio', valor: 1}])
+#configuraciones = Configuracion.create([{ nombre: 'CO2gxkmauto', valor: 196 }, {nombre: 'impuesto', valor: 16}, {nombre: 'radio', valor: 1}])
 
 
 #vans = Van.create([{placa:'SPN4735', modelo: 'Impala', capacidad:10, activa: true, estatus: true, pais_id: 1},{placa: 'KJM212K', modelo: 'Cortina', capacidad: 13, activa: true, estatus: true, pais_id: 1}, {placa: 'outatime', modelo: 'Delorean', capacidad: 15, activa: true, estatus: true, pais_id: 1}, {placa: 'CAP12T', modelo: 'Tardis', capacidad: 10, activa: true, estatus: true, pais_id: 1} ] )
@@ -43,3 +43,5 @@ configuraciones = Configuracion.create([{ nombre: 'CO2gxkmauto', valor: 196 }, {
 # 	{ruta_id:1,horainicio:13,fecha:"29/09/2014", estadoviaje_id:1,estatus:1},
 # 	{ruta_id:2,horainicio:9,fecha:"28/09/2014", estadoviaje_id:1,estatus:1},
 # 	{ruta_id:2,horainicio:15,fecha:"26/09/2014", estadoviaje_id:1,estatus:1}])
+
+#zonas = Zona.create([{clave: "CHmx", nombre: "Chapultepec", ciudad_id: 1, estauts: true}, {clave: "PLmx", nombre: "Polanco", ciudad_id: 1, estauts: true}, {clave: "SFmx", nombre: "Santa Fe", ciudad_id: 1, estauts: true}, {clave: "PSmx", nombre: "Periferico Sur", ciudad_id: 1, estauts: true}])

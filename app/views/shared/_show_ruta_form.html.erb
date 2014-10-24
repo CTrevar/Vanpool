@@ -1,66 +1,108 @@
-<section class="content">
-		<div id="map-canvas">
-		</div>
+<script type="text/javascript">
+   $(function() {
+                //Datemask dd/mm/yyyy
+                $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+
+                //Timepicker
+                $(".timepicker").timepicker({
+                    showInputs: false
+                });
+            });
+   </script>
+
+        <section class="content">
+        <div id="map-canvas">
+        </div>
         </br>
 
-		 <div class="col-md-6">
+         <div class="col-md-6">
 
-            <%= form_for @ruta, url:rutas_path do |f| %>
-    		 	<div class="form-group">
+            <%= form_tag(controller:"rutas", action:"actualizar") do%>
+            
+            <% if @ruta.errors.any? %>
+                <div class="alert alert-danger alert-dismissable">
+                  <i class="fa fa-times"></i>
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  
+                  <ul>
+                    <% @ruta.errors.full_messages.each do |msg| %>
+                        <li><%= msg %></li>
+                    <% end %>
+                  </ul>
+                </div>
+            <% end %>
+
+                <div class="form-group">
                     <label for="nombreRuta">Nombre</label>
-                    <%= f.text_field :nombre, :class =>"form-control" , :placeholder => "Nombre"  %>
+                    <input  class="form-control" name="nombreRuta" placeholder="Nombre de la Ruta"  value="<%= @ruta.nombre %>">
                 </div>
 
-    		  	<div class="form-group">
-    		      <label for="origen">Origen</label>
-    		      <input  class="form-control" id="origenRuta" value="<%= @paradas_ruta.first.nombre %>" />
+                <div class="form-group">
+                  <label for="origen">Origen</label>
+                  <input  class="form-control" id="origenRuta" placeholder="Origen"  value="<%= @paradas_ruta.first.nombre %>">
+                </div>
+                <div class="form-group">
+                  <label for="destino">Destino</label>
+                  <input  class="form-control" id="destinoRuta" placeholder="Destino"  value="<%= @paradas_ruta.last.nombre %>">
+                </div>
 
-
-    		    </div>
-    		    <div class="form-group">
-    		      <label for="destino">Destino</label>
-    		      <input  class="form-control" id="destinoRuta" value="<%= @paradas_ruta.last.nombre %>">
-    		    </div>
-
-    		    <div class="form-group">
+                <div class="form-group">
                     <label for="precioRuta">Precio</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                        <%= f.text_field :precio %>
+                        <input  class="form-control" name="precio" placeholder="Precio" value="<%= @ruta.precio %>">
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label for="precioRuta">Zona</label>
+                    <div class="input-group">
+                        <%= collection_select(:ruta, :zona_id, Zona.all(:order => 'nombre'), :id, :nombre, { :selected => @ruta.zona_id }, :class => "form-control" ) %>
+                    </div>
+                </div>
+
+                <div class="bootstrap-timepicker">
+                    <div class="form-group">
+                      <label for="horario">Hora de Inicio</label>
+                        <div class="input-group">
+                        <span class="input-group-addon"><i class="fa  fa-clock-o"></i></span>
+                            <% horario = @ruta.horario.hora.strftime("%I:%M %p") %>
+                            <input type="text" id="horarioRuta" name="horarioRuta" class="form-control timepicker"  value="<%= horario %>">
+                        
+                        </div> <!-- input-group -->
+                    </div>  <!-- form group -->
+              </div><!-- /.timepicker -->
 
 
 
             <div class="form-group">
-                <%= f.fields_for :frecuencia do |frecuencia_fields| %>
+                
                     <label>Frecuencia:</label>
                     <div class="input-group">
                     
 
                         <table class="table">
                             <tr>
-                                <td><%= frecuencia_fields.check_box :lunes %></td>
-                                <td><%= frecuencia_fields.check_box :martes %></td>
-                                <td><%= frecuencia_fields.check_box :miercoles %></td>
-                                <td><%= frecuencia_fields.check_box :jueves %></td>
-                                <td><%= frecuencia_fields.check_box :viernes %></td>
-                                <td><%= frecuencia_fields.check_box :sabado %></td>
-                                <td><%= frecuencia_fields.check_box :domingo %></td>
+                                <td><input type="checkbox" name="lunes"  aria-checked="<%= @ruta.frecuencia.lunes %>" ></td>
+                                <td><input type="checkbox" name="martes" aria-checked="false"></td>
+                                <td><input type="checkbox" name="miercoles" aria-checked="<%= @ruta.frecuencia.miercoles %>"></td>
+                                <td><input type="checkbox" name="jueves" checked="<%= @ruta.frecuencia.jueves %>"></td>
+                                <td><input type="checkbox" name="viernes" checked="<%= @ruta.frecuencia.viernes %>"></td>
+                                <td><input type="checkbox" name="sabado" checked="<%= @ruta.frecuencia.sabado %>"></td>
+                                <td><input type="checkbox" name="domingo" checked="<%= @ruta.frecuencia.domingo %>"></td>
                             </tr>
                             <tr>
-                                <td><%= frecuencia_fields.label "L" %></td>
-                                <td><%= frecuencia_fields.label  "M" %></td>
-                                <td><%= frecuencia_fields.label  "Mie" %></td>
-                                <td><%= frecuencia_fields.label "J"%></td>
-                                <td><%= frecuencia_fields.label  "V" %></td>
-                                <td><%= frecuencia_fields.label "S" %></td>
-                                <td><%= frecuencia_fields.label "D" %></td>
+                                <td>L</td>
+                                <td>M</td>
+                                <td>Mie</td>
+                                <td>J</td>
+                                <td>V</td>
+                                <td>S</td>
+                                <td>D</td>
                             </tr>
                         </table>
                     
                     </div>
-                <% end %>
             </div><!-- /.form group frecuencia -->
 
             <div class="form-group ">
@@ -70,21 +112,22 @@
                         <img src="../img/avatar3.png" class="img-circle" alt="User Image" />
                     </div>
                     <div class="pull-left info">
-                        <b>Id: </b>
-                            <%= f.text_field :conductor_id, :disabled => true, style: 'background-color:rgba(0, 0, 0, 0); border:none'%> </br>
+                        <b>Id </b>
+                        <%= text_field_tag("conductorId", @ruta.conductor.id, :style => "background-color:rgba(0, 0, 0, 0); border:none")   %> 
+                         </br>
                         <b>Nombre: </b>
-                        <input id ="conductorNombre" disabled style="background-color:rgba(0, 0, 0, 0); border:none" value="<%= @conductorUser.name %> <%= @conductorUser.apellidoPaterno %>"></input> </br>
+                        <input id ="conductorNombre" disabled style="background-color:rgba(0, 0, 0, 0); border:none"  value="<%= @ruta.conductor.user.name %>" ></input> </br>
                         <br>
                         <b>Licencia: </b>
-                        <input id ="conductorLicencia" disabled style="background-color:rgba(0, 0, 0, 0); border:none" value="<%= @conductor.licenciaConductor %>"></input> </br>
-                       
+                        <input id ="conductorLicencia" disabled style="background-color:rgba(0, 0, 0, 0); border:none"  value="<%= @ruta.conductor.licenciaConductor %>"></input> </br> </br>
+                       <button type="button" class="btn btn-buscar-nav btn-flat pull-left" data-toggle="modal" data-target="#conductorsModal">Cambiar Conductor</button>
                        
                     </div>
-                     <button type="submit" class="btn btn-flat btn-default pull-right">Agregar</button>
+                     
                     </div>
             </div>
 
-          <div class="form-group ">
+            <div class="form-group ">
                 <label for="vanRuta">Van</label>
                     <div class="user-panel bg-gray">
                         <div class="pull-left image">
@@ -93,76 +136,89 @@
                         <div class="pull-left info">
                             
                             <b>Id: </b>
-                            <%= f.text_field :van_id, :disabled => true, style: 'background-color:rgba(0, 0, 0, 0); border:none'%> </br>
-                            <b>Placa: </b><input id ="vanPlaca" disabled style="background-color:rgba(0, 0, 0, 0); border:none" value="<%= @van.placa %>"></input> </br>
+                            <%= text_field_tag("vanId", @ruta.van.id, :style => "background-color:rgba(0, 0, 0, 0); border:none") %> </br>
+                            <b>Placa: </b>
+                            <input id ="vanPlaca" disabled style="background-color:rgba(0, 0, 0, 0); border:none"  value="<%= @ruta.van.placa %>"></input> </br>
                             <b>Modelo: </b>
-                            <input id ="vanModelo" disabled style="background-color:rgba(0, 0, 0, 0); border:none" value="<%= @van.modelo %>"></input></br></br>
-
-                            <button type="button" data-toggle="modal" data-target="#myModal">Cambiar Van</button>
+                            <input id ="vanModelo" disabled style="background-color:rgba(0, 0, 0, 0); border:none"  value="<%= @ruta.van.modelo %>"></input></br> </br>
+                            <button type="button" class="btn btn-buscar-nav btn-flat pull-left" data-toggle="modal" data-target="#myModal">Cambiar Van</button>
                            
                         </div>
                     </div>
             </div>
 
-		 </div><!--div class column6-->
+            </div><!--div class column6-->
 
-         <div class="col-md-6">
-            <div class="box box-success">
-            <div class="box-header">
-                <i class="ion ion-clipboard"></i>
-                <h3 class="box-title">Traza la ruta</h3>
-                
-            </div><!-- /.box-header -->
-            <div id="agregarParadas" class="box-body">
-                <%@paradas_ruta.each do |parada_fields| %>
-                    <ul id="paradasLista" class="todo-list">
-                        <li>
-                            <!-- drag handle -->
-                            <span class="handle">
-                                <i class="fa fa-arrows"></i>
-                            </span>
-                                       
-                             
-                            <input value="<%= parada_fields.nombre %>" class="form-control" />
-                            
-                            <div class="tools">
-                                <i class="fa fa-times"></i>
-                            </div>
-                        </li>
+            <div class="col-md-6">
+                <div class="box box-success">
+                    <div class="box-header">
+                        <i class="ion ion-clipboard"></i>
+                        <h3 class="box-title">Traza la ruta</h3>
                         
-                          
-                    </ul>
-                <%end%>
+                    </div><!-- /.box-header -->
 
-                <div id="paradasIntermedias">
+                        
 
-                </div>
+                    <!-- Paradas -->
+                    <div id = "Paradas">
+                        <% count = 0 %>
+                        <input  class="form-control" id="idParada_<%=count%>" name="idParada_<%=count%>" style="display: none" > </input>
+                        <div class="paradatype">
+                            <input id="nombreParada_<%=count%>" name="nombreParada_<%=count%>" class="typeahead" type="text" placeholder="Parada" autocomplete="off" spellcheck="false"  value="<%= @paradas_ruta.first.nombre %>"></input>
+                        </div>
+                        <input  class="form-control" id="latitudParada_<%=count%>" name="latitudParada_<%=count%>" style="display: none" value="<%= @paradas_ruta.first.latitud %>"> </input>
+                        <input  class="form-control" id="longitudParada_<%=count%>" name="longitudParada_<%=count%>" style="display: none" value="<%= @paradas_ruta.first.longitud %>"> </input>
+                        <input  class="form-control" id="posicionParada_<%=count%>" name="posicionParada_<%=count%>" style="display: none" > </input>
+                        <input  class="form-control" id="tiempoParada_<%=count%>" name="tiempoParada_<%=count%>" style="display: none" > </input>
+                        <input  class="form-control" id="distanciaParada_<%=count%>" name="distanciaParada_<%=count%>" style="display: none" > </input>
+                        <input type="button" value="Buscar" onclick="geocodeMarcador()">
 
-                <script type="text/javascript">
+                        <% count += 1 %>
+                        <input  class="form-control" id="idParada_<%=count%>" name="idParada_<%=count%>" style="display: none"  > </input>
+                        <input  class="form-control" id="nombreParada_<%=count%>"  name="nombreParada_<%=count%>" size="25" value="<%= @paradas_ruta.last.nombre %>"> </input>
+                        <input  class="form-control" id="latitudParada_<%=count%>" name="latitudParada_<%=count%>" style="display: none" value="<%= @paradas_ruta.last.latitud %>" > </input>
+                        <input  class="form-control" id="longitudParada_<%=count%>" name="longitudParada_<%=count%>" style="display: none" value="<%= @paradas_ruta.last.longitud %>"  > </input>
+                        <input  class="form-control" id="posicionParada_<%=count%>" name="posicionParada_<%=count%>" style="display: none"  > </input>
+                        <input  class="form-control" id="tiempoParada_<%=count%>" name="tiempoParada_<%=count%>" style="display: none" > </input>
+                        <input  class="form-control" id="distanciaParada_<%=count%>" name="distanciaParada_<%=count%>" style="display: none" > </input>
+                        <input type="button" value="Buscar" onclick="geocodeMarcador()">
 
-    function renderizarForma(){
-        $("#paradasIntermedias").append("<%= escape_javascript (render :partial => 'shared/paradas_form', :locals => {:f => f})%>"); 
+                    </div>
 
-    }
-</script>
-
-
-
-
-                <input id="agregarParadosas" type="button" value="Agregar Parada" onclick="renderizarForma()"/>
-
-            </div><!-- /.box-body -->
-        </div><!-- /.box -->
+                    <div id="Paradas2"></div>
 
 
-                        </br>
 
-                        <%= render 'shared/modal_vans' %>
-                        <%= render 'shared/modal_conductors' %>
 
+                    <input id="numeroParadas" name="numeroParadas" placeholder="NUm" value ="1" style="display: none"> </input>
+                    <input type="button" value="Más Paradas" onclick="masParadas()">
+
+                
+
+                <p></p>
+
+
+
+                </div><!-- /.box-body -->
+             </div><!-- /.box -->
 
             
-                     <%end%>
+                <%= submit_tag("Editar")%>
+             <% end %>
+        
+
+
+
+
+     
+             
+        
+
+         </div><!--div class column6-->
+
+    
+ <%= render 'shared/modal_vans' %>
+  <%= render 'shared/modal_conductors' %>
          </div>
 
          

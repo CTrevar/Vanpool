@@ -57,7 +57,9 @@ class RutasController < ApplicationController
         @ruta.nombre = params[:nombreRuta]
         @ruta.precio = params[:precio]
         @ruta.van_id = params[:vanId]
-        @ruta.conductor_id = Conductor.find_by_user_id(params[:conductorId])
+        @ruta.zona_id = params[:ruta][:zona_id]
+        conductor = Conductor.find_by_user_id(params[:conductorId])
+        @ruta.conductor_id = conductor.id
         @ruta.estatus = true
 
       if @ruta.valid?
@@ -151,19 +153,118 @@ class RutasController < ApplicationController
     
 	end
 
-  def edit
+  def detalle
+    # @ruta = Ruta.find(params[:id])
+    # @paradas_ruta = @ruta.paradas
+    # @van = @ruta.van
     @ruta = Ruta.find(params[:id])
-    @paradas_ruta = @ruta.paradas
     @van = @ruta.van
+    @conductor = Conductor.find(@ruta.conductor_id)
+    @conductorUser = User.find(@conductor.user_id)
+    @rel = Rutaparada.where(:ruta_id => @ruta.id)
+    @rel.sort! { |a, b| a.posicion <=> b.posicion }
+    @paradas_ruta = []
+    @rel.each do |p|
+      @parada= Parada.find(p.parada_id)
+      @paradas_ruta.push(@parada)
+    end
   end
 
-  def update
+  def actualizar
     @ruta = Ruta.find(params[:id])
-    if @ruta.update_attributes(params[:ruta])
-      redirect_to rutas_path
-    else
-      render 'edit'
+      #Guardar ruta
+        
+        @ruta.nombre = params[:nombreRuta]
+        @ruta.precio = params[:precio]
+        @ruta.van_id = params[:vanId]
+        @ruta.zona_id = params[:ruta][:zona_id]
+        conductor = Conductor.find_by_user_id(params[:conductorId])
+        @ruta.conductor_id = 1
+
+      if @ruta.valid?
+        @ruta.save
+
+        #Guardar paradas
+        numero_paradas = params[:numeroParadas].to_i+1
+
+
+        numero_paradas.times do |num|
+          id_parada = params[:"idParada_#{num}"].to_i
+
+     
+
+          #Guardar paradas_ruta
+          #por cada parada
+          @rutaparada = Rutaparada.find_by_ruta_id_and_posicion(@ruta.id, num-1)
+
+          
+            @parada = Parada.find(@rutaparada.parada_id)
+            @parada.nombre = params[:"nombreParada_#{num}"]
+            @parada.latitud = params[:"latitudParada_#{num}"]
+            @parada.longitud = params[:"longitudParada_#{num}"]
+            @parada.save
+          
+
+          @rutaparada.posicion  = params[:"posicionParada_#{num}"]
+          @rutaparada.tiempo = params[:"tiempoParada_#{num}"]
+          @rutaparada.distancia = params[:"distanciaParada_#{num}"]
+          @rutaparada.save
+
+        end #end for
+        
+        
+
+
+        #Guardar frecuencias de la ruta
+        @frecuencia = Frecuencia.find_by_ruta_id(@ruta.id)
+        @frecuencia.lunes = params[:lunes]
+        @frecuencia.martes = params[:martes]
+        @frecuencia.miercoles = params[:miercoles]
+        @frecuencia.jueves = params[:jueves]
+        @frecuencia.viernes = params[:viernes]
+        @frecuencia.sabado = params[:sabado]
+        @frecuencia.domingo = params[:domingo]
+        @frecuencia.save
+
+        
+
+        #Guardar horario
+        @horario = Horario.find_by_ruta_id(@ruta.id)
+        @horario.hora = params[:horarioRuta]
+        @horario.save
+        
+        #genera_viajes_ruta_nueva(@ruta)
+
+        redirect_to rutas_path
+      else
+        render 'show'
+      end #end if ruta is valid
+
+  end
+
+
+  def listar_por_zona(zona_id)
+    #buscar rutas de la zona
+    rutas = Ruta.joins(:viajes).where("rutas.zona_id= zona_id")
+    @result = []
+    
+    #buscar viajes de cada ruta
+    rutas.each do |ruta|
+      viajes_ruta = Viaje.where("viajes.ruta_id = ruta.id")
+      #checar las fechas de todos los viajes
+      viajes_ruta.each do |viaje|
+        #si está entre 2 fechas, se agrega al arreglo de viajes por zona encontrados
+        if viaje.fecha < fechafinal or viaje.fecha >= fechainicio
+          @result << viaje
+        end
     end
+
+    respond_to do |format|
+        #Enviar viajes resultantes
+        format.html { render partial: 'shared/user_rutas_busqueda', locals: { result: @result}, layout:false}
+        
+    end
+      
   end
 
   #
@@ -265,10 +366,10 @@ class RutasController < ApplicationController
 
     # Si el campo de busqueda tiene solo espacios en blanco.
     if jtTextoBusqueda.blank? || jtTextoBusqueda.to_s == ''
-      @results = Ruta.joins(:van).select(" rutas.id as ruta_id, *").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+      @results = Ruta.joins(:van).select(" rutas.id as ruta_id, *").where("rutas.estatus = 't'").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     else
       # Si contiene algo más realiza la búsqueda en todos los atributos de la tabla.
-      @results = Ruta.joins(:van).select(" rutas.id as ruta_id, *").where( "LOWER(nombre) LIKE '%#{jtTextoBusqueda.downcase}%'"
+      @results = Ruta.joins(:van).select(" rutas.id as ruta_id,  *").where( "rutas.estatus = 't' AND LOWER(nombre) LIKE '%#{jtTextoBusqueda.downcase}%'"
       ).order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     end
     respond_to do |format|
@@ -277,6 +378,37 @@ class RutasController < ApplicationController
                       :TotalRecordCount => Ruta.joins(:van).count,
                       :Records => @results
                       }
+      format.json { render json: jTableResult}
+      format.html
+      format.js
+    end
+  end
+
+
+  # ///////////////////////////////////////////////////////
+  # Método para eliminar registro de la BD
+  #
+  def jtable_delete
+    ruta = Ruta.find(params[:ruta_id])
+
+    # Iniciamos la eliminación del registro, si no se elimina, almacenamos el resultado en un boleano.
+    bolExito = true
+    errMensaje = ''
+    begin
+      ruta.estatus = false
+      ruta.save!
+    rescue => e
+      bolExito = false
+      errMensaje = "No se pudo eliminar. Revise el error: #{e}"
+    end
+    respond_to do |format|
+      # Regresamos el resultado de la operación a la jTable
+      if bolExito
+        jTableResult = {:Result => "OK"}
+      else
+        jTableResult = {:Result => "Message",
+                        :Message => errMensaje}
+      end
       format.json { render json: jTableResult}
       format.html
       format.js
