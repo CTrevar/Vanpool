@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20141016163608) do
     t.decimal  "co2ahorrado", :default => 0.0
     t.decimal  "kilometros",  :default => 0.0
     t.boolean  "estatus",     :default => true
+    t.integer  "kilometraje", :default => 0
   end
 
   create_table "conductors", :force => true do |t|
@@ -151,6 +152,15 @@ ActiveRecord::Schema.define(:version => 20141016163608) do
     t.datetime "updated_at",                :null => false
   end
 
+  create_table "parada_ruta", :force => true do |t|
+    t.integer  "posicion"
+    t.integer  "tiempo"
+    t.integer  "distancia"
+    t.text     "via_puntos"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "paradas", :force => true do |t|
     t.string   "nombre",     :limit => 100
     t.float    "longitud"
@@ -196,6 +206,19 @@ ActiveRecord::Schema.define(:version => 20141016163608) do
     t.boolean  "estatus"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "ruta", :force => true do |t|
+    t.integer  "conductor_id"
+    t.integer  "van_id"
+    t.string   "nombre"
+    t.string   "gmaps"
+    t.string   "precio"
+    t.integer  "kilometros"
+    t.boolean  "estatus"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "hora_inicio"
   end
 
   create_table "rutaparadas", :force => true do |t|
