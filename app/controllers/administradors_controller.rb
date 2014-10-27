@@ -233,10 +233,12 @@ class AdministradorsController < ApplicationController
   def administrador_detallemedalla
     medalla_id = params[:medalla_id]
     @medalla = Medalla.new
+    #@medalla = Medalla.find(medalla_id)
+
     if medalla_id.nil?
       @action = 'create'
     else
-      @medalla = Cliente.find(medalla_id)
+      @medalla = Medalla.find(medalla_id)
       @action = 'update'
       respond_to do |format|
         format.html { render partial: 'shared/administrador_detallemedalla', locals: { medalla: @medalla, aciton: @action }, layout:false}
@@ -244,6 +246,7 @@ class AdministradorsController < ApplicationController
       end
     end
   end
+  
 
   #
   # Metodo para ver el perfil con la información de un cliente.

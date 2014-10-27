@@ -2,9 +2,9 @@ class MedallasController < ApplicationController
   # GET /medallas
   # GET /medallas.json
   def index
-      @user = User.new
+    #@user = User.new
     @medallas = Medalla.all
-    @cliente = obtener_cliente
+    #@cliente = obtener_cliente
 
     respond_to do |format|
       format.html # index.html.erb
@@ -45,35 +45,35 @@ class MedallasController < ApplicationController
 
   # POST /medallas
   # POST /medallas.json
-  def create
-    @medalla = Medalla.new(params[:medalla])
+  #def create
+  #  @medalla = Medalla.new(params[:medalla])
 
-    respond_to do |format|
-      if @medalla.save
-        format.html { redirect_to @medalla, notice: 'Medalla was successfully created.' }
-        format.json { render json: @medalla, status: :created, location: @medalla }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @medalla.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # respond_to do |format|
+  #    if @medalla.save
+  #      format.html { redirect_to @medalla, notice: 'Medalla was successfully created.' }
+  #      format.json { render json: @medalla, status: :created, location: @medalla }
+  #    else
+  #      format.html { render action: "new" }
+  #      format.json { render json: @medalla.errors, status: :unprocessable_entity }
+  #    end
+  #  end
+  #end
 
   # PUT /medallas/1
   # PUT /medallas/1.json
-  def update
-    @medalla = Medalla.find(params[:id])
+  #def update
+  #  @medalla = Medalla.find(params[:id])
 
-    respond_to do |format|
-      if @medalla.update_attributes(params[:medalla])
-        format.html { redirect_to @medalla, notice: 'Medalla was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @medalla.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #  respond_to do |format|
+  #    if @medalla.update_attributes(params[:medalla])
+  #      format.html { redirect_to @medalla, notice: 'Medalla was successfully updated.' }
+  #      format.json { head :no_content }
+  #    else
+  #      format.html { render action: "edit" }
+  #      format.json { render json: @medalla.errors, status: :unprocessable_entity }
+  #    end
+  #  end
+  #end
 
   # DELETE /medallas/1
   # DELETE /medallas/1.json
@@ -195,11 +195,12 @@ class MedallasController < ApplicationController
 
     # Si el campo de busqueda tiene solo espacios en blanco.
     if jtTextoBusqueda.blank? || jtTextoBusqueda.to_s == ''
-      @results = Medalla.select('*').where("estatus = 't'").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+      @results = Medalla.select('*').where("estatus = 't'").joins(:tipomedalla).select('medallas.id as medalla_id,medallas.tipomedalla_id as tipomedalla_id, tipomedallas.nombre as nombre_tipomedalla, medallas.nombre as nombre_medalla').order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+
     else
       # Si contiene algo más realiza la búsqueda en todos los atributos de la tabla.
       @results = Medalla.select('*').where("(LOWER(nombre) LIKE '%#{jtTextoBusqueda.downcase}%') 
-        AND estatus = 't'").select('*').order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+        AND estatus = 't'").joins(:tipomedalla).select('medallas.tipomedalla_id as tipomedalla_id, tipomedallas.nombre as nombre_tipomedalla, medallas.nombre as nombre_medalla').order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     end
     respond_to do |format|
       # Regresamos el resultado de la operación a la jTable

@@ -162,6 +162,7 @@ SampleApp::Application.routes.draw do
   match '/medalla_controller/update',   to: 'medallas#update',   via: [:post,:put]
   match '/medalla_controller/create',   to: 'medallas#create',   via: [:post,:put]
 
+  match '/administrar_medalla_detalle',   to: 'administradors#administrador_detallemedalla',   via: [:get, :post, :put]
 
   match '/registrar_subida',   to: 'conductors#registrar_subida',   via: [:post,:get]
 
