@@ -86,3 +86,5 @@ end
 # gem 'debugger'
 gem 'jquery-ui-rails'
 gem 'will_paginate'
+
+gem 'seed_dump'

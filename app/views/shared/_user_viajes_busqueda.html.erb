@@ -1,0 +1,109 @@
+
+<div class="border green">
+<h3 class="nomargin">Rutas que coinciden contigo</h3>
+</div>
+<% if(@result.first!=nil)%>
+        <% @result.each do |viaje| %>
+            <div class="item-ruta border">
+            <div class="row-fluid">
+                <div class="span6">
+                    <h4><%=viaje.ruta.nombre%></h4>
+                    <small>ORIGEN:</small><b><%= viaje.ruta.paradas.order('posicion ASC').first.nombre %></b></br>
+                    <small>DESTINO:</small><b><%= viaje.ruta.paradas.order('posicion ASC').last.nombre %></b></br>
+                    <small>FECHA:</small><b><%=viaje.fecha.strftime("%Y-%m-%d")%> </b>
+                </div>
+                <div class="span6">
+                    </br>
+                    </br>
+                    <small>HORA DE SALIDA:</small><b><%=viaje.horainicio.strftime("%I:%M%p")%> </b></br>
+                    <small>HORA DE LLEGADA:</small><b><%=(viaje.horainicio+ viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></b></br>
+                    <small>Precio:</small><b><%=number_to_currency(viaje.ruta.precio, :unit => "$")%></b>
+                </div>
+                </div>
+            </br>
+                <div class="row-fluid">
+                 <%= link_to "Ver detalle", "/viajes/#{viaje.id}/detalle", class:"btn btn-buscar-nav btn-flat span6" %> 
+                 <% paradas=  viaje.ruta.paradas.to_json %>
+                <%= link_to "Ver en Mapa", '#', onclick: "trazarRuta(#{paradas});", class: "btn btn-buscar-nav btn-flat span6" %>
+                </div>
+            
+            </div><!-- /.item -->
+    <% end %>
+      <% else %>
+        <div class="item-ruta border">
+            <h2>No hay viajes disponibles para tu ruta.</h2>
+        </div>
+    <% end %>
+
+
+    <script type="text/javascript">
+
+
+ function trazarRuta(paradas){
+    var arregloMarcadores= paradas;
+    var origen = arregloMarcadores[0].latitud+", "+arregloMarcadores[0].longitud;
+    
+    var destino = arregloMarcadores[arregloMarcadores.length-1].latitud+", "+arregloMarcadores[arregloMarcadores.length-1].longitud;
+    var arregloParadas=[];
+
+        if(arregloMarcadores.length>2){
+
+          for(i= 1; i<arregloMarcadores.length-1;i++){
+            var posicionParada = arregloMarcadores[i].latitud+", "+arregloMarcadores[i].longitud;
+            arregloParadas.push({
+                              location: posicionParada,
+                              stopover: true
+                            });
+            
+          }
+
+        }
+
+        //optimize waypoints for admin false, for client will be true
+        var request = {
+          origin: origen,
+          destination: destino,
+          waypoints: arregloParadas,
+          travelMode: google.maps.DirectionsTravelMode.DRIVING,
+          unitSystem: google.maps.UnitSystem.METRIC,
+          optimizeWaypoints: false
+        }
+
+        directionsService = new google.maps.DirectionsService();
+        var rutaa= directionsService.route(request, function(response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            var lineSymbol = {
+              path: google.maps.SymbolPath.FORWARD_OPEN_ARROW
+            };
+
+
+            var renderOptions = { 
+              map: map,
+              draggable: false,
+              polylineOptions: {
+                  strokeWeight: 4,
+                  strokeOpacity: 0.8,
+                  strokeColor: '#D84743',
+                  icons: [{
+                    icon: lineSymbol,
+                    offset: '25%'
+                  }, {icon: lineSymbol,
+                    offset: '75%'
+                  }]
+              }
+            };
+            directionsDisplay.setOptions(renderOptions);
+            directionsDisplay.setDirections(response);
+            var routeDrawn = response.routes[0];
+                 
+          }
+          else
+            alert ('no se pudo obtener direcciones');
+        });
+
+        
+
+  }
+</script>
+
+
