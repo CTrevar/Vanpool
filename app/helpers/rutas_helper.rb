@@ -4,7 +4,7 @@ module RutasHelper
 		return Ruta.all
 	end
 
-	def busqueda (origen, destino)
+	def busqueda (origen, destino, fechaviaje)
 		result=Array.new
 		count=0
 		# origen=Localizacion.new
@@ -35,8 +35,14 @@ module RutasHelper
 					if(valida_direccion(paradaorigen,paradadestino,ruta))
 						#validacion de fecha
 						
-						fecha="27/09/2014"
-						porfecha=ruta.viajes.find_all_by_fecha_and_estadoviaje_id(fecha,[1,2])
+						#fecha="27/09/2014"
+						fecha = fechaviaje.to_datetime
+						#porfecha=ruta.viajes.find_all_by_fecha_and_estadoviaje_id(fecha,[1,2])
+
+						#fecha= fechaviaje.to_datetime
+						fechafin = fecha.end_of_day
+						porfecha = ruta.viajes.where("fecha >= ? and fecha <= ?", fecha, fechafin)
+
 						porfecha.each do |v|
 							result<<v
 						end #porfechaeach

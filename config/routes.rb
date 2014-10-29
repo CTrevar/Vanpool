@@ -163,6 +163,7 @@ SampleApp::Application.routes.draw do
   match '/buscar_zona', to:'clientes#buscar_viaje_zona'
   match '/resultado_zona', to: 'rutas#listar_por_zona', via: [:get, :post]
 
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

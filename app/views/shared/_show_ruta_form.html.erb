@@ -83,13 +83,13 @@
 
                         <table class="table">
                             <tr>
-                                <td><input type="checkbox" name="lunes"  aria-checked="<%= @ruta.frecuencia.lunes %>" ></td>
+                                <td><input type="checkbox" name="lunes" ></td>
                                 <td><input type="checkbox" name="martes" aria-checked="false"></td>
                                 <td><input type="checkbox" name="miercoles" aria-checked="<%= @ruta.frecuencia.miercoles %>"></td>
-                                <td><input type="checkbox" name="jueves" checked="<%= @ruta.frecuencia.jueves %>"></td>
-                                <td><input type="checkbox" name="viernes" checked="<%= @ruta.frecuencia.viernes %>"></td>
-                                <td><input type="checkbox" name="sabado" checked="<%= @ruta.frecuencia.sabado %>"></td>
-                                <td><input type="checkbox" name="domingo" checked="<%= @ruta.frecuencia.domingo %>"></td>
+                                <td><input type="checkbox" name="jueves" ></td>
+                                <td><input type="checkbox" name="viernes" checked></td>
+                                <td><input type="checkbox" name="sabado" ></td>
+                                <td><input type="checkbox" name="domingo" ></td>
                             </tr>
                             <tr>
                                 <td>L</td>
@@ -131,7 +131,7 @@
                 <label for="vanRuta">Van</label>
                     <div class="user-panel bg-gray">
                         <div class="pull-left image">
-                            <i class="fa fa-truck"></i>
+                            <i class="fa fa-truck fa-3x"></i>
                         </div>
                         <div class="pull-left info">
                             
@@ -161,27 +161,10 @@
 
                     <!-- Paradas -->
                     <div id = "Paradas">
-                        <% count = 0 %>
-                        <input  class="form-control" id="idParada_<%=count%>" name="idParada_<%=count%>" style="display: none" > </input>
-                        <div class="paradatype">
-                            <input id="nombreParada_<%=count%>" name="nombreParada_<%=count%>" class="typeahead" type="text" placeholder="Parada" autocomplete="off" spellcheck="false"  value="<%= @paradas_ruta.first.nombre %>"></input>
-                        </div>
-                        <input  class="form-control" id="latitudParada_<%=count%>" name="latitudParada_<%=count%>" style="display: none" value="<%= @paradas_ruta.first.latitud %>"> </input>
-                        <input  class="form-control" id="longitudParada_<%=count%>" name="longitudParada_<%=count%>" style="display: none" value="<%= @paradas_ruta.first.longitud %>"> </input>
-                        <input  class="form-control" id="posicionParada_<%=count%>" name="posicionParada_<%=count%>" style="display: none" > </input>
-                        <input  class="form-control" id="tiempoParada_<%=count%>" name="tiempoParada_<%=count%>" style="display: none" > </input>
-                        <input  class="form-control" id="distanciaParada_<%=count%>" name="distanciaParada_<%=count%>" style="display: none" > </input>
-                        <input type="button" value="Buscar" onclick="geocodeMarcador()">
-
-                        <% count += 1 %>
-                        <input  class="form-control" id="idParada_<%=count%>" name="idParada_<%=count%>" style="display: none"  > </input>
-                        <input  class="form-control" id="nombreParada_<%=count%>"  name="nombreParada_<%=count%>" size="25" value="<%= @paradas_ruta.last.nombre %>"> </input>
-                        <input  class="form-control" id="latitudParada_<%=count%>" name="latitudParada_<%=count%>" style="display: none" value="<%= @paradas_ruta.last.latitud %>" > </input>
-                        <input  class="form-control" id="longitudParada_<%=count%>" name="longitudParada_<%=count%>" style="display: none" value="<%= @paradas_ruta.last.longitud %>"  > </input>
-                        <input  class="form-control" id="posicionParada_<%=count%>" name="posicionParada_<%=count%>" style="display: none"  > </input>
-                        <input  class="form-control" id="tiempoParada_<%=count%>" name="tiempoParada_<%=count%>" style="display: none" > </input>
-                        <input  class="form-control" id="distanciaParada_<%=count%>" name="distanciaParada_<%=count%>" style="display: none" > </input>
-                        <input type="button" value="Buscar" onclick="geocodeMarcador()">
+                        <% @paradas_ruta.each_with_index do |parada, index| %>
+                            <input id="nombreParada_<%=index%>" name="nombreParada_<%=index%>" class="form-control"  value="<%= parada.nombre %>"></input>
+                            </br>
+                        <% end %>
 
                     </div>
 
@@ -203,7 +186,7 @@
              </div><!-- /.box -->
 
             
-                <%= submit_tag("Editar")%>
+                
              <% end %>
         
 

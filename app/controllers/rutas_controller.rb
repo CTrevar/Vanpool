@@ -69,34 +69,37 @@ class RutasController < ApplicationController
         numero_paradas = params[:numeroParadas].to_i+1
 
 
-        numero_paradas.times do |num|
+        3.times do |num|
           id_parada = params[:"idParada_#{num}"].to_i
 
      
+          nombreparada = params[:"nombreParada_#{num}"]
+          if !nombreparada.blank?
+            #Guardar paradas_ruta
+            #por cada parada
+            @rutaparada = Rutaparada.new
 
-          #Guardar paradas_ruta
-          #por cada parada
-          @rutaparada = Rutaparada.new
+            #if id_parada
+              #guarda la id de la ruta 
+              #@rutaparada.parada_id = id_parada
+            #else 
+              #si no existe parada, crea una nueva
 
-          #if id_parada
-            #guarda la id de la ruta 
-            #@rutaparada.parada_id = id_parada
-          #else 
-            #si no existe parada, crea una nueva
-            @parada = Parada.new
-            @parada.nombre = params[:"nombreParada_#{num}"]
-            @parada.latitud = params[:"latitudParada_#{num}"]
-            @parada.longitud = params[:"longitudParada_#{num}"]
-            @parada.save
-            #guarda el id de la parada en la tabla de paradas_ruta
-            @rutaparada.parada_id = @parada.id
-          #end
+              @parada = Parada.new
+              @parada.nombre = nombreparada
+              @parada.latitud = params[:"latitudParada_#{num}"]
+              @parada.longitud = params[:"longitudParada_#{num}"]
+              @parada.save
+              #guarda el id de la parada en la tabla de paradas_ruta
+              @rutaparada.parada_id = @parada.id
+            #end
 
-          @rutaparada.ruta_id = @ruta.id
-          @rutaparada.posicion  = params[:"posicionParada_#{num}"]
-          @rutaparada.tiempo = params[:"tiempoParada_#{num}"]
-          @rutaparada.distancia = params[:"distanciaParada_#{num}"]
-          @rutaparada.save
+            @rutaparada.ruta_id = @ruta.id
+            @rutaparada.posicion  = params[:"posicionParada_#{num}"]
+            @rutaparada.tiempo = params[:"tiempoParada_#{num}"]
+            @rutaparada.distancia = params[:"distanciaParada_#{num}"]
+            @rutaparada.save
+          end
 
         end #end for
         
@@ -243,25 +246,45 @@ class RutasController < ApplicationController
   end
 
 
-  def listar_por_zona(zona_id)
-    #buscar rutas de la zona
-    rutas = Ruta.joins(:viajes).where("rutas.zona_id= zona_id")
+  def listar_por_zona
+    filtro_zona_id = params[:zona_id]
+    filtro_fecha = params[:filtro_fecha]
+
+    if filtro_zona_id.blank?
+      rutas = Ruta.select("id").all
+    else
+      rutas = Ruta.select("id").where("zona_id = ?", filtro_zona_id)
+    end
+    viajes = Viaje.where("ruta_id IN (?) AND (estadoviaje_id = 2 or estadoviaje_id = 1)", rutas)
     @result = []
+    ahora = Time.now.beginning_of_day
+    fecha_inicial = ahora
+
+    if filtro_fecha.downcase.eql? "hoy"
+      fecha_final = Time.now.end_of_day
+    elsif filtro_fecha.downcase.eql? "esta semana"
+      fecha_final = (ahora + 1.week).end_of_day
+    elsif filtro_fecha.downcase.eql? "proxima semana"
+      fecha_inicial = (ahora +1.week).beginning_of_day
+      fecha_final = (fecha_inicial + 1.week).end_of_day
+    elsif filtro_fecha.downcase.eql? "este mes"
+      fecha_final = (ahora + 1.month).end_of_day
+    end
+      
     
-    #buscar viajes de cada ruta
-    rutas.each do |ruta|
-      viajes_ruta = Viaje.where("viajes.ruta_id = ruta.id")
-      #checar las fechas de todos los viajes
-      viajes_ruta.each do |viaje|
-        #si está entre 2 fechas, se agrega al arreglo de viajes por zona encontrados
-        if viaje.fecha < fechafinal or viaje.fecha >= fechainicio
-          @result << viaje
-        end
+    viajes.each do |viaje|
+      
+      fecha_viaje = viaje.fecha.to_time
+
+      #si está entre 2 fechas, se agrega al arreglo de viajes por zona encontrados
+      if fecha_viaje <= fecha_final and fecha_viaje >= fecha_inicial
+           @result << viaje
+      end
     end
 
     respond_to do |format|
         #Enviar viajes resultantes
-        format.html { render partial: 'shared/user_rutas_busqueda', locals: { result: @result}, layout:false}
+        format.html { render partial: 'shared/user_viajes_busqueda', locals: { result: @result}, layout:false}
         
     end
       

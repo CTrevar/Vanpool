@@ -184,9 +184,23 @@ class ClientesController < ApplicationController
     @validaviajes=valida_viajes_completos(@cliente)
 
     @reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
+    @disponibilidad_pendientes = []
+    @reservaciones_pendientes.each do |reserva_pendiente|
+      @disponibilidad_pendientes<< calcula_disponibilidad_viaje(reserva_pendiente.viaje)
+    end
+
     @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
+    @disponibilidad_pagadas = []
+    @reservaciones_pagadas.each do |reserva_pagada|
+      @disponibilidad_pagadas<< calcula_disponibilidad_viaje(reserva_pagada.viaje)
+    end
+
     @reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
     @reservaciones_canceladas=@current_cliente.reservacions.find_all_by_estadotipo_id(4)
+
+
+    
+
     
     render 'show_reservaciones'
   end
@@ -222,7 +236,9 @@ class ClientesController < ApplicationController
 
     @horainicio = params[:horainicio]
 
-    @result=busqueda(@origen, @destino)
+    @fechainicio = params[:fechainicio]
+
+    @result=busqueda(@origen, @destino, @fechainicio)
 
     if @result.blank?
       create_sugerencia(@origen, @destino, @horainicio, @origenDireccion, @destinoDireccion)
@@ -241,28 +257,40 @@ class ClientesController < ApplicationController
 
 
   def buscar_viaje_zona
-    @title="Buscar viaje por zona"
+    @title="Viajes de la semana"
     @current_cliente = obtener_cliente(current_user)
     @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2).last(3)
 
-    rutas = Ruta.joins(:viajes)
+    viajes = Viaje.where("estadoviaje_id = 2 or estadoviaje_id = 1")
     @result = []
+    ahora = Time.now.beginning_of_day
+    una_semana = (ahora + 1.week).end_of_day
     
-    #buscar viajes de cada ruta
-    rutas.each do |ruta|
-      viajes_ruta = Viaje.where("viajes.ruta_id = #{ruta.id}")
-      #checar las fechas de todos los viajes
-      ahora = Time.now
-      una_semana = ahora +1.week
-      viajes_ruta.each do |viaje|
-        #si está entre 2 fechas, se agrega al arreglo de viajes por zona encontrados
-        if viaje.fecha < una_semana or viaje.fecha >= ahora
-          @result << viaje
-        end
+    viajes.each do |viaje|
+      
+      fecha_viaje = viaje.fecha.to_time
+
+      #si está entre 2 fechas, se agrega al arreglo de viajes por zona encontrados
+      if fecha_viaje <= una_semana and fecha_viaje >= ahora
+           @result << viaje
       end
     end
 
     render 'buscar_zona'
+  end
+
+
+  def mostrar_proximos_viajes
+    @title="Viajes de la semana"
+    @current_cliente = obtener_cliente(current_user)
+    @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2).last(3)
+
+    @reservaciones_proximas = Reservacion.joins(:viaje).where("cliente_id= ? AND (estadotipo_id= 1 or estadotipo_id = 2) ", @current_cliente.id)
+    render 'proximos_viajes'
+  end
+
+  def mostrar_viajes_realizados
+    render 'viajes realizados'
   end
 
 

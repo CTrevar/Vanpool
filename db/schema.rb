@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141023002515) do
+ActiveRecord::Schema.define(:version => 20141024233704) do
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -311,12 +311,12 @@ ActiveRecord::Schema.define(:version => 20141023002515) do
 
   create_table "viajes", :force => true do |t|
     t.integer  "ruta_id"
-    t.string   "horainicio"
-    t.string   "fecha"
+    t.datetime "horainicio",     :limit => 255
+    t.datetime "fecha",          :limit => 255
     t.integer  "estadoviaje_id"
     t.integer  "estatus"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "zonas", :force => true do |t|

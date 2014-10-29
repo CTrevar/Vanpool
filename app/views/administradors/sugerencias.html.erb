@@ -76,12 +76,6 @@ function initialize() {
                                             <h4></h4>
                                             <small>ORIGEN:</small><b><%= sugerencia.sugerenciaparadas.order('posicion ASC').first.nombre %></b></br>
                                             <small>DESTINO:</small><b><%= sugerencia.sugerenciaparadas.order('posicion ASC').last.nombre %></b></br>
-                                            <small>FECHA:</small><b></b>
-                                        </div>
-                                        <div class="span6">
-                                            </br>
-                                            </br>
-                                            <small>HORA DE SALIDA:</small><b><%=sugerencia.hora_inicio%> </b></br>
                                         </div>
                                         </div>
                                     </br>
@@ -165,7 +159,7 @@ function initialize() {
         var rutaa= directionsService.route(request, function(response, status) {
           if (status == google.maps.DirectionsStatus.OK) {
             var lineSymbol = {
-              path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+              path: google.maps.SymbolPath.FORWARD_OPEN_ARROW
             };
 
 
