@@ -213,6 +213,41 @@ class AdministradorsController < ApplicationController
       end
     end
   end
+
+  #
+  # Metodo para ver información básica de un cliente en un div lateral
+  #
+  def medallas
+    medalla_id = params[:medalla_id]
+    if medalla_id.nil?
+      @medalla = Medalla.new
+      @action = 'create'
+    else
+      @medalla = Medalla.find(medalla_id)
+      @action = 'update'
+    end
+  end
+  #
+  # Metodo para ver el detalle de la información de un cliente.
+  #
+  def administrador_detallemedalla
+    medalla_id = params[:medalla_id]
+    @medalla = Medalla.new
+    #@medalla = Medalla.find(medalla_id)
+
+    if medalla_id.nil?
+      @action = 'create'
+    else
+      @medalla = Medalla.find(medalla_id)
+      @action = 'update'
+      respond_to do |format|
+        format.html { render partial: 'shared/administrador_detallemedalla', locals: { medalla: @medalla, aciton: @action }, layout:false}
+        # format.html {render layout:false}
+      end
+    end
+  end
+  
+
   #
   # Metodo para ver el perfil con la información de un cliente.
   #

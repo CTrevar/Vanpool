@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+
 # tipomedallas = Tipomedalla.create([{ nombre: 'Social' }, { nombre: 'Retro' }])
 # niveles = Nivel.create([{ nombre: 'Novato 1', rangomaximo:5000 }, { nombre: 'Novato 2', rangomaximo:15000 }, { nombre: 'Novato 3', rangomaximo:25000 }])
 # medallasmuros = Medallasmuro.create([{ cliente_id:1, medalla_id:1 }, { cliente_id:1, medalla_id:2 }, { cliente_id:1, medalla_id:5 }])
@@ -17,13 +18,11 @@
 #	{viaje_id:2,cliente_id:2,referenciapago_id:34887879,estadotipo_id:2,estatus:true},
 #	{viaje_id:2,cliente_id:2,referenciapago_id:348732389,estadotipo_id:2,estatus:true}])
 
-#vans2 = Van.create([{placa:"XD-345",modelo:"Ducato",capacidad:15,co2gxkm:245, pais_id:1,fechacompra:"19/02/2004"},
-#	{placa:"XD-344",modelo:"Ducato",capacidad:15,co2gxkm:245, pais_id:1,fechacompra:"19/02/2004"},
-#	{placa:"XD-343",modelo:"Ducato",capacidad:15,co2gxkm:245, pais_id:1,fechacompra:"19/02/2004"}])
+
 #retroaspectos=Retroaspecto.create([{nombre:"Limpieza de la van", estatus:true},{nombre:"Trato de conductor",estatus:true},
 #	{nombre:"Comodidad de la van",estatus:true}])
 
-configuraciones = Configuracion.create([{ nombre: 'CO2gxkmauto', valor: 196 }, {nombre: 'impuesto', valor: 16}, {nombre: 'radio', valor: 1}])
+#configuraciones = Configuracion.create([{ nombre: 'CO2gxkmauto', valor: 196 }, {nombre: 'impuesto', valor: 16}, {nombre: 'radio', valor: 1}])
 
 
 #vans = Van.create([{placa:'SPN4735', modelo: 'Impala', capacidad:10, activa: true, estatus: true, pais_id: 1},{placa: 'KJM212K', modelo: 'Cortina', capacidad: 13, activa: true, estatus: true, pais_id: 1}, {placa: 'outatime', modelo: 'Delorean', capacidad: 15, activa: true, estatus: true, pais_id: 1}, {placa: 'CAP12T', modelo: 'Tardis', capacidad: 10, activa: true, estatus: true, pais_id: 1} ] )
@@ -43,3 +42,4 @@ configuraciones = Configuracion.create([{ nombre: 'CO2gxkmauto', valor: 196 }, {
 # 	{ruta_id:1,horainicio:13,fecha:"29/09/2014", estadoviaje_id:1,estatus:1},
 # 	{ruta_id:2,horainicio:9,fecha:"28/09/2014", estadoviaje_id:1,estatus:1},
 # 	{ruta_id:2,horainicio:15,fecha:"26/09/2014", estadoviaje_id:1,estatus:1}])
+

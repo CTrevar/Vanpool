@@ -154,7 +154,20 @@ SampleApp::Application.routes.draw do
   match '/sugerencia_controller/jtable_filterlist',   to: 'sugerencias#jtable_filterlist',   via: [:get, :post]
   match '/administrar_sugerencia_detalle',   to: 'administradors#administrador_detallesugerencia',   via: [:get, :post, :put]
 
+
   match '/procesar_busqueda',   to: 'clientes#procesarbusquedaviaje',   via: [:get, :post]
+
+  match '/administrar_medallas', to: 'administradors#medallas', via:[:get, :post, :put]
+  match '/medalla_controller/jtable_list',   to: 'medallas#jtable_list',   via: [:post, :get]
+  match '/medalla_controller/jtable_filterlist',   to: 'medallas#jtable_filterlist',   via: [:get, :post]
+  match '/medalla_controller/jtable_create',   to: 'medallas#jtable_create',   via: [:get, :post]
+  match '/medalla_controller/jtable_delete',   to: 'medallas#jtable_delete',   via: [:post]
+  match '/medalla_controller/jtable_update',   to: 'medallas#jtable_update',   via: [:post]
+  match '/medalla_controller/update',   to: 'medallas#update',   via: [:post,:put]
+  match '/medalla_controller/create',   to: 'medallas#create',   via: [:post,:put]
+
+  match '/administrar_medalla_detalle',   to: 'administradors#administrador_detallemedalla',   via: [:get, :post, :put]
+
 
   match '/registrar_subida',   to: 'conductors#registrar_subida',   via: [:post,:get]
 
