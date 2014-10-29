@@ -1,5 +1,5 @@
 <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp" %>
- 
+ <%= javascript_include_tag "mapa" %>
 <%= stylesheet_link_tag "rutas", media: "all" %>
  <% provide(:title, @title) %>
  <div class="wrapper row-offcanvas row-offcanvas-left">
@@ -38,13 +38,17 @@
 
                                 <div class="span6">
                                      <small>FECHA:</small>
-                                <h4><%= @viaje.fecha%> <a href="#">Cambiar</a></h4>
+                                <h4><%= @viaje.fecha.strftime("%d/%m/%Y")%> <a href="#">Cambiar</a></h4>
                                 <small>HORA DE SALIDA:</small>
-                                <h4><%=(Time.now).strftime("%I:%M%p")%> <a href="#">Cambiar</a></h4>
+                                <h4><%=@viaje.horainicio.strftime("%I:%M%p")%> <a href="#">Cambiar</a></h4>
                                 <small>HORA DE LLEGADA:</small>
-                                <h4><%=(Time.now + @viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></h4>
+                                <h4><%=(@viaje.horainicio + @viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></h4>
                                 <small>PRECIO:</small>
                                 <h4><%=number_to_currency(@viaje.ruta.precio, :unit => "$")%></h4>
+                                </br>
+
+                                <small>DISPONIBILIDAD:</small>
+                                <h4><%=@disponibilidad%></h4>
                                 </br>
                                 
                                 </div>
@@ -69,37 +73,6 @@
 
 
 <script type="text/javascript">
-var map;
-var arregloMarcadores = [];
-var geocoder = new google.maps.Geocoder();
-var infowindow = new google.maps.InfoWindow();
-var dir;
-
-
-function initialize() {
-    
-        //set up del mapa, zoom, centro
-      var mapOptions = {
-        zoom: 13
-      };
-    
-    map = new google.maps.Map(document.getElementById('map-canvas'),
-        mapOptions);
-
-
-    var rendererOptions = { 
-      map: map,
-      draggable: false
-    };
-
-    directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
-    trazarRuta();
-    
-}
-
-  google.maps.event.addDomListener(window, 'load', initialize);
-
-
 
    function trazarRuta(){
     var arregloMarcadores= <%= raw @viaje.ruta.paradas.to_json %>;

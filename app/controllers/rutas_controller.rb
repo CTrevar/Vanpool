@@ -57,7 +57,9 @@ class RutasController < ApplicationController
         @ruta.nombre = params[:nombreRuta]
         @ruta.precio = params[:precio]
         @ruta.van_id = params[:vanId]
-        @ruta.conductor_id = Conductor.find_by_user_id(params[:conductorId])
+        @ruta.zona_id = params[:ruta][:zona_id]
+        conductor = Conductor.find_by_user_id(params[:conductorId])
+        @ruta.conductor_id = conductor.id
         @ruta.estatus = true
 
       if @ruta.valid?
@@ -67,34 +69,37 @@ class RutasController < ApplicationController
         numero_paradas = params[:numeroParadas].to_i+1
 
 
-        numero_paradas.times do |num|
+        3.times do |num|
           id_parada = params[:"idParada_#{num}"].to_i
 
      
+          nombreparada = params[:"nombreParada_#{num}"]
+          if !nombreparada.blank?
+            #Guardar paradas_ruta
+            #por cada parada
+            @rutaparada = Rutaparada.new
 
-          #Guardar paradas_ruta
-          #por cada parada
-          @rutaparada = Rutaparada.new
+            #if id_parada
+              #guarda la id de la ruta 
+              #@rutaparada.parada_id = id_parada
+            #else 
+              #si no existe parada, crea una nueva
 
-          #if id_parada
-            #guarda la id de la ruta 
-            #@rutaparada.parada_id = id_parada
-          #else 
-            #si no existe parada, crea una nueva
-            @parada = Parada.new
-            @parada.nombre = params[:"nombreParada_#{num}"]
-            @parada.latitud = params[:"latitudParada_#{num}"]
-            @parada.longitud = params[:"longitudParada_#{num}"]
-            @parada.save
-            #guarda el id de la parada en la tabla de paradas_ruta
-            @rutaparada.parada_id = @parada.id
-          #end
+              @parada = Parada.new
+              @parada.nombre = nombreparada
+              @parada.latitud = params[:"latitudParada_#{num}"]
+              @parada.longitud = params[:"longitudParada_#{num}"]
+              @parada.save
+              #guarda el id de la parada en la tabla de paradas_ruta
+              @rutaparada.parada_id = @parada.id
+            #end
 
-          @rutaparada.ruta_id = @ruta.id
-          @rutaparada.posicion  = params[:"posicionParada_#{num}"]
-          @rutaparada.tiempo = params[:"tiempoParada_#{num}"]
-          @rutaparada.distancia = params[:"distanciaParada_#{num}"]
-          @rutaparada.save
+            @rutaparada.ruta_id = @ruta.id
+            @rutaparada.posicion  = params[:"posicionParada_#{num}"]
+            @rutaparada.tiempo = params[:"tiempoParada_#{num}"]
+            @rutaparada.distancia = params[:"distanciaParada_#{num}"]
+            @rutaparada.save
+          end
 
         end #end for
         
@@ -125,7 +130,7 @@ class RutasController < ApplicationController
         @horario.ruta_id = @ruta.id
         @horario.save
         
-        #genera_viajes_ruta_nueva(@ruta)
+        genera_viajes_ruta_nueva(@ruta)
 
         redirect_to rutas_path
       else
@@ -151,19 +156,138 @@ class RutasController < ApplicationController
     
 	end
 
-  def edit
+  def detalle
+    # @ruta = Ruta.find(params[:id])
+    # @paradas_ruta = @ruta.paradas
+    # @van = @ruta.van
     @ruta = Ruta.find(params[:id])
-    @paradas_ruta = @ruta.paradas
     @van = @ruta.van
+    @conductor = Conductor.find(@ruta.conductor_id)
+    @conductorUser = User.find(@conductor.user_id)
+    @rel = Rutaparada.where(:ruta_id => @ruta.id)
+    @rel.sort! { |a, b| a.posicion <=> b.posicion }
+    @paradas_ruta = []
+    @rel.each do |p|
+      @parada= Parada.find(p.parada_id)
+      @paradas_ruta.push(@parada)
+    end
   end
 
-  def update
+  def actualizar
     @ruta = Ruta.find(params[:id])
-    if @ruta.update_attributes(params[:ruta])
-      redirect_to rutas_path
+      #Guardar ruta
+        
+        @ruta.nombre = params[:nombreRuta]
+        @ruta.precio = params[:precio]
+        @ruta.van_id = params[:vanId]
+        @ruta.zona_id = params[:ruta][:zona_id]
+        conductor = Conductor.find_by_user_id(params[:conductorId])
+        @ruta.conductor_id = 1
+
+      if @ruta.valid?
+        @ruta.save
+
+        #Guardar paradas
+        numero_paradas = params[:numeroParadas].to_i+1
+
+
+        numero_paradas.times do |num|
+          id_parada = params[:"idParada_#{num}"].to_i
+
+     
+
+          #Guardar paradas_ruta
+          #por cada parada
+          @rutaparada = Rutaparada.find_by_ruta_id_and_posicion(@ruta.id, num-1)
+
+          
+            @parada = Parada.find(@rutaparada.parada_id)
+            @parada.nombre = params[:"nombreParada_#{num}"]
+            @parada.latitud = params[:"latitudParada_#{num}"]
+            @parada.longitud = params[:"longitudParada_#{num}"]
+            @parada.save
+          
+
+          @rutaparada.posicion  = params[:"posicionParada_#{num}"]
+          @rutaparada.tiempo = params[:"tiempoParada_#{num}"]
+          @rutaparada.distancia = params[:"distanciaParada_#{num}"]
+          @rutaparada.save
+
+        end #end for
+        
+        
+
+
+        #Guardar frecuencias de la ruta
+        @frecuencia = Frecuencia.find_by_ruta_id(@ruta.id)
+        @frecuencia.lunes = params[:lunes]
+        @frecuencia.martes = params[:martes]
+        @frecuencia.miercoles = params[:miercoles]
+        @frecuencia.jueves = params[:jueves]
+        @frecuencia.viernes = params[:viernes]
+        @frecuencia.sabado = params[:sabado]
+        @frecuencia.domingo = params[:domingo]
+        @frecuencia.save
+
+        
+
+        #Guardar horario
+        @horario = Horario.find_by_ruta_id(@ruta.id)
+        @horario.hora = params[:horarioRuta]
+        @horario.save
+        
+        #genera_viajes_ruta_nueva(@ruta)
+
+        redirect_to rutas_path
+      else
+        render 'show'
+      end #end if ruta is valid
+
+  end
+
+
+  def listar_por_zona
+    filtro_zona_id = params[:zona_id]
+    filtro_fecha = params[:filtro_fecha]
+
+    if filtro_zona_id.blank?
+      rutas = Ruta.select("id").all
     else
-      render 'edit'
+      rutas = Ruta.select("id").where("zona_id = ?", filtro_zona_id)
     end
+    viajes = Viaje.where("ruta_id IN (?) AND (estadoviaje_id = 2 or estadoviaje_id = 1)", rutas)
+    @result = []
+    ahora = Time.now.beginning_of_day
+    fecha_inicial = ahora
+
+    if filtro_fecha.downcase.eql? "hoy"
+      fecha_final = Time.now.end_of_day
+    elsif filtro_fecha.downcase.eql? "esta semana"
+      fecha_final = (ahora + 1.week).end_of_day
+    elsif filtro_fecha.downcase.eql? "proxima semana"
+      fecha_inicial = (ahora +1.week).beginning_of_day
+      fecha_final = (fecha_inicial + 1.week).end_of_day
+    elsif filtro_fecha.downcase.eql? "este mes"
+      fecha_final = (ahora + 1.month).end_of_day
+    end
+      
+    
+    viajes.each do |viaje|
+      
+      fecha_viaje = viaje.fecha.to_time
+
+      #si está entre 2 fechas, se agrega al arreglo de viajes por zona encontrados
+      if fecha_viaje <= fecha_final and fecha_viaje >= fecha_inicial
+           @result << viaje
+      end
+    end
+
+    respond_to do |format|
+        #Enviar viajes resultantes
+        format.html { render partial: 'shared/user_viajes_busqueda', locals: { result: @result}, layout:false}
+        
+    end
+      
   end
 
   #
@@ -265,10 +389,10 @@ class RutasController < ApplicationController
 
     # Si el campo de busqueda tiene solo espacios en blanco.
     if jtTextoBusqueda.blank? || jtTextoBusqueda.to_s == ''
-      @results = Ruta.joins(:van).select(" rutas.id as ruta_id, *").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+      @results = Ruta.joins(:van).select(" rutas.id as ruta_id, *").where("rutas.estatus = 't'").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     else
       # Si contiene algo más realiza la búsqueda en todos los atributos de la tabla.
-      @results = Ruta.joins(:van).select(" rutas.id as ruta_id, *").where( "LOWER(nombre) LIKE '%#{jtTextoBusqueda.downcase}%'"
+      @results = Ruta.joins(:van).select(" rutas.id as ruta_id,  *").where( "rutas.estatus = 't' AND LOWER(nombre) LIKE '%#{jtTextoBusqueda.downcase}%'"
       ).order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     end
     respond_to do |format|
@@ -277,6 +401,37 @@ class RutasController < ApplicationController
                       :TotalRecordCount => Ruta.joins(:van).count,
                       :Records => @results
                       }
+      format.json { render json: jTableResult}
+      format.html
+      format.js
+    end
+  end
+
+
+  # ///////////////////////////////////////////////////////
+  # Método para eliminar registro de la BD
+  #
+  def jtable_delete
+    ruta = Ruta.find(params[:ruta_id])
+
+    # Iniciamos la eliminación del registro, si no se elimina, almacenamos el resultado en un boleano.
+    bolExito = true
+    errMensaje = ''
+    begin
+      ruta.estatus = false
+      ruta.save!
+    rescue => e
+      bolExito = false
+      errMensaje = "No se pudo eliminar. Revise el error: #{e}"
+    end
+    respond_to do |format|
+      # Regresamos el resultado de la operación a la jTable
+      if bolExito
+        jTableResult = {:Result => "OK"}
+      else
+        jTableResult = {:Result => "Message",
+                        :Message => errMensaje}
+      end
       format.json { render json: jTableResult}
       format.html
       format.js
