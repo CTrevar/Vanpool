@@ -50,10 +50,24 @@ function initialize() {
   map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
 
+  var lineSymbol = {
+              path: google.maps.SymbolPath.FORWARD_OPEN_ARROW
+            };
 
   var rendererOptions = { 
     map: map,
-    draggable: true
+    draggable: true,
+    polylineOptions: {
+                  strokeWeight: 6,
+                  strokeOpacity: 0.8,
+                  strokeColor: '#D84743',
+                  icons: [{
+                    icon: lineSymbol,
+                    offset: '25%'
+                  }, {icon: lineSymbol,
+                    offset: '75%'
+                  }]
+              }
   };
 
   directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);

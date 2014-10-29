@@ -136,6 +136,8 @@ SampleApp::Application.routes.draw do
   match '/ruta_controller/jtable_list',   to: 'rutas#jtable_list',   via: [:get, :post, :put]
   match '/ruta_controller/jtable_filterlist',   to: 'rutas#jtable_filterlist',   via: [:get, :post]
   match '/ruta_controller/jtable_delete',   to: 'rutas#jtable_delete',   via: [:post]
+  match '/rutas/:id', to: 'rutas#show', via: [ :get]
+  match '/rutas/:id', to: 'rutas#actualizar', via: [:post, :put]
 
   match '/administrar_ruta_detalle',   to: 'rutas#administrador_detalleruta',   via: [:get, :post, :put]
   match '/administrar_clientes', to: 'administradors#clientes', via:[:get, :post, :put]
@@ -170,6 +172,9 @@ SampleApp::Application.routes.draw do
 
 
   match '/registrar_subida',   to: 'conductors#registrar_subida',   via: [:post,:get]
+
+  match '/buscar_zona', to:'clientes#buscar_viaje_zona'
+  match '/resultado_zona', to: 'rutas#listar_por_zona', via: [:get, :post]
 
 
   # The priority is based upon order of creation:

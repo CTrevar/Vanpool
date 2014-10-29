@@ -12,24 +12,29 @@
         </div>
     <% else %>
 
-        <% @reservaciones_pagadas.each do |reservacion| %>
+        <% @reservaciones_pagadas.each_with_index do |reservacion, index| %>
             
             <div class="item">
         <div class="row-fluid">
             <div class="span6">
-                <label>Ruta:</label><%=reservacion.viaje.ruta.nombre%></br>
-                <label>Fecha:</label><%=reservacion.viaje.fecha%> </br>
-                <label>Hora de salida:</label><%=reservacion.viaje.horainicio%> </br>
-                <label>Hora de llegada:</label></br>
-                <label>km:</label><%=reservacion.viaje.ruta.kilometros%></br>
-                <label>Tiempo:</label><%=reservacion.viaje.ruta.kilometros%></br>
+                <label>Ruta:</label>&nbsp<%=reservacion.viaje.ruta.nombre%></br>
+                <label>Fecha:</label>&nbsp<%=reservacion.viaje.fecha.strftime("%d/%m/%Y")%> </br>
+                <label>Km:</label>&nbsp<%=(reservacion.viaje.ruta.paradas.sum(:distancia))/1000%></br></br>
+
+                <%salida = reservacion.viaje.ruta.paradas.order('posicion ASC').first.nombre.split(",")%> 
+                <label>Lugar de salida:</label>&nbsp<%=salida[0]%> </br>
+                <label>Hora de salida:</label>&nbsp<%=reservacion.viaje.horainicio.strftime("%I:%M%p")%> </br></br>
+                <%llegada = reservacion.viaje.ruta.paradas.order('posicion ASC').last.nombre.split(",")%>
+                <label>Lugar de llegada:</label>&nbsp<%=llegada[0]%> </br>
+                <label>Hora de llegada:</label>&nbsp<%=(reservacion.viaje.horainicio+ reservacion.viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></br>
+                
             </div>
             <div class="span6">
 
                 <%= link_to "Ver detalle", "/viajes/#{reservacion.viaje.id}/detalle", class:"btn btn-default btn-flat" %>
                 <button type="button" class="btn btn-primary">Invitar amigos</button>
                 <div class="msg-amigos">
-                    <p>¡Solo faltan 3 personas para alcanzar el SOLD OUT! <a href="#">Invita a tus amigos y gana más puntos</a></p>
+                    <p>¡Solo faltan <%= @disponibilidad_pagadas[index] %> personas para alcanzar el SOLD OUT! <a href="#">Invita a tus amigos y gana más puntos</a></p>
                 </div>
             </div>
         </div>

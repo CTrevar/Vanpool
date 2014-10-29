@@ -68,7 +68,7 @@ function initialize() {
                         </div> <!--bordergreen-->
 
                         <% if(@sugerencias.first!=nil)%>
-                        <div style="overflow:auto; height: 350px">
+                        <div class="slimScrollDiv" style="overflow:auto; height: 350px">
                                 <% @sugerencias.each do |sugerencia| %>
                                     <div class="item-ruta border">
                                     <div class="row-fluid">
@@ -76,12 +76,6 @@ function initialize() {
                                             <h4></h4>
                                             <small>ORIGEN:</small><b><%= sugerencia.sugerenciaparadas.order('posicion ASC').first.nombre %></b></br>
                                             <small>DESTINO:</small><b><%= sugerencia.sugerenciaparadas.order('posicion ASC').last.nombre %></b></br>
-                                            <small>FECHA:</small><b></b>
-                                        </div>
-                                        <div class="span6">
-                                            </br>
-                                            </br>
-                                            <small>HORA DE SALIDA:</small><b><%=sugerencia.hora_inicio%> </b></br>
                                         </div>
                                         </div>
                                     </br>
@@ -164,6 +158,27 @@ function initialize() {
         directionsService = new google.maps.DirectionsService();
         var rutaa= directionsService.route(request, function(response, status) {
           if (status == google.maps.DirectionsStatus.OK) {
+            var lineSymbol = {
+              path: google.maps.SymbolPath.FORWARD_OPEN_ARROW
+            };
+
+
+            var renderOptions = { 
+              map: map,
+              draggable: false,
+              polylineOptions: {
+                  strokeWeight: 4,
+                  strokeOpacity: 0.8,
+                  strokeColor: '#D84743',
+                  icons: [{
+                    icon: lineSymbol,
+                    offset: '25%'
+                  }, {icon: lineSymbol,
+                    offset: '75%'
+                  }]
+              }
+            };
+            directionsDisplay.setOptions(renderOptions);
             directionsDisplay.setDirections(response);
             var routeDrawn = response.routes[0];
                  
