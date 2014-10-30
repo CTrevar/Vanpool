@@ -132,7 +132,7 @@ Conductor.create([{user_id:15,licenciaConductor:"SVG6404",estatusConductor:true}
                   {user_id:23,licenciaConductor:"ATV8486",estatusConductor:true},
                   {user_id:24,licenciaConductor:"ATV9945",estatusConductor:true},
                   {user_id:25,licenciaConductor:"MRN6509",estatusConductor:true},
-                  {user_id:26,licenciaConductor:"MRN2597",estatusConductor:true})
+                  {user_id:26,licenciaConductor:"MRN2597",estatusConductor:true}])
 Conductor.create!([
   {user_id: 2, licenciaConductor: "123skjfdh", estatusConductor: true}
 ])
