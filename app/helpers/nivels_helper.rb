@@ -25,7 +25,7 @@ module NivelsHelper
     
     #Calcula los puntos necesarios para el siguiente nivel del cliente
     def calcula_puntos_siguiente_nivel(cliente)
-      return (cliente.nivel.rangomaximo+1)-cliente.puntaje
+      return ((cliente.nivel.rangomaximo+1)-cliente.puntaje)
     end
 
 end

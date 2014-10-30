@@ -1,4 +1,43 @@
 #encoding: utf-8 
+
+Tipomedalla.create!([
+  {nombre: "Viaje"},
+  {nombre: "Social"},
+  {nombre: "Retro"},
+  {nombre: "SoldOut"},
+  {nombre: "BDay"},
+  {nombre: "Continuidad"},
+  {nombre: "Con amigos"},
+  {nombre: "Host"},
+  {nombre: "Nivel"}
+])
+Medalla.create!([
+  {tipomedalla_id: 1, nombre: "Primer viaje", puntos: 5000, imagen: "viaje1.png", estatus: true, estado: 1, descripcion: nil},
+  {tipomedalla_id: 1, nombre: "Quinto Viaje", puntos: 5000, imagen: "viaje5.png", estatus: true, estado: 5, descripcion: nil},
+  {tipomedalla_id: 2, nombre: "Evangelista (500 shares)", puntos: 500, imagen: "share500.jpg", estatus: true, estado: 500, descripcion: nil},
+  {tipomedalla_id: 2, nombre: "Socialite (100 shares)", puntos: 500, imagen: "share100.jpg", estatus: true, estado: 100, descripcion: nil},
+  {tipomedalla_id: 2, nombre: "Vocero (25 shares)", puntos: 500, imagen: "share25.jpg", estatus: true, estado: 0, descripcion: nil},
+  {tipomedalla_id: 3, nombre: "Primer retro", puntos: 500, imagen: "retro1.png", estatus: true, estado: 0, descripcion: nil},
+  {tipomedalla_id: 3, nombre: "Quinta retro", puntos: 500, imagen: "retro5.png", estatus: true, estado: 0, descripcion: nil},
+  {tipomedalla_id: 1, nombre: "Decimo viaje", puntos: 10000, imagen: "viaje10.jpg", estatus: true, estado: 10, descripcion: nil},
+  {tipomedalla_id: 4, nombre: "soldout1", puntos: 5000, imagen: "agotado1.png", estatus: true, estado: 1, descripcion: nil},
+  {tipomedalla_id: 4, nombre: "soldout2", puntos: 5000, imagen: "agotado5.png", estatus: true, estado: 5, descripcion: nil}
+])
+Medallasmuro.create!([
+  {cliente_id: 2, medalla_id: 1, cobrado: false},
+  {cliente_id: 2, medalla_id: 2, cobrado: false},
+  {cliente_id: 2, medalla_id: 10, cobrado: false},
+  {cliente_id: 2, medalla_id: 10, cobrado: false},
+  {cliente_id: 1, medalla_id: 2, cobrado: false},
+  {cliente_id: 3, medalla_id: 1, cobrado: false},
+  {cliente_id: 23, medalla_id: 1, cobrado: nil},
+  {cliente_id: 23, medalla_id: 10, cobrado: nil},
+  {cliente_id: 23, medalla_id: 10, cobrado: nil},
+  {cliente_id: 23, medalla_id: 10, cobrado: nil},
+  {cliente_id: 23, medalla_id: 10, cobrado: nil},
+  {cliente_id: 23, medalla_id: 2, cobrado: nil},
+  {cliente_id: 23, medalla_id: 10, cobrado: nil}
+])
 Nivel.create!([
   {nombre: "Novato 1", rangomaximo: 5000, estatus: nil},
   {nombre: "Novato 2", rangomaximo: 15000, estatus: nil},
@@ -93,9 +132,7 @@ Conductor.create([{user_id:15,licenciaConductor:"SVG6404",estatusConductor:true}
                   {user_id:23,licenciaConductor:"ATV8486",estatusConductor:true},
                   {user_id:24,licenciaConductor:"ATV9945",estatusConductor:true},
                   {user_id:25,licenciaConductor:"MRN6509",estatusConductor:true},
-                  {user_id:26,licenciaConductor:"MRN2597",estatusConductor:true},
-                  {user_id:27,licenciaConductor:"MRN5994",estatusConductor:true},
-                  {user_id:28,licenciaConductor:"MRN3986",estatusConductor:true}])
+                  {user_id:26,licenciaConductor:"MRN2597",estatusConductor:true})
 Conductor.create!([
   {user_id: 2, licenciaConductor: "123skjfdh", estatusConductor: true}
 ])
@@ -131,6 +168,13 @@ Reservacion.create!([
   {viaje_id:1,cliente_id:2,referenciapago_id:3456789,estadotipo_id:2,estatus:true},
   {viaje_id:2,cliente_id:2,referenciapago_id:nil,estadotipo_id:1,estatus:true},
   {viaje_id:2,cliente_id:2,referenciapago_id:348732389,estadotipo_id:2,estatus:true}
+])
+Van.create!([
+  {placa: "SPN4735", modelo: "Impala", capacidad: 10, fecha_compra: "2011-04-06", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1},
+  {placa: "KJM212K", modelo: "Cortina", capacidad: 13, fecha_compra: "2013-03-03", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1},
+  {placa: "OUTATIME", modelo: "DeLorean", capacidad: 15, fecha_compra: "2012-04-02", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1},
+  {placa: "TRD12G", modelo: "TARDIS", capacidad: 11, fecha_compra: "2014-03-10", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1},
+  {placa: "3467LUCY", modelo: "Cutlass", capacidad: 12, fecha_compra: "2011-04-03", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1}
 ])
 Ruta.create!([
   {conductor_id: 1, van_id: 1, nombre: "Valle-Galerias", gmaps: "3456789", precio: "20.0", kilometros: 15, estatus: true, hora_inicio: nil, zona_id: nil},
@@ -173,20 +217,6 @@ Sugerencia.create!([
   {hora_inicio: "2014-10-27 19:15:00.000000"},
   {hora_inicio: "2014-10-27 19:15:00.000000"},
   {hora_inicio: "2014-10-29 19:00:00.000000"}
-])
-Tipomedalla.create!([
-  {nombre: "Viaje"},
-  {nombre: "Social"},
-  {nombre: "Retro"},
-  {nombre: "Social"},
-  {nombre: "Retro"}
-])
-Van.create!([
-  {placa: "SPN4735", modelo: "Impala", capacidad: 10, fecha_compra: "2011-04-06", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1},
-  {placa: "KJM212K", modelo: "Cortina", capacidad: 13, fecha_compra: "2013-03-03", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1},
-  {placa: "OUTATIME", modelo: "DeLorean", capacidad: 15, fecha_compra: "2012-04-02", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1},
-  {placa: "TRD12G", modelo: "TARDIS", capacidad: 11, fecha_compra: "2014-03-10", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1},
-  {placa: "3467LUCY", modelo: "Cutlass", capacidad: 12, fecha_compra: "2011-04-03", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1}
 ])
 Viaje.create!([
   {ruta_id: 1, horainicio: "2000-01-01 12:30:00", fecha: "2014-09-27 05:00:00", estadoviaje_id: 1, estatus: 1},
@@ -247,14 +277,6 @@ Horario.create!([
   {hora: "2000-01-01 12:30:00", ruta_id: 19},
   {hora: "2000-01-01 12:30:00", ruta_id: 20},
   {hora: "2000-01-01 13:00:00", ruta_id: 21}
-])
-Medallasmuro.create!([
-  {cliente_id: 1, medalla_id: 1, cobrado: nil},
-  {cliente_id: 1, medalla_id: 2, cobrado: nil},
-  {cliente_id: 1, medalla_id: 5, cobrado: nil},
-  {cliente_id: 1, medalla_id: 1, cobrado: nil},
-  {cliente_id: 1, medalla_id: 2, cobrado: nil},
-  {cliente_id: 1, medalla_id: 5, cobrado: nil}
 ])
 Pais.create!([
   {clave: "MX", nombre: "Mexico", divisa: "MXN", estatus: true},

@@ -91,6 +91,10 @@ class ClientesController < ApplicationController
   def dashboard
     @current_cliente = obtener_cliente(current_user)
     @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2).last(3)
+    @disponibilidad_pagadas = []
+    @reservaciones_pagadas.each do |reserva_pagada|
+      @disponibilidad_pagadas<< calcula_disponibilidad_viaje(reserva_pagada.viaje)
+    end
     #@result=busqueda
     #@result=Viaje.all
     #puts @request_hash["name"]
@@ -150,11 +154,16 @@ class ClientesController < ApplicationController
     @validamedallas=valida_medallas(@cliente)
     @muro = obtener_ultimas_medallas(@cliente)
     @co2 = @cliente.co2ahorrado
-    @kilometros = @cliente.kilometros
+    @kilometros = @cliente.kilometraje
 
     @reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
     @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
     @reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
+
+    @disponibilidad_pagadas = []
+    @reservaciones_pagadas.each do |reserva_pagada|
+      @disponibilidad_pagadas<< calcula_disponibilidad_viaje(reserva_pagada.viaje)
+    end
 
     #@descuentos=obtener_ultimo_descuento(@cliente)
 
