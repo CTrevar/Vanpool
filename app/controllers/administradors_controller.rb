@@ -289,16 +289,49 @@ class AdministradorsController < ApplicationController
       # end
     else
       @sugerencia = Sugerencia.find(sugerencia_id)
-      @sugerencia.sugerenciaparadas.sort { |a, b| a.posicion <=> b.posicion }
-      @origen = @sugerencia.sugerenciaparadas.first
-      @destino = @sugerencia.sugerenciaparadas.last
-      @paradas = @sugerencia.sugerenciaparadas
+      @paradas =@sugerencia.sugerenciaparadas.sort { |a, b| a.posicion <=> b.posicion }
+      @origen = @paradas.first
+      @destino = @paradas.last
 
       respond_to do |format|
         format.html {render partial: 'shared/administrador_detallesugerencia', locals: { sugerencia: @sugerencia, origen: @origen, destino: @destino, paradas: @paradas }}
       end
     end
   end
+
+  def show_viajes
+    @title = "Viajes"
+    @viajesproximos = Viaje.where("estadoviaje_id= 1 or estadoviaje_id=2")
+    @viajesrealizados = Viaje.where("estadoviaje_id= 3")
+    @viajescancelados = Viaje.where("estadoviaje_id= 4")
+  end
+
+
+  def administrador_detalleviaje
+    viaje_id = params[:viaje_id]
+      @viaje = Viaje.find(viaje_id)
+      @paradas = @viaje.ruta.paradas.order('posicion ASC')
+      @origen = @paradas.first
+      @destino = @paradas.last
+
+      
+      @tiempoParadas = []
+      ruta_id = @viaje.ruta.id
+      @paradas.each_with_index do |parada, i|
+        if i == 0
+          @tiempoParadas << 0
+        elsif i<=@paradas.count
+          parada_id = parada.id
+          tiempo = Rutaparada.find_by_ruta_id_and_parada_id(ruta_id, parada_id).tiempo
+          @tiempoParadas<< (@tiempoParadas[i-1]+tiempo.to_i)        
+        end
+      end
+
+
+      respond_to do |format|
+        format.html {render partial: 'shared/administrador_detalleviaje', locals: { viaje: @viaje, origen: @origen, destino: @destino, paradas: @paradas, tiempoParadas: @tiempoParadas }}
+      end
+  end#administrador_detalleviaje
 
 
 
@@ -567,4 +600,6 @@ class AdministradorsController < ApplicationController
       format.js
     end
   end
+
+
 end

@@ -170,12 +170,16 @@ SampleApp::Application.routes.draw do
 
   match '/administrar_medalla_detalle',   to: 'administradors#administrador_detallemedalla',   via: [:get, :post, :put]
 
+  match '/show_viajes', to: 'administradors#show_viajes', via:[:get, :post, :put]
 
   match '/registrar_subida',   to: 'conductors#registrar_subida',   via: [:post,:get]
 
   match '/buscar_zona', to:'clientes#buscar_viaje_zona'
   match '/resultado_zona', to: 'rutas#listar_por_zona', via: [:get, :post]
 
+  match '/viaje_controller/proximos_jtable_filterlist',   to: 'viajes#proximos_jtable_filterlist',   via: [:get, :post]
+  match '/viaje_controller/realizados_jtable_filterlist',   to: 'viajes#realizados_jtable_filterlist',   via: [:get, :post]
+  match '/administrador_detalleviaje',   to: 'administradors#administrador_detalleviaje',   via: [:get, :post, :put]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

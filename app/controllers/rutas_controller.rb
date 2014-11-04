@@ -59,7 +59,9 @@ class RutasController < ApplicationController
         @ruta.van_id = params[:vanId]
         @ruta.zona_id = params[:ruta][:zona_id]
         conductor = Conductor.find_by_user_id(params[:conductorId])
-        @ruta.conductor_id = conductor.id
+        if conductor
+          @ruta.conductor_id = conductor.id
+        end
         @ruta.estatus = true
 
       if @ruta.valid?
@@ -69,7 +71,7 @@ class RutasController < ApplicationController
         numero_paradas = params[:numeroParadas].to_i+1
 
 
-        3.times do |num|
+        8.times do |num|
           id_parada = params[:"idParada_#{num}"].to_i
 
      
@@ -134,6 +136,7 @@ class RutasController < ApplicationController
 
         redirect_to rutas_path
       else
+        params[:nombreRuta]
         render 'new'
       end #end if ruta is valid
       

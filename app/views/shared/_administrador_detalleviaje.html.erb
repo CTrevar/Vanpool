@@ -1,0 +1,162 @@
+
+
+<script type="text/javascript">
+//set up del mapa, zoom, centro
+      var mapOptions = {
+        zoom: 13
+      };
+$(function(){
+    
+    if(map){
+    google.maps.event.trigger(map, "resize");    
+    }
+    var map = new google.maps.Map(document.getElementById('map-canvas'),
+        mapOptions);
+    
+    
+
+    var lineSymbol = {
+      path: google.maps.SymbolPath.FORWARD_OPEN_ARROW
+    };
+
+
+    var rendererOptions = { 
+      map: map,
+      draggable: false,
+      polylineOptions: {
+          strokeWeight: 4,
+          strokeOpacity: 0.8,
+          strokeColor: '#D84743',
+          icons: [{
+            icon: lineSymbol,
+            offset: '25%'
+          }, {icon: lineSymbol,
+            offset: '75%'
+          }]
+      }
+    };
+
+    directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+    trazarRuta();
+    
+});
+
+
+
+// $(function() {
+//   var script = document.createElement('script');
+//   script.id='mapasJS';
+//   script.type = 'text/javascript';
+//   script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&' +
+//       'callback=initialize';
+//   var mapasJSExists = document.getElementById('mapasJS');
+//   if(mapasJSExists!= null){
+// var scripts = document.getElementsByTagName('script');
+//  //  	for (var i = scripts.length; i >= 0; i--){ //search backwards within nodelist for matching elements to remove
+// 	//   if (scripts[i] && scripts[i].getAttribute('src') != null && scripts[i].getAttribute('src').indexOf(maps.gstatic.com) != -1)
+// 	//    scripts[i].parentNode.removeChild(scripts[i]); //remove element by calling parentNode.removeChild()
+// 	// }  	//scripts[index].parentElement.removeChild(scripts[index]);
+//   	$( "#mapasJS" ).remove();
+//   }
+  
+//   document.body.appendChild(script);
+// })
+
+ function trazarRuta(){
+    var arregloMarcadores= <%= raw @paradas.to_json %>;
+    var origen = arregloMarcadores[0].latitud+", "+arregloMarcadores[0].longitud;
+    var destino = arregloMarcadores[arregloMarcadores.length-1].latitud+", "+arregloMarcadores[arregloMarcadores.length-1].longitud;
+    var arregloParadas=[];
+
+        if(arregloMarcadores.length>2){
+
+          for(i= 1; i<arregloMarcadores.length-1;i++){
+            var posicionParada = arregloMarcadores[i].latitud+", "+arregloMarcadores[i].longitud;
+            arregloParadas.push({
+                              location: posicionParada,
+                              stopover: true
+                            });
+            
+          }
+
+        }
+
+        //optimize waypoints for admin false, for client will be true
+        var request = {
+          origin: origen,
+          destination: destino,
+          waypoints: arregloParadas,
+          travelMode: google.maps.DirectionsTravelMode.DRIVING,
+          unitSystem: google.maps.UnitSystem.METRIC,
+          optimizeWaypoints: false
+        }
+
+        directionsService = new google.maps.DirectionsService();
+        var rutaa= directionsService.route(request, function(response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+            var routeDrawn = response.routes[0];
+                 
+          }
+          else
+            alert ('no se pudo obtener direcciones');
+        });
+
+        
+
+  }
+   
+  </script>
+
+<div style="padding:10px;">
+	<h3>Detalle de viaje</h3>
+<div class="row-fluid">
+
+    <div class="span6">
+        FECHA:<b><%=@viaje.fecha.strftime("%Y-%m-%d")%> </b></br></br>
+
+        <small>ORIGEN:</small><b>&nbsp<%= @viaje.ruta.paradas.order('posicion ASC').first.nombre %></b></br>
+        <small>HORA DE SALIDA:</small><b>&nbsp<%=@viaje.horainicio.strftime("%I:%M%p")%> </b></br></br>
+
+        <small>DESTINO:</small><b>&nbsp<%= @viaje.ruta.paradas.order('posicion ASC').last.nombre %></b></br>
+        <small>HORA DE LLEGADA:</small><b>&nbsp<%=(@viaje.horainicio+ @viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></b></br></br>
+
+        <b>PARADAS</b>
+        <table>
+        	<%count = @viaje.ruta.paradas.count %>
+        	<tr>
+        		<%letters = ("A".."Z").to_a%>
+        		<%count.times do |i|%>
+        			<td>
+        				Parada <%=letters[i]%>
+        			<td>
+        		<% end %>
+        	</tr>
+        	<tr>
+
+        		<%count.times do |i|%>
+        			<td>
+        				<%= (@viaje.horainicio+ @tiempoParadas[i]).strftime("%I:%M%p") %>
+        			<td>
+        		<% end %>
+        	</tr>
+        	
+        </table>
+        
+    </div> <!--span -->
+
+    <div class="span6">
+    	Recorrido de viaje
+        <div id="map-canvas" style="height: 500px;  max-width:none;"></div>
+    </div>
+</div><!--row-->
+
+<div class="row-fluid">
+
+    
+</div>
+
+</div>
+
+
+

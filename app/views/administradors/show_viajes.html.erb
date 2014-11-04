@@ -1,0 +1,292 @@
+<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp" %>
+
+
+<% provide(:title, @title) %>
+ <div class="wrapper row-offcanvas row-offcanvas-left">
+    <aside class="left-side sidebar-offcanvas">
+        <%= render 'shared/administrador_sidebar' %> 
+    </aside>
+    <aside class="right-side">
+    <section class="content-header">
+        <h1>Viajes</small></h1>
+        <ol class="breadcrumb">
+            <li><a href="/dashboard"><i class="fa fa-home"></i> Inicio</a></li>
+            <li class="active"><a href="/show_viajes"><i class="fa fa-user"></i> Viajes</a></li>
+        </ol>
+    </section>
+    <section class="content">
+            <div class="row-fluid">
+                <div class="span12">
+                		<div class ="nav-tabs-custom">
+							<ul class= "nav nav-tabs pull right">
+								<li class="active"><a href="#viajesProximos" data-toggle="tab">Viajes Próximos</a></li>
+								<li><a href="#viajesRealizados" data-toggle="tab">Viajes Realizados</a></li>
+							</ul>
+							<div class="tab-content no-padding">
+								<div class="chart tab-pane active" id="viajesProximos">
+									<div id="viajesTableContainer"></div>
+
+									<div id="detalleViaje"></div>
+								</div>
+								<div class="chart tab-pane" id="viajesRealizados">
+									<div id="viajesRealizadosTableContainer"></div>
+
+									<div id="detalleViajeRealizado"></div>
+								</div>
+						</div>
+                </div>
+            </div>
+    </section>                                  
+    </aside><!-- /.right-side -->
+</div><!-- ./wrapper -->
+
+<script type="text/javascript">
+ $(document).ready(function () {
+              $('#viajesTableContainer').jtable({
+                  messages: {
+                      serverCommunicationError: 'Ocurri&oacute; un error al comunicarse con el servidor.',
+                      loadingMessage: 'Cargando Registros...',
+                      noDataAvailable: '&iexcl;No hay Datos!',
+                      addNewRecord: 'Agregar Viaje',
+                      editRecord: 'Editar pregunta',
+                      areYouSure: '¿Está seguro?',
+                      deleteConfirmation: '&iquest;Est&aacute; seguro de eliminar este viaje?',
+                      save: 'Guardar',
+                      saving: 'Guardando',
+                      cancel: 'Cancelar',
+                      deleteText: 'Eliminar',
+                      deleting: 'Eliminando',
+                      error: 'Error',
+                      close: 'Cerrar',
+                      cannotLoadOptionsFor: 'No se pueden cargar las opciones para el campo {0}',
+                      pagingInfo: 'Mostrando {0} a {1} de {2} viajes',
+                      pageSizeChangeLabel: 'N&uacute;mero de registros',
+                      gotoPageLabel: 'Ir a la p&aacute;gina',
+                      canNotDeletedRecords: '&excl;¡No se pudieron eliminar {0} de {1} registros!',
+                      deleteProgress: 'Eliminadas {0} de {1} viajes, procesando...'
+                  },
+                  title: 'Tabla de viajes',
+                  useBootstrap: true,
+                  paging: true, //Habilitamos paginación.
+                  pageSize: 10, //Definimos el número de registros a mostrar a 10.
+                  sorting: true, //Habilitamos ordenación.
+                  defaultSorting: 'fecha ASC', //Definimos la columna default de ordenación.
+                  defaultDateFormat: 'yy-mm-dd',
+                  gotoPageArea: 'combobox',
+                  selecting: true, //Habilitar Seleccion.
+                  selectingCheckboxes: true, //Mostrar checkbox en la primer columna
+                  selectOnRowClick: true, //Habilitamos selección con la fila
+                  deleteConfirm: true,
+                  actions: {
+                      //Aquí va el URL del método del controlador, debemos definirlos primero en config/routes.
+                      listAction: '/viaje_controller/proximos_jtable_filterlist'
+                  },
+                  fields: {
+                      //Columna en la tabla. Deben ponerse todas las columnas, si no deben ser visible, solamente
+                      //habilitamos la opción list:false. Si un campo no debe editarse configuramos edit:false.
+                      viaje_id: {
+                          key: true,
+                          list: false
+                      },
+                      fecha: {
+                          title: 'Fecha',
+                          width: '10%'
+                      },
+                      hora_salida: {
+                          title: 'Hora Salida',
+                          width: '10%'
+                      },
+                      hora_llegada: {
+                          title: 'Hora Llegada',
+                          width: '10%'
+                      },
+                      origen: {
+                          title: 'Origen',
+                          width: '25%'
+                      },
+                      destino: {
+                          title: 'Destino',
+                          width: '25%'
+                      },
+                      created_at: {
+                          list: false,
+                          edit: false,
+                          create: false
+                      },
+                      updated_at: {
+                          list: false,
+                          edit: false,
+                          create: false
+                      }
+                  },
+
+                  selectionChanged: function(){
+                    var $selectedRows = $("#viajesTableContainer").jtable('selectedRows');
+                    $('#SelectedRowList').empty();
+                    if ($selectedRows.length > 0) {
+                      $selectedRows.each(function(){
+                        var record = $(this).data('record');
+                      
+                      $.get('/administrador_detalleviaje', record, function(result){
+                            $("#detalleViaje").html(result);
+                        }).success();
+                        $("#detalleViaje").show('fast');
+                      });
+                    }else {
+                      //Ninguna fila seleccionada
+                      $("#detalleViaje").hide('fast');
+                  }
+                    
+                }
+
+              });
+
+              //Realiza la búsqueda al presiona el botón de bsucar.
+              $('#btnBuscar').click(function (e) {
+                  e.preventDefault();
+                  $('#viajesTableContainer').jtable('load', {
+                      textoABuscar: $('#textoABuscar').val()
+                  });
+              });
+              //Realiza la búsqueda al teclear en el campo de búsqueda si solo hay espacios, muestra todos los campos.
+              $('#textoABuscar').keyup(function() {
+                  var texto = $('#textoABuscar').val();
+                  if(texto.trim().length == 0){
+                      $('#viajesTableContainer').jtable('load');
+                  }else{
+                      $('#viajesTableContainer').jtable('load', {
+                          textoABuscar: $('#textoABuscar').val()
+                      });
+                  }
+              });
+              // Esta línea carga los datos de la jTable al desplegar la página.
+              $('#viajesTableContainer').jtable('load');
+              // Esta línea oculta el detalle al cargar la jTable
+              $("#detalleViaje").hide();
+
+
+
+              //VIAJES REALIZADOS
+               $('#viajesRealizadosTableContainer').jtable({
+                  messages: {
+                      serverCommunicationError: 'Ocurri&oacute; un error al comunicarse con el servidor.',
+                      loadingMessage: 'Cargando Registros...',
+                      noDataAvailable: '&iexcl;No hay Datos!',
+                      addNewRecord: 'Agregar Viaje',
+                      editRecord: 'Editar pregunta',
+                      areYouSure: '¿Está seguro?',
+                      deleteConfirmation: '&iquest;Est&aacute; seguro de eliminar este viaje?',
+                      save: 'Guardar',
+                      saving: 'Guardando',
+                      cancel: 'Cancelar',
+                      deleteText: 'Eliminar',
+                      deleting: 'Eliminando',
+                      error: 'Error',
+                      close: 'Cerrar',
+                      cannotLoadOptionsFor: 'No se pueden cargar las opciones para el campo {0}',
+                      pagingInfo: 'Mostrando {0} a {1} de {2} viajes',
+                      pageSizeChangeLabel: 'N&uacute;mero de registros',
+                      gotoPageLabel: 'Ir a la p&aacute;gina',
+                      canNotDeletedRecords: '&excl;¡No se pudieron eliminar {0} de {1} registros!',
+                      deleteProgress: 'Eliminadas {0} de {1} viajes, procesando...'
+                  },
+                  title: 'Tabla de viajes',
+                  useBootstrap: true,
+                  paging: true, //Habilitamos paginación.
+                  pageSize: 10, //Definimos el número de registros a mostrar a 10.
+                  sorting: true, //Habilitamos ordenación.
+                  defaultSorting: 'fecha ASC', //Definimos la columna default de ordenación.
+                  defaultDateFormat: 'yy-mm-dd',
+                  gotoPageArea: 'combobox',
+                  selecting: true, //Habilitar Seleccion.
+                  selectingCheckboxes: true, //Mostrar checkbox en la primer columna
+                  selectOnRowClick: true, //Habilitamos selección con la fila
+                  deleteConfirm: true,
+                  actions: {
+                      //Aquí va el URL del método del controlador, debemos definirlos primero en config/routes.
+                      listAction: '/viaje_controller/realizados_jtable_filterlist'
+                  },
+                  fields: {
+                      //Columna en la tabla. Deben ponerse todas las columnas, si no deben ser visible, solamente
+                      //habilitamos la opción list:false. Si un campo no debe editarse configuramos edit:false.
+                      viaje_id: {
+                          key: true,
+                          list: false
+                      },
+                      fecha: {
+                          title: 'Fecha',
+                          width: '10%'
+                      },
+                      hora_salida: {
+                          title: 'Hora Salida',
+                          width: '10%'
+                      },
+                      hora_llegada: {
+                          title: 'Hora Llegada',
+                          width: '10%'
+                      },
+                      origen: {
+                          title: 'Origen',
+                          width: '25%'
+                      },
+                      destino: {
+                          title: 'Destino',
+                          width: '25%'
+                      },
+                      created_at: {
+                          list: false,
+                          edit: false,
+                          create: false
+                      },
+                      updated_at: {
+                          list: false,
+                          edit: false,
+                          create: false
+                      }
+                  },
+
+                  selectionChanged: function(){
+                    var $selectedRows = $("#viajesRealizadosTableContainer").jtable('selectedRows');
+                    $('#SelectedRowList').empty();
+                    if ($selectedRows.length > 0) {
+                      $selectedRows.each(function(){
+                        var record = $(this).data('record');
+                      
+                      $.get('/administrador_detalleviaje', record, function(result){
+                            $("#detalleViajeRealizado").html(result);
+                        }).success();
+                        $("#detalleViajeRealizado").show('fast');
+                      });
+                    }else {
+                      //Ninguna fila seleccionada
+                      $("#detalleViajeRealizado").hide('fast');
+                  }
+                    
+                }
+
+              });
+
+              //Realiza la búsqueda al presiona el botón de bsucar.
+              $('#btnBuscar').click(function (e) {
+                  e.preventDefault();
+                  $('#viajesRealizadosTableContainer').jtable('load', {
+                      textoABuscar: $('#textoABuscar').val()
+                  });
+              });
+              //Realiza la búsqueda al teclear en el campo de búsqueda si solo hay espacios, muestra todos los campos.
+              $('#textoABuscar').keyup(function() {
+                  var texto = $('#textoABuscar').val();
+                  if(texto.trim().length == 0){
+                      $('#viajesRealizadosTableContainer').jtable('load');
+                  }else{
+                      $('#viajesRealizadosTableContainer').jtable('load', {
+                          textoABuscar: $('#textoABuscar').val()
+                      });
+                  }
+              });
+              // Esta línea carga los datos de la jTable al desplegar la página.
+              $('#viajesRealizadosTableContainer').jtable('load');
+              // Esta línea oculta el detalle al cargar la jTable
+              $("#detalleViajeRealizado").hide();
+          });
+ </script>

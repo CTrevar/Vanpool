@@ -23,6 +23,8 @@
             </br>
                 <div class="row-fluid">
                  <%= link_to "Ver detalle", "/viajes/#{viaje.id}/detalle", class:"btn btn-buscar-nav btn-flat span12 pull-right" %>
+                 <% paradas=  viaje.ruta.paradas.to_json %>
+                <%= link_to "Ver en Mapa", '#', onclick: "trazarRuta(#{paradas});", class: "btn btn-buscar-nav btn-flat span6" %>
                 </div>
             
             </div><!-- /.item -->
@@ -34,3 +36,74 @@
     <% end %>
 
 
+ <script type="text/javascript">
+
+$(function() {
+            directionsDisplay.setMap(null);
+            });
+ function trazarRuta(paradas){
+    var arregloMarcadores= paradas;
+    var origen = arregloMarcadores[0].latitud+", "+arregloMarcadores[0].longitud;
+    
+    var destino = arregloMarcadores[arregloMarcadores.length-1].latitud+", "+arregloMarcadores[arregloMarcadores.length-1].longitud;
+    var arregloParadas=[];
+
+        if(arregloMarcadores.length>2){
+
+          for(i= 1; i<arregloMarcadores.length-1;i++){
+            var posicionParada = arregloMarcadores[i].latitud+", "+arregloMarcadores[i].longitud;
+            arregloParadas.push({
+                              location: posicionParada,
+                              stopover: true
+                            });
+            
+          }
+
+        }
+
+        //optimize waypoints for admin false, for client will be true
+        var request = {
+          origin: origen,
+          destination: destino,
+          waypoints: arregloParadas,
+          travelMode: google.maps.DirectionsTravelMode.DRIVING,
+          unitSystem: google.maps.UnitSystem.METRIC,
+          optimizeWaypoints: false
+        }
+
+        directionsService = new google.maps.DirectionsService();
+        var rutaa= directionsService.route(request, function(response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            var lineSymbol = {
+              path: google.maps.SymbolPath.FORWARD_OPEN_ARROW
+            };
+
+
+            var renderOptions = { 
+              map: map,
+              draggable: false,
+              polylineOptions: {
+                  strokeWeight: 4,
+                  strokeOpacity: 0.8,
+                  strokeColor: '#D84743',
+                  icons: [{
+                    icon: lineSymbol,
+                    offset: '25%'
+                  }, {icon: lineSymbol,
+                    offset: '75%'
+                  }]
+              }
+            };
+            directionsDisplay.setOptions(renderOptions);
+            directionsDisplay.setDirections(response);
+            var routeDrawn = response.routes[0];
+                 
+          }
+          else
+            alert ('no se pudo obtener direcciones');
+        });
+
+        
+
+  }
+</script>
