@@ -51,7 +51,6 @@ ActiveRecord::Schema.define(:version => 20141024233704) do
     t.decimal  "co2ahorrado", :default => 0.0
     t.decimal  "kilometros",  :default => 0.0
     t.boolean  "estatus",     :default => true
-    t.integer  "kilometraje", :default => 0
   end
 
   create_table "conductors", :force => true do |t|
@@ -152,15 +151,6 @@ ActiveRecord::Schema.define(:version => 20141024233704) do
     t.datetime "updated_at",                :null => false
   end
 
-  create_table "parada_ruta", :force => true do |t|
-    t.integer  "posicion"
-    t.integer  "tiempo"
-    t.integer  "distancia"
-    t.text     "via_puntos"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "paradas", :force => true do |t|
     t.string   "nombre",     :limit => 100
     t.float    "longitud"
@@ -208,19 +198,6 @@ ActiveRecord::Schema.define(:version => 20141024233704) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "ruta", :force => true do |t|
-    t.integer  "conductor_id"
-    t.integer  "van_id"
-    t.string   "nombre"
-    t.string   "gmaps"
-    t.string   "precio"
-    t.integer  "kilometros"
-    t.boolean  "estatus"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.string   "hora_inicio"
-  end
-
   create_table "rutaparadas", :force => true do |t|
     t.integer  "posicion"
     t.float    "tiempo"
@@ -235,24 +212,11 @@ ActiveRecord::Schema.define(:version => 20141024233704) do
     t.integer  "conductor_id"
     t.integer  "van_id"
     t.string   "nombre"
-    t.string   "gmaps"
-    t.string   "precio"
-    t.integer  "kilometros"
+    t.decimal  "precio"
     t.boolean  "estatus"
+    t.integer  "zona_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
-    t.string   "hora_inicio"
-    t.integer  "zona_id"
-  end
-
-  create_table "sugerencia_paradas", :force => true do |t|
-    t.decimal  "latitud"
-    t.decimal  "longitud"
-    t.integer  "posicion"
-    t.integer  "sugerencia_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-    t.string   "nombre"
   end
 
   create_table "sugerenciaparadas", :force => true do |t|
@@ -262,7 +226,6 @@ ActiveRecord::Schema.define(:version => 20141024233704) do
     t.integer  "sugerencia_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
-    t.string   "nombre"
   end
 
   create_table "sugerencias", :force => true do |t|
@@ -303,6 +266,7 @@ ActiveRecord::Schema.define(:version => 20141024233704) do
     t.string   "placa",               :limit => 45
     t.string   "modelo",              :limit => 45
     t.integer  "capacidad"
+    t.integer  "co2gxkm"
     t.date     "fecha_compra"
     t.integer  "kilometro_recorrido"
     t.boolean  "activa"

@@ -18,6 +18,12 @@ gem 'geocoder'
 
 #gem 'sqlite3'
 
+gem 'therubyracer'
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'koala'
+
 group :development, :test do
   gem 'sqlite3', '1.3.5'
   gem 'rspec-rails', '2.9.0'
@@ -48,14 +54,6 @@ group :assets do
 
 end
 
-
-#<<<<<<< HEAD
-# Gemas para la paginación de las datatables
-  gem 'will_paginate'
-# Gemas para las datatables
-
-gem 'jquery-rails'
-
 #=======
 #>>>>>>> jTables
 
@@ -84,7 +82,6 @@ end
 
 # To use debugger
 # gem 'debugger'
-gem 'jquery-ui-rails'
 gem 'will_paginate'
 
 gem 'seed_dump'
