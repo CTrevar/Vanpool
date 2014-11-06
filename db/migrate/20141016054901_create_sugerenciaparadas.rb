@@ -5,7 +5,8 @@ class CreateSugerenciaparadas < ActiveRecord::Migration
       t.decimal :longitud
       t.integer :posicion
       t.integer :sugerencia_id
-
+	  t.string :nombre
+	  
       t.timestamps
     end
   end
