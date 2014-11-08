@@ -47,6 +47,7 @@
     <hr>
     
     <div class="row" align=" right">
+      <button class="btn btn-default" id="verViajes"><i class="fa fa-fw fa-road"></i> Ver Viajers</button>
       <button class="btn btn-default" id="verDetalle"><i class="fa fa-fw fa-info"></i> Ver M&aacute;s</button>
     </div>
   </div><!-- /.tab-pane -->
@@ -61,6 +62,12 @@
   $('#verDetalle').click(function() {
     var rutaId= <%= @ruta.id %> ;
     window.location.href = '/rutas/'+rutaId;
+    return false;
+});
+
+  $('#verViajes').click(function() {
+    var rutaId= <%= @ruta.id %> ;
+    window.location.href = '/administrar_viajes/'+rutaId;
     return false;
 });
 

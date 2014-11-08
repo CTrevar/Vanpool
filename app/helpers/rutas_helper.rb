@@ -4,6 +4,10 @@ module RutasHelper
 		return Ruta.all
 	end
 
+	def calcular_distancia(reservacion)
+		return (reservacion.viaje.ruta.paradas.sum(:distancia))/1000
+	end
+
 	def busqueda (origen, destino, fechaviaje)
 		result=Array.new
 		count=0

@@ -83,13 +83,53 @@
 
                         <table class="table">
                             <tr>
-                                <td><input type="checkbox" name="lunes" ></td>
-                                <td><input type="checkbox" name="martes" aria-checked="false"></td>
-                                <td><input type="checkbox" name="miercoles" aria-checked="<%= @ruta.frecuencia.miercoles %>"></td>
-                                <td><input type="checkbox" name="jueves" ></td>
-                                <td><input type="checkbox" name="viernes" checked></td>
-                                <td><input type="checkbox" name="sabado" ></td>
-                                <td><input type="checkbox" name="domingo" ></td>
+                                <td>
+                                    <% if @ruta.frecuencia.lunes %>
+                                    <input type="checkbox" class="icheckbox_minimal" name="lunes" checked>
+                                    <%else%>
+                                    <input type="checkbox" class="icheckbox_minimal" name="lunes">
+                                    <%end%>
+                                </td>
+                                <td>
+                                    <% if @ruta.frecuencia.martes %>
+                                    <input type="checkbox" class="icheckbox_minimal" name="martes" checked>
+                                    <%else%>
+                                    <input type="checkbox" class="icheckbox_minimal" name="martes">
+                                    <%end%>
+                                </td>
+                                <td>
+                                    <% if @ruta.frecuencia.miercoles %>
+                                    <input type="checkbox" class="icheckbox_minimal" name="miercoles" checked>
+                                    <%else%>
+                                    <input type="checkbox" class="icheckbox_minimal" name="miercoles">
+                                    <%end%>
+                                </td>
+                                <td>
+                                    <% if @ruta.frecuencia.jueves %>
+                                    <input type="checkbox" class="icheckbox_minimal" name="jueves" checked>
+                                    <%else%>
+                                    <input type="checkbox" class="icheckbox_minimal" name="jueves">
+                                    <%end%>
+                                </td>
+                                <td>
+                                    <% if @ruta.frecuencia.viernes %>
+                                    <input type="checkbox" name="viernes" checked>
+                                    <%else%>
+                                    <input type="checkbox" name="viernes">
+                                    <%end%>
+                                </td>
+                                <td><% if @ruta.frecuencia.sabado %>
+                                    <input type="checkbox" name="sabado" checked>
+                                    <%else%>
+                                    <input type="checkbox" name="sabado">
+                                    <%end%>
+                                </td>
+                                <td><% if @ruta.frecuencia.domingo %>
+                                    <input type="checkbox" name="domingo" checked>
+                                    <%else%>
+                                    <input type="checkbox" name="domingo">
+                                    <%end%>
+                                </td>
                             </tr>
                             <tr>
                                 <td>L</td>

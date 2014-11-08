@@ -32,14 +32,14 @@ function initialize() {
   if(currentLat){
     //set up del mapa, zoom, centro
       var mapOptions = {
-        zoom: 13,
+        zoom: 15,
         center: new google.maps.LatLng(currentLat, currentLng)
       };
 
   } else {
     //set up del mapa, zoom, centro
     var mapOptions = {
-      zoom: 13,
+      zoom: 15,
       center: new google.maps.LatLng(19.4329459, -99.1384108)
     };
   }
@@ -234,8 +234,8 @@ function agregarMarcador(location) {
             document.getElementById("distanciaParada_"+posicion).value =  0;
 
           } else {
-            document.getElementById("tiempoParada_"+posicion).value = routeDrawn.legs[posicion].duration.value;
-            document.getElementById("distanciaParada_"+posicion).value =  routeDrawn.legs[posicion].distance.value;
+            document.getElementById("tiempoParada_"+posicion).value = routeDrawn.legs[posicion-1].duration.value;
+            document.getElementById("distanciaParada_"+posicion).value =  routeDrawn.legs[posicion-1].distance.value;
           }
 
           
