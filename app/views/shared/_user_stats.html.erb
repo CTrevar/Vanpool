@@ -1,15 +1,11 @@
-<div class="row-fluid">
+<div class="row-fluid gray">
     <div class="span8">
-        
-            <div class="span6 bg-green text-center">
-                <h1><%= number_with_precision(@co2,:precision => 1) %></h1>
+            <div class="span12">
+                <p>Si tuvieras un <%=Configuracion.find(4).valor%> hasta el momento habrías ahorrado <b><%= number_with_precision(@co2.to_f/1000,:precision => 1) %></b>
+                Kgs de CO2.</p>
             </div>
-            <div class="span6 bg-green text-center">
-                <h4>Gramos de CO2 ahorrados</h4>
-            </div>
-        
     </div>
     <div class="span4">
-        <img src="/assets/tsuru.png" alt="tsuru" />
+        <img style="width:150px" src="/assets/tsuru.png" alt="tsuru" />
     </div>
 </div>

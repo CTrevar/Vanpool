@@ -95,7 +95,8 @@ class ClientesController < ApplicationController
     @mensaje=obtener_mensaje_nivel(@cliente)
     @validamedallas=valida_medallas(@cliente)
     @muro = obtener_ultimas_medallas(@cliente)
-    @co2 = @cliente.co2ahorrado
+    @co2 = @cliente.kilometros*Configuracion.find(1).valor.to_f
+    @clientes_top10 = Cliente.limit(5)
     #@kilometros = @cliente.kilometraje
 
     @reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)

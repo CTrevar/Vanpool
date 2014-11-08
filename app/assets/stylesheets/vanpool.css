@@ -36,6 +36,11 @@
   padding: 10px;
 }
 
+.side{
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
 .item-ruta{
   margin-bottom: 10px;
   background-color: #f5faef;
@@ -49,6 +54,38 @@
 .green{
   background-color: #8DC63D;
   color: white;
+}
+
+.darkgray{
+  background-color: #adadad;
+  color: black;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.gray{
+  background-color: #ececec;
+  color: black;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+.blue{
+  background-color: #c6c6c6;
+  color: black;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+.purple{
+  background-color: #f9f9f9;
+  color: black;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top: 10px;
+
 }
 
 
