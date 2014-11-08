@@ -31,15 +31,11 @@
                                     <small>PARADA ORIGEN:</small>
                                 <h4><%= @viaje.ruta.paradas.order('posicion ASC').first.nombre.split(",")[0] %></h4>
                                 <small>PARADA DESTINO:</small>
-                                <h4><%= @viaje.ruta.paradas.order('posicion ASC').last.nombre.split(",")[0] %></h4>
-                                <small>PRECIO:</small>
-                                <h4><%=number_to_currency(@viaje.ruta.precio, :unit => "$")%></h4>
+                                <h4><%= @viaje.ruta.paradas.order('posicion ASC').last.nombre.split(",")[0] %></h4>                                
                                 </br>
                                 </div>
 
                                 <div class="span6">
-                                     <small>FECHA:</small>
-                                <h4><%= @viaje.fecha.strftime("%d/%m/%Y")%></h4>
                                 <small>HORA DE SALIDA:</small>
                                 <h4><%=@viaje.horainicio.strftime("%I:%M%p")%></h4>
                                 <small>HORA DE LLEGADA:</small>
