@@ -172,7 +172,10 @@ function agregarMarcador(location, posicion) {
         
       //si es del segundo marcador en adelante, trazar ruta
       if(arregloMarcadores.length==2){
-
+        longit = (arregloMarcadores[0].getPosition().lng()+arregloMarcadores[1].getPosition().lng())/2;
+        latit= (arregloMarcadores[0].getPosition().lat()+arregloMarcadores[1].getPosition().lat())/2;
+        map.setCenter({lat: latit, lng: longit});
+        map.setZoom(map.getZoom()-1);
       }//(if) más de 2 marcadores
 
 

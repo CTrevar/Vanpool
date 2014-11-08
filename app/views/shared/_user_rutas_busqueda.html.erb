@@ -22,9 +22,9 @@
                 </div>
             </br>
                 <div class="row-fluid">
-                 <%= link_to "Ver detalle", "/viajes/#{viaje.id}/detalle", class:"btn btn-buscar-nav btn-flat span12 pull-right" %>
+                 <%= link_to "Ver detalle", "/viajes/#{viaje.id}/detalle", class:"btn btn-buscar-nav btn-flat span5 pull-right" %>
                  <% paradas=  viaje.ruta.paradas.to_json %>
-                <%= link_to "Ver en Mapa", '#', onclick: "trazarRuta(#{paradas});", class: "btn btn-buscar-nav btn-flat span6" %>
+                <%= link_to "Ver en Mapa", '#', onclick: "trazarRuta(#{paradas});", class: "btn btn-buscar-nav btn-flat span5" %>
                 </div>
             
             </div><!-- /.item -->
@@ -42,6 +42,7 @@ $(function() {
             directionsDisplay.setMap(null);
             });
  function trazarRuta(paradas){
+  google.maps.event.trigger(map, 'resize');
     var arregloMarcadores= paradas;
     var origen = arregloMarcadores[0].latitud+", "+arregloMarcadores[0].longitud;
     

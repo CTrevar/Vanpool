@@ -11,8 +11,12 @@
             });
    </script>
 <div class="row-fluid">
-<div class="span3">
-  <div class="form-group">
+  <%if @title == "Buscar nuevo viaje"%>
+  <div class="span3">
+  <%else%>
+  <div class="col-sm-6">
+  <%end%>
+    <div class="form-group">
       <label for="origen">¿Dónde comienzas tu viaje?</label>
         <div class="input-group">
 
@@ -22,9 +26,13 @@
         <input id="origenLng" name="origenLng" style="display: none">
         </div>
     </div>                  
-</div>
-<div class="span3">
-  <div class="form-group">
+  </div>
+  <%if @title == "Buscar nuevo viaje"%>
+  <div class="span3">
+  <%else%>
+  <div class="col-sm-6">
+  <%end%>
+    <div class="form-group">
        <label for="destino">¿Dónde terminas tu viaje?</label>
         <div class="input-group">
         <span class="input-group-addon"><i class="fa  fa-map-marker" style="color: #BC4B4B"></i></span>
@@ -33,33 +41,45 @@
         <input id="destinoLng" name="destinoLng" style="display: none">
         </div>
     </div>                  
-</div>
-<div class="span2">
-  <div class="form-group">
+  </div>
+  <%if @title == "Buscar nuevo viaje"%>
+  <div class="span2">
+  <%else%>
+  <div class="col-sm-6">
+  <%end%>
+    <div class="form-group">
       <label for="diaViaje">¿Cuándo quieres viajar?</label>
         <div class="input-group">
         <span class="input-group-addon"><i class="fa  fa-calendar"></i></span>
-        <input  id="diaViajeRuta" type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
+        <input  id="diaViajeRuta" type="text" class="form-control" placeholder='dd/mm/yyyy' data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
         </div>
     </div>                  
-</div>
-<div class="span2">
-  <div class="bootstrap-timepicker">
-    <div class="form-group">
-      <label for="horaViaje">¿A qué hora quieres viajar?</label>
-        <div class="input-group">
-        <span class="input-group-addon"><i class="fa  fa-clock-o"></i></span>
-        
-                  
-          <input type="text" id="horainicio" name="horainicio" class="form-control timepicker">
-        
-        </div> <!-- input-group -->
-    </div>  <!-- form group -->
-  </div><!-- /.timepicker -->                
-</div>
-<div class="span2">
+  </div>
+  <%if @title == "Buscar nuevo viaje"%>
+  <div class="span2">
+  <%else%>
+  <div class="col-sm-6">
+  <%end%>
+    <div class="bootstrap-timepicker">
+      <div class="form-group">
+        <label for="horaViaje">¿A qué hora quieres viajar?</label>
+          <div class="input-group">
+          <span class="input-group-addon"><i class="fa  fa-clock-o"></i></span>
+          
+                    
+            <input type="text" id="horainicio" name="horainicio" class="form-control timepicker">
+          
+          </div> <!-- input-group -->
+      </div>  <!-- form group -->
+    </div><!-- /.timepicker -->                
+  </div>
+  <%if @title == "Buscar nuevo viaje"%>
+  <div class="span2">
+  <%else%>
+  <div class="col-sm-6 pull-right">
+  <%end%>
   
- <button id="show" type="submit" class="btn btn-flat btn-registro span12" style="margin-top:20px">Buscar mi ruta</button> 
+  <button id="show" type="submit" class="btn btn-flat btn-registro span12" style="margin-top:20px">Buscar mi ruta</button> 
       
 </div>
 </div>

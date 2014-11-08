@@ -29,23 +29,22 @@
                             <div class="span4">
                                 <div class="span6">
                                     <small>PARADA ORIGEN:</small>
-                                <h4><%= @viaje.ruta.paradas.order('posicion ASC').first.nombre %> <a href="#">Cambiar</a></h4>
+                                <h4><%= @viaje.ruta.paradas.order('posicion ASC').first.nombre.split(",")[0] %></h4>
                                 <small>PARADA DESTINO:</small>
-                                <h4><%= @viaje.ruta.paradas.order('posicion ASC').last.nombre %><a href="#">Cambiar</a></h4>
-
-                                
+                                <h4><%= @viaje.ruta.paradas.order('posicion ASC').last.nombre.split(",")[0] %></h4>
+                                <small>PRECIO:</small>
+                                <h4><%=number_to_currency(@viaje.ruta.precio, :unit => "$")%></h4>
+                                </br>
                                 </div>
 
                                 <div class="span6">
                                      <small>FECHA:</small>
-                                <h4><%= @viaje.fecha.strftime("%d/%m/%Y")%> <a href="#">Cambiar</a></h4>
+                                <h4><%= @viaje.fecha.strftime("%d/%m/%Y")%></h4>
                                 <small>HORA DE SALIDA:</small>
-                                <h4><%=@viaje.horainicio.strftime("%I:%M%p")%> <a href="#">Cambiar</a></h4>
+                                <h4><%=@viaje.horainicio.strftime("%I:%M%p")%></h4>
                                 <small>HORA DE LLEGADA:</small>
                                 <h4><%=(@viaje.horainicio + @viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></h4>
-                                <small>PRECIO:</small>
-                                <h4><%=number_to_currency(@viaje.ruta.precio, :unit => "$")%></h4>
-                                </br>
+                                
 
                                 <small>DISPONIBILIDAD:</small>
                                 <h4><%=@disponibilidad%></h4>
@@ -53,6 +52,8 @@
                                 
                                 </div>
                                 <div class="row-fluid">
+                                  <small>PARADAS</small>
+                                <div id="paradasTableContainer"></div></br>
                                     <%= link_to "Buscar otra ruta", "/buscar", class:"btn btn-buscar-nav btn-flat" %>
                                     <%= link_to "Comprar viaje", "/compra", class:"btn btn-pagar-l btn-flat pull-right" %>
                                 </div>
@@ -117,4 +118,70 @@
         
 
   }
+var id = <%=@viaje.id.to_i %>
+
+ $(document).ready(function () {
+  
+              $('#paradasTableContainer').jtable({
+                  messages: {
+                      serverCommunicationError: 'Ocurri&oacute; un error al comunicarse con el servidor.',
+                      loadingMessage: 'Cargando Registros...',
+                      noDataAvailable: '&iexcl;No hay Datos!',
+                      addNewRecord: 'Agregar Viaje',
+                      editRecord: 'Editar pregunta',
+                      areYouSure: '¿Está seguro?',
+                      deleteConfirmation: '&iquest;Est&aacute; seguro de eliminar este viaje?',
+                      save: 'Guardar',
+                      saving: 'Guardando',
+                      cancel: 'Cancelar',
+                      deleteText: 'Eliminar',
+                      deleting: 'Eliminando',
+                      error: 'Error',
+                      close: 'Cerrar',
+                      cannotLoadOptionsFor: 'No se pueden cargar las opciones para el campo {0}',
+                      pagingInfo: 'Mostrando {0} a {1} de {2} viajes',
+                      pageSizeChangeLabel: 'N&uacute;mero de registros',
+                      gotoPageLabel: 'Ir a la p&aacute;gina',
+                      canNotDeletedRecords: '&excl;¡No se pudieron eliminar {0} de {1} registros!',
+                      deleteProgress: 'Eliminadas {0} de {1} viajes, procesando...'
+                  },
+                  
+                  useBootstrap: true,
+                  paging: false, //Habilitamos paginación.
+                  pageSize: 10, //Definimos el número de registros a mostrar a 10.
+                  sorting: false, //Habilitamos ordenación.
+                  defaultDateFormat: 'yy-mm-dd',
+                  gotoPageArea: 'combobox',
+                  selecting: false, //Habilitar Seleccion.
+                  selectingCheckboxes: true, //Mostrar checkbox en la primer columna
+                  selectOnRowClick: true, //Habilitamos selección con la fila
+                  deleteConfirm: true,
+                  actions: {
+                      //Aquí va el URL del método del controlador, debemos definirlos primero en config/routes.
+                      listAction: "/viaje_controller/paradas_jtable_filterlist/?id="+id
+                  },
+                  fields: {
+                      //Columna en la tabla. Deben ponerse todas las columnas, si no deben ser visible, solamente
+                      //habilitamos la opción list:false. Si un campo no debe editarse configuramos edit:false.
+                      
+                      letra: {
+                          width: '2%'
+                      },
+                      nombre_parada: {
+                          title: 'Parada',
+                          width: '30%'
+                      },
+                      tiempo_parada: {
+                          title: 'Hora',
+                          width: '10%'
+                      }
+                  }
+                  
+
+              });
+
+              
+              // Esta línea carga los datos de la jTable al desplegar la página.
+              $('#paradasTableContainer').jtable('load');
+              });
   </script>

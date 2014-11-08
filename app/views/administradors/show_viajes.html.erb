@@ -8,10 +8,12 @@
     </aside>
     <aside class="right-side">
     <section class="content-header">
-        <h1>Viajes</small></h1>
+        <h1>Viajes<small>&nbsp<%=@ruta.nombre%></small></h1>
         <ol class="breadcrumb">
             <li><a href="/dashboard"><i class="fa fa-home"></i> Inicio</a></li>
-            <li class="active"><a href="/show_viajes"><i class="fa fa-user"></i> Viajes</a></li>
+            <li><a href="/rutas"><i class="fa fa-map-marker"></i> Rutas</a></li>
+            <li><a href="/rutas/<%=@ruta_id%>"><i class="fa fa-map-marker"></i> <%=@ruta.nombre%></a></li>
+            <li class="active"><i class="fa fa-road"></i> Viajes</a></li>
         </ol>
     </section>
     <section class="content">
@@ -33,14 +35,16 @@
 
 									<div id="detalleViajeRealizado"></div>
 								</div>
-						</div>
-                </div>
-            </div>
+							</div><!--tabcontent-->
+                		</div><!--navtabs-->
+           	 	</div><!--span12-->
+           	 </div><!--row-->
     </section>                                  
     </aside><!-- /.right-side -->
 </div><!-- ./wrapper -->
 
 <script type="text/javascript">
+var id = <%= @ruta_id.to_i %>
  $(document).ready(function () {
               $('#viajesTableContainer').jtable({
                   messages: {
@@ -79,7 +83,7 @@
                   deleteConfirm: true,
                   actions: {
                       //Aquí va el URL del método del controlador, debemos definirlos primero en config/routes.
-                      listAction: '/viaje_controller/proximos_jtable_filterlist'
+                      listAction: '/viaje_controller/proximos_jtable_filterlist/?id='+id
                   },
                   fields: {
                       //Columna en la tabla. Deben ponerse todas las columnas, si no deben ser visible, solamente
@@ -100,23 +104,13 @@
                           title: 'Hora Llegada',
                           width: '10%'
                       },
-                      origen: {
-                          title: 'Origen',
-                          width: '25%'
+                      disponibilidad: {
+                          title: 'Disponibilidad',
+                          width: '10%'
                       },
-                      destino: {
-                          title: 'Destino',
-                          width: '25%'
-                      },
-                      created_at: {
-                          list: false,
-                          edit: false,
-                          create: false
-                      },
-                      updated_at: {
-                          list: false,
-                          edit: false,
-                          create: false
+                      conductor: {
+                          title: 'Conductor',
+                          width: '10%'
                       }
                   },
 
@@ -204,7 +198,7 @@
                   deleteConfirm: true,
                   actions: {
                       //Aquí va el URL del método del controlador, debemos definirlos primero en config/routes.
-                      listAction: '/viaje_controller/realizados_jtable_filterlist'
+                      listAction: '/viaje_controller/realizados_jtable_filterlist?id='+id
                   },
                   fields: {
                       //Columna en la tabla. Deben ponerse todas las columnas, si no deben ser visible, solamente
@@ -225,23 +219,13 @@
                           title: 'Hora Llegada',
                           width: '10%'
                       },
-                      origen: {
-                          title: 'Origen',
-                          width: '25%'
+                      disponibilidad: {
+                          title: 'Disponibilidad',
+                          width: '10%'
                       },
-                      destino: {
-                          title: 'Destino',
-                          width: '25%'
-                      },
-                      created_at: {
-                          list: false,
-                          edit: false,
-                          create: false
-                      },
-                      updated_at: {
-                          list: false,
-                          edit: false,
-                          create: false
+                      conductor: {
+                          title: 'Conductor',
+                          width: '10%'
                       }
                   },
 

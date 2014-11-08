@@ -90,7 +90,22 @@ class ClientesController < ApplicationController
   
   def dashboard
     @current_cliente = obtener_cliente(current_user)
-    @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2).last(3)
+    
+
+    @reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
+    @disponibilidad_pendientes = []
+    @reservaciones_pendientes.each do |reserva_pendiente|
+      @disponibilidad_pendientes<< calcula_disponibilidad_viaje(reserva_pendiente.viaje)
+    end
+
+    @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
+    @disponibilidad_pagadas = []
+    @reservaciones_pagadas.each do |reserva_pagada|
+      @disponibilidad_pagadas<< calcula_disponibilidad_viaje(reserva_pagada.viaje)
+    end
+
+    @reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
+    @reservaciones_canceladas=@current_cliente.reservacions.find_all_by_estadotipo_id(4)
     #@result=busqueda
     #@result=Viaje.all
     #puts @request_hash["name"]
@@ -293,7 +308,29 @@ class ClientesController < ApplicationController
     render 'viajes realizados'
   end
 
+  def mostrar_rutas
+    @title="Rutas"
+    @current_cliente = obtener_cliente(current_user)
+    @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2).last(3)
 
+    rutas = Ruta.where("estatus = 't'")
+    viajes = Viaje.where("estadoviaje_id = 2 or estadoviaje_id = 1")
+    @result = []
+    ahora = Time.now.beginning_of_day
+    una_semana = (ahora + 1.week).end_of_day
+    
+    viajes.each do |viaje|
+      
+      fecha_viaje = viaje.fecha.to_time
+
+      #si está entre 2 fechas, se agrega al arreglo de viajes por zona encontrados
+      if fecha_viaje <= una_semana and fecha_viaje >= ahora
+           @result << viaje
+      end
+    end
+
+    render 'buscar_zona'
+  end
 
 
 

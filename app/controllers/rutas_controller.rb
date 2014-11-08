@@ -285,9 +285,11 @@ class RutasController < ApplicationController
       end
     end
 
+    
+
     respond_to do |format|
         #Enviar viajes resultantes
-        format.html { render partial: 'shared/user_viajes_busqueda', locals: { result: @result}, layout:false}
+        format.html { render partial: 'shared/user_rutas_zona', locals: { result: @result}, layout:false}
         
     end
       

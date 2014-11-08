@@ -1,3 +1,7 @@
+
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places" %>
+ <%= javascript_include_tag "busquedarutas" %>
+<%= stylesheet_link_tag "rutas", media: "all" %>
 <% provide(:title, 'Inicio') %>
 <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
@@ -23,8 +27,19 @@
                         <div class="span6">
                             <%= render 'shared/user_reservaciones' %>
                         </div>
+
                         <div class="span6">
-                            
+                            <%= render 'shared/user_campos_busqueda', locals: {title: @title}%>
+                        </br>
+                            <div id="mapa" class="span12">
+                                <div class="mapbox" id="map-canvas">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <%= render 'shared/user_stats' %>
                         </div>
                     </div>
                      

@@ -1,0 +1,166 @@
+<% if(@result.first!=nil)%>
+        <% @result.each do |viaje| %>
+            <div class="item-ruta border">
+            <div class="row-fluid">
+                <div class="span6">
+                    <h4><%=viaje.ruta.nombre%></h4>
+                    <small>FECHA:</small><b><%=viaje.fecha.strftime("%Y-%m-%d")%> </b></br>
+                    <small>ORIGEN:</small><b><%= viaje.ruta.paradas.order('posicion ASC').first.nombre.split(",")[0] %></b></br>
+                    <small>DESTINO:</small><b><%= viaje.ruta.paradas.order('posicion ASC').last.nombre.split(",")[0] %></b></br>
+                </div>
+                <div class="span6">
+                    </br>
+                    </br>
+                    <small>HORA DE SALIDA:</small><b><%=viaje.horainicio.strftime("%I:%M%p")%> </b></br>
+                    <small>HORA DE LLEGADA:</small><b><%=(viaje.horainicio+ viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></b></br>
+                    <small>Precio:</small><b><%=number_to_currency(viaje.ruta.precio, :unit => "$")%></b>
+                </div>
+                </div>
+                <div>
+                    <table class="table">
+                            <tr>
+                                <td>
+                                    <% if viaje.ruta.frecuencia.lunes %>
+                                    <input type="checkbox"  name="lunes" checked >
+                                    <%else%>
+                                    <input type="checkbox"  name="lunes">
+                                    <%end%>
+                                </td>
+                                <td>
+                                    <% if viaje.ruta.frecuencia.martes %>
+                                    <input type="checkbox" class="icheckbox_minimal" name="martes" checked>
+                                    <%else%>
+                                    <input type="checkbox" class="icheckbox_minimal" name="martes" disabled>
+                                    <%end%>
+                                </td>
+                                <td>
+                                    <% if viaje.ruta.frecuencia.miercoles %>
+                                    <input type="checkbox" class="icheckbox_minimal" name="miercoles" checked>
+                                    <%else%>
+                                    <input type="checkbox" class="icheckbox_minimal" name="miercoles">
+                                    <%end%>
+                                </td>
+                                <td>
+                                    <% if viaje.ruta.frecuencia.jueves %>
+                                    <input type="checkbox" class="icheckbox_minimal" name="jueves" checked>
+                                    <%else%>
+                                    <input type="checkbox" class="icheckbox_minimal" name="jueves">
+                                    <%end%>
+                                </td>
+                                <td>
+                                    <% if viaje.ruta.frecuencia.viernes %>
+                                    <input type="checkbox" name="viernes" checked>
+                                    <%else%>
+                                    <input type="checkbox" name="viernes">
+                                    <%end%>
+                                </td>
+                                <td><% if viaje.ruta.frecuencia.sabado %>
+                                    <input type="checkbox" name="sabado" checked>
+                                    <%else%>
+                                    <input type="checkbox" name="sabado">
+                                    <%end%>
+                                </td>
+                                <td><% if viaje.ruta.frecuencia.domingo %>
+                                    <input type="checkbox" name="domingo" checked>
+                                    <%else%>
+                                    <input type="checkbox" name="domingo">
+                                    <%end%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>L</td>
+                                <td>M</td>
+                                <td>Mie</td>
+                                <td>J</td>
+                                <td>V</td>
+                                <td>S</td>
+                                <td>D</td>
+                            </tr>
+                        </table>
+                    </div>
+            </br>
+                <div class="row-fluid">
+                 <%= link_to "Ver detalle", "/viajes/#{viaje.id}/detalle", class:"btn btn-buscar-nav btn-flat span5 pull-right" %>
+                 <% paradas=  viaje.ruta.paradas.to_json %>
+                <%= link_to "Ver en Mapa", '#', onclick: "trazarRuta(#{paradas});", class: "btn btn-buscar-nav btn-flat span5" %>
+                </div>
+            
+            </div><!-- /.item -->
+    <% end %>
+      <% else %>
+        <div class="item-ruta border">
+            <h2>No hay viajes disponibles para tu ruta.</h2>
+        </div>
+<% end %>
+
+ <script type="text/javascript">
+
+$(function() {
+            directionsDisplay.setMap(null);
+            });
+ function trazarRuta(paradas){
+    var arregloMarcadores= paradas;
+    var origen = arregloMarcadores[0].latitud+", "+arregloMarcadores[0].longitud;
+    
+    var destino = arregloMarcadores[arregloMarcadores.length-1].latitud+", "+arregloMarcadores[arregloMarcadores.length-1].longitud;
+    var arregloParadas=[];
+
+        if(arregloMarcadores.length>2){
+
+          for(i= 1; i<arregloMarcadores.length-1;i++){
+            var posicionParada = arregloMarcadores[i].latitud+", "+arregloMarcadores[i].longitud;
+            arregloParadas.push({
+                              location: posicionParada,
+                              stopover: true
+                            });
+            
+          }
+
+        }
+
+        //optimize waypoints for admin false, for client will be true
+        var request = {
+          origin: origen,
+          destination: destino,
+          waypoints: arregloParadas,
+          travelMode: google.maps.DirectionsTravelMode.DRIVING,
+          unitSystem: google.maps.UnitSystem.METRIC,
+          optimizeWaypoints: false
+        }
+
+        directionsService = new google.maps.DirectionsService();
+        var rutaa= directionsService.route(request, function(response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            var lineSymbol = {
+              path: google.maps.SymbolPath.FORWARD_OPEN_ARROW
+            };
+
+
+            var renderOptions = { 
+              map: map,
+              draggable: false,
+              polylineOptions: {
+                  strokeWeight: 4,
+                  strokeOpacity: 0.8,
+                  strokeColor: '#D84743',
+                  icons: [{
+                    icon: lineSymbol,
+                    offset: '25%'
+                  }, {icon: lineSymbol,
+                    offset: '75%'
+                  }]
+              }
+            };
+            directionsDisplay.setOptions(renderOptions);
+            directionsDisplay.setDirections(response);
+            var routeDrawn = response.routes[0];
+                 
+          }
+          else
+            alert ('no se pudo obtener direcciones');
+        });
+
+        
+
+  }
+</script>

@@ -301,9 +301,11 @@ class AdministradorsController < ApplicationController
 
   def show_viajes
     @title = "Viajes"
-    @viajesproximos = Viaje.where("estadoviaje_id= 1 or estadoviaje_id=2")
-    @viajesrealizados = Viaje.where("estadoviaje_id= 3")
-    @viajescancelados = Viaje.where("estadoviaje_id= 4")
+    @ruta_id = params[:id]
+    @ruta  = Ruta.find(@ruta_id)
+    #@viajesproximos = Viaje.where("(estadoviaje_id= 1 or estadoviaje_id=2) and ruta_id= ?", ruta_id)
+    #@viajesrealizados = Viaje.where("estadoviaje_id= 3 and ruta_id= ?", ruta_id)
+    #@viajescancelados = Viaje.where("estadoviaje_id= 4")
   end
 
 
@@ -313,7 +315,8 @@ class AdministradorsController < ApplicationController
       @paradas = @viaje.ruta.paradas.order('posicion ASC')
       @origen = @paradas.first
       @destino = @paradas.last
-
+      @disponibilidad = calcula_disponibilidad_viaje(@viaje)
+      @pasajeros = calcula_pasajeros_viaje(@viaje)
       
       @tiempoParadas = []
       ruta_id = @viaje.ruta.id
@@ -329,7 +332,7 @@ class AdministradorsController < ApplicationController
 
 
       respond_to do |format|
-        format.html {render partial: 'shared/administrador_detalleviaje', locals: { viaje: @viaje, origen: @origen, destino: @destino, paradas: @paradas, tiempoParadas: @tiempoParadas }}
+        format.html {render partial: 'shared/administrador_detalleviaje', locals: { viaje: @viaje, origen: @origen, destino: @destino, paradas: @paradas, tiempoParadas: @tiempoParadas, disponibilidad: @disponibilidad, pasajeros: @pasajeros }}
       end
   end#administrador_detalleviaje
 
