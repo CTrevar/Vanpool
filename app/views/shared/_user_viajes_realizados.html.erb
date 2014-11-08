@@ -17,7 +17,6 @@
             <div class="span6">
                 <label>ID Viaje:</label><%=reservacion.viaje_id%></br>
                 <label>Ruta:</label><%=reservacion.viaje.ruta.nombre%></br>
-                <label>km:</label><%=reservacion.viaje.ruta.kilometros%></br>
                 <label>Fecha:</label><%=reservacion.viaje.fecha%> </br>
                 <label>Hora de salida:</label><%=reservacion.viaje.horainicio%> </br>
                 <label>Hora de llegada:</label></br>
@@ -25,7 +24,7 @@
             <div class="span6">
                 <button type="button" class="btn btn-success">Ver detalle</button>
                 <% if existe_retroalimentacion(reservacion)==false then %>
-                <%#= link_to "Evaluar", "reservacions/#{reservacion.id}/retroalimentacion", class:"btn btn-default btn-flat" %>
+                <%= link_to "Evaluar", "reservacions/#{reservacion.id}/retroalimentacion", class:"btn btn-default btn-flat" %>
                 <% end %>
             </div>
         </div>

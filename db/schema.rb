@@ -171,6 +171,15 @@ ActiveRecord::Schema.define(:version => 20141024233704) do
     t.datetime "updated_at",        :null => false
   end
 
+  create_table "retroalimentacions", :force => true do |t|
+    t.integer  "reservacion_id"
+    t.integer  "retroaspecto_id"
+    t.integer  "calificacion"
+    t.integer  "aspecto_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "retroaspectos", :force => true do |t|
     t.string   "nombre"
     t.boolean  "estatus"
