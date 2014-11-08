@@ -168,7 +168,17 @@ class ClientesController < ApplicationController
     @kilometros = @cliente.kilometros
 
     @reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
+    @disponibilidad_pendientes = []
+    @reservaciones_pendientes.each do |reserva_pendiente|
+      @disponibilidad_pendientes<< calcula_disponibilidad_viaje(reserva_pendiente.viaje)
+    end
+
     @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
+    @disponibilidad_pagadas = []
+    @reservaciones_pagadas.each do |reserva_pagada|
+      @disponibilidad_pagadas<< calcula_disponibilidad_viaje(reserva_pagada.viaje)
+    end
+
     @reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
 
     #@descuentos=obtener_ultimo_descuento(@cliente)

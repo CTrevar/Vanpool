@@ -3,6 +3,27 @@
  <%= javascript_include_tag "busquedarutas" %>
 <%= stylesheet_link_tag "rutas", media: "all" %>
 <% provide(:title, 'Inicio') %>
+<script>
+$(document).ready(function(){
+  $("#show").click(function(){
+    var data={
+     origenLat: $('#origenLat').val(),
+     origenLng: $('#origenLng').val(),
+     destinoLat: $('#destinoLat').val(),
+     destinoLng: $('#destinoLng').val(),
+     horainicio: $('#horainicio').val(),
+     origenRuta: $('#origenRuta').val(),
+     destinoRuta: $('#destinoRuta').val(),
+     fechainicio: $('#diaViajeRuta').val()
+    }
+
+    $.post('/procesar_busqueda' , data, function(result){
+                                $("#lista").html(result);
+    }).success();
+        
+  });
+});
+</script>
 <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
             <aside class="left-side sidebar-offcanvas">

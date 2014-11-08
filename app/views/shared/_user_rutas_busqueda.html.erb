@@ -8,9 +8,9 @@
             <div class="row-fluid">
                 <div class="span6">
                     <h4><%=viaje.ruta.nombre%></h4>
-                    <small>ORIGEN:</small><b><%= viaje.ruta.paradas.order('posicion ASC').first.nombre %></b></br>
-                    <small>DESTINO:</small><b><%= viaje.ruta.paradas.order('posicion ASC').last.nombre %></b></br>
-                    <small>FECHA:</small><b><%=viaje.fecha.strftime("%Y-%m-%d")%> </b>
+                    <small>ORIGEN:</small><b><%= viaje.ruta.paradas.order('posicion ASC').first.nombre.split(",")[0] %></b></br>
+                    <small>DESTINO:</small><b><%= viaje.ruta.paradas.order('posicion ASC').last.nombre.split(",")[0] %></b></br>
+                    
                 </div>
                 <div class="span6">
                     </br>
