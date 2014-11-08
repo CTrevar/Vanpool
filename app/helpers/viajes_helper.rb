@@ -40,6 +40,12 @@ module ViajesHelper
       return capacidad - pasajeros
     end
 
+    def calcula_pasajeros_viaje(viaje)
+      ruta = Ruta.find(viaje.ruta_id)
+      pasajeros = viaje.reservacions.find_all_by_estadotipo_id([2,3]).count
+      return pasajeros
+    end
+
     #Crea viajes por primera vez de la rutas con las fechas indicadas en la frecuencia semanal cada primero de mes
     def genera_viajes_mensuales()
       #obtener fecha actual

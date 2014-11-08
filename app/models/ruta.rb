@@ -17,6 +17,8 @@ class Ruta < ActiveRecord::Base
   
   validates :nombre, :presence => { :message => "no puede estar en blanco" }
   validates :precio, :presence => { :message => "no puede estar en blanco" }
+  validates :precio, :numericality => true
   validates :van, :presence => { :message => "no puede estar en blanco" }
+  validates :conductor, :presence => { :message => "no puede estar en blanco" }
     
 end

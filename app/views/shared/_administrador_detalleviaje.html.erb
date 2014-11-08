@@ -1,82 +1,69 @@
-<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp" %>
- <%= javascript_include_tag "mapa" %>
-<%= stylesheet_link_tag "rutas", media: "all" %>
- <% provide(:title, @title) %>
- <div class="wrapper row-offcanvas row-offcanvas-left">
-    <aside class="left-side sidebar-offcanvas">
-        <%= render 'shared/user_sidebar' %> 
-    </aside>
-    <aside class="right-side">
-    <section class="content-header">
-        <h1>Ruta<small>Detalle</small></h1>
-        <ol class="breadcrumb">
-            <li><a href="/dashboard"><i class="fa fa-home"></i> Inicio</a></li>
-            <li><a href="/buscar"><i class="fa fa-user"></i>Búsqueda</a></li>
-            <li class="active">Detalle de ruta</li>
-        </ol>
-    </section>
-     <section class="content">
-
-                    <!-- Main content -->
-                <div class="form-group">
-                        <h2 class="page-header">
-                        Ruta <%= @viaje.ruta.nombre %> 
-                        </h2>
-                </div>
-                <div class="row-fluid">
-                <div class="span12">
-                    
-                            <div class="span4">
-                                <div class="span6">
-                                    <small>PARADA ORIGEN:</small>
-                                <h4><%= @viaje.ruta.paradas.order('posicion ASC').first.nombre.split(",")[0] %></h4>
-                                <small>PARADA DESTINO:</small>
-                                <h4><%= @viaje.ruta.paradas.order('posicion ASC').last.nombre.split(",")[0] %></h4>
-                                <small>PRECIO:</small>
-                                <h4><%=number_to_currency(@viaje.ruta.precio, :unit => "$")%></h4>
-                                </br>
-                                </div>
-
-                                <div class="span6">
-                                     <small>FECHA:</small>
-                                <h4><%= @viaje.fecha.strftime("%d/%m/%Y")%></h4>
-                                <small>HORA DE SALIDA:</small>
-                                <h4><%=@viaje.horainicio.strftime("%I:%M%p")%></h4>
-                                <small>HORA DE LLEGADA:</small>
-                                <h4><%=(@viaje.horainicio + @viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></h4>
-                                
-
-                                <small>DISPONIBILIDAD:</small>
-                                <h4><%=@disponibilidad%></h4>
-                                </br>
-                                
-                                </div>
-                                <div class="row-fluid">
-                                  <small>PARADAS</small>
-                                <div id="paradasTableContainer"></div></br>
-                                    <%= link_to "Buscar otra ruta", "/buscar", class:"btn btn-buscar-nav btn-flat" %>
-                                    <%= link_to "Comprar viaje", "/compra", class:"btn btn-pagar-l btn-flat pull-right" %>
-                                </div>
-                            </div>
-                               
-                            <div class="span8">
-                            <div class="mapbox" id="map-canvas"></div>
-                            </div> 
-                </div>
-                
-            </div>
-            </section>                                  
-      </div>
-
-                </section>                              
-    </aside><!-- /.right-side -->
-</div><!-- ./wrapper -->
 
 
 <script type="text/javascript">
+//set up del mapa, zoom, centro
+      var mapOptions = {
+        zoom: 13
+      };
+$(function(){
+    
+    if(map){
+    google.maps.event.trigger(map, "resize");    
+    }
+    var map = new google.maps.Map(document.getElementById('map-canvas'),
+        mapOptions);
+    
+    
 
-   function trazarRuta(){
-    var arregloMarcadores= <%= raw @viaje.ruta.paradas.to_json %>;
+    var lineSymbol = {
+      path: google.maps.SymbolPath.FORWARD_OPEN_ARROW
+    };
+
+
+    var rendererOptions = { 
+      map: map,
+      draggable: false,
+      polylineOptions: {
+          strokeWeight: 4,
+          strokeOpacity: 0.8,
+          strokeColor: '#D84743',
+          icons: [{
+            icon: lineSymbol,
+            offset: '25%'
+          }, {icon: lineSymbol,
+            offset: '75%'
+          }]
+      }
+    };
+
+    directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+    trazarRuta();
+    
+});
+
+
+
+// $(function() {
+//   var script = document.createElement('script');
+//   script.id='mapasJS';
+//   script.type = 'text/javascript';
+//   script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&' +
+//       'callback=initialize';
+//   var mapasJSExists = document.getElementById('mapasJS');
+//   if(mapasJSExists!= null){
+// var scripts = document.getElementsByTagName('script');
+//  //  	for (var i = scripts.length; i >= 0; i--){ //search backwards within nodelist for matching elements to remove
+// 	//   if (scripts[i] && scripts[i].getAttribute('src') != null && scripts[i].getAttribute('src').indexOf(maps.gstatic.com) != -1)
+// 	//    scripts[i].parentNode.removeChild(scripts[i]); //remove element by calling parentNode.removeChild()
+// 	// }  	//scripts[index].parentElement.removeChild(scripts[index]);
+//   	$( "#mapasJS" ).remove();
+//   }
+  
+//   document.body.appendChild(script);
+// })
+
+ function trazarRuta(){
+    var arregloMarcadores= <%= raw @paradas.to_json %>;
     var origen = arregloMarcadores[0].latitud+", "+arregloMarcadores[0].longitud;
     var destino = arregloMarcadores[arregloMarcadores.length-1].latitud+", "+arregloMarcadores[arregloMarcadores.length-1].longitud;
     var arregloParadas=[];
@@ -118,7 +105,8 @@
         
 
   }
-var id = <%=@viaje.id.to_i %>
+
+  var id = <%=@viaje.id.to_i %>
 
  $(document).ready(function () {
   
@@ -184,4 +172,44 @@ var id = <%=@viaje.id.to_i %>
               // Esta línea carga los datos de la jTable al desplegar la página.
               $('#paradasTableContainer').jtable('load');
               });
+   
   </script>
+
+<div style="padding:10px;">
+	<h3>Detalle de viaje</h3>
+<div class="row-fluid">
+
+    <div class="span6">
+        FECHA:<b><%=@viaje.fecha.strftime("%Y-%m-%d")%> </b></br></br>
+
+        <small>ORIGEN:</small><b>&nbsp<%= @viaje.ruta.paradas.order('posicion ASC').first.nombre %></b></br>
+        <small>HORA DE SALIDA:</small><b>&nbsp<%=@viaje.horainicio.strftime("%I:%M%p")%> </b></br></br>
+
+        <small>DESTINO:</small><b>&nbsp<%= @viaje.ruta.paradas.order('posicion ASC').last.nombre %></b></br>
+        <small>HORA DE LLEGADA:</small><b>&nbsp<%=(@viaje.horainicio+ @viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></b></br></br>
+
+        <small>CONDUCTOR:</small><b>&nbsp<%=@viaje.ruta.conductor.user.name%> <%=@viaje.ruta.conductor.user.apellidoPaterno%></b></br>
+        <small>VAN:</small><b>&nbsp<%=@viaje.ruta.van.modelo%> <%=@viaje.ruta.van.placa%></b></br>
+    	<small>NÚM DE PASAJEROS:</small><b>&nbsp<%=@pasajeros%></b></br>
+    	<small>DISPONIBLE:</small><b>&nbsp<%=@disponibilidad%></b></br></br>
+
+        <b>PARADAS</b>
+        <div id="paradasTableContainer"></div>
+        
+    </div> <!--span -->
+
+    <div class="span6">
+    	Recorrido de viaje
+        <div id="map-canvas" style="height: 500px;  max-width:none;"></div>
+    </div>
+</div><!--row-->
+
+<div class="row-fluid">
+
+    
+</div>
+
+</div>
+
+
+
