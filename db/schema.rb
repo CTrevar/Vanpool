@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141024233704) do
+ActiveRecord::Schema.define(:version => 20141108202031) do
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -235,11 +235,11 @@ ActiveRecord::Schema.define(:version => 20141024233704) do
     t.string   "email"
     t.integer  "heir_id"
     t.string   "heir_type"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "admin",             :default => false
+    t.boolean  "admin",                  :default => false
     t.integer  "idTipoUsuario"
     t.string   "facebookidUsuario"
     t.string   "openpayidUsuario"
@@ -247,10 +247,22 @@ ActiveRecord::Schema.define(:version => 20141024233704) do
     t.string   "apellidoMaterno"
     t.datetime "fechaNacimiento"
     t.boolean  "estatusUsuario"
+    t.string   "encrypted_password",     :default => "",    :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0,     :null => false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "vans", :force => true do |t|
     t.string   "placa",               :limit => 45

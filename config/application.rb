@@ -80,7 +80,7 @@ module SampleApp
 #   openpay_prod=OpenpayApi.new(merchant_id,private_key,isProduction,timeout)
 #Example:
 #   openpay_prod=OpenpayApi.new(merchant_id,private_key,false,30)
-
+    #config.action_view.javascript_expansions[:defaults] = %w(jquery.min jquery_ujs)
 
 
   end

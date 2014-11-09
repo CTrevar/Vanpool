@@ -1,7 +1,11 @@
 class ClientesController < ApplicationController
-  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :dashboard, 
-    :profile, :muro, :reservaciones, :checkin, :retro, :reporte, :create_retro, :guardaretro,
-    :formapago, :compracredito, :buscarviaje]
+  
+  protect_from_forgery with: :exception
+  before_filter :authenticate_user!
+
+  #before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :dashboard, 
+  #  :profile, :muro, :reservaciones, :checkin, :retro, :reporte, :create_retro, :guardaretro,
+  #  :formapago, :compracredito, :buscarviaje]
 
   # GET /clientes
   # GET /clientes.json
@@ -92,10 +96,11 @@ class ClientesController < ApplicationController
 
     @user = current_user
     @current_cliente=obtener_cliente(current_user)
-    @mensaje=obtener_mensaje_nivel(@cliente)
-    @validamedallas=valida_medallas(@cliente)
-    @muro = obtener_ultimas_medallas(@cliente)
-    @co2 = @cliente.kilometros*Configuracion.find(1).valor.to_f
+    @mensaje=obtener_mensaje_nivel(@current_cliente)
+    
+    @validamedallas=valida_medallas(@current_cliente)
+    @muro = obtener_ultimas_medallas(@current_cliente)
+    @co2 = @current_cliente.kilometros*Configuracion.find(1).valor.to_f
     @clientes_top10 = Cliente.limit(5)
     #@kilometros = @cliente.kilometraje
 
@@ -113,6 +118,16 @@ class ClientesController < ApplicationController
 
     @reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
     @reservaciones_canceladas=@current_cliente.reservacions.find_all_by_estadotipo_id(4)
+
+    if(current_user.provider)
+    @oauth = Koala::Facebook::OAuth.new("708292565932035", "0961c370c701538ac20f349b9a02b4b3")
+    facebook_user_token = session[:access_token]
+    @graph = Koala::Facebook::API.new(facebook_user_token)
+    
+    #valida cuando no sea feacebook el provider
+    @picture = @graph.get_picture("me")
+    @profile = @graph.get_object("me")
+    end
 
     #@result=busqueda
     #@result=Viaje.all

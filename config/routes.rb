@@ -1,6 +1,8 @@
 SampleApp::Application.routes.draw do
 
 
+  devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
+
   resources :conductors
 
   resources :descuentos
@@ -29,7 +31,6 @@ SampleApp::Application.routes.draw do
     end
   end
 
-
   resources :administradors
 
 
@@ -39,13 +40,6 @@ SampleApp::Application.routes.draw do
   resources :vans
 
 
-
-  #get "users/new"
-  resources :users do
-    member do
-      get :following, :followers
-    end
-  end
 
   resources :viajes do
     member do
@@ -59,10 +53,12 @@ SampleApp::Application.routes.draw do
     end
   end
 
-  resources :sessions, only: [:new, :create, :destroy]
+  #resources :sessions, only: [:new, :create, :destroy]
   resources :retroalimentacion, only: [:create, :destroy]
-  resources :relationships, only: [:create, :destroy]
+
   resources :reservacions, only: [:checkin]
+
+  #match 'logout' => 'devise/sessions#destroy'
 
   match '/listareportes', to: 'administradors#listareportes'
   match '/retroalimentaciones', to: 'administradors#reporteretros'
@@ -83,7 +79,7 @@ SampleApp::Application.routes.draw do
   match '/compra', to: 'pagos#compra'
 
   match '/signup', to: 'users#new'
-  match '/signin', to: 'sessions#new'
+  #match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy'
 
   #get "static_pages#home"
