@@ -4,19 +4,26 @@
         <h3 class="box-title">Tabla de líderes</h3>
     </div>
     <div class="side">
-    <table class="table">
-  <tr>
-    <th>Cliente</th>
-    <th>Puntos</th>
-  </tr>
+    
 
-<% clientes_top10.each do |cliente| %>
-  <tr>
-    <td><%=cliente.user.name%></td>
-    <td><%=cliente.puntaje%></td>
-  </tr>
-<% end %>
-</table>
-
+<% if current_user.provider %>
+       <h4>Amigos</h4>
+       <% @friends.each do |friend| %>
+       <h5><%= friend["name"] %></h5>
+       <% end%>
+  <% else%>
+          <table class="table">
+            <tr>
+            <th>Cliente</th>
+            <th>Puntos</th>
+            </tr>
+            <% clientes_top10.each do |cliente| %>
+            <tr>
+            <td><%=cliente.user.name%></td>
+            <td><%=cliente.puntaje%></td>
+            </tr>
+            <% end %>
+          </table>
+  <% end%>
 </div>
 </div>

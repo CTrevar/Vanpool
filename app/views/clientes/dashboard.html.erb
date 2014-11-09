@@ -48,15 +48,24 @@ $(document).ready(function(){
 
             <div class="span12">
                 <div class="span9">
-                  <li>
-  <%= button_to('Logout', destroy_user_session_path, :method => :delete) %>
-  </li>
                     <%= render 'shared/user_reservaciones' %>
                     <%= render 'shared/user_prox_promo' %> 
                     
                     <hr></hr>
                 </div>
                 <div class="span3">
+
+<div class="row">
+  <div class="span4">
+      
+      <% if current_user.provider %>
+      <h4><%= @profile["name"] %></h4>
+      <% end %>
+      <h4>email: <%= current_user.email %></h4>
+
+  </div>
+</div>
+
                     <%= render 'shared/user_gamification_data' %> 
                     <%= render 'shared/user_stats' %>
                     <br>

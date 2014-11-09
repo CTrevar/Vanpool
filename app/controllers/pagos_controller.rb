@@ -1,3 +1,4 @@
 class PagosController < ApplicationController
-	before_filter :signed_in_user, only: [:recarga]
+	 protect_from_forgery with: :exception
+  	before_filter :authenticate_user!
 end

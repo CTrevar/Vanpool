@@ -94,6 +94,7 @@ class ClientesController < ApplicationController
   
   def dashboard
 
+
     @user = current_user
     @current_cliente=obtener_cliente(current_user)
     @mensaje=obtener_mensaje_nivel(@current_cliente)
@@ -127,6 +128,8 @@ class ClientesController < ApplicationController
     #valida cuando no sea feacebook el provider
     @picture = @graph.get_picture("me")
     @profile = @graph.get_object("me")
+    @friends = @graph.get_connections("me", "friends")
+
     end
 
     #@result=busqueda

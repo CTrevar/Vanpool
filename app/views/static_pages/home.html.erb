@@ -7,12 +7,6 @@
 
 <%= stylesheet_link_tag "rutas", media: "all" %>
 
-<% if signed_in? %>
-	
-			<%= redirect_to '/dashboard' %>
-		
-<% else %>
-
 	 <div class="row-fluid map">
       <div class="span12">
         <div class="container">
@@ -21,7 +15,7 @@
                     <div class="box">
                         
                         <div style="overflow:auto; height: 400px">
-                           <%=render 'shared/user_rutas_busqueda'%>
+                           
                          </div>
                     </div><!-- /.box -->
                   </div>         
@@ -47,4 +41,3 @@
         </div>
       </div>
     </div><!-- /.container --> 
-<% end %>

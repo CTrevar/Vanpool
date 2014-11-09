@@ -72,33 +72,7 @@
 		end
 	end
 
-	def following
-		@title = "Following"
-		@user = User.find(params[:id])
-		@users = @user.followed_users.paginate(page: params[:page])
-		render 'show_follow'
-	end
-
-	def followers
-		@title = "Followers"
-		@user = User.find(params[:id])
-		@users = @user.followers.paginate(page: params[:page])
-		render 'show_follow'
-	end
-
-	def feed
-		Micropost.from_users_followed_by(self)
-	end
-
-
-	def profile
-		@title = "Perfil"
-		@user = User.find(params[:id])
-		@co2 = 2300
-		@kilometros = 12000
-		@dinero = 450
-		render 'show_profile'
-	end
+	
 
 	def dashboard
   		@users = User.paginate(page: params[:page])

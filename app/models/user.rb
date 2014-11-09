@@ -10,12 +10,13 @@ class User < ActiveRecord::Base
         user.provider = auth.provider
         user.uid = auth.uid
         user.email = auth.info.email
+        user.name = auth.info.name
         user.password = Devise.friendly_token[0,20]
       end
   end
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name
   #attr_accessible :email, :name,:password, :password_confirmation, :idTipoUsuario, :facebookidUsuario,
   #                :openpayidUsuario, :apellidoPaterno, :apellidoMaterno, :fechaNacimiento, :estatusUsuario, :admin
   #has_secure_password
