@@ -1,0 +1,23 @@
+<% provide(:title, @title) %>
+<div class="wrapper row-offcanvas row-offcanvas-left">
+  <aside class="left-side sidebar-offcanvas">
+    <%= render 'shared/user_sidebar' %>
+  </aside>
+  <aside class="right-side">
+    <section class="content-header">
+      <h1><i class="fa fa-usd"></i> Recarga de Saldo<small><Recarga></Recarga></small></h1>
+      <ol class="breadcrumb">
+        <li><a href="/dashboard"><i class="fa fa-home"></i> Inicio</a></li>
+        <li><a href="/compracredito"><i class="fa fa-usd"></i> Recarga de Saldo</a></li>
+        <li class="active"><i class="fa fa-usd"></i> Recarga de Saldo <small><i class="fa fa-credit-card"></i> Tarjeta</small></li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="row-fluid">
+        <div class="span12">
+          Formapago: <%= @formapago %>
+        </div>
+      </div>
+    </section>
+  </aside><!-- /.right-side -->
+</div><!-- ./wrapper -->

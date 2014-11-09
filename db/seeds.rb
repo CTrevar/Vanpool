@@ -120,7 +120,8 @@ Cliente.create([{puntaje:806881,nivel_id:12,user_id:1,co2:0,openpay_id:"aoje42i9
                 {puntaje:487803,nivel_id:11,user_id:11,co2:0,openpay_id:"ahiknfil9fpk1hqhfeho""",co2ahorrado:923579,estatus:true,kilometros:923579},
                 {puntaje:78780,nivel_id:5,user_id:12,co2:180000,openpay_id:"a2hivz9ndwwv1gdwjjjb""",co2ahorrado:236993,estatus:true,kilometros:236993},
                 {puntaje:120050,nivel_id:6,user_id:13,co2:180000,openpay_id:"anuyvxpjj5vrdx4qs5r4""",co2ahorrado:766826,estatus:true,kilometros:766826},
-                {puntaje:357985,nivel_id:10,user_id:14,co2:0,openpay_id:"aucqgykc0xvjcpmngclg""",co2ahorrado:624726,estatus:true,kilometros:624726}])
+                {puntaje:357985,nivel_id:10,user_id:14,co2:0,openpay_id:"aucqgykc0xvjcpmngclg""",co2ahorrado:624726,estatus:true,kilometros:624726}
+               ])
 Conductor.create([{user_id:15,licenciaConductor:"SVG6404",estatusConductor:true},
                   {user_id:16,licenciaConductor:"SVG5475",estatusConductor:true},
                   {user_id:17,licenciaConductor:"SVG1527",estatusConductor:true},
@@ -132,7 +133,8 @@ Conductor.create([{user_id:15,licenciaConductor:"SVG6404",estatusConductor:true}
                   {user_id:23,licenciaConductor:"ATV8486",estatusConductor:true},
                   {user_id:24,licenciaConductor:"ATV9945",estatusConductor:true},
                   {user_id:25,licenciaConductor:"MRN6509",estatusConductor:true},
-                  {user_id:26,licenciaConductor:"MRN2597",estatusConductor:true})
+                  {user_id:26,licenciaConductor:"MRN2597",estatusConductor:true}
+                 ])
 Conductor.create!([
   {user_id: 2, licenciaConductor: "123skjfdh", estatusConductor: true}
 ])

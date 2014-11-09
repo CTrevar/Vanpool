@@ -78,6 +78,7 @@ SampleApp::Application.routes.draw do
 
   match '/formapago', to: 'clientes#formapago'
   match '/compracredito', to: 'clientes#compracredito'
+  match '/create_transaction_charge', to: 'clientes#create_transaction_charge'
 
   match '/recarga', to: 'pagos#recarga'
   match '/compra', to: 'pagos#compra'

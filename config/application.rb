@@ -70,16 +70,25 @@ module SampleApp
 
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
 
-#To enable production mode you should pass a third argument as true.
-#openpay_prod=OpenpayApi.new(merchant_id,private_key,true)
+    #merchant and private key
+    merchant_id='muvdvkft3dzo57bfzv5g'
+    private_key='sk_aa543af9dc964f83b41418a26aa6104f'
 
-#This ruby client manages a default timeout of 90 seconds to make the request 
-#    to Openpay services, if you need to modify this value, you need to explicitly 
-#    define the type of environment and followed by the new value for the timeout.
-#Syntax:
-#   openpay_prod=OpenpayApi.new(merchant_id,private_key,isProduction,timeout)
-#Example:
-#   openpay_prod=OpenpayApi.new(merchant_id,private_key,false,30)
+
+    #An openpay resource factory instance is created out of the OpenpayApi
+    #it  points to the development environment  by default.
+    openpay=OpenpayApi.new(merchant_id,private_key)
+
+    #To enable production mode you should pass a third argument as true.
+    #openpay_prod=OpenpayApi.new(merchant_id,private_key,true)
+
+    #This ruby client manages a default timeout of 90 seconds to make the request
+    #    to Openpay services, if you need to modify this value, you need to explicitly
+    #    define the type of environment and followed by the new value for the timeout.
+    #Syntax:
+    #   openpay_prod=OpenpayApi.new(merchant_id,private_key,isProduction,timeout)
+    #Example:
+    #   openpay_prod=OpenpayApi.new(merchant_id,private_key,false,30)
 
 
 
