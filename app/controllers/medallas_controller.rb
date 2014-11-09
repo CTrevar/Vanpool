@@ -1,4 +1,8 @@
 class MedallasController < ApplicationController
+  #before_filter :admin_user, only: [:index, :create , :update, :jtable_list, :jtable_filterlist, :jtable_delete,
+#:jtable_create, :jtable_update, :show, :new, :edit, :destroy]
+  #protect_from_forgery with: :exception
+  
   # GET /medallas
   # GET /medallas.json
   def index
@@ -339,5 +343,11 @@ class MedallasController < ApplicationController
       format.js
     end
   end
+
+   private
+    def admin_user
+      redirect_to(root_path) unless current_user.try(:admin?)
+
+    end
 
 end

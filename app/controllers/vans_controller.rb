@@ -1,4 +1,6 @@
 class VansController < ApplicationController
+  before_filter :admin_user, only: [:index]
+
   def new
     @van = Van.new
   end
@@ -217,6 +219,10 @@ class VansController < ApplicationController
     end
   end
   
+   private
+    def admin_user
+      redirect_to(root_path) unless current_user.try(:admin?)
 
+    end
 
 end

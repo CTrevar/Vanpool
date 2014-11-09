@@ -1,7 +1,8 @@
 class AdministradorsController < ApplicationController
   protect_from_forgery with: :exception
   before_filter :admin_user, only: [:index, :edit, :update, :destroy, :listadministradores, 
-    :listareportes, :reporteretros, :inicio]
+    :listareportes, :reporteretros, :inicio, :sugerencias,
+    :medallas, :administrador_detallemedalla, :administradores, :clientes, :conductores]
   # GET /administradors
   # GET /administradors.json
   def index
@@ -158,9 +159,9 @@ class AdministradorsController < ApplicationController
     else
       @administrador = User.find(user_id)
       @action = 'update'
-      # respond_to do |format|
-      #   format.html {render partial: 'shared/administrador_detalleadministrador', locals: { administrador: @administrador, aciton: @action }}
-      # end
+       respond_to do |format|
+         format.html {render partial: 'shared/administrador_detalleadministrador', locals: { administrador: @administrador, aciton: @action }}
+       end
     end
   end
   #

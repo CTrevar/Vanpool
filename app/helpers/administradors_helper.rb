@@ -13,7 +13,7 @@ module AdministradorsHelper
 	end
 
 	def co2ahorrado
-		return Cliente.sum(:co2).to_d/1000
+		return (Cliente.sum(:kilometros).to_f*Configuracion.find(1).valor.to_f)/1000
 	end
 
 	def kilometros_vans

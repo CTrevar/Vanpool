@@ -11,22 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141108202031) do
-
-  create_table "administradors", :force => true do |t|
-    t.string   "nombreUsuario"
-    t.string   "emailUsuario"
-    t.integer  "idTipoUsuario"
-    t.string   "facebookidUsuario"
-    t.string   "openpayidUsuario"
-    t.string   "nombrePilaUsuario"
-    t.string   "apellidoPaterno"
-    t.string   "apellidoMaterno"
-    t.datetime "fechaNacimiento"
-    t.boolean  "estatusUsuario"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-  end
+ActiveRecord::Schema.define(:version => 20141016054902) do
 
   create_table "ciudads", :force => true do |t|
     t.string   "clave",      :limit => 45
@@ -40,17 +25,15 @@ ActiveRecord::Schema.define(:version => 20141108202031) do
   add_index "ciudads", ["pais_id"], :name => "index_ciudads_on_pais_id"
 
   create_table "clientes", :force => true do |t|
-    t.integer  "puntaje"
-    t.integer  "nivel_id"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.integer  "puntaje",     :default => 0
+    t.integer  "nivel_id",    :default => 1
     t.integer  "user_id"
-    t.integer  "co2",         :default => 0
+    t.float    "kilometros",  :default => 0.0
     t.string   "facebook_id"
     t.string   "openpay_id"
-    t.decimal  "co2ahorrado", :default => 0.0
-    t.decimal  "kilometros",  :default => 0.0
     t.boolean  "estatus",     :default => true
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "conductors", :force => true do |t|
@@ -92,10 +75,10 @@ ActiveRecord::Schema.define(:version => 20141108202031) do
     t.boolean  "jueves"
     t.boolean  "viernes"
     t.boolean  "sabado"
+    t.boolean  "domingo"
+    t.integer  "ruta_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "ruta_id"
-    t.boolean  "domingo"
   end
 
   create_table "horarios", :force => true do |t|
@@ -110,11 +93,11 @@ ActiveRecord::Schema.define(:version => 20141108202031) do
     t.string   "nombre"
     t.integer  "puntos"
     t.string   "imagen"
-    t.boolean  "estatus"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.boolean  "estatus",        :default => true
     t.integer  "estado",         :default => 0
     t.string   "descripcion"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
   create_table "medallasmuros", :force => true do |t|
@@ -149,8 +132,6 @@ ActiveRecord::Schema.define(:version => 20141108202031) do
     t.boolean  "estatus"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
-    t.float    "latitude"
-    t.float    "longitude"
   end
 
   create_table "reportes", :force => true do |t|
@@ -232,21 +213,12 @@ ActiveRecord::Schema.define(:version => 20141108202031) do
 
   create_table "users", :force => true do |t|
     t.string   "name"
-    t.string   "email"
-    t.integer  "heir_id"
-    t.string   "heir_type"
+    t.string   "provider"
+    t.string   "uid"
+    t.boolean  "admin",                  :default => false
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
-    t.string   "password_digest"
-    t.string   "remember_token"
-    t.boolean  "admin",                  :default => false
-    t.integer  "idTipoUsuario"
-    t.string   "facebookidUsuario"
-    t.string   "openpayidUsuario"
-    t.string   "apellidoPaterno"
-    t.string   "apellidoMaterno"
-    t.datetime "fechaNacimiento"
-    t.boolean  "estatusUsuario"
+    t.string   "email",                  :default => "",    :null => false
     t.string   "encrypted_password",     :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -256,19 +228,20 @@ ActiveRecord::Schema.define(:version => 20141108202031) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "provider"
-    t.string   "uid"
+    t.integer  "idTipoUsuario"
+    t.string   "apellidoPaterno"
+    t.string   "apellidoMaterno"
+    t.datetime "fechaNacimiento"
+    t.boolean  "estatusUsuario"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "vans", :force => true do |t|
     t.string   "placa",               :limit => 45
     t.string   "modelo",              :limit => 45
     t.integer  "capacidad"
-    t.integer  "co2gxkm"
     t.date     "fecha_compra"
     t.integer  "kilometro_recorrido"
     t.boolean  "activa"
@@ -282,12 +255,12 @@ ActiveRecord::Schema.define(:version => 20141108202031) do
 
   create_table "viajes", :force => true do |t|
     t.integer  "ruta_id"
-    t.datetime "horainicio",     :limit => 255
-    t.datetime "fecha",          :limit => 255
+    t.datetime "horainicio"
+    t.datetime "fecha"
     t.integer  "estadoviaje_id"
     t.integer  "estatus"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "zonas", :force => true do |t|

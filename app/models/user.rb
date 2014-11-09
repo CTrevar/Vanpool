@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   end
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name
+  attr_accessible :email, :password, :password_confirmation, :name, :admin, :provider, :uid
   #attr_accessible :email, :name,:password, :password_confirmation, :idTipoUsuario, :facebookidUsuario,
   #                :openpayidUsuario, :apellidoPaterno, :apellidoMaterno, :fechaNacimiento, :estatusUsuario, :admin
   #has_secure_password

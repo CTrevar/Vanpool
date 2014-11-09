@@ -1,33 +1,18 @@
+#encoding: utf-8 
+
 User.create!([
-  {name: "luis", email: "test@gmail.com", heir_id: nil, heir_type: nil, password_digest: nil, remember_token: nil, admin: false, idTipoUsuario: nil, facebookidUsuario: nil, openpayidUsuario: nil, apellidoPaterno: nil, apellidoMaterno: nil, fechaNacimiento: nil, estatusUsuario: nil, encrypted_password: "$2a$10$5YSxFaoKz.vtt5Kyygi5jOp8/unkYnAlwq8lBdv62pFXtn21l.r1C", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2014-11-09 06:02:44", last_sign_in_at: "2014-11-09 06:02:44", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1", provider: nil, uid: nil},
-  {name: "pedro", email: "demo@gmail.com", heir_id: nil, heir_type: nil, password_digest: nil, remember_token: nil, admin: false, idTipoUsuario: nil, facebookidUsuario: nil, openpayidUsuario: nil, apellidoPaterno: nil, apellidoMaterno: nil, fechaNacimiento: nil, estatusUsuario: nil, encrypted_password: "$2a$10$PyVFMqpD3c4SvLZSCpupKehgmwJhQHMvv2K1W4DPtw/tK4D/BOKly", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2014-11-09 06:33:34", last_sign_in_at: "2014-11-09 06:33:34", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1", provider: nil, uid: nil},
-  {name: "fabian", email: "fra@gmail.com", heir_id: nil, heir_type: nil, password_digest: nil, remember_token: nil, admin: false, idTipoUsuario: nil, facebookidUsuario: nil, openpayidUsuario: nil, apellidoPaterno: nil, apellidoMaterno: nil, fechaNacimiento: nil, estatusUsuario: nil, encrypted_password: "$2a$10$fUVKQ4KVUI1a9rYdlkR8heRgCcffZXLQvttU.toEvWAuMa8XiYIHq", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2014-11-09 06:39:12", last_sign_in_at: "2014-11-09 06:39:12", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1", provider: nil, uid: nil},
-  {name: "JUAN", email: "juan@gmail.com", heir_id: nil, heir_type: nil, password_digest: nil, remember_token: nil, admin: false, idTipoUsuario: nil, facebookidUsuario: nil, openpayidUsuario: nil, apellidoPaterno: nil, apellidoMaterno: nil, fechaNacimiento: nil, estatusUsuario: nil, encrypted_password: "$2a$10$.Ts8eo759ixpAkA7QxevQeQPfSg1oDHxS92RP.uzgLZkGo8pn.FXK", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2014-11-09 06:53:02", last_sign_in_at: "2014-11-09 06:53:02", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1", provider: nil, uid: nil},
-  {name: "Evelin Ponce", email: "eponce19@gmail.com", heir_id: nil, heir_type: nil, password_digest: nil, remember_token: nil, admin: true, idTipoUsuario: nil, facebookidUsuario: nil, openpayidUsuario: nil, apellidoPaterno: nil, apellidoMaterno: nil, fechaNacimiento: nil, estatusUsuario: nil, encrypted_password: "$2a$10$Cla3S6SUrgcco0RpgnNy..uR4kFN.7pSHPV5/iEC6mQ5KP6BwIT6q", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 8, current_sign_in_at: "2014-11-09 12:19:01", last_sign_in_at: "2014-11-09 12:06:47", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1", provider: "facebook", uid: "10152529042788645"}
+  {name: "admin", email: "test@gmail.com",   admin: true, password:"12345678", password_confirmation:"12345678", provider: nil, uid: nil},
+  {name: "Pedro Torres", email: "ptorres@gmail.com",   admin: false, password:"12345678", password_confirmation:"12345678", provider: nil, uid: nil}
 ])
-Cliente.create!([
-  {puntaje: 0, nivel_id: 1, user_id: 42, co2: 0, facebook_id: nil, openpay_id: "aucqgykc0xvjcpmngclg", co2ahorrado: "0.0", kilometros: "0.0", estatus: true},
-  {puntaje: 0, nivel_id: 1, user_id: 45, co2: 0, facebook_id: nil, openpay_id: "awhzqmb6xjpmbgex7mn5", co2ahorrado: "0.0", kilometros: "0.0", estatus: true},
-  {puntaje: 0, nivel_id: 1, user_id: 46, co2: 0, facebook_id: nil, openpay_id: "ady4dheirbvjhyff3ioq", co2ahorrado: "0.0", kilometros: "0.0", estatus: true},
-  {puntaje: 0, nivel_id: 1, user_id: 47, co2: 0, facebook_id: nil, openpay_id: "assjt55q9oh6z8topkid", co2ahorrado: "0.0", kilometros: "0.0", estatus: true},
-  {puntaje: 0, nivel_id: 1, user_id: 43, co2: 0, facebook_id: nil, openpay_id: "apiqiz7pgm1fklpdrjvm", co2ahorrado: "0.0", kilometros: "0.0", estatus: true},
-  {puntaje: 0, nivel_id: 1, user_id: 48, co2: 0, facebook_id: nil, openpay_id: "au9hk6log5vkgllxjmwd", co2ahorrado: "0.0", kilometros: "0.0", estatus: true}
-])
+
 Conductor.create!([
-  {user_id: 15, licenciaConductor: "SVG6404", estatusConductor: true},
-  {user_id: 16, licenciaConductor: "SVG5475", estatusConductor: true},
-  {user_id: 17, licenciaConductor: "SVG1527", estatusConductor: true},
-  {user_id: 18, licenciaConductor: "SVG1888", estatusConductor: true},
-  {user_id: 19, licenciaConductor: "SVG5189", estatusConductor: true},
-  {user_id: 20, licenciaConductor: "ATV7495", estatusConductor: true},
-  {user_id: 21, licenciaConductor: "ATV7596", estatusConductor: true},
-  {user_id: 22, licenciaConductor: "ATV3256", estatusConductor: true},
-  {user_id: 23, licenciaConductor: "ATV8486", estatusConductor: true},
-  {user_id: 24, licenciaConductor: "ATV9945", estatusConductor: true},
-  {user_id: 25, licenciaConductor: "MRN6509", estatusConductor: true},
-  {user_id: 26, licenciaConductor: "MRN2597", estatusConductor: true},
-  {user_id: 2, licenciaConductor: "123skjfdh", estatusConductor: true}
+{user_id: 2, licenciaConductor: "123skjfdh", estatusConductor: true}
 ])
+
+Van.create!([
+ {placa: "SPN4735", modelo: "Impala", capacidad: 10, fecha_compra: "2011-04-06", kilometro_recorrido: 0, activa: true, estatus: true, pais_id: 1}
+])
+
 Medalla.create!([
   {tipomedalla_id: 1, nombre: "Primer viaje", puntos: 5000, imagen: "viaje1.png", estatus: true, estado: 1, descripcion: nil},
   {tipomedalla_id: 1, nombre: "Quinto Viaje", puntos: 5000, imagen: "viaje5.png", estatus: true, estado: 5, descripcion: nil},
@@ -46,31 +31,31 @@ Nivel.create!([
   {nombre: "Aprendiz 1", rangomaximo: 49999, estatus: true}
 ])
 Parada.create!([
-  {nombre: "Durango 110A, Los Treviño, 66376 Nuevo Leon, Mexico", longitud: -100.4366063, latitud: 25.67093, estatus: true, latitude: nil, longitude: nil},
-  {nombre: "Lic. Gustavo Díaz Ordaz 100-S, Sin Nombre de Colonia 27, Monterrey, Nuevo Leon, Mexico", longitud: -100.3793322, latitud: 25.67093, estatus: true, latitude: nil, longitude: nil},
-  {nombre: "Del Encino 104, Lomas del Rosario, 66287 Nuevo Leon, Mexico", longitud: -100.39546419999999, latitud: 25.6412933, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "Carrizalejo 105, Zona Carrizalejo, 66254 Nuevo Leon, Mexico", longitud: -100.36499709999998, latitud: 25.6387654, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "Cuauhtémoc 145, Residencial Cuauhtémoc, 66360 Nuevo Leon, Mexico", longitud: -100.44163020000002, latitud: 25.6825928, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "La Gloria 109, Hacienda El Rosario, 66247 Nuevo Leon, Mexico", longitud: -100.38654070000001, latitud: 25.6501053, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "Lourdes 5, Hacienda El Rosario, 66247 Nuevo Leon, Mexico", longitud: -100.39033240000003, latitud: 25.6445404, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "Hoyo 6 104, Jardines del Campestre, 66260 San Pedro Garza García, Nuevo Leon, Mexico", longitud: -100.344336, latitud: 25.6490095, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "Manuel Doblado 414-420, Casco Urbano, 66230 Nuevo Leon, Mexico", longitud: -100.39321840000002, latitud: 25.6557306, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "Hacienda de San Francisco, Sin Nombre de Colonia 32, Monterrey, Nuevo Leon, Mexico", longitud: -100.34946909999996, latitud: 25.6645464, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "Avenida Alfonso Reyes 1358, Jardines Coloniales 1er Sector, 66230 Nuevo Leon, Mexico", longitud: -100.39689629999998, latitud: 25.6528038, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "Eje Metropolitano 7 213, Del Valle, 66220 Nuevo Leon, Mexico", longitud: -100.3689728, latitud: 25.6603322, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "Barcelona 103, Rincón de San Jerónimo, 64635 Monterrey, Nuevo Leon, Mexico", longitud: -100.3771668, latitud: 25.6885415, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "Av. Olinca, Nuevo Leon, Mexico", longitud: -100.43204760000003, latitud: 25.6532514, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "Isaac Garza 1112, Casco Urbano, 66230 Nuevo Leon, Mexico", longitud: -100.39531729999999, latitud: 25.657419, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "Miguel Hidalgo y Costilla 701-761, La Fama, 66100 Nuevo Leon, Mexico", longitud: -100.43082900000002, latitud: 25.6676718, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "Paseo de Los Leones, Cima del Bosque, 64344 Monterrey, Nuevo Leon, Mexico", longitud: -100.40375589999996, latitud: 25.7359418, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "Tolteca 7303, Unidad Modelo, 64140 Monterrey, Nuevo Leon, Mexico", longitud: -100.35448129999997, latitud: 25.7401879, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "Calle de los zenzontles 123, San Jerónimo 1o. Sector, Monterrey, Nuevo Leon, Mexico", longitud: -100.36505970000002, latitud: 25.6811278, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "Avenida Francisco I. Madero 2201, Mitras Sur, 64000 Monterrey, Nuevo Leon, Mexico", longitud: -100.33350410000003, latitud: 25.6862131, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "Boulevard Gustavo Díaz Ordaz, El Lechugal, 66376 Nuevo Leon, Mexico", longitud: -100.43782980000003, latitud: 25.6745601, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "Eje Metropolitano 410, Sin Nombre de Colonia 27, Monterrey, Nuevo Leon, Mexico", longitud: -100.3773645, latitud: 25.6804894, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "De Los Colibríes 516, San Jerónimo 2o. Sector, 64634 Monterrey, Nuevo Leon, Mexico", longitud: -100.3697429, latitud: 25.6826109, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "Potrero Chico 301, Hacienda Los Portales, 66120 Nuevo Leon, Mexico", longitud: -100.43614919999999, latitud: 25.6809919, estatus: nil, latitude: nil, longitude: nil},
-  {nombre: "R. de Las Mitras 212, Rincón de Corregidora, 66239 Nuevo Leon, Mexico", longitud: -100.40331379999998, latitud: 25.668548, estatus: nil, latitude: nil, longitude: nil}
+  {nombre: "Durango 110A, Los Treviño, 66376 Nuevo Leon, Mexico", longitud: -100.4366063, latitud: 25.67093, estatus: true},
+  {nombre: "Lic. Gustavo Díaz Ordaz 100-S, Sin Nombre de Colonia 27, Monterrey, Nuevo Leon, Mexico", longitud: -100.3793322, latitud: 25.67093, estatus: true},
+  {nombre: "Del Encino 104, Lomas del Rosario, 66287 Nuevo Leon, Mexico", longitud: -100.39546419999999, latitud: 25.6412933, estatus: nil},
+  {nombre: "Carrizalejo 105, Zona Carrizalejo, 66254 Nuevo Leon, Mexico", longitud: -100.36499709999998, latitud: 25.6387654, estatus: nil},
+  {nombre: "Cuauhtémoc 145, Residencial Cuauhtémoc, 66360 Nuevo Leon, Mexico", longitud: -100.44163020000002, latitud: 25.6825928, estatus: nil},
+  {nombre: "La Gloria 109, Hacienda El Rosario, 66247 Nuevo Leon, Mexico", longitud: -100.38654070000001, latitud: 25.6501053, estatus: nil},
+  {nombre: "Lourdes 5, Hacienda El Rosario, 66247 Nuevo Leon, Mexico", longitud: -100.39033240000003, latitud: 25.6445404, estatus: nil},
+  {nombre: "Hoyo 6 104, Jardines del Campestre, 66260 San Pedro Garza García, Nuevo Leon, Mexico", longitud: -100.344336, latitud: 25.6490095, estatus: nil},
+  {nombre: "Manuel Doblado 414-420, Casco Urbano, 66230 Nuevo Leon, Mexico", longitud: -100.39321840000002, latitud: 25.6557306, estatus: nil},
+  {nombre: "Hacienda de San Francisco, Sin Nombre de Colonia 32, Monterrey, Nuevo Leon, Mexico", longitud: -100.34946909999996, latitud: 25.6645464, estatus: nil},
+  {nombre: "Avenida Alfonso Reyes 1358, Jardines Coloniales 1er Sector, 66230 Nuevo Leon, Mexico", longitud: -100.39689629999998, latitud: 25.6528038, estatus: nil},
+  {nombre: "Eje Metropolitano 7 213, Del Valle, 66220 Nuevo Leon, Mexico", longitud: -100.3689728, latitud: 25.6603322, estatus: nil},
+  {nombre: "Barcelona 103, Rincón de San Jerónimo, 64635 Monterrey, Nuevo Leon, Mexico", longitud: -100.3771668, latitud: 25.6885415, estatus: nil},
+  {nombre: "Av. Olinca, Nuevo Leon, Mexico", longitud: -100.43204760000003, latitud: 25.6532514, estatus: nil},
+  {nombre: "Isaac Garza 1112, Casco Urbano, 66230 Nuevo Leon, Mexico", longitud: -100.39531729999999, latitud: 25.657419, estatus: nil},
+  {nombre: "Miguel Hidalgo y Costilla 701-761, La Fama, 66100 Nuevo Leon, Mexico", longitud: -100.43082900000002, latitud: 25.6676718, estatus: nil},
+  {nombre: "Paseo de Los Leones, Cima del Bosque, 64344 Monterrey, Nuevo Leon, Mexico", longitud: -100.40375589999996, latitud: 25.7359418, estatus: nil},
+  {nombre: "Tolteca 7303, Unidad Modelo, 64140 Monterrey, Nuevo Leon, Mexico", longitud: -100.35448129999997, latitud: 25.7401879, estatus: nil},
+  {nombre: "Calle de los zenzontles 123, San Jerónimo 1o. Sector, Monterrey, Nuevo Leon, Mexico", longitud: -100.36505970000002, latitud: 25.6811278, estatus: nil},
+  {nombre: "Avenida Francisco I. Madero 2201, Mitras Sur, 64000 Monterrey, Nuevo Leon, Mexico", longitud: -100.33350410000003, latitud: 25.6862131, estatus: nil},
+  {nombre: "Boulevard Gustavo Díaz Ordaz, El Lechugal, 66376 Nuevo Leon, Mexico", longitud: -100.43782980000003, latitud: 25.6745601, estatus: nil},
+  {nombre: "Eje Metropolitano 410, Sin Nombre de Colonia 27, Monterrey, Nuevo Leon, Mexico", longitud: -100.3773645, latitud: 25.6804894, estatus: nil},
+  {nombre: "De Los Colibríes 516, San Jerónimo 2o. Sector, 64634 Monterrey, Nuevo Leon, Mexico", longitud: -100.3697429, latitud: 25.6826109, estatus: nil},
+  {nombre: "Potrero Chico 301, Hacienda Los Portales, 66120 Nuevo Leon, Mexico", longitud: -100.43614919999999, latitud: 25.6809919, estatus: nil},
+  {nombre: "R. de Las Mitras 212, Rincón de Corregidora, 66239 Nuevo Leon, Mexico", longitud: -100.40331379999998, latitud: 25.668548, estatus: nil}
 ])
 Reservacion.create!([
   {viaje_id: 1, cliente_id: 2, referenciapago_id: nil, estadotipo_id: 1, estatus: true},
@@ -85,24 +70,24 @@ Retroaspecto.create!([
 ])
 Ruta.create!([
   {conductor_id: 1, van_id: 1, nombre: "Valle-Galerias", precio: "20.0", estatus: true, zona_id: nil},
-  {conductor_id: 3, van_id: 3, nombre: "Centro-Cumbres", precio: "30.0", estatus: false, zona_id: nil},
-  {conductor_id: 2, van_id: 2, nombre: "Country-Valle", precio: "50.0", estatus: false, zona_id: nil},
-  {conductor_id: 2, van_id: 3, nombre: "newerkjh", precio: "322.0", estatus: false, zona_id: nil},
-  {conductor_id: 2, van_id: 2, nombre: "newerkjh", precio: "312.0", estatus: false, zona_id: nil},
-  {conductor_id: 1, van_id: 5, nombre: "nomnew", precio: "32.0", estatus: true, zona_id: nil},
-  {conductor_id: 2, van_id: 4, nombre: "nomnew", precio: "32.0", estatus: false, zona_id: nil},
-  {conductor_id: 2, van_id: 4, nombre: "nomnew", precio: "32.0", estatus: false, zona_id: nil},
-  {conductor_id: 2, van_id: 4, nombre: "nomnew", precio: "32.0", estatus: false, zona_id: nil},
-  {conductor_id: 2, van_id: 2, nombre: "Gallifrey-Kashyyyk", precio: "420.0", estatus: true, zona_id: nil},
-  {conductor_id: 2, van_id: 2, nombre: "Corellia-Coruscant", precio: "322.0", estatus: true, zona_id: nil},
-  {conductor_id: 1, van_id: 5, nombre: "Nal Hutta - Naboo", precio: "32.0", estatus: true, zona_id: nil},
-  {conductor_id: 1, van_id: 3, nombre: "P4X639 - Abydos", precio: "322.0", estatus: true, zona_id: 1},
-  {conductor_id: 1, van_id: 4, nombre: "Chulak-Asgard", precio: "322.0", estatus: true, zona_id: 1},
-  {conductor_id: 1, van_id: 5, nombre: "Hermes - Kronos", precio: "322.0", estatus: true, zona_id: 1},
-  {conductor_id: 1, van_id: 5, nombre: "Lantea - Novus", precio: "120.0", estatus: true, zona_id: 1},
-  {conductor_id: 1, van_id: 3, nombre: "Sateda - Athos", precio: "123.0", estatus: true, zona_id: 3},
-  {conductor_id: 1, van_id: 3, nombre: "Dagan - Asuras", precio: "123.0", estatus: true, zona_id: 8},
-  {conductor_id: 1, van_id: 4, nombre: "Jenev - Vedeena", precio: "123.0", estatus: true, zona_id: 10}
+  {conductor_id: 1, van_id: 1, nombre: "Centro-Cumbres", precio: "30.0", estatus: false, zona_id: nil},
+  {conductor_id: 1, van_id: 1, nombre: "Country-Valle", precio: "50.0", estatus: false, zona_id: nil},
+  {conductor_id: 1, van_id: 1, nombre: "newerkjh", precio: "322.0", estatus: false, zona_id: nil},
+  {conductor_id: 1, van_id: 1, nombre: "newerkjh", precio: "312.0", estatus: false, zona_id: nil},
+  {conductor_id: 1, van_id: 1, nombre: "nomnew", precio: "32.0", estatus: true, zona_id: nil},
+  {conductor_id: 1, van_id: 1, nombre: "nomnew", precio: "32.0", estatus: false, zona_id: nil},
+  {conductor_id: 1, van_id: 1, nombre: "nomnew", precio: "32.0", estatus: false, zona_id: nil},
+  {conductor_id: 1, van_id: 1, nombre: "nomnew", precio: "32.0", estatus: false, zona_id: nil},
+  {conductor_id: 1, van_id: 1, nombre: "Gallifrey-Kashyyyk", precio: "420.0", estatus: true, zona_id: nil},
+  {conductor_id: 1, van_id: 1, nombre: "Corellia-Coruscant", precio: "322.0", estatus: true, zona_id: nil},
+  {conductor_id: 1, van_id: 1, nombre: "Nal Hutta - Naboo", precio: "32.0", estatus: true, zona_id: nil},
+  {conductor_id: 1, van_id: 1, nombre: "P4X639 - Abydos", precio: "322.0", estatus: true, zona_id: 1},
+  {conductor_id: 1, van_id: 1, nombre: "Chulak-Asgard", precio: "322.0", estatus: true, zona_id: 1},
+  {conductor_id: 1, van_id: 1, nombre: "Hermes - Kronos", precio: "322.0", estatus: true, zona_id: 1},
+  {conductor_id: 1, van_id: 1, nombre: "Lantea - Novus", precio: "120.0", estatus: true, zona_id: 1},
+  {conductor_id: 1, van_id: 1, nombre: "Sateda - Athos", precio: "123.0", estatus: true, zona_id: 3},
+  {conductor_id: 1, van_id: 1, nombre: "Dagan - Asuras", precio: "123.0", estatus: true, zona_id: 8},
+  {conductor_id: 1, van_id: 1, nombre: "Jenev - Vedeena", precio: "123.0", estatus: true, zona_id: 10}
 ])
 Sugerencia.create!([
   {hora_inicio: "2014-10-22 17:25:33.338532"},
@@ -140,11 +125,11 @@ Tipomedalla.create!([
   {nombre: "Nivel"}
 ])
 Van.create!([
-  {placa: "SPN4735", modelo: "Impala", capacidad: 10, co2gxkm: nil, fecha_compra: "2011-04-06", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1},
-  {placa: "KJM212K", modelo: "Cortina", capacidad: 13, co2gxkm: nil, fecha_compra: "2013-03-03", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1},
-  {placa: "OUTATIME", modelo: "DeLorean", capacidad: 15, co2gxkm: nil, fecha_compra: "2012-04-02", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1},
-  {placa: "TRD12G", modelo: "TARDIS", capacidad: 11, co2gxkm: nil, fecha_compra: "2014-03-10", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1},
-  {placa: "3467LUCY", modelo: "Cutlass", capacidad: 12, co2gxkm: nil, fecha_compra: "2011-04-03", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1}
+  {placa: "SPN4735", modelo: "Impala", capacidad: 10,  fecha_compra: "2011-04-06", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1},
+  {placa: "KJM212K", modelo: "Cortina", capacidad: 13, fecha_compra: "2013-03-03", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1},
+  {placa: "OUTATIME", modelo: "DeLorean", capacidad: 15,  fecha_compra: "2012-04-02", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1},
+  {placa: "TRD12G", modelo: "TARDIS", capacidad: 11,  fecha_compra: "2014-03-10", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1},
+  {placa: "3467LUCY", modelo: "Cutlass", capacidad: 12,  fecha_compra: "2011-04-03", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1}
 ])
 Viaje.create!([
   {ruta_id: 1, horainicio: "2000-01-01 12:30:00", fecha: "2014-09-27 05:00:00", estadoviaje_id: 1, estatus: 1},
