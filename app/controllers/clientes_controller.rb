@@ -1,11 +1,11 @@
 class ClientesController < ApplicationController
   
   protect_from_forgery with: :exception
-  before_filter :authenticate_user!
+  #before_filter :authenticate_user!
 
-  #before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :dashboard, 
-  #  :profile, :muro, :reservaciones, :checkin, :retro, :reporte, :create_retro, :guardaretro,
-  #  :formapago, :compracredito, :buscarviaje]
+  before_filter :authenticate_user!, only: [:index, :edit, :update, :destroy, :dashboard, 
+    :profile, :muro, :reservaciones, :checkin, :retro, :reporte, :create_retro, :guardaretro,
+    :formapago, :compracredito, :buscarviaje]
 
   # GET /clientes
   # GET /clientes.json
