@@ -1,6 +1,89 @@
-<h1>Editing cliente</h1>
+<% provide(:title, 'Inicio') %>
+<div class="wrapper row-offcanvas row-offcanvas-left">
+    <aside class="left-side sidebar-offcanvas">
+        <%= render 'shared/user_sidebar' %> 
+    </aside>
+    <aside class="right-side">
+        <section class="content-header">
+            <h1>Mi Configuración</h1>
+            <ol class="breadcrumb">
+            	<li><a href="#"><i class="fa fa-home"></i> Inicio</a></li>
+                <li class="active">Mi configuración</li>
+            </ol>
+        </section>
+		<section class="content">
 
-<%= render 'form' %>
+			<div class="row-fluid">
+                    <div class="span12">
+                    	<%= form_for(@cliente) do |f| %>
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <div class="row-fluid">
+                                <%= f.text_field :name, class:"form-control span4", placeholder:"Tu nombre" %>
+                                <span class="help-inline span8 label-config-info">Es el nombre con el que te identificamos en Vanpool, te recomendamos que registres un nombre real.</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Correo Electrónico</label>
+                            <div class="row-fluid">
+                                <%= f.text_field :email, class:"form-control span4", placeholder:"correo@ejemplo.com" %>
+                                <span class="help-inline span8 label-config-info">No te pierdas las promociones y avisos de Vanpool, registra tu correo.</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Contraseña</label>
+                            <div class="row-fluid">
+                                <div class="span4">
+                                    <%= f.password_field :password, class:"form-control", placeholder:"Tu contraseña"%></br>
+                                    <%= f.password_field :password_confirmation, class:"form-control", placeholder:"Confirma tu contraseña"%>   
+                                </div>
+                                 <div class="span8">
+                                    <p class="help-inline label-config-importante">Has tu cuenta más segura, utiliza una contraseña de más de 8 caracteres en las que incluyas letras mayúsculas, minusculas, simbolos y números.</p>
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Cuenta Facebook</label>
+                            <div class="row-fluid">
+                                <div class="user-panel span4">
+                                    <div class="pull-left image">
+                                        <img src="/assets/avatar04.png" class="img-circle" alt="User Image" />
+                                    </div>
+                                    <div class="pull-left info">
+                                        <p><b>Jhonny Pérez</b></p>
+                                        <button type="submit" class="btn btn-flat btn-primary">Cambiar</button> 
+                                        <button type="submit" class="btn btn-flat btn-danger">Quitar</button> 
+                                        
+                                    </div>
+                                </div>
+                                <span class="help-inline span8 label-config-info">Cuando enlazas tu cuenta de Facebook puedes ver que amigos usan el servicio de Vanpool y ganar premios exclusivos.</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Ciudad</label>
+                            <div class="row-fluid">
+                                <input type="text" class="form-control span4" placeholder="Monterrey">
+                                <span class="help-inline span8 label-config-info">Recibe noticias de nuevas rutas de la ciudad en la que vives.</span>
+                            </div>
+                        </div>
+                        </br>
+                        <div class="row-fluid">
+                                <div class="span4">
+                                    <%= f.submit "Guardar", class: "btn btn-flat btn-success pull-right" %>
+                                    <button type="submit" class="btn btn-flat btn-danger pull-left">Atrás</button>
+                                </div>
+                                 <div class="span8">
+                                 </div>
+                        </div>
+                        </br>
+                        </br>
+                        <a href="">Eliminar Cuenta</a>                         
+                        <% end %>
+                       
+                    </div>
+                </div>
+                
+        </section>
+    </aside><!-- /.right-side -->
+</div><!-- ./wrapper -->
 
-<%= link_to 'Show', @cliente %> |
-<%= link_to 'Back', clientes_path %>

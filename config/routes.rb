@@ -9,7 +9,7 @@ SampleApp::Application.routes.draw do
 
 
   resources :reportes
-
+  resources :users
 
   resources :retroaspectos
 

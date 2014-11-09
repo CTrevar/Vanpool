@@ -1,11 +1,9 @@
 class ClientesController < ApplicationController
-  
-  protect_from_forgery with: :exception
-  #before_filter :authenticate_user!
 
   before_filter :authenticate_user!, only: [:index, :edit, :update, :destroy, :dashboard, 
     :profile, :muro, :reservaciones, :checkin, :retro, :reporte, :create_retro, :guardaretro,
-    :formapago, :compracredito, :buscarviaje]
+    :formapago, :compracredito, :buscarviaje],
+  except:[:jtable_list, :jtable_filterlist, :jtable_delete, :jtable_create, :jtable_update]
 
   # GET /clientes
   # GET /clientes.json
@@ -44,6 +42,8 @@ class ClientesController < ApplicationController
   def edit
     #@cliente = Cliente.find(params[:id])
     #@cliente = obtener_cliente(current_user)
+    @user = User.find(params[:id])
+    @current_cliente = obtener_cliente(current_user)
   end
 
   # POST /clientes
@@ -431,11 +431,9 @@ class ClientesController < ApplicationController
       if jtAtributoCondicion.present? && jtCondicion.present? && jtValorCondicion.present?
           @queryFiltrado = " AND ( #{jtAtributoCondicion} #{jtCondicion} #{jtValorCondicion} ) "
       end
-      @query = "(LOWER(name) LIKE '%#{jtTextoBusqueda.downcase}%' OR LOWER(apellidoMaterno) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                 LOWER(apellidoPaterno) LIKE '%#{jtTextoBusqueda.downcase}%' OR LOWER(email) LIKE '%#{jtTextoBusqueda.downcase}%' OR
+      @query = "(LOWER(name) LIKE '%#{jtTextoBusqueda.downcase}%'  OR LOWER(email) LIKE '%#{jtTextoBusqueda.downcase}%' OR
                  LOWER(fechaNacimiento) LIKE '%#{jtTextoBusqueda.downcase}%' OR LOWER(facebookidUsuario) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                 LOWER(openpayidUsuario) LIKE '%#{jtTextoBusqueda.downcase}%' OR LOWER(idTipoUsuario) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                 LOWER(nivels.nombre) LIKE '%#{jtTextoBusqueda.downcase}%'
+                 LOWER(openpayidUsuario) LIKE '%#{jtTextoBusqueda.downcase}%' OR LOWER(nivels.nombre) LIKE '%#{jtTextoBusqueda.downcase}%'
                 ) #{@queryFiltrado} AND clientes.estatus = 't'"
       # Si contiene algo más realiza la búsqueda en todos los atributos de la tabla.
       @results =  Cliente.joins(:user).select('*').joins(:nivel).select('nombre as nombre_nivel, nivels.estatus as estatus_nivel, nivels.id as nivel_id, clientes.id as cliente_id')

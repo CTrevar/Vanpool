@@ -8,11 +8,10 @@
     <div id="forma_detalle_conductor">
       <div class="row">
         <div class="col-xs-8">
-          <h2><%= "#{@cliente.user.name} #{@cliente.user.apellidoPaterno} #{@cliente.user.apellidoMaterno}" %></h2>
+          <h2><%= "#{@cliente.user.name}" %></h2>
           <h4><a href="mailto:<%= @cliente.user.email %>" target="_blank"><%= @cliente.user.email %></a></h4>
           <h4><small>Cr&eacute;ditos:</small> <%=number_to_currency(obtener_cuenta_admin["balance"], :precision => 2)%></h4>
           <h4><small>Kms recorridos:</small> <%= @cliente.kilometros %> </h4>
-          <h4><small>CO2 Ahorrado:</small> <%= @cliente.co2ahorrado %> </h4>
         </div>
         <div class="col-xs-4 text-center ">
           <img src="/assets/avatar5.png" class="img-circle" alt="User Image" />

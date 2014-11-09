@@ -47,10 +47,21 @@
 
   <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
   <script src="//www.google.com/jsapi"></script>
+  
+  <%= csrf_meta_tags %>
 
+  <script type="text/javascript">
+
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+  
+  </script>
 
 <%= javascript_include_tag :defaults %>
-  <%= csrf_meta_tags %>
+  
   <%= render 'layouts/shim' %>
 
 </head>
@@ -58,9 +69,11 @@
 <body class="skin-green">
   <%= render 'layouts/header' %>
   <div>
+  
   <% flash.each do |key, value| %>
-  <div class="alert alert-<%= key %>"><%= value %></div>
+  <%= content_tag :div, value, :class => "flash #{key}" unless value.blank? %>
   <% end %>
+
   <%= yield %>
   </div>
   <%= render 'layouts/footer' %>

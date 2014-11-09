@@ -1,8 +1,11 @@
 class AdministradorsController < ApplicationController
   protect_from_forgery with: :exception
-  before_filter :admin_user, only: [:index, :edit, :update, :destroy, :listadministradores, 
-    :listareportes, :reporteretros, :inicio, :sugerencias,
-    :medallas, :administrador_detallemedalla, :administradores, :clientes, :conductores]
+  before_filter :admin_user, only: [:index, :create , :update, :show, :new, :edit, :destroy,
+   :listadministradores,:listareportes, :reporteretros, :inicio, :sugerencias,
+    :medallas,:administradores, :clientes, :conductores],
+    except:[:administrador_detallecliente, :administrador_detallevan]
+
+  
   # GET /administradors
   # GET /administradors.json
   def index
@@ -354,8 +357,6 @@ class AdministradorsController < ApplicationController
     if paramsuser.password.present?
         @administrador.attributes = {:name => paramsuser.name, :email => paramsuser.email,
                                      :fechaNacimiento => paramsuser.fechaNacimiento,
-                                     :apellidoPaterno => paramsuser.apellidoPaterno,
-                                     :apellidoMaterno => paramsuser.apellidoMaterno,
                                      :password => paramsuser.password,
                                      :password_confirmation => paramsuser.password_confirmation }
     else
@@ -390,8 +391,6 @@ class AdministradorsController < ApplicationController
     @administrador = User.new
     @administrador.attributes = {:name => paramsuser.name, :email => paramsuser.email,
                                  :fechaNacimiento => paramsuser.fechaNacimiento,
-                                 :apellidoPaterno => paramsuser.apellidoPaterno,
-                                 :apellidoMaterno => paramsuser.apellidoMaterno,
                                  :password => paramsuser.password,
                                  :password_confirmation => paramsuser.password_confirmation,
                                  :admin => true,

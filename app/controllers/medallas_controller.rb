@@ -1,7 +1,6 @@
 class MedallasController < ApplicationController
-  #before_filter :admin_user, only: [:index, :create , :update, :jtable_list, :jtable_filterlist, :jtable_delete,
-#:jtable_create, :jtable_update, :show, :new, :edit, :destroy]
-  #protect_from_forgery with: :exception
+  before_filter :admin_user, only: [:index, :create , :update, :show, :new, :edit, :destroy], 
+  except:[:jtable_list, :jtable_filterlist, :jtable_delete, :jtable_create, :jtable_update]
   
   # GET /medallas
   # GET /medallas.json
@@ -190,7 +189,7 @@ class MedallasController < ApplicationController
   # ///////////////////////////////////////////////////////
   # Método para BUSCAR y listar los registros de la BD
   #
-  def jtable_filterlist
+  def jtable_filterlist   
     jtTextoBusqueda = params[:textoABuscar]
     jtSorting = params[:jtSorting]
     jtStartIndex = params[:jtStartIndex]

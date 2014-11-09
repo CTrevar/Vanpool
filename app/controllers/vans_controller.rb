@@ -1,5 +1,6 @@
 class VansController < ApplicationController
-  before_filter :admin_user, only: [:index]
+  before_filter :admin_user, only: [:index, :create , :update, :show, :new, :edit, :destroy],
+  except:[:jtable_list, :jtable_filterlist, :jtable_delete, :jtable_create, :jtable_update]
 
   def new
     @van = Van.new
