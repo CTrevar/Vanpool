@@ -1,12 +1,64 @@
 #encoding: utf-8 
 
 User.create!([
-  {name: "admin", email: "test@gmail.com",   admin: true, password:"12345678", password_confirmation:"12345678", provider: nil, uid: nil},
-  {name: "Pedro Torres", email: "ptorres@gmail.com",   admin: false, password:"12345678", password_confirmation:"12345678", provider: nil, uid: nil}
+  #{name: "admin", email: "admin@gmail.com", password:"1234567878", password_confirmation:"1234567878", admin: true, provider: nil, uid: nil},
+  #{name: "Pedro Torres", email: "ptorres@gmail.com", password:"1234567878", password_confirmation:"1234567878", admin: false, provider: nil, uid: nil},
+  # Clientes
+  {name: "Chip Torres",         email: "cliente1@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-07-29 00:00:00", estatusUsuario: true},
+  {name: "River Clark",         email: "cliente2@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-07-29 00:00:00", estatusUsuario: true},
+  {name: "Marta Jiménez",       email: "cliente3@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-07-29 00:00:00", estatusUsuario: true},
+  {name: "Elsa Laura",          email: "cliente4@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-07-29 00:00:00", estatusUsuario: true},
+  {name: "Cirstina Contreras",  email: "cliente5@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-07-29 00:00:00", estatusUsuario: true},
+  {name: "Alvaro Ponce",        email: "cliente6@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-07-29 00:00:00", estatusUsuario: true},
+  {name: "Evelin Treviño",      email: "cliente7@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-07-29 00:00:00", estatusUsuario: true},
+  {name: "José Treviño",        email: "cliente8@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-07-29 00:00:00", estatusUsuario: true},
+  {name: "Aracely Contreras",   email: "cliente9@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-07-29 00:00:00", estatusUsuario: true},
+  {name: "Lorena Castillo",     email: "cliente10@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-07-29 00:00:00", estatusUsuario: true},
+  {name: "Laura Castillo",      email: "cliente11@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-07-29 00:00:00", estatusUsuario: true},
+  {name: "Ammy Pond",           email: "cliente12@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-07-29 00:00:00", estatusUsuario: true},
+  {name: "Pedro Capaldi",       email: "cliente13@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-07-29 00:00:00", estatusUsuario: true},
+  # Conductores
+  {name: "Matt Smith",          email: "conductor1@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-03-09 00:00:00", estatusUsuario: true},
+  {name: "David Teniente",      email: "conductor2@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-03-09 00:00:00", estatusUsuario: true},
+  {name: "Olivia Benson",       email: "conductor3@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-03-09 00:00:00", estatusUsuario: true},
+  {name: "Javier Hernandez",    email: "conductor4@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-03-09 00:00:00", estatusUsuario: true},
+  {name: "César Esquivel",      email: "conductor5@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-03-09 00:00:00", estatusUsuario: true},
+  {name: "Gerardo Páez",        email: "conductor6@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-03-09 00:00:00", estatusUsuario: true},
+  {name: "Eduardo Cano",        email: "conductor7@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-03-09 00:00:00", estatusUsuario: true},
+  {name: "Ángel Esparza",       email: "conductor8@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-03-09 00:00:00", estatusUsuario: true},
+  {name: "Ángel Benson",        email: "conductor9@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-03-09 00:00:00", estatusUsuario: true},
+  {name: "Juan Profundo",       email: "conductor10@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-03-09 00:00:00", estatusUsuario: true},
+  {name: "Scarlata Johansen",   email: "conductor11@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-03-09 00:00:00", estatusUsuario: true},
+  {name: "Crisóforo Liahut",    email: "conductor12@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-03-09 00:00:00", estatusUsuario: true},
+  {name: "Alejandro Atzin",     email: "conductor13@gmail.com", password:'12345678', password_confirmation:'12345678', admin: false,  fechaNacimiento: "1992-03-09 00:00:00", estatusUsuario: true},
+  # Administradores
+  {name: "Meredith Grey",       email: "admin1@gmail.com", password:'12345678', password_confirmation:'12345678', admin: true,  fechaNacimiento: "1992-12-25 00:00:00", estatusUsuario: true},
+  {name: "Gregorio Casas",      email: "admin2@gmail.com", password:'12345678', password_confirmation:'12345678', admin: true,  fechaNacimiento: "1992-12-25 00:00:00", estatusUsuario: true},
+  {name: "Andrés Garfield",     email: "admin3@gmail.com", password:'12345678', password_confirmation:'12345678', admin: true,  fechaNacimiento: "1992-12-25 00:00:00", estatusUsuario: true},
+  {name: "Jorge Arbustos",      email: "admin4@gmail.com", password:'12345678', password_confirmation:'12345678', admin: true,  fechaNacimiento: "1992-12-25 00:00:00", estatusUsuario: true},
+  {name: "Benedicto Flores",    email: "admin5@gmail.com", password:'12345678', password_confirmation:'12345678', admin: true,  fechaNacimiento: "1992-12-25 00:00:00", estatusUsuario: true},
+  {name: "Elizabeth Kahwti",    email: "admin6@gmail.com", password:'12345678', password_confirmation:'12345678', admin: true,  fechaNacimiento: "1992-12-25 00:00:00", estatusUsuario: true},
+  {name: "Consuelo del Río",    email: "admin7@gmail.com", password:'12345678', password_confirmation:'12345678', admin: true,  fechaNacimiento: "1992-12-25 00:00:00", estatusUsuario: true},
+  {name: "Antonio Santino",     email: "admin8@gmail.com", password:'12345678', password_confirmation:'12345678', admin: true,  fechaNacimiento: "1992-12-25 00:00:00", estatusUsuario: true},
+  {name: "Santino Vela",        email: "admin9@gmail.com", password:'12345678', password_confirmation:'12345678', admin: true,  fechaNacimiento: "1992-12-25 00:00:00", estatusUsuario: true},
+  {name: "Emilio Carrazco",     email: "admin10@gmail.com", password:'12345678', password_confirmation:'12345678', admin: true,  fechaNacimiento: "1992-12-25 00:00:00", estatusUsuario: true},
+  {name: "Marco Huerta",        email: "admin11@gmail.com", password:'12345678', password_confirmation:'12345678', admin: true,  fechaNacimiento: "1992-12-25 00:00:00", estatusUsuario: true},
+  {name: "Samuel Cardona",      email: "admin12@gmail.com", password:'12345678', password_confirmation:'12345678', admin: true,  fechaNacimiento: "1992-12-25 00:00:00", estatusUsuario: true},
+  {name: "Maritere Salinas",    email: "admin13@gmail.com", password:'12345678', password_confirmation:'12345678', admin: true,  fechaNacimiento: "1992-12-25 00:00:00", estatusUsuario: true}
 ])
 
-Conductor.create!([
-{user_id: 2, licenciaConductor: "123skjfdh", estatusConductor: true}
+Conductor.create!([ {user_id:15,licenciaConductor:"SVG6404",estatusConductor:true},
+                    {user_id:16,licenciaConductor:"SVG5475",estatusConductor:true},
+                    {user_id:17,licenciaConductor:"SVG1527",estatusConductor:true},
+                    {user_id:18,licenciaConductor:"SVG1888",estatusConductor:true},
+                    {user_id:19,licenciaConductor:"SVG5189",estatusConductor:true},
+                    {user_id:20,licenciaConductor:"ATV7495",estatusConductor:true},
+                    {user_id:21,licenciaConductor:"ATV7596",estatusConductor:true},
+                    {user_id:22,licenciaConductor:"ATV3256",estatusConductor:true},
+                    {user_id:23,licenciaConductor:"ATV8486",estatusConductor:true},
+                    {user_id:24,licenciaConductor:"ATV9945",estatusConductor:true},
+                    {user_id:25,licenciaConductor:"MRN6509",estatusConductor:true},
+                    {user_id:26,licenciaConductor:"MRN2597",estatusConductor:true}
 ])
 
 Van.create!([

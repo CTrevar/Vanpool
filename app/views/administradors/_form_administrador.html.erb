@@ -1,7 +1,7 @@
 <% disabled ||= false %>
 <% exito ||= false %>
 <% create ||= false %>
-<%= form_for @administrador, remote: true, :url => "/administrador_controller/#{@action}" do |user| %>
+<%= form_for @administrador, remote: true, :url => "/administrador_controller/#{@action}", method: "put" do |user| %>
     </br>
     <%  if exito %>
         <div class="alert alert-success alert-dismissable">
@@ -81,7 +81,7 @@
             <!---------------------------------------------------------------------->
             <!-- Validación y creación de campo de usuario confimración de password->
             <!---------------------------------------------------------------------->
-            <%   if @administrador.errors[:password_confirmation].present? %>
+            <%   if @administrador.errors[:password_confirmation].present? || @administrador.errors[:password].present? %>
                 <div class="form-group has-error">
                   <div class="form-group">
                     <%= user.label :password_confirmation,'Concifrme Contraseña', class: "control-label" %><br />
