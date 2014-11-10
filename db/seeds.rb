@@ -78,10 +78,21 @@ Medalla.create!([
   {tipomedalla_id: 4, nombre: "soldout2", puntos: 5000, imagen: "agotado5.png", estatus: true, estado: 5, descripcion: nil}
 ])
 Nivel.create!([
-  {nombre: "Novato 1", rangomaximo: 4999, estatus: true},
-  {nombre: "Novato 2", rangomaximo: 24999, estatus: true},
-  {nombre: "Aprendiz 1", rangomaximo: 49999, estatus: true}
-])
+    {nombre: "Novato 1", rangomaximo: 4999, estatus: true},
+    {nombre: "Novato 2", rangomaximo: 24999, estatus: true},
+    {nombre: "Aprendiz 1", rangomaximo: 49999, estatus: true},
+    {nombre: "Aprendiz 2", rangomaximo: 74999, estatus: true},
+    {nombre: "Aprendiz 2", rangomaximo: 99999, estatus: true},
+    {nombre: "Aprendiz 3", rangomaximo: 124999, estatus: true},
+    {nombre: "Experto 1", rangomaximo: 174999, estatus: true},
+    {nombre: "Experto 2", rangomaximo: 224999, estatus: true},
+    {nombre: "Veterano 1", rangomaximo: 299999, estatus: true},
+    {nombre: "Veterano 2", rangomaximo: 374999, estatus: true},
+    {nombre: "Veterano 3", rangomaximo: 499999, estatus: true},
+    {nombre: "Gurú", rangomaximo: 999999, estatus: true}
+  ])
+
+
 Parada.create!([
   {nombre: "Durango 110A, Los Treviño, 66376 Nuevo Leon, Mexico", longitud: -100.4366063, latitud: 25.67093, estatus: true},
   {nombre: "Lic. Gustavo Díaz Ordaz 100-S, Sin Nombre de Colonia 27, Monterrey, Nuevo Leon, Mexico", longitud: -100.3793322, latitud: 25.67093, estatus: true},

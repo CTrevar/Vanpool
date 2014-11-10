@@ -142,24 +142,48 @@ class ClientesController < ApplicationController
 
   def compracredito
     @current_cliente = obtener_cliente(current_user)
-    
-    #puts @request_hash["name"]
-    #print "hola"
     render 'show_compra_credito'
   end
 
   def formapago
+    # @formapago = params[:forma]
+    @recarga = params[:cantidad]
     @current_cliente = obtener_cliente(current_user)
-    @recarga=params[:cantidad]
     @subtotal=subtotal(@recarga)
     @impuesto=impuesto(@recarga)
-    #aspectos.each do |aspecto|
-    #  calificacion=params[:"#{aspecto.id}"]
-    #  retro = Retroalimentacion.create(reservacion_id:reservacion,aspecto_id:aspecto.id,calificacion:calificacion)
-    #end
-    #puts @request_hash["name"]
-    #print "hola"
-    render 'show_pago'
+    @monto = @recarga
+    render 'show_compra_credito_tarjeta'
+    # case @formapago
+    #   when 'banco'
+    #     render 'show_compra_credito_banco'
+    #   when 'tarjeta'
+    #     render 'show_compra_credito_tarjeta'
+    #   when 'tienda'
+    #     render 'show_compra_credito_tienda'
+    #   else
+    #     render 'show_pago'
+    # end
+  end
+
+  def create_transaction_charge
+    if !params[:token_id].present?
+      redirect_to :controller => 'clientes', :action => 'compracredito'
+    else
+      @cuenta=obtener_cuenta
+      @charges=@openpay.create(:charges)
+      request_hash={
+          "method" => "card",
+          "source_id" => params[:token_id],
+          "amount" => params[:amount],
+          "description" => "Recarga de saldo por $#{params[:amount]}",
+          "device_session_id" => params[:deviceIdHiddenFieldName]
+      }
+      begin
+        @response_hash=@charges.create(request_hash.to_hash,@cuenta["id"])
+      rescue OpenpayTransactionException => e
+
+      end
+    end
   end
 
   def subtotal(recarga)

@@ -1,0 +1,27 @@
+<% provide(:title, @title) %>
+<div class="wrapper row-offcanvas row-offcanvas-left">
+  <aside class="left-side sidebar-offcanvas">
+    <%= render 'shared/user_sidebar' %>
+  </aside>
+  <aside class="right-side">
+    <section class="content-header">
+      <h1><i class="fa fa-usd"></i> Recarga de Saldo<small><i class="fa fa-credit-card"> Tarjeta</i></small></h1>
+      <ol class="breadcrumb">
+        <li><a href="/dashboard"><i class="fa fa-home"></i> Inicio</a></li>
+        <li><a href="/compracredito"><i class="fa fa-usd"></i> Recarga de Saldo</a></li>
+        <li class="active"><i class="fa fa-usd"></i> Recarga de Saldo <small><i class="fa fa-credit-card"></i> Tarjeta</small></li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="row-fluid">
+        <div class="span12">
+          <% if @response_hash['response']!='completed' %>
+              <h1><i class="fa fa-fw fa-check"></i> Recarga realizada con éxito.</h1>
+          <% else %>
+              <h1><i class="fa fa-fw fa-times"></i> No se pudo realizar la transacción. <small><i class="fa fa-fw fa-frown-o"></i></small></h1>
+          <% end%>
+        </div>
+      </div>
+    </section>
+  </aside><!-- /.right-side -->
+</div><!-- ./wrapper -->
