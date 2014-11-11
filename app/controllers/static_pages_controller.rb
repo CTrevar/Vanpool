@@ -1,7 +1,6 @@
 class StaticPagesController < ApplicationController
    def home
-      @user = User.new
-      @result = Viaje.all
+      @user = User.new 
       if signed_in?
         @current_cliente=obtener_cliente(current_user)
         if @user.admin?

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141024233704) do
+ActiveRecord::Schema.define(:version => 20141111000505) do
 
   create_table "administradors", :force => true do |t|
     t.string   "nombreUsuario"
@@ -51,7 +51,6 @@ ActiveRecord::Schema.define(:version => 20141024233704) do
     t.decimal  "co2ahorrado", :default => 0.0
     t.decimal  "kilometros",  :default => 0.0
     t.boolean  "estatus",     :default => true
-    t.integer  "kilometraje", :default => 0
   end
 
   create_table "conductors", :force => true do |t|
@@ -106,17 +105,8 @@ ActiveRecord::Schema.define(:version => 20141024233704) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "medallas", :force => true do |t|
-    t.integer  "tipomedalla_id"
-    t.string   "nombre"
-    t.integer  "puntos"
-    t.string   "imagen"
-    t.boolean  "estatus"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.integer  "estado",         :default => 0
-    t.string   "descripcion"
-  end
+# Could not dump table "medallas" because of following StandardError
+#   Unknown type 'attachment' for column 'imagenmedalla'
 
   create_table "medallasmuros", :force => true do |t|
     t.integer  "cliente_id"
@@ -201,24 +191,20 @@ ActiveRecord::Schema.define(:version => 20141024233704) do
     t.datetime "updated_at",        :null => false
   end
 
+  create_table "retroalimentacions", :force => true do |t|
+    t.integer  "reservacion_id"
+    t.boolean  "estatus"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "aspecto_id"
+    t.integer  "calificacion"
+  end
+
   create_table "retroaspectos", :force => true do |t|
     t.string   "nombre"
     t.boolean  "estatus"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "ruta", :force => true do |t|
-    t.integer  "conductor_id"
-    t.integer  "van_id"
-    t.string   "nombre"
-    t.string   "gmaps"
-    t.string   "precio"
-    t.integer  "kilometros"
-    t.boolean  "estatus"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.string   "hora_inicio"
   end
 
   create_table "rutaparadas", :force => true do |t|
@@ -266,9 +252,9 @@ ActiveRecord::Schema.define(:version => 20141024233704) do
   end
 
   create_table "sugerencias", :force => true do |t|
-    t.string   "hora_inicio"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "hora_inicio", :limit => 255
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   create_table "tipomedallas", :force => true do |t|

@@ -14,8 +14,8 @@
         Vans
       </h1>
       <ol class="breadcrumb">
-        <li >Inicio</li>
-        <li class="active">Vans</li>
+        <li><a href="/inicio"><i class="fa fa-home"></i> Inicio</a></li>
+        <li class="active"><i class="fa fa-truck"></i>Vans</li>
       </ol>
     </section>
 
@@ -206,10 +206,10 @@
       <!-- Modal de creación de usuario -->
       <script type="text/javascript" charset="utf-8">
           $(document).ready(function (){
-              $("#btnAgregar").click(function(event){
-                  
-              });
-          });
+            $("#btnAgregar").click(function(event){
+                $("#modal-body").html("<%= escape_javascript(render partial: 'shared/administrador_detallevan', locals: { van: @van, action:'create' } )%>");
+            });
+        });
       </script>
       <style>
           #basicModal .modal-dialog
@@ -233,7 +233,6 @@
               <h4 class="modal-title" id="myModalLabel">Nueva Van</h4>
             </div>
             <div id="modal-body" class="modal-body nav-tabs-custom">
-              <%= render partial: 'shared/van_form' %>
               <!-- Aquí va el render de detalleVan que carga la forma para agregar. -->
             </div>
           </div>

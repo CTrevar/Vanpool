@@ -91,17 +91,19 @@ class MedallasController < ApplicationController
   # POST /conductors
   # POST /conductors.json
   def create
-    paramsmedalla = OpenStruct.new params[:medalla]
+    #paramsmedalla = OpenStruct.new params[:medalla]
     #paramsuser = OpenStruct.new paramsconductor.user
-    @medalla = Medalla.new
+    @medalla = Medalla.new(params[:medalla])
     #user = User.new
-    @medalla.attributes = {:nombre => paramsmedalla.nombre, 
-                          :puntos => paramsmedalla.puntos, 
-                          :tipomedalla_id => paramsmedalla.tipomedalla_id, 
-                          :imagen => paramsmedalla.imagen, 
-                          :estatus => paramsmedalla.estatus, 
-                          :descripcion => paramsmedalla.descripcion
-                       } 
+    # @medalla.attributes = {:nombre => paramsmedalla.nombre, 
+    #                       :puntos => paramsmedalla.puntos, 
+    #                       :tipomedalla_id => paramsmedalla.tipomedalla_id, 
+    #                       :imagen => paramsmedalla.imagen, 
+    #                       :estatus => true,
+    #                       :estado => paramsmedalla.estado, 
+    #                       :descripcion => paramsmedalla.descripcion,
+    #                       :imagenmedalla => paramsmedalla.imagenmedalla
+    #                    } 
     #@conductor.user = user
     @action = 'create'
     if @medalla.valid?
@@ -120,8 +122,8 @@ class MedallasController < ApplicationController
     else
       respond_to do |format|
         # format.js { render :js => "window.location = '#{forma_detalle_conductor @conductor}'" }
-        format.html { render partial: 'administradors/form_conductor', conductor:@conductor, create: true }
-        format.json { render json: @conductor.errors, status: :unprocessable_entity }
+        format.html { render partial: 'administradors/form_medalla', medalla:@medalla, create: true }
+        format.json { render json: @medalla.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -134,7 +136,8 @@ class MedallasController < ApplicationController
                           :puntos => paramsmedalla.puntos, 
                           :tipomedalla_id => paramsmedalla.tipomedalla_id, 
                           :imagen => paramsmedalla.imagen, 
-                          :estatus => paramsmedalla.estatus, 
+                          :estatus => true, 
+                          :estado => paramsmedalla.estado, 
                           :descripcion => paramsmedalla.descripcion
                        } 
     @action = 'update'
@@ -147,7 +150,7 @@ class MedallasController < ApplicationController
     else
       respond_to do |format|
         # format.js { render :js => "window.location = '#{forma_detalle_conductor @conductor}'" }
-        format.html { render partial: 'administradors/form_conductor', medalla:@medalla }
+        format.html { render partial: 'administradors/form_medalla', medalla:@medalla }
         format.json { render json: @medalla.errors, status: :unprocessable_entity }
       end
     end
@@ -218,7 +221,7 @@ class MedallasController < ApplicationController
   # Método para eliminar registro de la BD
   #
   def jtable_delete
-    medalla = Medalla.find_by_medalla_id(params[:id])
+    medalla = Medalla.find(params[:medalla_id])
 
     # Iniciamos la eliminación del registro, si no se elimina, almacenamos el resultado en un boleano.
     bolExito = true

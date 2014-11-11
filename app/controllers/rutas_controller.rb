@@ -17,7 +17,7 @@ class RutasController < ApplicationController
     @nombres_paradas.delete("")
     @nombres_paradas.uniq!
 
-    
+    @letras = ("A".."Z").to_a
     #@ruta.viajes.build
     
     # 8.times do
@@ -68,25 +68,30 @@ class RutasController < ApplicationController
         @ruta.save
 
         #Guardar paradas
-        numero_paradas = params[:numeroParadas].to_i+1
+        
 
-
-        8.times do |num|
-          id_parada = params[:"idParada_#{num}"].to_i
-
+        10.times do |num|
      
           nombreparada = params[:"nombreParada_#{num}"]
+          paradas = Parada.all
           if !nombreparada.blank?
             #Guardar paradas_ruta
             #por cada parada
+            
+            id_parada = 0
+
+            paradas.each do |parada|
+              if parada.nombre == nombreparada
+                id_parada = parada.id
+              end
+            end
+
             @rutaparada = Rutaparada.new
-
-            #if id_parada
-              #guarda la id de la ruta 
-              #@rutaparada.parada_id = id_parada
-            #else 
+            if id_parada != 0
+              #si ya existe la parada, sólo agrega la referencia a la parada
+              @rutaparada.parada_id = id_parada
+            else 
               #si no existe parada, crea una nueva
-
               @parada = Parada.new
               @parada.nombre = nombreparada
               @parada.latitud = params[:"latitudParada_#{num}"]
@@ -94,22 +99,16 @@ class RutasController < ApplicationController
               @parada.save
               #guarda el id de la parada en la tabla de paradas_ruta
               @rutaparada.parada_id = @parada.id
-            #end
+            end
 
             @rutaparada.ruta_id = @ruta.id
             @rutaparada.posicion  = params[:"posicionParada_#{num}"]
             @rutaparada.tiempo = params[:"tiempoParada_#{num}"]
             @rutaparada.distancia = params[:"distanciaParada_#{num}"]
             @rutaparada.save
-          end
+          end #si hay parada
 
-        end #end for
-        
-        
-        
-        
-        
-      
+        end #end for paradas
 
 
         #Guardar frecuencias de la ruta
@@ -155,7 +154,9 @@ class RutasController < ApplicationController
       @parada= Parada.find(p.parada_id)
       @paradas_ruta.push(@parada)
     end
+    @letras = ("A".."Z").to_a
     #@paradas_ruta = @ruta.paradas
+    @paradas_ruta_json = @paradas_ruta.to_json
     
 	end
 
@@ -191,32 +192,37 @@ class RutasController < ApplicationController
         @ruta.save
 
         #Guardar paradas
-        numero_paradas = params[:numeroParadas].to_i+1
-
-
-        numero_paradas.times do |num|
-          id_parada = params[:"idParada_#{num}"].to_i
+      
+        10.times do |num|
+          #id_parada = params[:"idParada_#{num}"].to_i
 
      
 
           #Guardar paradas_ruta
           #por cada parada
-          @rutaparada = Rutaparada.find_by_ruta_id_and_posicion(@ruta.id, num-1)
+          
 
-          
+          nombreparada = params[:"nombreParada_#{num}"]
+          paradas = Parada.all
+          if !nombreparada.blank?
+            @rutaparada = Rutaparada.find_by_ruta_id_and_posicion(@ruta.id, num)
             @parada = Parada.find(@rutaparada.parada_id)
-            @parada.nombre = params[:"nombreParada_#{num}"]
-            @parada.latitud = params[:"latitudParada_#{num}"]
-            @parada.longitud = params[:"longitudParada_#{num}"]
-            @parada.save
-          
+            if nombreparada != parada.nombre
+              @parada_nueva = Parada.new
+              @parada_nueva.nombre = params[:"nombreParada_#{num}"]
+              @parada_nueva.latitud = params[:"latitudParada_#{num}"]
+              @parada_nueva.longitud = params[:"longitudParada_#{num}"]
+              @parada_nueva.save
+              @rutaparada.parada_id = @parada_nueva.id
+            end
+          end
 
           @rutaparada.posicion  = params[:"posicionParada_#{num}"]
           @rutaparada.tiempo = params[:"tiempoParada_#{num}"]
           @rutaparada.distancia = params[:"distanciaParada_#{num}"]
           @rutaparada.save
 
-        end #end for
+        end #end for paradas
         
         
 
@@ -247,7 +253,11 @@ class RutasController < ApplicationController
       end #end if ruta is valid
 
   end
-
+  def edit
+@ruta = Ruta.find(params[:id])
+@paradas_ruta = @ruta.paradas
+@van = @ruta.van
+end
 
   def listar_por_zona
     filtro_zona_id = params[:zona_id]
@@ -425,6 +435,22 @@ class RutasController < ApplicationController
     begin
       ruta.estatus = false
       ruta.save!
+      count = 0
+      usuarios = ""
+      viajes = Viaje.where("ruta_id = ? and estadoviaje_id = 2", ruta.id)
+      viajes.each do |viaje|
+        viaje.estadoviaje_id = 4
+        viaje.estatus = 0
+        viaje.save!
+        reservaciones = Reservacion.where("viaje_id = ?", viaje.id)
+        reservaciones.each do |reservacion|
+          reservacion.estadotipo_id= 4
+          reservacion.estatus = false
+          count+=1
+          usuarios.concat("  #{reservacion.cliente.user.name}")
+          reservacion.save!
+        end
+      end
     rescue => e
       bolExito = false
       errMensaje = "No se pudo eliminar. Revise el error: #{e}"
@@ -432,7 +458,8 @@ class RutasController < ApplicationController
     respond_to do |format|
       # Regresamos el resultado de la operación a la jTable
       if bolExito
-        jTableResult = {:Result => "OK"}
+        jTableResult = {:Result => "OK",
+                        :Message => "Se eliminaron #{count} reservaciones de #{usuarios}"}
       else
         jTableResult = {:Result => "Message",
                         :Message => errMensaje}
@@ -450,7 +477,7 @@ class RutasController < ApplicationController
       #obtener fecha actual
       hoy = Date.today
       #obtener último día del mes
-      un_mes = hoy.end_of_month
+      dos_meses = hoy + 60
       #obtener frecuencia semanal de la ruta
       frecuencia = ruta.frecuencia
 
@@ -480,7 +507,7 @@ class RutasController < ApplicationController
       end
 
       #crear un arreglo con las fechas del mes correspondientes a los días de la semana en que pasa la ruta
-      fechas_viaje = (hoy..un_mes).to_a.select{
+      fechas_viaje = (hoy..dos_meses).to_a.select{
         |d| dias_ruta.include?(d.wday)
       }
 
@@ -490,7 +517,7 @@ class RutasController < ApplicationController
         viaje = Viaje.new
         viaje.fecha = fecha_viaje 
         viaje.estatus= 1
-        viaje.estadoviaje_id= 1 
+        viaje.estadoviaje_id= 2 
         viaje.ruta_id= ruta.id
         viaje.horainicio = horario.hora
         viaje.save

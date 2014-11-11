@@ -215,7 +215,7 @@ class AdministradorsController < ApplicationController
   end
 
   #
-  # Metodo para ver información básica de un cliente en un div lateral
+  # Metodo para ver información básica de una medalla en un div lateral
   #
   def medallas
     medalla_id = params[:medalla_id]
@@ -228,7 +228,7 @@ class AdministradorsController < ApplicationController
     end
   end
   #
-  # Metodo para ver el detalle de la información de un cliente.
+  # Metodo para ver el detalle de la información de una medalla.
   #
   def administrador_detallemedalla
     medalla_id = params[:medalla_id]
@@ -246,6 +246,8 @@ class AdministradorsController < ApplicationController
       end
     end
   end
+
+
   
 
   #
@@ -276,25 +278,29 @@ class AdministradorsController < ApplicationController
   end
 
   def sugerencias
-    @sugerencias = Sugerencia.all
-    
+    incidencias =incidencias_sugerencias
+    incidencias.sort_by! { |hsh| hsh[:numero_incidencias] }
+    @results = incidencias.reverse.paginate(:page => params[:page], :per_page => 5)
   end
 
   def administrador_detallesugerencia
     sugerencia_id = params[:sugerencia_id]
-    if sugerencia_id.nil?
-      
-      # respond_to do |format|
-      #   format.html #listaconductores.html.erb
-      # end
-    else
+    result = params[:resultado]
+    @coincidencias_sugerencia = []
+    if !result.nil?
+      result.each do |sug_id|
+        @coincidencias_sugerencia<< Sugerencia.find(sug_id)
+      end
+    end
+    
+    if !sugerencia_id.nil?
       @sugerencia = Sugerencia.find(sugerencia_id)
       @paradas =@sugerencia.sugerenciaparadas.sort { |a, b| a.posicion <=> b.posicion }
       @origen = @paradas.first
       @destino = @paradas.last
 
       respond_to do |format|
-        format.html {render partial: 'shared/administrador_detallesugerencia', locals: { sugerencia: @sugerencia, origen: @origen, destino: @destino, paradas: @paradas }}
+        format.html {render partial: 'shared/administrador_detallesugerencia', locals: { sugerencia: @sugerencia, origen: @origen, destino: @destino, paradas: @paradas, coincidencias_sugerencia: @coincidencias_sugerencia }}
       end
     end
   end

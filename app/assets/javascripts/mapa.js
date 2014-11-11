@@ -30,9 +30,7 @@ function initialize() {
           strokeColor: '#D84743',
           icons: [{
             icon: lineSymbol,
-            offset: '25%'
-          }, {icon: lineSymbol,
-            offset: '75%'
+            offset: '50%'
           }]
       }
     };

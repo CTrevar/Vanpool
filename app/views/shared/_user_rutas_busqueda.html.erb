@@ -15,8 +15,8 @@
                 <div class="span6">
                     </br>
                     </br>
-                    <small>HORA DE SALIDA:</small><b><%=viaje.horainicio.strftime("%I:%M%p")%> </b></br>
-                    <small>HORA DE LLEGADA:</small><b><%=(viaje.horainicio+ viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></b></br>
+                    <small>HORA SALIDA:</small><b><%=viaje.horainicio.strftime("%I:%M%p")%> </b></br>
+                    <small>HORA LLEGADA:</small><b><%=(viaje.horainicio+ viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></b></br>
                     <small>Precio:</small><b><%=number_to_currency(viaje.ruta.precio, :unit => "$")%></b>
                 </div>
                 </div>

@@ -1,6 +1,11 @@
 class VansController < ApplicationController
   def new
     @van = Van.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @van}
+    end
   end
 
   def create
@@ -8,12 +13,36 @@ class VansController < ApplicationController
     @van.estatus= true
     @van.activa = true
 
-    @van.save
+    # @van.save
 
-    if @van.save
-      redirect_to vans_path
+    # if @van.save
+    #   redirect_to vans_path
+    # else
+    #   render 'new'
+    # end
+
+
+    #@conductor.user = user
+    @action = 'create'
+    if @van.valid?
+        if @van.save!
+          respond_to do |format|
+            # format.js { render :js => "window.location = '#{forma_detalle_conductor @conductor}'" }
+            format.html { render partial: 'administradors/form_van', van:@van, locals: {exito:true}, create: true}
+          end
+        else
+          respond_to do |format|
+            # format.js { render :js => "window.location = '#{forma_detalle_conductor @conductor}'" }
+            format.html { render partial: 'administradors/form_van', van:@van, create: true }
+            format.json { render json: @van.errors, status: :unprocessable_entity }
+          end
+        end
     else
-      render 'new'
+      respond_to do |format|
+        # format.js { render :js => "window.location = '#{forma_detalle_conductor @conductor}'" }
+        format.html { render partial: 'administradors/form_van', medalla:@van, create: true }
+        format.json { render json: @van.errors, status: :unprocessable_entity }
+      end
     end
     
     
@@ -25,6 +54,14 @@ class VansController < ApplicationController
 
   def index
     @vans = Van.all
+    van_id = params[:id]
+    if van_id.nil?
+      @van = Van.new
+      @action = 'create'
+    else
+      @van = Van.find(van_id)
+      @action = 'update'
+    end
   end
 
   def destroy

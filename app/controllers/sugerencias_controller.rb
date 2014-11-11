@@ -1,6 +1,10 @@
 class SugerenciasController < ApplicationController
 
-
+  def borrar_sugerencia
+    sugerencia_id = params[:sugerencia_id]
+    cercanas_id = params[:cercanas_id]
+    
+  end
  # =======================================================
   # =======================================================
   # Métodos para las jTables
