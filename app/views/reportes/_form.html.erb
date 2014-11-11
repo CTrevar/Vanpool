@@ -1,4 +1,5 @@
-<%= form_for(@reporte) do |f| %>
+<div class="span8">
+  <%= form_for(@reporte) do |f| %>
   <% if @reporte.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@reporte.errors.count, "error") %> prohibited this reporte from being saved:</h2>
@@ -10,12 +11,17 @@
       </ul>
     </div>
   <% end %>
+<h4 style="padding-left:20px">Tu opinión es muy importante para nosotros, escribenos tus sugerencias o comentarios del servicio.</h4>
 
-  <div class="field">
-    <%= f.label :descripcion %><br />
-    <%= f.text_field :descripcion %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <%= f.text_area :descripcion, :class=>"span12", :rows=>10 %>
+                </div> 
+                <br>
+                <div class="row-fluid">
+                <div class="span8">
+                    <br>
+    
+    <%= f.submit 'Enviar', :class => 'btn btn-large btn-primary btn-flat pull-right' %>
+    <%= link_to 'Regresar', dashboard_path, class:"btn btn-large btn-flat " %>
+                </div>
+                </div>
 <% end %>

@@ -1,34 +1,38 @@
-<div class="box">
-    <div class="box-header">
-        <i class="fa fa-trophy"></i>
-        <h3 class="box-title">Aspectos a evaluar</h3>
-    </div>
-    <div class="side-wall">
+<div class="box box-primary">
         <%= form_tag(controller: "reservacions", action: "retro", method: "get", class: "nifty_form") do %>
     		<%= hidden_field_tag(:reservacion_id, @reservacion) %>
-  			<table class="table table-bordered">
+  			<table class="table table-striped">
+                <thead>
+                                <tr>
+                                    <td></td>
+                                    <td>Excelente</td>
+                                    <td>Bueno</td>
+                                    <td>Regular</td>
+                                    <td>Malo</td>
+                                </tr>
+                            </thead>
+                <tbody>
 				<% @aspectos.each do |aspecto| %>
   				<tr>
     			<td><%= aspecto.nombre%></td>
     			<td><%= radio_button_tag(aspecto.id,4) %>
-        			<%= label_tag(:excelente, "Excelente") %>
+        			
             	</td>
     			<td><%= radio_button_tag(aspecto.id,3) %>
-        			<%= label_tag(:bueno, "Bueno") %>
+        			
             	</td>
     			<td><%= radio_button_tag(aspecto.id,2) %>
-        			<%= label_tag(:regular, "Regular") %>
+        			
             	</td>
     			<td><%= radio_button_tag(aspecto.id,1) %>
-        			<%= label_tag(:malo, "Malo") %>
+        			
             	</td>   
 				<% end %>
   				</tr>
+                </tbody>
 			</table>
-  			<%= submit_tag("Enviar") %>
-		<% end %>
-    </div>
-    <hr></hr>
-    </br>
+        <br>    
 </div>
-
+    <%= link_to 'Regresar', dashboard_path, class:"btn btn-large btn-flat " %>
+    <%= submit_tag("Enviar Evaluación", class:"btn btn-large btn-primary btn-flat pull-right" ) %>
+<% end %>

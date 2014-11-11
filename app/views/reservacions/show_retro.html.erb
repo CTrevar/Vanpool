@@ -13,6 +13,35 @@
     </section>
     <section class="content">
         <div class="row-fluid">
+            <div class="form-group well well-large">
+                        <div class="row-fluid">
+                            <div class="span4">
+                                 <h4>
+                        Ruta &nbsp<%=@reserva.viaje.ruta.nombre%> 
+                        </h4>
+                        <h5>
+                        Fecha: <b>&nbsp<%=@reserva.viaje.fecha.strftime("%d/%m/%Y")%></b>
+                        </h5>
+                            </div>
+                            <div class="span4">
+                                <h5>
+                        Hora Salida: <b>&nbsp<%=@reserva.viaje.horainicio.strftime("%I:%M%p")%></b>
+                        </h5>
+                        <h5>
+                        Hora llegada: <b>&nbsp<%=(@reserva.viaje.horainicio+ @reserva.viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></b>
+                        </h5>
+                        
+                            </div>
+
+                            <div class="span4">
+                                <h5>
+                        Conductor: <b>&nbsp<%=@reserva.viaje.ruta.nombre%> </b>
+                        </h5>
+                        
+                            </div>
+                        </div>
+   
+                </div>
             <div class="row-fluid">
                 <div class="span12">
                     <%= render 'shared/user_feedback' %>
