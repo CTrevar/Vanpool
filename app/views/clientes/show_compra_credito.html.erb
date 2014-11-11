@@ -5,38 +5,132 @@
     </aside>
     <aside class="right-side">
     <section class="content-header">
-        <h1>Reporte<small>Detalle</small></h1>
+        <h1><i class="fa fa-usd"></i> Recarga de Saldo<small><Recarga></Recarga></small></h1>
         <ol class="breadcrumb">
             <li><a href="/dashboard"><i class="fa fa-home"></i> Inicio</a></li>
-            <li><a href="/clientes/<%= @cliente.user.id %>/profile"><i class="fa fa-user"></i> Reporte</a></li>
-            <li class="active">Reporte</li>
+            <li class="active"><i class="fa fa-usd"></i> Recarga de Saldo</li>
         </ol>
     </section>
     <section class="content">
-            <div class="row-fluid">
-                <div class="span12">
-                    <%= form_tag(controller: "clientes", action: "formapago", method: "get", class: "nifty_form") do %>
-            <table class="table table-bordered">
-                <tr>               
-                <td><%= radio_button_tag("cantidad",50) %>
-                    <%= label_tag(:cantidad, "$50 pesos") %>
-                </td>
-                <td><%= radio_button_tag("cantidad",100) %>
-                    <%= label_tag(:cantidad, "$100 pesos") %>
-                </td>
-                <td><%= radio_button_tag("cantidad",200) %>
-                    <%= label_tag(:cantidad, "$200 pesos") %>
-                </td>
-                <td><%= radio_button_tag("cantidad",300) %>
-                    <%= label_tag(:cantidad, "$300 pesos") %>
-                </td>  
-                </tr>
-            </table>
-            <%= submit_tag("Recargar") %>
-        <% end %>
-
-                </div>
+        <div class="row-fluid">
+            <div class="span12">
+              <%= stylesheet_link_tag "card.css" %>
+              <%= javascript_include_tag "card.js" %>
+              <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>-->
+              <script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
+              <script type='text/javascript' src="https://openpay.s3.amazonaws.com/openpay-data.v1.min.js"></script>
+              <script type="application/javascript">
+                  $(function() {
+                      OpenPay.setId('muvdvkft3dzo57bfzv5g');
+                      OpenPay.setApiKey('pk_e37d7255b2874e0b9cd110af4991cae1');
+                      OpenPay.setSandboxMode(true);
+                      var deviceSessionId = OpenPay.deviceData.setup("payment-form");
+                      var success_callbak = function(response) {
+                          var token_id = response.data.id;
+                          $('#token_id').val(token_id);
+                          $('#payment-form').submit();
+                      };
+                      var error_callbak = function(response) {
+                          var desc = response.data.description != undefined ? response.data.description : response.message;
+                            // alert("ERROR [" + response.status + "] " + desc);
+                          $("#errorForma").html('<br/><div class="alert alert-danger alert-dismissable">' +
+                                  '<i class="fa fa-ban"></i>' +
+                                  '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' +
+                                  '<b>Error</b> ' + desc +
+                                  '</div>');
+                          $("#btnSubmit").prop("disabled", false);
+                      };
+                      $("#btnSubmit").click(function(e) {
+                          e.preventDefault();
+                          $("#card_number").val($("#card_number").val().replace(/ /g,''));
+                          $("#btnSubmit").prop( "disabled", true);
+                          OpenPay.token.extractFormAndCreate('payment-form', success_callbak, error_callbak);
+                      });
+                      $('#expiry').keyup(function( event ){
+                          var indice = $('#expiry').val().indexOf("/");
+                          if (indice != -1) {
+                              $("#expiration_month").val($('#expiry').val().substring(0,indice).trim());
+                              $("#expiration_year").val($('#expiry').val().substring(indice+1).trim());
+                          }else{
+                              $("#expiration_month").val("");
+                              $("#expiration_year").val("");
+                          }
+                      });
+                      $('.active form').card({
+                          container: $('.card-wrapper')
+                      })
+                  });
+              </script>
+              <br>
+              <div class="form-container active col-md-12">
+                <%= form_tag({action: "create_transaction_charge"}, method: "POST",id:"payment-form") do %>
+                    <h2><small>Cantidad a recargar: </small><%= select_tag(:amount,
+                                                                           options_for_select([ ["$50 pesos",50],
+                                                                                                ["$100 pesos",100],
+                                                                                                ["$200 pesos",200],
+                                                                                                ["$500 pesos",500] ]),
+                                                                            { :class => 'form-control input-lg' }) %></h2>
+                    <legend>Datos de la tarjeta</legend>
+                    <div class="col-md-6" style="border: 2px solid; border-color: gray; border-radius: 10px; padding: 3%; ">
+                        <%= hidden_field_tag 'token_id' %>
+                        <%#= hidden_field_tag 'amount', @recarga %>
+                        <div class="form-group">
+                        <%#= label "numero",'Número:', class: "control-label" %>
+                            <%= text_field_tag "card_number", nil, name:nil, size:20,:autocomplete => :off,
+                                :data => {:openpay_card => 'card_number' },placeholder:'Número de Tarjeta', class:"form-control" %>
+                        </div>
+                        <div class="form-group"">
+                            <div class="col-xs-5" style="padding:0px;">
+                              <%#= label "nombre",'Nombre:', class: "control-label" %>
+                              <%= text_field_tag "holder_name", nil, name:nil, size:20,:autocomplete => :off,
+                                  :data => {:openpay_card => 'holder_name' }, placeholder:'Nombre', class:"form-control"  %>
+                            </div>
+                            <div class="col-xs-4">
+                                <%#= label "fecha",'Expiración (MM/YY):', class: "control-label" %>
+                                <%= hidden_field_tag "expiration_month", 'Expliración MM/YY', name:nil, size:2, :data => {:openpay_card => 'expiration_month' } %>
+                                <%= hidden_field_tag "expiration_year", '', name:nil, size:2, :data => {:openpay_card => 'expiration_year' } %>
+                                <%= text_field_tag 'expiry','',name:'expiry', placeholder:'Expiración MM / YY', class:"form-control" %>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-3">
+                                <%#= label "CVV2",'Código de Seguridad:', class: "control-label" %>
+                                <%= text_field_tag "cvv2", '', name:nil, size:4,:autocomplete => :off,
+                                    :data => {:openpay_card => 'cvv2' }, placeholder:'Cod. Seguridad', class:"form-control" %>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <!--<div class="form-group">-->
+                        <!---->
+                        <!--</div>-->
+                        <div align="right">
+                          <%= submit_tag("Pagar",id:"btnSubmit",class:"btn btn-primary") %>
+                        </div>
+                        <br/>
+                        <div id="errorForma"></div>
+                    </div>
+                    <div class="card-wrapper col-md-6"></div>
+                <% end %>
+              </div>
+            <%#= form_tag(controller: "clientes", action: "formapago", method: "get", class: "nifty_form") do %>
+            <%#= form_tag({controller:"clientes", action: "formapago"}, method: "get") do %>
+                  <!--<div class="form-group">-->
+                    <%#= label "formapago",'Método de Pago:', class: "control-label" %><br />
+                    <%#= select_tag(:forma, options_for_select([["Banco",'banco'], ["Tarjeta",'tarjeta'],["Pago en tienda",'tienda']]),
+                               { :class => 'form-control' }) %>
+                  <!--</div>-->
+                  <!--<div class="form-group">-->
+                    <%#= text_field_tag(:texto) %>
+                    <%#= label "formapago",'Cantidad a recargar:', class: "control-label" %><br />
+                    <%#= select_tag(:cantidad, options_for_select([["$50 pesos",50], ["$100 pesos",100],["$200 pesos",200],["$500 pesos",500] ]),
+                                   { :class => 'form-control' }) %>
+                  <!--</div>-->
+                  <%#= submit_tag("Recargar",{class:"btn btn-primary"}) %>
+            <%# end %>
             </div>
+        </div>
     </section>                                  
     </aside><!-- /.right-side -->
 </div><!-- ./wrapper -->

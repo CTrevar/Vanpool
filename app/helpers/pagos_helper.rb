@@ -22,25 +22,25 @@ module PagosHelper
     end
 
 	def recarga
-        @cuenta=obtener_cuenta
+        # @cuenta=obtener_cuenta
         
-        @charges=@openpay.create(:charges)
-        card_hash={
-            "holder_name" => "Juan Perez Ramirez",
-            "card_number" => "4111111111111111",
-            "cvv2" => "110",
-            "expiration_month" => "12",
-            "expiration_year" => "20"
-        }
-        request_hash={
-            "method" => "card",
-            "card" => card_hash,   
-            "amount" => 100.00,
-            "description" => "Cargo inicial a mi cuenta",
-            "device_session_id" => session[:session_id]
-        }
-        response_hash=@charges.create(request_hash.to_hash, @cuenta["id"])
-    	redirect_to :controller => 'clientes', :action => 'dashboard'
+        # @charges=@openpay.create(:charges)
+        # card_hash={
+        #     "holder_name" => "Juan Perez Ramirez",
+        #     "card_number" => "4111111111111111",
+        #     "cvv2" => "110",
+        #     "expiration_month" => "12",
+        #     "expiration_year" => "20"
+        # }
+       # request_hash={
+       #      "method" => "card",
+       #      "card" => card_hash,
+       #      "amount" => 100.00,
+       #      "description" => "Cargo inicial a mi cuenta",
+       #      "device_session_id" => session[:session_id]
+       # }
+       # response_hash=@charges.create(request_hash.to_hash, @cuenta["id"])
+    	# redirect_to :controller => 'clientes', :action => 'dashboard'
   	end
 
 

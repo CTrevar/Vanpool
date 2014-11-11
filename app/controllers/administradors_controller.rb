@@ -357,6 +357,8 @@ class AdministradorsController < ApplicationController
     if paramsuser.password.present?
         @administrador.attributes = {:name => paramsuser.name, :email => paramsuser.email,
                                      :fechaNacimiento => paramsuser.fechaNacimiento,
+                                     :apellidoPaterno => paramsuser.apellidoPaterno,
+                                     :apellidoMaterno => paramsuser.apellidoMaterno,
                                      :password => paramsuser.password,
                                      :password_confirmation => paramsuser.password_confirmation }
     else
@@ -368,9 +370,9 @@ class AdministradorsController < ApplicationController
     @action = 'update'
     if @administrador.valid?
       @administrador.save!
-      if mismoAdmin
-        sign_in @administrador
-      end
+      # if mismoAdmin
+      #   sign_in @administrador
+      # end
       respond_to do |format|
         # format.js { render :js => "window.location = '#{forma_detalle_conductor @conductor}'" }
         format.html { render partial: 'administradors/form_administrador', administrador:@administrador, locals: {exito:true}}
@@ -463,10 +465,11 @@ class AdministradorsController < ApplicationController
     else
       # Si contiene algo más realiza la búsqueda en todos los atributos de la tabla.
       @results = User.where("( LOWER(name) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                                 LOWER(apellidoMaterno) LIKE '%#{jtTextoBusqueda.downcase}%' OR LOWER(apellidoPaterno) LIKE '%#{jtTextoBusqueda.downcase}%' OR
+                                 LOWER(apellidoMaterno) LIKE '%#{jtTextoBusqueda.downcase}%' OR 
+                                 LOWER(apellidoPaterno) LIKE '%#{jtTextoBusqueda.downcase}%' OR
                                  LOWER(email) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                                 LOWER(facebookidUsuario) LIKE '%#{jtTextoBusqueda.downcase}%' OR LOWER(fechaNacimiento) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                                 LOWER(idTipoUsuario) LIKE '%#{jtTextoBusqueda.downcase}%' OR LOWER(openpayidUsuario) LIKE '%#{jtTextoBusqueda.downcase}%'
+                                 LOWER(fechaNacimiento) LIKE '%#{jtTextoBusqueda.downcase}%' OR
+                                 LOWER(idTipoUsuario) LIKE '%#{jtTextoBusqueda.downcase}%'
                                 ) AND estatusUsuario = 't' AND admin = 't'").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     end
     respond_to do |format|
@@ -510,94 +513,6 @@ class AdministradorsController < ApplicationController
       else
         jTableResult = {:Result => "Message",
                         :Message => errMensaje}
-      end
-      format.json { render json: jTableResult}
-      format.html
-      format.js
-    end
-  end
-
-  # ///////////////////////////////////////////////////////
-  # Método para crear registro en la BD
-  #
-  def jtable_create
-    nombrePilaUsuario = params[:nombrePilaUsuario]
-    emailUsuario = params[:emailUsuario]
-    apellidoPaterno = params[:apellidoPaterno]
-    apellidoMaterno = params[:apellidoMaterno]
-    fechaNacimiento = params[:fechaNacimiento]
-    estatusUsuario = params[:estatusUsuario]
-
-    # Iniciamos la creación del registro, si no se crea, almacenamos el resultado en un boleano.
-    bolexito = false
-    errmensaje = ""
-    begin
-      new = Administrador.new(:nombrePilaUsuario => nombrePilaUsuario, :emailUsuario => emailUsuario,
-                              :apellidoPaterno => apellidoPaterno, :apellidoMaterno => apellidoMaterno,
-                              :fechaNacimiento => fechaNacimiento, :estatusUsuario => estatusUsuario)
-      if new.invalid?
-        errmensaje = "No se pudo crear.</br>"
-        errmensaje += new.errors.messages.to_s
-      else
-        new = new.save!
-        bolexito = true
-      end
-    rescue => e
-      errmensaje += "</br>No se pudo crear.</br>Revise el error: </br><em> #{e}</em>"
-    end
-    respond_to do |format|
-      # Regresamos el resultado de la operación a la jTable
-      if bolexito
-        jTableResult = {:Result => "OK",
-                        :Record => new}
-      else
-        jTableResult = {:Result => "Message",
-                        :Message => errmensaje}
-      end
-      format.json { render json: jTableResult}
-      format.html
-      format.js
-    end
-  end
-
-  # ///////////////////////////////////////////////////////
-  # Método para actualizar registro en la BD
-  #
-  def jtable_update
-    id = params[:id]
-    nombrePilaUsuario = params[:nombrePilaUsuario]
-    emailUsuario = params[:emailUsuario]
-    apellidoPaterno = params[:apellidoPaterno]
-    apellidoMaterno = params[:apellidoMaterno]
-    fechaNacimiento = params[:fechaNacimiento]
-
-    # Iniciamos la actualización del registro, si no se acutaliza, almacenamos el resultado en un boleano.
-    bolexito = false
-    errmensaje = ""
-    actualrow = nil
-    begin
-      actualrow = Administrador.find(id)
-      actualrow.attributes = {:nombrePilaUsuario => nombrePilaUsuario, :emailUsuario => emailUsuario,
-                              :apellidoMaterno => apellidoMaterno, :apellidoPaterno => apellidoPaterno,
-                              :fechaNacimiento => fechaNacimiento}
-      if actualrow.invalid?
-        errmensaje = "No se pudo actualizar.</br>"
-        errmensaje += actualrow.errors.messages.to_s
-      else
-        actualrow = actualrow.save!
-        bolexito = true
-      end
-    rescue => e
-      errmensaje += "</br>No se pudo crear.</br>Revise el error: </br><em> #{e}</em>"
-    end
-    # Regresamos el resultado de la operación a la jTable
-    respond_to do |format|
-      if bolexito
-        jTableResult = {:Result => "OK",
-                        :Record => actualrow}
-      else
-        jTableResult = {:Result => "Message",
-                        :Message => errmensaje}
       end
       format.json { render json: jTableResult}
       format.html
