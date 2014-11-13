@@ -216,6 +216,7 @@ ActiveRecord::Schema.define(:version => 20141016054902) do
     t.string   "provider"
     t.string   "uid"
     t.boolean  "admin",                  :default => false
+    t.boolean  "estatusUsuario",         :default => true
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
     t.string   "email",                  :default => "",    :null => false
@@ -232,7 +233,6 @@ ActiveRecord::Schema.define(:version => 20141016054902) do
     t.string   "apellidoPaterno"
     t.string   "apellidoMaterno"
     t.datetime "fechaNacimiento"
-    t.boolean  "estatusUsuario"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
