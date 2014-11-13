@@ -8,7 +8,7 @@ module RutasHelper
 		return (reservacion.viaje.ruta.paradas.sum(:distancia))/1000
 	end
 
-	def busqueda (origen, destino, fechaviaje)
+	def busqueda (origen, destino)
 		result=Array.new
 		count=0
 		# origen=Localizacion.new
@@ -40,16 +40,17 @@ module RutasHelper
 						#validacion de fecha
 						
 						#fecha="27/09/2014"
-						fecha = fechaviaje.to_datetime
+						#fecha = fechaviaje.to_datetime
 						#porfecha=ruta.viajes.find_all_by_fecha_and_estadoviaje_id(fecha,[1,2])
 
 						#fecha= fechaviaje.to_datetime
-						fechafin = fecha.end_of_day
-						porfecha = ruta.viajes.where("fecha >= ? and fecha <= ?", fecha, fechafin)
+						#fechafin = fecha.end_of_day
+						#porfecha = ruta.viajes.where("fecha >= ? and fecha <= ?", fecha, fechafin)
 
-						porfecha.each do |v|
-							result<<v
-						end #porfechaeach
+						#porfecha.each do |v|
+							#result<<v
+							result<<ruta
+						#end #porfechaeach
 					end #if validadireccion
 
 				end #rutaseach

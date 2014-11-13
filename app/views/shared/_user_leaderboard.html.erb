@@ -11,13 +11,24 @@
        <% @friends.each do |friend| %>
        <h5><%= friend["name"] %></h5>
        <% end%>
+       
   <% else%>
           <table class="table">
             <tr>
             <th>Cliente</th>
             <th>Puntos</th>
             </tr>
-            <% clientes_top10.each do |cliente| %>
+            <% @top.each do |cliente| %>
+            <tr>
+            <td><%=cliente.user.name%></td>
+            <td><%=cliente.puntaje%></td>
+            </tr>
+            <% end %>
+            <tr>
+            <td><b><%=@current_cliente.user.name%></b></td>
+            <td><b><%=@current_cliente.puntaje%></b></td>
+            </tr>
+            <% @bot.each do |cliente| %>
             <tr>
             <td><%=cliente.user.name%></td>
             <td><%=cliente.puntaje%></td>

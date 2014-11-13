@@ -1,5 +1,15 @@
 SampleApp::Application.routes.draw do
 
+#namespace :api, :path => "", :defaults => {:format => :json} , :constraints => {:subdomain => "api"} do
+namespace :api, :defaults => {:format => :json} do
+  resources :cliente
+  match '/rutas_zona', to: 'cliente#rutas_zona'
+  match '/rutas_busqueda', to: 'cliente#rutas_busqueda'
+  match '/ruta_disponibilidad_viaje', to: 'cliente#ruta_disponibilidad_viaje'
+  match '/cliente_perfil', to: 'cliente#cliente_perfil'
+  match '/cliente_medallas', to: 'cliente#cliente_medallas'
+  match '/cliente_leaderboard', to: 'cliente#cliente_leaderboard'
+end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
 

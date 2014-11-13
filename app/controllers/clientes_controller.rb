@@ -102,8 +102,8 @@ class ClientesController < ApplicationController
     @validamedallas=valida_medallas(@current_cliente)
     @muro = obtener_ultimas_medallas(@current_cliente)
     @co2 = @current_cliente.kilometros*Configuracion.find(1).valor.to_f
-    @clientes_top10 = Cliente.limit(5)
-    #@kilometros = @cliente.kilometraje
+
+    tabla_lideres(@current_cliente)
 
     @reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
     @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
@@ -129,6 +129,15 @@ class ClientesController < ApplicationController
     @picture = @graph.get_picture("me")
     @profile = @graph.get_object("me")
     @friends = @graph.get_connections("me", "friends")
+    @friends.each do |friend| 
+      friendsvanpool<<User.find_by_uid(friend["uid"])
+    end
+
+    friendsvanpool.each do |f|
+      clientesvanpool<<Cliente.find_by_user_id(f.id)
+    end
+    
+    tabla_lideres_facebook(@current_cliente, Cliente.where(id: clientesvanpool.map(&:id)))
 
     end
 

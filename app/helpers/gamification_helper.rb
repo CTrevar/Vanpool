@@ -205,4 +205,41 @@ module GamificationHelper
     	reservacion.cliente.save
 	end
 
+    def tabla_lideres(current_cliente)
+        @top=Cliente.order('puntaje DESC').where('puntaje > ?',current_cliente.puntaje).last(2)
+        @bot=Cliente.order('puntaje DESC').where('puntaje < ?',current_cliente.puntaje).first(2)
+
+    if(@top.count==1) 
+    @bot=Cliente.order('puntaje DESC').where('puntaje < ?',current_cliente.puntaje).first(3)
+    end
+    if(@top.count==0)
+    @bot=Cliente.order('puntaje DESC').where('puntaje < ?',current_cliente.puntaje).first(4)
+    end
+    if(@bot.count==1)
+      @top=Cliente.order('puntaje DESC').where('puntaje > ?',current_cliente.puntaje).last(3)
+    end
+    if(@bot.count==0)
+      @top=Cliente.order('puntaje DESC').where('puntaje > ?',current_cliente.puntaje).last(4)
+    end
+    end
+
+    def tabla_lideres_facebook(current_cliente, clientes)
+        @top=clientes.order('puntaje DESC').where('puntaje > ?',current_cliente.puntaje).last(2)
+        @bot=clientes.order('puntaje DESC').where('puntaje < ?',current_cliente.puntaje).first(2)
+
+    if(@top.count==1) 
+    @bot=clientes.order('puntaje DESC').where('puntaje < ?',current_cliente.puntaje).first(3)
+    end
+    if(@top.count==0)
+    @bot=clientes.order('puntaje DESC').where('puntaje < ?',current_cliente.puntaje).first(4)
+    end
+    if(@bot.count==1)
+      @top=clientes.order('puntaje DESC').where('puntaje > ?',current_cliente.puntaje).last(3)
+    end
+    if(@bot.count==0)
+      @top=clientes.order('puntaje DESC').where('puntaje > ?',current_cliente.puntaje).last(4)
+    end
+    end
+
+
 end

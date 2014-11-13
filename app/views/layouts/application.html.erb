@@ -47,6 +47,9 @@
 
   <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
   <script src="//www.google.com/jsapi"></script>
+
+  <%= javascript_include_tag :defaults %>
+
   <%= csrf_meta_tags %>
   
   <script type="text/javascript">
@@ -59,7 +62,7 @@
   
   </script>
 
-<%= javascript_include_tag :defaults %>
+
   
   <%= render 'layouts/shim' %>
 
