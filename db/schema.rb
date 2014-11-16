@@ -13,13 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20141116081805) do
 
-  create_table "calificaciontipos", :force => true do |t|
-    t.integer  "calificacion"
-    t.string   "nombre"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
   create_table "ciudads", :force => true do |t|
     t.string   "clave",      :limit => 45
     t.string   "nombre",     :limit => 100
@@ -53,7 +46,7 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
 
   create_table "configuracions", :force => true do |t|
     t.string   "nombre"
-    t.string   "valor"
+    t.text   "valor"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -246,6 +239,7 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
     t.string   "provider"
     t.string   "uid"
     t.boolean  "admin",                  :default => false
+    t.boolean  "estatusUsuario",         :default => true
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
     t.string   "email",                  :default => "",    :null => false
@@ -262,7 +256,6 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
     t.string   "apellidoPaterno"
     t.string   "apellidoMaterno"
     t.datetime "fechaNacimiento"
-    t.boolean  "estatusUsuario"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
