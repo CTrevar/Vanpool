@@ -23,19 +23,19 @@ class User < ActiveRecord::Base
   has_one :clients, dependent: :destroy
 
   
-  #before_save { |user| user.email = email.downcase }
-  #before_save :create_remember_token
-  #validates :name, presence: true, length: { maximum: 50 }
+  # before_save { |user| user.email = email.downcase }
+  # before_save :create_remember_token
+  # validates :name, presence: true, length: { maximum: 50 }
   # validates :password, presence: true, length: { minimum: 6 }, on: :create
   # validates :password_confirmation, presence: true, on: :create
-  #validate :passwords, on: :create
-  #validate :password_update, on: :update
-  #VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  #validates :email, presence: true,
+  # validate :passwords, on: :create
+  # validate :password_update, on: :update
+  # VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  # validates :email, presence: true,
   #                  format: { with: VALID_EMAIL_REGEX },
   #                  uniqueness: { case_sensitive: false }
-  #validates :apellidoPaterno, length: { maximum: 50 }
-  #validates :apellidoMaterno, length: { maximum: 50 }
-  #validates :fechaNacimiento, length: { maximum: 50 }
+  # validates :apellidoPaterno, length: { maximum: 50 }
+  # validates :apellidoMaterno, length: { maximum: 50 }
+  # validates :fechaNacimiento, length: { maximum: 50 }
     
 end

@@ -188,6 +188,9 @@ end
   match '/administrador_detalleviaje',   to: 'administradors#administrador_detalleviaje',   via: [:get, :post, :put]
 
   match '/viaje_controller/paradas_jtable_filterlist/',   to: 'viajes#paradas_jtable_filterlist',   via: [:get, :post]
+
+  match '/configuraciones', to: 'administradors#configuraciones'
+  match '/cambiar_configuracion', to: 'administradors#cambiar_configuracion'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

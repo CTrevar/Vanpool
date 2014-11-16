@@ -2,21 +2,252 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85393af2-bf32-4f70-8a32-8d14eac63c81" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/stylesheets/card.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/javascripts/card.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/clientes/create_transaction_charge.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/clientes/formapago.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/clientes/show_compra_credito_tarjeta.html.erb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/CHANGES.md" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/CHANGES.md" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/LICENSE.md" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/LICENSE.md" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/README.md" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/README.md" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/adapters/jquery.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/adapters/jquery.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/build-config.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/build-config.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/ckeditor.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/ckeditor.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/config.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/config.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/contents.css" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/contents.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/af.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/af.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/ar.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/ar.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/bg.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/bg.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/bn.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/bn.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/bs.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/bs.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/ca.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/ca.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/cs.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/cs.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/cy.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/cy.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/da.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/da.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/de.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/de.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/el.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/el.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/en-au.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/en-au.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/en-ca.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/en-ca.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/en-gb.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/en-gb.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/en.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/en.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/eo.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/eo.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/es.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/es.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/et.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/et.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/eu.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/eu.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/fa.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/fa.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/fi.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/fi.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/fo.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/fo.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/fr-ca.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/fr-ca.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/fr.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/fr.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/gl.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/gl.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/gu.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/gu.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/he.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/he.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/hi.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/hi.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/hr.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/hr.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/hu.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/hu.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/id.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/id.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/is.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/is.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/it.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/it.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/ja.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/ja.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/ka.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/ka.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/km.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/km.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/ko.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/ko.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/ku.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/ku.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/lt.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/lt.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/lv.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/lv.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/mk.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/mk.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/mn.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/mn.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/ms.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/ms.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/nb.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/nb.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/nl.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/nl.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/no.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/no.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/pl.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/pl.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/pt-br.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/pt-br.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/pt.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/pt.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/ro.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/ro.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/ru.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/ru.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/si.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/si.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/sk.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/sk.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/sl.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/sl.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/sq.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/sq.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/sr-latn.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/sr-latn.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/sr.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/sr.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/sv.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/sv.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/th.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/th.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/tr.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/tr.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/ug.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/ug.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/uk.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/uk.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/vi.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/vi.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/zh-cn.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/zh-cn.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/lang/zh.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/lang/zh.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/a11yhelp.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/a11yhelp.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/_translationstatus.txt" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/_translationstatus.txt" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/ar.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/ar.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/bg.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/bg.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/ca.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/ca.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/cs.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/cs.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/cy.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/cy.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/da.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/da.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/de.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/de.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/el.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/el.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/en.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/en.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/eo.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/eo.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/es.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/es.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/et.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/et.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/fa.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/fa.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/fi.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/fi.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/fr-ca.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/fr-ca.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/fr.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/fr.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/gl.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/gl.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/gu.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/gu.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/he.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/he.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/hi.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/hi.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/hr.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/hr.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/hu.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/hu.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/id.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/id.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/it.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/it.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/ja.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/ja.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/km.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/km.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/ko.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/ko.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/ku.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/ku.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/lt.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/lt.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/lv.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/lv.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/mk.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/mk.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/mn.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/mn.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/nb.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/nb.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/nl.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/nl.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/no.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/no.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/pl.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/pl.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/pt-br.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/pt-br.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/pt.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/pt.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/ro.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/ro.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/ru.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/ru.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/si.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/si.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/sk.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/sk.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/sl.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/sl.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/sq.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/sq.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/sr-latn.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/sr-latn.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/sr.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/sr.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/sv.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/sv.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/th.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/th.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/tr.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/tr.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/ug.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/ug.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/uk.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/uk.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/vi.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/vi.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/zh-cn.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/zh-cn.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/a11yhelp/dialogs/lang/zh.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/a11yhelp/dialogs/lang/zh.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/about/dialogs/about.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/about/dialogs/about.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/about/dialogs/hidpi/logo_ckeditor.png" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/about/dialogs/hidpi/logo_ckeditor.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/about/dialogs/logo_ckeditor.png" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/about/dialogs/logo_ckeditor.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/clipboard/dialogs/paste.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/clipboard/dialogs/paste.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/dialog/dialogDefinition.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/dialog/dialogDefinition.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/fakeobjects/images/spacer.gif" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/fakeobjects/images/spacer.gif" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/icons.png" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/icons.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/icons_hidpi.png" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/icons_hidpi.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/image/dialogs/image.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/image/dialogs/image.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/image/images/noimage.png" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/image/images/noimage.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/link/dialogs/anchor.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/link/dialogs/anchor.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/link/dialogs/link.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/link/dialogs/link.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/link/images/anchor.png" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/link/images/anchor.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/link/images/hidpi/anchor.png" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/link/images/hidpi/anchor.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/magicline/images/hidpi/icon.png" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/magicline/images/hidpi/icon.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/magicline/images/icon.png" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/magicline/images/icon.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/pastefromword/filter/default.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/pastefromword/filter/default.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/scayt/LICENSE.md" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/scayt/LICENSE.md" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/scayt/README.md" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/scayt/README.md" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/scayt/dialogs/options.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/scayt/dialogs/options.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/scayt/dialogs/toolbar.css" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/scayt/dialogs/toolbar.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/_translationstatus.txt" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/_translationstatus.txt" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/ar.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/ar.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/bg.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/bg.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/ca.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/ca.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/cs.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/cs.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/cy.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/cy.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/de.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/de.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/el.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/el.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/en.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/en.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/eo.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/eo.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/es.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/es.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/et.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/et.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/fa.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/fa.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/fi.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/fi.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/fr-ca.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/fr-ca.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/fr.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/fr.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/gl.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/gl.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/he.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/he.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/hr.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/hr.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/hu.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/hu.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/id.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/id.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/it.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/it.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/ja.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/ja.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/km.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/km.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/ku.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/ku.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/lv.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/lv.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/nb.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/nb.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/nl.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/nl.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/no.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/no.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/pl.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/pl.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/pt-br.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/pt-br.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/pt.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/pt.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/ru.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/ru.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/si.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/si.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/sk.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/sk.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/sl.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/sl.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/sq.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/sq.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/sv.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/sv.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/th.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/th.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/tr.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/tr.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/ug.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/ug.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/uk.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/uk.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/vi.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/vi.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/zh-cn.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/zh-cn.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/lang/zh.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/lang/zh.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/specialchar/dialogs/specialchar.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/specialchar/dialogs/specialchar.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/table/dialogs/table.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/table/dialogs/table.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/tabletools/dialogs/tableCell.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/tabletools/dialogs/tableCell.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/wsc/LICENSE.md" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/wsc/LICENSE.md" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/wsc/README.md" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/wsc/README.md" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/wsc/dialogs/ciframe.html" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/wsc/dialogs/ciframe.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/wsc/dialogs/tmp.html" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/wsc/dialogs/tmp.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/wsc/dialogs/tmpFrameset.html" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/wsc/dialogs/tmpFrameset.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/wsc/dialogs/wsc.css" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/wsc/dialogs/wsc.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/wsc/dialogs/wsc.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/wsc/dialogs/wsc.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/plugins/wsc/dialogs/wsc_ie.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/plugins/wsc/dialogs/wsc_ie.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/dialog.css" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/dialog.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/dialog_ie.css" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/dialog_ie.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/dialog_ie7.css" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/dialog_ie7.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/dialog_ie8.css" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/dialog_ie8.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/dialog_iequirks.css" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/dialog_iequirks.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/dialog_opera.css" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/dialog_opera.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/editor.css" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/editor.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/editor_gecko.css" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/editor_gecko.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/editor_ie.css" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/editor_ie.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/editor_ie7.css" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/editor_ie7.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/editor_ie8.css" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/editor_ie8.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/editor_iequirks.css" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/editor_iequirks.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/icons.png" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/icons.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/icons_hidpi.png" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/icons_hidpi.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/images/arrow.png" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/images/arrow.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/images/close.png" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/images/close.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/images/hidpi/close.png" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/images/hidpi/close.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/images/hidpi/lock-open.png" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/images/hidpi/lock-open.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/images/hidpi/lock.png" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/images/hidpi/lock.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/images/hidpi/refresh.png" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/images/hidpi/refresh.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/images/lock-open.png" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/images/lock-open.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/images/lock.png" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/images/lock.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/images/refresh.png" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/images/refresh.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/skins/moono/readme.md" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/skins/moono/readme.md" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor/styles.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/plugins/ckeditor2/styles.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.generators" afterPath="$PROJECT_DIR$/.idea/.generators" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/shared/_header_signin.html.erb" afterPath="$PROJECT_DIR$/app/views/shared/_header_signin.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Vanpool.iml" afterPath="$PROJECT_DIR$/.idea/Vanpool.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/shared/_administrador_sidebar.html.erb" afterPath="$PROJECT_DIR$/app/views/shared/_administrador_sidebar.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/administradors_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/administradors_controller.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/application.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/application.rb" afterPath="$PROJECT_DIR$/config/application.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/clientes_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/clientes_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/helpers/pagos_helper.rb" afterPath="$PROJECT_DIR$/app/helpers/pagos_helper.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/configuracion.rb" afterPath="$PROJECT_DIR$/app/models/configuracion.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/script/rails" afterPath="$PROJECT_DIR$/script/rails" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/seeds.rb" afterPath="$PROJECT_DIR$/db/seeds.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/clientes/show_compra_credito.html.erb" afterPath="$PROJECT_DIR$/app/views/clientes/show_compra_credito.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/clientes/show_pago.html.erb" afterPath="$PROJECT_DIR$/app/views/clientes/show_pago.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/schedule.rb" afterPath="$PROJECT_DIR$/config/schedule.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/schema.rb" afterPath="$PROJECT_DIR$/db/schema.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/clientes/show_compra_credito_tarjeta.html.erb" afterPath="$PROJECT_DIR$/app/views/clientes/show_compra_credito_tarjeta.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/user.rb" afterPath="$PROJECT_DIR$/app/models/user.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/mailers/user_mailer.rb" afterPath="$PROJECT_DIR$/app/mailers/user_mailer.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Vanpool.iws" />
@@ -43,94 +274,91 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="show_compra_credito.html.erb" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/views/clientes/show_compra_credito.html.erb">
+      <file leaf-file-name="configuracion.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/configuracion.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.234375" vertical-offset="345" max-vertical-offset="2115">
-              <caret line="34" column="28" selection-start-line="34" selection-start-column="28" selection-end-line="34" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
+              <caret line="0" column="17" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="formapago.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/clientes/formapago.html.erb">
+      <file leaf-file-name="administradors_controller.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/administradors_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.875" vertical-offset="0" max-vertical-offset="420">
-              <caret line="19" column="12" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3105" max-vertical-offset="9000">
+              <caret line="271" column="54" selection-start-line="271" selection-start-column="54" selection-end-line="271" selection-end-column="54" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="show_compra_credito_tarjeta.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/clientes/show_compra_credito_tarjeta.html.erb">
+      <file leaf-file-name="_form_configuracion_correos_frecuencia.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/administradors/_form_configuracion_correos_frecuencia.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-20.666666" vertical-offset="1109" max-vertical-offset="1815">
-              <caret line="107" column="19" selection-start-line="107" selection-start-column="19" selection-end-line="107" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="1215">
+              <caret line="40" column="54" selection-start-line="40" selection-start-column="54" selection-end-line="40" selection-end-column="54" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="clientes_controller.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/clientes_controller.rb">
+      <file leaf-file-name="user_mailer.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/mailers/user_mailer.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1905" max-vertical-offset="7785">
-              <caret line="144" column="32" selection-start-line="144" selection-start-column="32" selection-end-line="144" selection-end-column="32" />
-              <folding>
-                <marker date="1415662770000" expanded="true" signature="3325:4053" placeholder="do ... end" />
-                <marker date="1415662770000" expanded="true" signature="4535:4806" placeholder="case ... end" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="application.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/application.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="644" max-vertical-offset="1530">
-              <caret line="67" column="4" selection-start-line="67" selection-start-column="4" selection-end-line="67" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="795">
+              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_header_signin.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/shared/_header_signin.html.erb">
+      <file leaf-file-name="schedule.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/schedule.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.375" vertical-offset="45" max-vertical-offset="1035">
-              <caret line="26" column="40" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
+              <caret line="27" column="3" selection-start-line="27" selection-start-column="3" selection-end-line="27" selection-end-column="3" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routes.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/routes.rb">
+      <file leaf-file-name="rails" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/script/rails">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1065" max-vertical-offset="3645">
-              <caret line="71" column="42" selection-start-line="71" selection-start-column="42" selection-end-line="71" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.15129682" vertical-offset="0" max-vertical-offset="694">
+              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pagos_helper.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/helpers/pagos_helper.rb">
+      <file leaf-file-name="welcome_email.text.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/user_mailer/welcome_email.text.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="1005">
-              <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="210">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="application.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/layouts/application.html.erb">
+      <file leaf-file-name="welcome_email.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/user_mailer/welcome_email.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="585" max-vertical-offset="1320">
-              <caret line="39" column="2" selection-start-line="39" selection-start-column="2" selection-end-line="39" selection-end-column="2" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Gemfile" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Gemfile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="23" max-vertical-offset="1395">
+              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -153,12 +381,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/controllers/static_pages_controller.rb" />
-        <option value="$PROJECT_DIR$/db/migrate/20140925163115_change_kilometros.rb" />
-        <option value="$PROJECT_DIR$/db/migrate/20140928062845_create_conductors.rb" />
-        <option value="$PROJECT_DIR$/db/migrate/20140929015027_change_user.rb" />
-        <option value="$PROJECT_DIR$/app/helpers/administradors_helper.rb" />
-        <option value="$PROJECT_DIR$/config/environment.rb" />
         <option value="$PROJECT_DIR$/app/views/administradors/_form.html.erb" />
         <option value="$PROJECT_DIR$/app/views/conductors/update.js.erb" />
         <option value="$PROJECT_DIR$/app/views/administradors/conductores.js.erb" />
@@ -167,11 +389,9 @@
         <option value="$PROJECT_DIR$/app/assets/javascripts/application.js" />
         <option value="$PROJECT_DIR$/app/views/shared/_administrador_detalleconductor.html.erb" />
         <option value="$PROJECT_DIR$/app/views/shared/_administrador_detalleadministrador.html.erb" />
-        <option value="$PROJECT_DIR$/app/models/user.rb" />
         <option value="$PROJECT_DIR$/app/views/administradors/_form_administrador.html.erb" />
         <option value="$PROJECT_DIR$/app/views/administradors/_form_conductor.html.erb" />
         <option value="$PROJECT_DIR$/app/views/administradors/index.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/shared/_administrador_sidebar.html.erb" />
         <option value="$PROJECT_DIR$/app/views/administradors/conductores.html.erb" />
         <option value="$PROJECT_DIR$/app/models/cliente.rb" />
         <option value="$PROJECT_DIR$/db/migrate/20140922231851_change_clientes.rb" />
@@ -182,23 +402,36 @@
         <option value="$PROJECT_DIR$/app/views/administradors/clientes.html.erb" />
         <option value="$PROJECT_DIR$/app/views/administradors/administrador_perfilcliente.html.erb" />
         <option value="$PROJECT_DIR$/db/seeds.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/administradors_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/shared/_administrador_detallecliente.html.erb" />
         <option value="$PROJECT_DIR$/app/helpers/checkin_helper.rb" />
         <option value="$PROJECT_DIR$/app/controllers/conductors_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/clientes/formapago.html.erb" />
         <option value="$PROJECT_DIR$/app/views/clientes/show_pago.html.erb" />
-        <option value="$PROJECT_DIR$/config/routes.rb" />
-        <option value="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
         <option value="$PROJECT_DIR$/config/application.rb" />
         <option value="$PROJECT_DIR$/app/helpers/pagos_helper.rb" />
         <option value="$PROJECT_DIR$/app/views/shared/_user_reservaciones.html.erb" />
         <option value="$PROJECT_DIR$/app/views/clientes/create_transaction_charge.html.erb" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/card.js" />
-        <option value="$PROJECT_DIR$/app/views/clientes/show_compra_credito_tarjeta.html.erb" />
         <option value="$PROJECT_DIR$/app/views/shared/_header_signin.html.erb" />
         <option value="$PROJECT_DIR$/app/controllers/clientes_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/clientes/show_compra_credito.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/shared/_administrador_sidebar.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/clientes/show_compra_credito_tarjeta.html.erb" />
+        <option value="$PROJECT_DIR$/app/models/user.rb" />
+        <option value="$PROJECT_DIR$/app/models/configuracion.rb" />
+        <option value="$PROJECT_DIR$/config/routes.rb" />
+        <option value="$PROJECT_DIR$/app/views/administradors/configuraciones.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/administradors/_form_configuracion_correoRecordatorio.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/shared/_administrador_configuracion_correos.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/administradors/_form_configuracion_correoBienvenida.html.erb" />
+        <option value="$PROJECT_DIR$/app/controllers/administradors_controller.rb" />
+        <option value="$PROJECT_DIR$/app/views/administradors/_form_configuracion_correos_frecuencia.html.erb" />
+        <option value="$PROJECT_DIR$/Gemfile" />
+        <option value="$PROJECT_DIR$/app/mailers/user_mailer.rb" />
+        <option value="$PROJECT_DIR$/config/environments/development.rb" />
+        <option value="$PROJECT_DIR$/config/schedule.rb" />
+        <option value="$PROJECT_DIR$/script/rails" />
       </list>
     </option>
   </component>
@@ -239,8 +472,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="RailsProjectView" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -269,7 +500,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="db" />
+              <option name="myItemId" value="script" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -297,11 +528,51 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="environments" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Vanpool" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Vanpool" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Vanpool" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Vanpool" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user_mailer" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -367,28 +638,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="clientes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Vanpool" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Vanpool" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="administradors" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -406,6 +655,10 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -421,7 +674,21 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="helpers" />
+              <option name="myItemId" value="mailers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Vanpool" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Vanpool" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -461,34 +728,14 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Vanpool" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Vanpool" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="javascripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="RailsProjectView" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="options.lastSelected" value="vcs.Git" />
+    <property name="options.lastSelected" value="editor.preferences.completion" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
@@ -693,12 +940,12 @@
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298969" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6585366" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32862645" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6569921" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24959612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26328126" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26655897" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298969" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -706,7 +953,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32991013" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -730,9 +977,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24959612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2641357" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287483" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -757,162 +1004,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/clientes/show_compra_credito.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="525" max-vertical-offset="615">
-          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/clientes_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="405" max-vertical-offset="8355">
-          <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
-          <folding>
-            <marker date="1415662770000" expanded="true" signature="3325:4053" placeholder="do ... end" />
-            <marker date="1415662770000" expanded="true" signature="4535:4806" placeholder="case ... end" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/application.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="990" max-vertical-offset="1530">
-          <caret line="66" column="33" selection-start-line="66" selection-start-column="33" selection-end-line="66" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/routes.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1125" max-vertical-offset="3645">
-          <caret line="75" column="42" selection-start-line="75" selection-start-column="42" selection-end-line="75" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/helpers/pagos_helper.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="1005">
-          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/layouts/application.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="585" max-vertical-offset="1125">
-          <caret line="39" column="2" selection-start-line="39" selection-start-column="2" selection-end-line="39" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/conductors.js.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="554">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/administradors.js.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.075" vertical-offset="0" max-vertical-offset="600">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/application.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.275" vertical-offset="0" max-vertical-offset="600">
-          <caret line="11" column="2" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/users/new.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40609136" vertical-offset="0" max-vertical-offset="645">
-          <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="23" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/static_pages_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15771028" vertical-offset="0" max-vertical-offset="856">
-          <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/administradors/listAdministradores.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48207664" vertical-offset="0" max-vertical-offset="810">
-          <caret line="26" column="16" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/shared/_header_no_signin.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32035175" vertical-offset="0" max-vertical-offset="1290">
-          <caret line="17" column="48" selection-start-line="17" selection-start-column="48" selection-end-line="17" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/administradors/_form_conductor.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09903382" vertical-offset="1088" max-vertical-offset="4815">
-          <caret line="78" column="47" selection-start-line="78" selection-start-column="47" selection-end-line="78" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/user.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2582857" vertical-offset="284" max-vertical-offset="1200">
-          <caret line="34" column="30" selection-start-line="34" selection-start-column="30" selection-end-line="34" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/users/index.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16304348" vertical-offset="0" max-vertical-offset="828">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/shared/_administrador_sidebar.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="360">
-          <caret line="12" column="23" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/migrate/20140928062845_create_conductors.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12396694" vertical-offset="0" max-vertical-offset="605">
-          <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/cliente.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0955414" vertical-offset="0" max-vertical-offset="628">
-          <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/helpers/clientes_helper.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.05154639" vertical-offset="0" max-vertical-offset="582">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/shared/_administrador_detalleconductor.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3228477" vertical-offset="0" max-vertical-offset="604">
-          <caret line="13" column="59" selection-start-line="13" selection-start-column="59" selection-end-line="13" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/administradors/index.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4130809" vertical-offset="0" max-vertical-offset="581">
@@ -938,13 +1029,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.51502144" vertical-offset="870" max-vertical-offset="2010">
           <caret line="34" column="22" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/administradors/conductores.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27230048" vertical-offset="3306" max-vertical-offset="3945">
-          <caret line="232" column="34" selection-start-line="0" selection-start-column="0" selection-end-line="257" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1018,32 +1102,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/shared/_administrador_detalleadministrador.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17045455" vertical-offset="0" max-vertical-offset="704">
-          <caret line="8" column="106" selection-start-line="8" selection-start-column="106" selection-end-line="8" selection-end-column="106" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/administradors/_form_administrador.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.06392045" vertical-offset="0" max-vertical-offset="4560">
-          <caret line="3" column="27" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/clientes/show_pago.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="1995">
           <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/routes.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1065" max-vertical-offset="3645">
-          <caret line="71" column="42" selection-start-line="71" selection-start-column="42" selection-end-line="71" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1061,76 +1123,256 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/clientes_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34552845" vertical-offset="1905" max-vertical-offset="7785">
+          <caret line="144" column="32" selection-start-line="144" selection-start-column="32" selection-end-line="144" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/helpers/pagos_helper.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1005">
+        <state vertical-scroll-proportion="0.12117177" vertical-offset="254" max-vertical-offset="1005">
           <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/administradors_controller.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/shared/_administrador_detalleadministrador.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.0463376" vertical-offset="7864" max-vertical-offset="8640">
-          <caret line="210" column="19" selection-start-line="210" selection-start-column="19" selection-end-line="210" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.26049203" vertical-offset="0" max-vertical-offset="691">
+          <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/layouts/application.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/views/shared/_administrador_feedback_graph.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="316" max-vertical-offset="1320">
-          <caret line="39" column="2" selection-start-line="39" selection-start-column="2" selection-end-line="39" selection-end-column="2" />
-          <folding />
+        <state vertical-scroll-proportion="0.1519537" vertical-offset="0" max-vertical-offset="691">
+          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/shared/_administrador_sidebar.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29829547" vertical-offset="0" max-vertical-offset="704">
+          <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config/application.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="644" max-vertical-offset="1530">
-          <caret line="67" column="4" selection-start-line="67" selection-start-column="4" selection-end-line="67" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.24101198" vertical-offset="779" max-vertical-offset="1530">
+          <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/administradors/conductores.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3090" max-vertical-offset="3945">
+          <caret line="223" column="170" selection-start-line="223" selection-start-column="118" selection-end-line="223" selection-end-column="170" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/_shim.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="728">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/bootstrap/bootstrap-collapse.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34065935" vertical-offset="1852" max-vertical-offset="2580">
+          <caret line="140" column="0" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/clientes/show_compra_credito_tarjeta.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7869318" vertical-offset="826" max-vertical-offset="1800">
+          <caret line="92" column="49" selection-start-line="92" selection-start-column="49" selection-end-line="92" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/clientes/formapago.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4341534" vertical-offset="0" max-vertical-offset="691">
+          <caret line="20" column="14" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/clientes/show_compra_credito.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="795" max-vertical-offset="2115">
+          <caret line="60" column="24" selection-start-line="60" selection-start-column="24" selection-end-line="60" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/administradors/_form_administrador.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18181819" vertical-offset="0" max-vertical-offset="4560">
+          <caret line="8" column="73" selection-start-line="8" selection-start-column="73" selection-end-line="8" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/administradors/_form_conductor.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.625" vertical-offset="0" max-vertical-offset="4815">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/routes.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2279" max-vertical-offset="3690">
+          <caret line="183" column="49" selection-start-line="183" selection-start-column="49" selection-end-line="183" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/administradors/configuraciones.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="29.583334" vertical-offset="1145" max-vertical-offset="1815">
+          <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/application.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4612006" vertical-offset="195" max-vertical-offset="1185">
+          <caret line="34" column="36" selection-start-line="34" selection-start-column="36" selection-end-line="34" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/shared/_administrador_configuracion_correos.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-16.875" vertical-offset="135" max-vertical-offset="795">
+          <caret line="36" column="89" selection-start-line="36" selection-start-column="89" selection-end-line="36" selection-end-column="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/administradors/_form_configuracion_correoRecordatorio.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="1155">
+          <caret line="8" column="51" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/administradors/_form_configuracion_correoBienvenida.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="1155">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Gemfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="23" max-vertical-offset="1395">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/application_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="661">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/administradors_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3765" max-vertical-offset="9000">
+          <caret line="271" column="54" selection-start-line="271" selection-start-column="54" selection-end-line="271" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/configuracion.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
+          <caret line="0" column="17" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/user_mailer/welcome_email.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="659">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/user.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24663678" vertical-offset="0" max-vertical-offset="705">
+          <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/administradors/_form_configuracion_correos_frecuencia.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="1215">
+          <caret line="40" column="54" selection-start-line="40" selection-start-column="54" selection-end-line="40" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/user_mailer/welcome_email.text.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="659">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/shared/_header_signin.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.375" vertical-offset="45" max-vertical-offset="1035">
-          <caret line="26" column="40" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.28550512" vertical-offset="105" max-vertical-offset="1035">
+          <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="90" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/clientes_controller.rb">
+    <entry file="file://$PROJECT_DIR$/config/environments/production.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1905" max-vertical-offset="7785">
-          <caret line="144" column="32" selection-start-line="144" selection-start-column="32" selection-end-line="144" selection-end-column="32" />
-          <folding>
-            <marker date="1415662770000" expanded="true" signature="3325:4053" placeholder="do ... end" />
-            <marker date="1415662770000" expanded="true" signature="4535:4806" placeholder="case ... end" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/clientes/formapago.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.875" vertical-offset="0" max-vertical-offset="420">
-          <caret line="19" column="12" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.389049" vertical-offset="0" max-vertical-offset="1095">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/clientes/show_compra_credito_tarjeta.html.erb">
+    <entry file="file://$PROJECT_DIR$/config/environments/development.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-20.666666" vertical-offset="1109" max-vertical-offset="1815">
-          <caret line="107" column="19" selection-start-line="107" selection-start-column="19" selection-end-line="107" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.46958983" vertical-offset="73" max-vertical-offset="825">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/clientes/show_compra_credito.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/mailers/user_mailer.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.234375" vertical-offset="345" max-vertical-offset="2115">
-          <caret line="34" column="28" selection-start-line="34" selection-start-column="28" selection-end-line="34" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="795">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/schedule.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
+          <caret line="27" column="3" selection-start-line="27" selection-start-column="3" selection-end-line="27" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/script/rails">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15129682" vertical-offset="0" max-vertical-offset="694">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
         </state>
       </provider>

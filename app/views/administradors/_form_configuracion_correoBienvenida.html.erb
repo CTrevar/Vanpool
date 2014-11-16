@@ -1,0 +1,72 @@
+<% exito ||= false %>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        $(function() {
+            // Replace the <textarea id="editor1"> with a CKEditor
+            // instance, using default configuration.
+            CKEDITOR.config.height = 500;
+            CKEDITOR.replace('correoBienvenida');
+        });
+
+
+
+        $("#edit_configuracion_6").submit(function (event) {
+            event.preventDefault();
+            CKEDITOR.instances.correoBienvenida.updateElement();
+            $("#correoBienvenida").val(document.getElementById( 'correoBienvenida' ).value);
+            var request = $.ajax({
+                type: "POST",
+                url: '<%= "/cambiar_configuracion" %>',
+                data: $(this).serialize()
+            });
+            request.done(function( msg ) {
+                $("#tab_correoBienvenida").html(msg);
+            });
+            request.fail(function( jqXHR, textStatus ) {
+                alert(textStatus);
+            });
+            return false;
+        });
+    });
+</script>
+<br/>
+<div class="alert alert-info alert-dismissable">
+    <i class="fa fa-info"></i>
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    Recuerda utilizar <b>@usuario!</b> para cuando quieras hacer referencia al usuario a quien se le enviará el correo.
+</div>
+<%= form_for @correoBienvenida, remote: true, :url => "/cambiar_configuracion", method: "POST" do |f| %>
+    <%= f.hidden_field :id, :value => @correoBienvenida.id %>
+    <% if @correoBienvenida.errors.any? %>
+        <div class="alert alert-danger alert-dismissable">
+          <i class="fa fa-times"></i>
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <b><%= pluralize(@correoBienvenida.errors.count, "error") %>:</b>
+          <ul>
+            <% @correoBienvenida.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="form-group has-error">
+          <%= f.text_area :valor, id:"correoBienvenida", placeholder:'Contenido del correo bienvenida...',name:"correoBienvenida", class: "form-control" %>
+          <div class="callout callout-danger">
+            <%= @correoBienvenida.errors[:valor] %>
+          </div>
+        </div>
+    <% else %>
+        <%  if exito %>
+            <div class="alert alert-success alert-dismissable">
+              <i class="fa fa-check"></i>
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <p>Se acutalizó el contenido del correo correctamente.</p>
+            </div>
+        <%  end %>
+        <div class="form-group">
+          <%= f.text_area :valor, id:"correoBienvenida",placeholder:'Contenido del correo de bienvenida...',name:"correoBienvenida", class:"form-control" %>
+        </div>
+    <% end %>
+    <div align="right">
+      <%= submit_tag("Guardar",id:"btnSubmit",class:"btn btn-primary btn-lg") %>
+    </div>
+<% end %>

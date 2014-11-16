@@ -251,7 +251,71 @@ class AdministradorsController < ApplicationController
       end
     end
   end
-  
+  #
+  # Metodo para mostrar la página de configuraciones.
+  #
+  def configuraciones
+    @correoBienvenida = Configuracion.find(6)
+    @correoRecordatorio = Configuracion.find(7)
+    @correoFrecuenciaRecordatorio = Configuracion.find(8)
+  end
+  #
+  # Metodo para mostrar la página de configuraciones.
+  #
+  def cambiar_configuracion
+    paramsconf = OpenStruct.new params[:configuracion]
+    # Verificamos el id de la configuración
+    case paramsconf.id.to_i
+      # En caso de ser de correo bienvenida
+      when 6
+        @correoBienvenida = Configuracion.new
+        @correoBienvenida = Configuracion.find(paramsconf.id)
+        @correoBienvenida.valor = params[:correoBienvenida]#paramsconf.valor
+        if @correoBienvenida.valid?
+          @correoBienvenida.save!
+          respond_to do |format|
+            format.html { render partial: 'administradors/form_configuracion_correoBienvenida', correoBienvenida:@correoBienvenida,locals: {exito:true} }
+          end
+        else
+          respond_to do |format|
+            format.html { render partial: 'administradors/form_configuracion_correoBienvenida', correoBienvenida:@correoBienvenida }
+            format.json { render json: @correoBienvenida.errors, status: :unprocessable_entity }
+          end
+        end
+      # En caso de ser de correo recordatorio
+      when 7
+        @correoRecordatorio = Configuracion.new
+        @correoRecordatorio = Configuracion.find(paramsconf.id)
+        @correoRecordatorio.valor = params[:correoRecordatorio]#paramsconf.valor
+        if @correoRecordatorio.valid?
+          @correoRecordatorio.save!
+          respond_to do |format|
+            format.html { render partial: 'administradors/form_configuracion_correoRecordatorio', correoRecordatorio:@correoRecordatorio,locals: {exito:true} }
+          end
+        else
+          respond_to do |format|
+            format.html { render partial: 'administradors/form_configuracion_correoRecordatorio', correoRecordatorio:@correoRecordatorio }
+            format.json { render json: @correoRecordatorio.errors, status: :unprocessable_entity }
+          end
+        end
+      # En caso de ser frecuencia de correo recordatorio
+      when 8
+        @correoFrecuenciaRecordatorio = Configuracion.new
+        @correoFrecuenciaRecordatorio = Configuracion.find(paramsconf.id)
+        @correoFrecuenciaRecordatorio.valor = paramsconf.valor
+        if @correoFrecuenciaRecordatorio.valid?
+          @correoFrecuenciaRecordatorio.save!
+          respond_to do |format|
+            format.html { render partial: 'administradors/form_configuracion_correos_frecuencia', correoFrecuenciaRecordatorio:@correoFrecuenciaRecordatorio,locals: {exito:true} }
+          end
+        else
+          respond_to do |format|
+            format.html { render partial: 'administradors/form_configuracion_correos_frecuencia', correoFrecuenciaRecordatorio:@correoFrecuenciaRecordatorio }
+            format.json { render json: @correoFrecuenciaRecordatorio.errors, status: :unprocessable_entity }
+          end
+        end
+    end
+  end
 
   #
   # Metodo para ver el perfil con la información de un cliente.

@@ -1,0 +1,115 @@
+<% provide(:title, 'Conductores') %>
+<div class="wrapper row-offcanvas row-offcanvas-left">
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="left-side sidebar-offcanvas">
+      <%= render 'shared/administrador_sidebar' %>
+    </aside>
+
+    <!-- Right side column. Contains the navbar and content of the page -->
+    <aside class="right-side">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        <i class="fa fa-fw fa-gears"></i>
+        <span>Configuraciones</span>
+      </h1>
+      <ol class="breadcrumb">
+        <li >Inicio</li>
+        <li class="active">
+          <i class="fa fa-fw fa-gears"></i>
+          <span>Configuraciones</span>
+        </li>
+      </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+      <script type="text/javascript" charset="utf-8">
+          $(document).ready(function () {
+              $("#confCorreos").on("click",function(){
+                  $("#contenidoConfiguracion").html("<%= escape_javascript(render partial: 'shared/administrador_configuracion_correos', locals: { correoBienvenida: @correoBienvenida } ) %>");
+              });
+          });
+      </script>
+      <div class="row">
+            <div id="divconfCorreos" class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-aqua">
+                <div class="inner">
+                  <h3>
+                    Correos
+                  </h3>
+                  <p>
+                    <br/>
+                  </p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-envelope-o"></i>
+                </div>
+                <a id="confCorreos" href="javascript:void(0)" class="small-box-footer">
+                  Ver Configuración <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-green">
+                <div class="inner">
+                  <h3>
+                    CO<sub>2</sub>
+                  </h3>
+                  <p>
+                    <br/>
+                  </p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-cloud"></i>
+                </div>
+                <a id="confEmisiones" href="#" class="small-box-footer">
+                  Ver Configuración <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>
+                    Resultados
+                  </h3>
+                  <p>
+                    de Búsqueda
+                  </p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-search"></i>
+                </div>
+                <a id="confResultados" href="#" class="small-box-footer">
+                  Ver Configuración <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h3>
+                    Económicos
+                  </h3>
+                  <p>
+                    <br/>
+                  </p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-dollar"></i>
+                </div>
+                <a id="confEconomica" href="#" class="small-box-footer">
+                  Ver Configuración <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div><!-- ./col -->
+      </div>
+      <div id="contenidoConfiguracion">
+      </div>
+    </section>
+    </aside><!-- /.right-side -->
+</div><!-- ./wrapper -->
