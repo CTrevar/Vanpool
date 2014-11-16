@@ -1,4 +1,5 @@
-#!/usr/bin/env ruby1.9.1
+#! /Users/alvarocontreras/.rvm/rubies/ruby-1.9.3-p550
+# /usr/bin/env ruby1.9.1
 # This command will automatically be run when you run "rails" with Rails 3 gems installed from the root of your application.
 
 APP_PATH = File.expand_path('../../config/application',  __FILE__)

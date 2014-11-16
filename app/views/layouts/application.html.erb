@@ -11,30 +11,26 @@
   <%= stylesheet_link_tag "AdminLTE", media: "all" %>
   <%= stylesheet_link_tag "vanpool", media: "all" %>
   <%= stylesheet_link_tag "timepicker/bootstrap-timepicker", media: "all" %>
-
-
   <%= stylesheet_link_tag "application", media: "all" %>
 
-  <%= javascript_include_tag "bootstrap/jquery" %>
+  <%= javascript_include_tag "jquery-2.1.1" %>
+  <%= javascript_include_tag "jquery-ui-1.10.3.min.js" %>
+  <%#= javascript_include_tag "bootstrap/jquery" %>
+  <%= javascript_include_tag "bootstrap/bootstrap.min" %>
+  <%= javascript_include_tag "AdminLTE/app" %>
 
-  <%= javascript_include_tag "bootstrap/bootstrap" %>
- 
-
- <!--  <%= javascript_include_tag "bootstrap/bootstrap-modal" %> -->
-
-
-
+  <%#= javascript_include_tag "bootstrap/bootstrap-modal" %>
   <%= javascript_include_tag "plugins/input-mask/jquery.inputmask" %>
   <%= javascript_include_tag "plugins/input-mask/jquery.inputmask.date.extensions" %>
   <%= javascript_include_tag "plugins/daterangepicker/daterangepicker" %>
   <%= javascript_include_tag "plugins/colorpicker/bootstrap-colorpicker.min" %>
   <%= javascript_include_tag "plugins/timepicker/bootstrap-timepicker.min" %>
   <!-- Importación de Javascript para la validación. -->
-  <%= javascript_include_tag "js/jquery.validationEngine.js" %>
-  <%= javascript_include_tag "js/languages/jquery.validationEngine-es.js" %>
+  <%#= javascript_include_tag "js/jquery.validationEngine.js" %>
+  <%#= javascript_include_tag "js/languages/jquery.validationEngine-es.js" %>
 
   
-  <%= javascript_include_tag "AdminLTE/app" %>
+  <%#= javascript_include_tag "AdminLTE/app" %>
 
   <!-- Javascripts para jTables. -->
   <%= javascript_include_tag "jquery.ui.all" %>
@@ -51,19 +47,14 @@
   <%= csrf_meta_tags %>
 
   <script type="text/javascript">
-
-  $.ajaxSetup({
-    headers: {
-      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-    }
-  });
-  
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
   </script>
-
-<%= javascript_include_tag :defaults %>
-  
+  <%= javascript_include_tag :defaults %>
   <%= render 'layouts/shim' %>
-
 </head>
 
 <body class="skin-green">
