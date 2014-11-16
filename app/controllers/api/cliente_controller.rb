@@ -34,7 +34,7 @@ class API::ClienteController < ApplicationController
             x=0
             aspectos.each do |aspecto|
             calificacion=calif[x]
-            retro = Retroalimentacion.create(reservacion_id:id,aspecto_id:aspecto.id,calificacion:calificacion)
+            retro = Retroalimentacion.create(reservacion_id:id,aspecto_id:aspecto.id,tipocalificacion_id:calificacion)
             x=x+1
           end
           @exito=true
