@@ -20,6 +20,9 @@
 # Learn more: http://github.com/javan/whenever
 
 
-every 3.minutes do
-	command "echo 'cron nom nom'"
+# every 3.minutes do
+# 	command "echo 'cron nom nom'"
+# end
+every 1.minute do
+  runner "UserMailer.enviar_correo_prueba"
 end

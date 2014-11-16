@@ -1,0 +1,48 @@
+<%#= javascript_include_tag "bootstrap/jquery" %>
+<%= javascript_include_tag "plugins/ckeditor/ckeditor" %>
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+//        $(function() {
+//            // Replace the <textarea id="editor1"> with a CKEditor
+//            // instance, using default configuration.
+//        });
+    });
+</script>
+<div class="row">
+  <h2 class="page-header"><i class="fa fa-envelope"></i> Configuración de Correos</h2>
+    <div class="col-md-12">
+        <!-- Custom Tabs -->
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_correoBienvenida" data-toggle="tab">Correo de Bienvenida</a></li>
+                <li><a href="#tab_correoRecordatorio" data-toggle="tab">Correo Recordatorio</a></li>
+                <li><a href="#tab_correoConfiguracion" data-toggle="tab">Frecuencia de Envío</a></li>
+                <!--<li><a href="#tab_3" data-toggle="tab">Configuración <i class="fa fa-fw fa-gear"></i></a></li>-->
+                <!--<li class="pull-right"><a href="#tab_correoConfiguracion" data-toggle="tab" class="text-muted"><i class="fa fa-gear"></i></a></li>-->
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_correoBienvenida">
+                    <!--<br/>-->
+                    <!--<div class="alert alert-info alert-dismissable">-->
+                        <!--<i class="fa fa-info"></i>-->
+                        <!--<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>-->
+                        <!--Recuerda utilizar <b>@user!</b> para cuando quieras hacer referencia al usuario a quien se le enviará el correo.-->
+                    <!--</div>-->
+                    <!--<form>-->
+                        <!--<textarea id="correoBienvenida" name="correoBienvenida" rows="10" cols="80" style="visibility: hidden; display: none;">-->
+                            <!--<%#= @correoBienvenida.valor %>-->
+                        <!--</textarea>-->
+                    <!--</form>-->
+                  <%= render partial: 'administradors/form_configuracion_correoBienvenida', correoRecordatorio:@correoRecordatorio %>
+                </div><!-- /.tab-pane -->
+                <div class="tab-pane" id="tab_correoRecordatorio">
+                    <%= render partial: 'administradors/form_configuracion_correoRecordatorio', correoRecordatorio:@correoRecordatorio %>
+                </div><!-- /.tab-pane -->
+                <div class="tab-pane" id="tab_correoConfiguracion">
+                    <%= render partial: 'administradors/form_configuracion_correos_frecuencia', correoFrecuenciaRecordatorio:@correoFrecuenciaRecordatorio %>
+                </div><!-- /.tab-pane -->
+            </div><!-- /.tab-content -->
+        </div><!-- nav-tabs-custom -->
+    </div><!-- /.col -->
+</div>
