@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141016054902) do
+ActiveRecord::Schema.define(:version => 20141016054905) do
+
+  create_table "calificaciontipos", :force => true do |t|
+    t.integer  "calificacion"
+    t.string   "nombre"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "ciudads", :force => true do |t|
     t.string   "clave",      :limit => 45
@@ -157,8 +164,9 @@ ActiveRecord::Schema.define(:version => 20141016054902) do
     t.integer  "retroaspecto_id"
     t.integer  "calificacion"
     t.integer  "aspecto_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.integer  "tipocalificacion_id"
   end
 
   create_table "retroaspectos", :force => true do |t|
@@ -203,6 +211,12 @@ ActiveRecord::Schema.define(:version => 20141016054902) do
     t.string   "hora_inicio"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "tipocalificacions", :force => true do |t|
+    t.string   "nombre"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "tipomedallas", :force => true do |t|

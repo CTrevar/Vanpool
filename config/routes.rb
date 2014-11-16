@@ -2,13 +2,22 @@ SampleApp::Application.routes.draw do
 
 #namespace :api, :path => "", :defaults => {:format => :json} , :constraints => {:subdomain => "api"} do
 namespace :api, :defaults => {:format => :json} do
-  resources :cliente
+  #resources :cliente
   match '/rutas_zona', to: 'cliente#rutas_zona'
+  match '/rutas_viajes', to: 'cliente#rutas_viajes'
   match '/rutas_busqueda', to: 'cliente#rutas_busqueda'
   match '/ruta_disponibilidad_viaje', to: 'cliente#ruta_disponibilidad_viaje'
   match '/cliente_perfil', to: 'cliente#cliente_perfil'
   match '/cliente_medallas', to: 'cliente#cliente_medallas'
+  match '/cliente_checkin', to: 'cliente#cliente_checkin'
+  match '/cliente_co2ahorrado', to: 'cliente#cliente_co2ahorrado'
+  match '/cliente_co2_viaje', to: 'cliente#cliente_co2_viaje'
   match '/cliente_leaderboard', to: 'cliente#cliente_leaderboard'
+  match '/cliente_muestra_retro', to: 'cliente#cliente_muestra_retro'
+  match '/cliente_envia_retro', to: 'cliente#cliente_envia_retro'
+  match '/cliente_envia_reporte', to: 'cliente#cliente_envia_reporte'
+  match '/cliente_envia_sugerencia', to: 'cliente#cliente_envia_sugerencia'
+  
 end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
@@ -245,3 +254,4 @@ end
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
 end
+

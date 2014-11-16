@@ -178,7 +178,7 @@ module GamificationHelper
 	#Aumenta kilometraje al cliente
 	def aumenta_kilometraje(reservacion)
 		# reservacion.cliente.kilometraje=reservacion.cliente.kilometraje+reservacion.viaje.ruta.kilometros
-        reservacion.cliente.kilometraje=reservacion.cliente.kilometraje+80
+        reservacion.cliente.kilometros=reservacion.cliente.kilometros+calcular_distancia(reservacion)
 		reservacion.cliente.save
 	end
 
@@ -186,9 +186,9 @@ module GamificationHelper
 	def aumenta_puntos_kilometraje(reservacion)
 		if (valida_van_llena(reservacion.viaje.ruta.van, reservacion.viaje))
 			# aumenta_puntos(reservacion.cliente,reservacion.viaje.ruta.kilometros*10*2)
-            aumenta_puntos(reservacion.cliente,80*10*2)
+            aumenta_puntos(reservacion.cliente,calcular_distancia(reservacion)*10*2)
 		else
-            aumenta_puntos(reservacion.cliente,80*10)
+            aumenta_puntos(reservacion.cliente,calcular_distancia(reservacion)*10)
 			# aumenta_puntos(reservacion.cliente,reservacion.viaje.ruta.kilometros*10)
 		end
 	end
@@ -196,14 +196,15 @@ module GamificationHelper
 
 	#Calculo de CO2
 	def calcula_co2(reservacion)
-    	# vanco2=reservacion.viaje.ruta.kilometros*(@reservacion.viaje.ruta.van.co2gxkm/Reservacion.find_all_by_estadotipo_id_and_viaje_id([2,3],@reservacion.viaje_id).count)
-    	vanco2=80*(80/Reservacion.find_all_by_estadotipo_id_and_viaje_id([2,3],@reservacion.viaje_id).count)
-        #autoco2=@reservacion.viaje.ruta.kilometros*Configuracion.find_by_nombre("CO2gxkmauto").valor
-    	autoco2=196*80
-        # autoco2=reservacion.viaje.ruta.kilometros*196
-    	reservacion.cliente.co2ahorrado=autoco2-vanco2
+    	co2emitido=calcula_co2_viaje(reservacion)
+        #corregir 
+    	reservacion.cliente.facebook_id= reservacion.cliente.facebook_id.to_f+co2emitido
     	reservacion.cliente.save
 	end
+
+    def calcula_co2_viaje(reservacion)
+        return (calcular_distancia(reservacion)*(Configuracion.find(6).valor.to_f/1000))/Reservacion.find_all_by_estadotipo_id_and_viaje_id([2,3],reservacion.viaje_id).count
+    end
 
     def tabla_lideres(current_cliente)
         @top=Cliente.order('puntaje DESC').where('puntaje > ?',current_cliente.puntaje).last(2)

@@ -14,24 +14,23 @@
     </section>
     <section class="content">
             <div class="row-fluid">
-                <div class="span12">
-                    <table class="table table-bordered">
-  <tr>
-    <th>Cliente</th>
-    <th>Descripcion</th>
-    <th></th>
-  </tr>
+               <% @reportes.each do |reporte| %>
 
-<% @reportes.each do |reporte| %>
-  <tr>
-    <td><%= reporte.cliente_id %></td>
-    <td><%= reporte.descripcion %></td>
-    <td><%= link_to 'Destroy', reporte, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-                </div>
-            </div>
+                <div class="span4" style="margin:5px" >
+                    <div class="box box-solid">
+                     <div class="item" style="padding:10px">
+                        <p class="message">
+                        <a href="mailto:<%= reporte.cliente.user.email %>" class="name">
+                        <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> <%= reporte.created_at %></small>
+                        <%= reporte.cliente.user.name %>
+                        </a>
+                        <%= reporte.descripcion %>
+                        <br>
+                        </p>  
+                        </div><!-- /.item -->
+                     </div>
+                   </div>     
+                <%end%>
     </section>                                  
     </aside><!-- /.right-side -->
 </div><!-- ./wrapper -->

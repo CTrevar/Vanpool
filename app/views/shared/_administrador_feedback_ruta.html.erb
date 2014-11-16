@@ -1,29 +1,32 @@
 <% @rutas.each do |ruta| %>
-<div class="span6">
-<h4><%=ruta.nombre%></h4>
-<table class="table table-bordered">
-  <tr>
-    <th>aspecto</th>
-    <th>1</th>
-    <th>2</th>
-    <th>3</th>
-    <th>4</th>
-    <th>promedio</th>
-  </tr>
-  <% @aspectos.each do |aspecto| %>
-  <tr>
-    <td><%= Retroaspecto.find(aspecto.id).nombre %></td>
-    <td><%= @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:calificacion=>1}).where(:retroalimentacions=>{:aspecto_id=>aspecto.id}).count%></td>
-
-    <td><%= @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:calificacion=>2}).where(:retroalimentacions=>{:aspecto_id=>aspecto.id}).count%></td>
-
-    <td><%= @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:calificacion=>3}).where(:retroalimentacions=>{:aspecto_id=>aspecto.id}).count%></td>
-
-    <td><%= @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:calificacion=>4}).where(:retroalimentacions=>{:aspecto_id=>aspecto.id}).count%></td>
-
-    <td><%= @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:aspecto_id=>aspecto.id}).average(:calificacion).to_s %></td>
-  </tr>
-  <% end %>
-</table>
-</div>
+<div style="margin:5px" class="span6">
+<div class="box box-primary">
+  <div class="box-header">
+    <h3 class="box-title"><%=ruta.nombre%></h3>
+  </div><!-- /.box-header -->
+    <table class="table table-bordered table-striped">
+       <tr>
+        <th rowspan="2" style="padding-top:20px"><center><b>Aspecto</b></center></th>
+        <th colspan="4"><center>Frecuencia de respuesta</center></th>
+        <th rowspan="2" style="padding-top:20px"><center><b>Promedio</b></center></th>
+      </tr>
+      <tr>
+        <th><center>Malo</center></th>
+        <th><center>Regular</center></th>
+        <th><center>Bueno</center></th>
+        <th><center>Excelente</center></th>
+      </tr>
+      <% @aspectos.each do |aspecto| %>
+      <tr>
+        <td><%= Retroaspecto.find(aspecto.id).nombre %></td>
+        <td><center><%=  @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:calificacion=>1}).where(:retroalimentacions=>{:aspecto_id=>aspecto.id}).count %></center></td>
+        <td><center><%= @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:calificacion=>2}).where(:retroalimentacions=>{:aspecto_id=>aspecto.id}).count %></center></td>
+        <td><center><%= @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:calificacion=>3}).where(:retroalimentacions=>{:aspecto_id=>aspecto.id}).count %></center></td>
+        <td><center><%= @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:calificacion=>4}).where(:retroalimentacions=>{:aspecto_id=>aspecto.id}).count %><center></td>
+        <td><center><b><%= @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:aspecto_id=>aspecto.id}).average(:calificacion).to_s %></b></center></td>
+      </tr>
+      <% end %>                          
+      </table>
+  </div><!-- /.box -->
+  </div>
 <% end %>
