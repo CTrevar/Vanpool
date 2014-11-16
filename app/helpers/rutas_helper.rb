@@ -8,20 +8,9 @@ module RutasHelper
 		return (reservacion.viaje.ruta.paradas.sum(:distancia))/1000
 	end
 
-	def busqueda (origen, destino, fechaviaje)
+	def busqueda (origen, destino)
 		result=Array.new
 		count=0
-		# origen=Localizacion.new
-		# #origen.longitud=-100.3857256
-		# #origen.latitud=25.6553285
-		# origen.longitud=-100.51224869999999
-		# origen.latitud=25.7055795
-
-		# destino=Localizacion.new
-		# #destino.longitud=-100.41445799999997
-		# #destino.latitud=25.6631166
-		# destino.longitud=-100.50140679999998
-		# destino.latitud=25.6896305
 
 		cercaorigen=proximidad(origen)
 		cercadestino=proximidad(destino)
@@ -32,26 +21,15 @@ module RutasHelper
 			if(!rutas.blank?)
 
 				rutas.each do |ruta|
-					
-					paradaorigen=paradacercana(ruta,origen)
-					paradadestino=paradacercana(ruta,destino)
-					
-					if(valida_direccion(paradaorigen,paradadestino,ruta))
-						#validacion de fecha
+					if ruta.estatus = 't'
+						paradaorigen=paradacercana(ruta,origen)
+						paradadestino=paradacercana(ruta,destino)
 						
-						#fecha="27/09/2014"
-						fecha = fechaviaje.to_datetime
-						#porfecha=ruta.viajes.find_all_by_fecha_and_estadoviaje_id(fecha,[1,2])
-
-						#fecha= fechaviaje.to_datetime
-						fechafin = fecha.end_of_day
-						porfecha = ruta.viajes.where("fecha >= ? and fecha <= ?", fecha, fechafin)
-
-						porfecha.each do |v|
-							result<<v
-						end #porfechaeach
-					end #if validadireccion
-
+						if(valida_direccion(paradaorigen,paradadestino,ruta))
+							#validacion de ruta
+								result<<ruta
+						end #if validadireccion
+					end #rutatrue
 				end #rutaseach
 			end # if rutas not nil
 		end #if cercadestino not nil or cercaorigen not nil

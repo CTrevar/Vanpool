@@ -12,8 +12,7 @@ $(document).ready(function(){
      destinoLng: $('#destinoLng').val(),
      horainicio: $('#horainicio').val(),
      origenRuta: $('#origenRuta').val(),
-     destinoRuta: $('#destinoRuta').val(),
-     fechainicio: $('#diaViajeRuta').val()
+     destinoRuta: $('#destinoRuta').val()
     }
 
     $.post('/procesar_busqueda' , data, function(result){

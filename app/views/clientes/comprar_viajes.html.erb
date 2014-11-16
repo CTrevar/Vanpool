@@ -1,0 +1,26 @@
+<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp" %>
+<%= stylesheet_link_tag "rutas", media: "all" %>
+<% provide(:title, @title) %>
+ <div class="wrapper row-offcanvas row-offcanvas-left">
+    <aside class="left-side sidebar-offcanvas">
+        <%= render 'shared/user_sidebar' %> 
+    </aside>
+    <aside class="right-side">
+    <section class="content-header">
+        <h1>Rutas</h1>
+        <ol class="breadcrumb">
+            <li><a href="/dashboard"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="#"><i class="fa fa-map-marker"></i> <%=@ruta.nombre%></a></li>
+            <li class="active">Viajes</li>
+        </ol>
+    </section>
+    <section class="content">
+    	<div class="row-fluid">
+    		<%= render 'shared/user_detalleruta'%>
+    	</div>
+        <div class="row-fluid">
+            <%= render 'shared/user_rutas_viajes' %>
+        </div>
+    </section>                                  
+    </aside><!-- /.right-side -->
+</div><!-- ./wrapper -->

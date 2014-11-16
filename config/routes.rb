@@ -71,6 +71,7 @@ SampleApp::Application.routes.draw do
   match '/dashboard', to: 'clientes#dashboard'
   match '/buscar', to: 'clientes#buscarviaje'
   match '/reservaciones', to: 'clientes#reservaciones'
+  match '/mis_viajes', to: 'clientes#viajes'
   match '/reporte', to: 'clientes#reporte'
   match '/retro', to: 'reservacions#create_retro'
   match '/retro', to: 'reservacions#retro'
@@ -175,17 +176,24 @@ SampleApp::Application.routes.draw do
 
   match '/registrar_subida',   to: 'conductors#registrar_subida',   via: [:post,:get]
 
-  match '/buscar_zona', to:'clientes#buscar_viaje_zona'
-  match '/resultado_zona', to: 'rutas#listar_por_zona', via: [:get, :post]
+  match '/buscar_zona', to:'clientes#listar_rutas'
+  match '/resultado_zona', to: 'clientes#listar_rutas_zona', via: [:get, :post]
 
   match '/viaje_controller/proximos_jtable_filterlist',   to: 'viajes#proximos_jtable_filterlist',   via: [:get, :post]
   match '/viaje_controller/realizados_jtable_filterlist',   to: 'viajes#realizados_jtable_filterlist',   via: [:get, :post]
   match '/administrador_detalleviaje',   to: 'administradors#administrador_detalleviaje',   via: [:get, :post, :put]
 
   match '/viaje_controller/paradas_jtable_filterlist/',   to: 'viajes#paradas_jtable_filterlist',   via: [:get, :post]
+  match '/ruta_controller/paradas_jtable_filterlist/',   to: 'rutas#paradas_jtable_filterlist',   via: [:get, :post]
 
   match '/administrador_detallesugerencia/', to: 'administradors#administrador_detallesugerencia', via: [:get, :post]
   match '/borrar_sugerencia', to: 'sugerencias#borrar_sugerencia', via: [:post]
+  match '/mostrar_sugerencias', to: 'administradors#sugerencias_refresh', via: [:get]
+
+  match '/cliente_detalleruta', to: 'clientes#cliente_detalleruta', via: [:get]
+
+  match '/comprar_viajes', to: 'clientes#comprar_viajes', via: [:get]
+  match '/comprar_viajes', to: 'clientes#reservar_viajes', via: [:post]
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

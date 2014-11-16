@@ -82,18 +82,5 @@ module SugerenciasHelper
 
 	end#incidencias
 
-	def valida_direccion (origen, destino, ruta)
-		valida = false
-		posicion_o=Sugerenciaparada.find_by_ruta_id_and_parada_id(ruta.id,origen.id).posicion
-		posicion_d=Sugerenciaparada.find_by_ruta_id_and_parada_id(ruta.id,destino.id).posicion
-		if(posicion_o<posicion_d)
-			return true
-		else
-			return false
-		end
-
-		
-
-	end
 
 end

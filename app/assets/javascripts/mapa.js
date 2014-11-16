@@ -34,7 +34,7 @@ function initialize() {
           }]
       }
     };
-
+    
     directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
     trazarRuta();
     

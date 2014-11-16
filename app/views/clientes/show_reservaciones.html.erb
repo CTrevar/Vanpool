@@ -5,18 +5,49 @@
     </aside>
     <aside class="right-side">
     <section class="content-header">
-        <h1>Reservaciones<small>Detalle</small></h1>
+        <h1>Reservaciones</h1>
         <ol class="breadcrumb">
             <li><a href="/dashboard"><i class="fa fa-home"></i> Inicio</a></li>
-            <li class="active">Reservaciones</li>
+            <li class="active"><i class="fa fa-shopping-cart"></i> Mis Reservas</li>
         </ol>
     </section>
     <section class="content">
         <div class="row-fluid">
             <div class="row-fluid">
                 <div class="span12">
-                            <%= render 'shared/user_reservaciones' %>
-                            <%= render 'shared/user_viajes_realizados' %>
+                        
+                            
+                            <% if @viajes==nil%>
+                                <div class="msg-vacio">
+                                    <h4><b>Aún no tienes viajes</b></h4>
+                                </div>
+                            <% else %>
+                                <%= form_tag(controller:"clientes", action:"reservar_viajes", method:"post" ) do%>
+                            <% @viajes.each_with_index do |viaje, index| %>
+                             <div class="item-ruta border">   
+                                    <div class="row-fluid">
+                                    <div class="span6">
+                                        <label>Ruta:</label>&nbsp<%=viaje.ruta.nombre%></br>
+                                        <label>Fecha:</label>&nbsp<%=viaje.fecha.strftime("%d/%m/%Y")%> </br>
+                                        <label>Km:</label>&nbsp<%=(viaje.ruta.paradas.sum(:distancia))/1000%></br></br>
+                                        
+                                    </div>
+                                    <div class="span6">
+                                        <input type="text" style="display:none;" name="viaje_id_<%=index%>" value="<%=viaje.id%>">   
+                                        <input type="checkbox" name="check_viaje_<%=index%>">                                    
+                                    </div>
+                                </div>
+                            </div><!-- /.item ruta -->
+                            <% end %><!--each reservación-->
+                                </br>
+                            <%= submit_tag("Comprar", :class => "btn btn-pagar btn-flat pull-right")%>
+                                <%end%> <!--form-->
+
+                        <% end %>
+
+
+                        
+                  
                     
                 </div><!-- nav tabs custom -->
             </div>

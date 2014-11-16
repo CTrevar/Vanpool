@@ -12,7 +12,7 @@
    </script>
 <div class="row-fluid">
   <%if @title == "Buscar nuevo viaje"%>
-  <div class="span3">
+  <div class="span4">
   <%else%>
   <div class="col-sm-6">
   <%end%>
@@ -28,7 +28,7 @@
     </div>                  
   </div>
   <%if @title == "Buscar nuevo viaje"%>
-  <div class="span3">
+  <div class="span4">
   <%else%>
   <div class="col-sm-6">
   <%end%>
@@ -39,19 +39,6 @@
         <input id="destinoRuta" class="form-control"  placeholder="Destino" autocomplete="false">
         <input id="destinoLat" name="destinoLat" style="display: none">
         <input id="destinoLng" name="destinoLng" style="display: none">
-        </div>
-    </div>                  
-  </div>
-  <%if @title == "Buscar nuevo viaje"%>
-  <div class="span2">
-  <%else%>
-  <div class="col-sm-6">
-  <%end%>
-    <div class="form-group">
-      <label for="diaViaje">¿Cuándo quieres viajar?</label>
-        <div class="input-group">
-        <span class="input-group-addon"><i class="fa  fa-calendar"></i></span>
-        <input  id="diaViajeRuta" type="text" class="form-control" placeholder='dd/mm/yyyy' data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
         </div>
     </div>                  
   </div>

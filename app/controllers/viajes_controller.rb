@@ -156,6 +156,6 @@ class ViajesController < ApplicationController
       format.html
       format.js
     end
-  end#proximos_jtable
+  end#paradas_jtable
 
 end

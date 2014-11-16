@@ -1,0 +1,36 @@
+<div class="border green">
+<h3 class="nomargin">Viajes de la Ruta</h3>
+</div>
+
+
+    <% if @viajes.first != nil %>
+        <%= form_tag(controller:"clientes", action:"reservar_viajes", method:"post" ) do%>
+        <input type="text" style="display: none;" value="<%=@viajes.count%>" name="cantidad" >
+            <%@cantidad.to_i.times do |index| %>
+            <div class="item-ruta border">
+                <div class="row-fluid">
+                    <div class="span4">
+                        <small>FECHA:</small><b><%= @viajes[index].fecha.strftime("%d/%m/%Y") %></b></br>
+                        <input type="text" name="viaje_<%=index%>" value="<%=@viajes[index].id%>" style="display:none;">
+                    </div>
+                    <div class="span4">
+                        <%if @disponibilidad[index]>0%>
+                                <input type="checkbox" name="check_viaje_<%=index%>">
+                        <%else%>
+                            Este viaje va lleno
+                                <button>Solicitar ruta</button>
+                        <%end%>
+                    </div>
+                </div>
+                    </br>
+            </div   ><!-- /.item -->
+
+            <%end%>
+
+            <%= submit_tag("Comprar", :class => "btn btn-pagar btn-flat pull-right")%>
+        <%end%>
+    <%else%>
+    <div class="item-ruta border">
+        <h2>No hay viajes disponibles en esta ruta.</h2>
+    </div><!-- /.item -->
+    <%end%>

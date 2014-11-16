@@ -470,6 +470,45 @@ end
     end
   end
 
+  def paradas_jtable_filterlist
+    ruta=Ruta.find(params[:id])
+    paradas = ruta.paradas.order('posicion ASC')
+    tiempoParadas = []
+
+    paradas_viajes = []
+    letras = ("A".."Z").to_a
+      paradas.each_with_index do |parada, i|
+        if i == 0
+          tiempoParadas << 0
+        elsif i<=paradas.count
+          parada_id = parada.id
+          tiempo = Rutaparada.find_by_ruta_id_and_parada_id(ruta.id, parada_id).tiempo
+          tiempoParadas<< (tiempoParadas[i-1]+tiempo.to_i)        
+        end
+
+        parada_viaje = Hash.new
+        parada_viaje[:nombre_parada] = parada.nombre.split(",")[0]
+        parada_viaje[:letra] = letras[i]
+        parada_viaje[:tiempo_parada] = (ruta.horario.hora+tiempoParadas[i]).strftime("%I:%M %p")
+        paradas_viajes<<parada_viaje
+      end
+      
+      
+          
+      @results = paradas_viajes
+    
+    respond_to do |format|
+      # Regresamos el resultado de la operación a la jTable
+      jTableResult = {:Result => "OK",
+                      :TotalRecordCount => paradas.count,
+                      :Records => @results
+                      }
+      format.json { render json: jTableResult}
+      format.html
+      format.js
+    end
+  end#paradas_jtable
+
 
 	private
 	#Crea viajes por primera vez de la ruta con las fechas indicadas en la frecuencia semanal por un mes

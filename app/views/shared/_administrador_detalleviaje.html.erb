@@ -188,7 +188,7 @@ $(function(){
         <small>DESTINO:</small><b>&nbsp<%= @viaje.ruta.paradas.order('posicion ASC').last.nombre %></b></br>
         <small>HORA DE LLEGADA:</small><b>&nbsp<%=(@viaje.horainicio+ @viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></b></br></br>
 
-        <small>CONDUCTOR:</small><b>&nbsp<%=@viaje.ruta.conductor.user.name%> <%=@viaje.ruta.conductor.user.apellidoPaterno%></b></br>
+        <small>CONDUCTOR:</small><b>&nbsp<%=@viaje.ruta.conductor.user.name%></b></br>
         <small>VAN:</small><b>&nbsp<%=@viaje.ruta.van.modelo%> <%=@viaje.ruta.van.placa%></b></br>
     	<small>NÚM DE PASAJEROS:</small><b>&nbsp<%=@pasajeros%></b></br>
     	<small>DISPONIBLE:</small><b>&nbsp<%=@disponibilidad%></b></br></br>
@@ -199,7 +199,7 @@ $(function(){
     </div> <!--span -->
 
     <div class="span6">
-    	Recorrido de viaje
+    	<small>RECORRIDO DE VIAJE</small>
         <div id="map-canvas" style="height: 500px;  max-width:none;"></div>
     </div>
 </div><!--row-->

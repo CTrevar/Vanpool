@@ -201,9 +201,9 @@ class ClientesController < ApplicationController
     render 'show_muro'
   end
 
-  # GET /reservaciones
-  def reservaciones
-    @title="Reservaciones"
+  # GET /viajes
+  def viajes
+    @title="Mis Viajes"
     @current_cliente = obtener_cliente(current_user)
     @validareservas=valida_viajes(@cliente)
     @validaviajes=valida_viajes_completos(@cliente)
@@ -222,10 +222,22 @@ class ClientesController < ApplicationController
 
     @reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
     @reservaciones_canceladas=@current_cliente.reservacions.find_all_by_estadotipo_id(4)
-
-
     
+    render 'show_viajes'
+  end
 
+  # GET /reservaciones
+  def reservaciones
+    @title="Mis Reservas"
+    @current_cliente = obtener_cliente(current_user)
+    @validareservas=valida_viajes(@cliente)
+    @validaviajes=valida_viajes_completos(@cliente)
+
+    @reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
+    @disponibilidad_pendientes = []
+    @reservaciones_pendientes.each do |reserva_pendiente|
+      @disponibilidad_pendientes<< calcula_disponibilidad_viaje(reserva_pendiente.viaje)
+    end
     
     render 'show_reservaciones'
   end
@@ -261,9 +273,7 @@ class ClientesController < ApplicationController
 
     @horainicio = params[:horainicio]
 
-    @fechainicio = params[:fechainicio]
-
-    @result=busqueda(@origen, @destino, @fechainicio)
+    @result=busqueda(@origen, @destino)
 
     if @result.blank?
       create_sugerencia(@origen, @destino, @horainicio, @origenDireccion, @destinoDireccion)
@@ -302,6 +312,60 @@ class ClientesController < ApplicationController
     end
 
     render 'buscar_zona'
+  end
+
+  def listar_rutas
+    @title="Buscar Rutas"
+    @current_cliente = obtener_cliente(current_user)
+    @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2).last(3)
+    
+    @result = Ruta.where("estatus = 't'")
+
+    render 'buscar_zona'
+
+  end
+
+  def listar_rutas_zona
+    filtro_zona_id = params[:zona_id]
+    @result = []
+
+    if filtro_zona_id.blank?
+      @result = Ruta.where("estatus = 't'")
+    else
+      @result = Ruta.where("estatus = 't' and zona_id = ?", filtro_zona_id)
+    end
+
+
+    respond_to do |format|
+        #Enviar viajes resultantes
+        format.html { render partial: 'shared/user_rutas_zona', locals: { result: @result}, layout:false}
+        
+    end
+      
+  end
+
+  def cliente_detalleruta
+
+      @ruta= Ruta.find(params[:ruta_id])
+      @paradas = @ruta.paradas.order('posicion ASC')
+      @origen = @paradas.first
+      @destino = @paradas.last
+      
+      @tiempoParadas = []
+      @paradas.each_with_index do |parada, i|
+        if i == 0
+          @tiempoParadas << 0
+        elsif i<=@paradas.count
+          parada_id = parada.id
+          tiempo = Rutaparada.find_by_ruta_id_and_parada_id(@ruta.id, parada_id).tiempo
+          @tiempoParadas<< (@tiempoParadas[i-1]+tiempo.to_i)        
+        end
+      end
+
+
+      respond_to do |format|
+        format.html {render partial: 'shared/user_detalleruta', locals: { ruta: @ruta, origen: @origen, destino: @destino, paradas: @paradas, tiempoParadas: @tiempoParadas }}
+      end
   end
 
 
@@ -343,7 +407,79 @@ class ClientesController < ApplicationController
   end
 
 
+  def comprar_viajes
+    @title = "Compra de Viajes"
+    @current_cliente = obtener_cliente(current_user)
+    @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2).last(3)
 
+    @ruta = Ruta.find(params[:id])
+    @cantidad = params[:cantidad]
+
+
+    @viajes = Viaje.where("ruta_id = ? and estadoviaje_id = 2", @ruta.id)
+    @disponibilidad = []
+
+    @viajes.each do |viaje|
+      @disponibilidad<<calcula_disponibilidad_viaje(viaje)
+    end
+
+    render 'comprar_viajes'
+  end
+
+
+  def reservar_viajes
+    current_cliente = obtener_cliente(current_user)
+    cantidad = params[:cantidad]
+
+    #checar si hay saldo
+    #si no hay saldo
+      session[:reservaciones] =  Array.new if !session[:reservaciones]
+
+    cantidad.to_i.times do |index|
+      checked=params[:"check_viaje_#{index}"]
+      if checked
+        viaje_id = params[:"viaje_#{index}"]
+        reserva = Reservacion.new
+        reserva.viaje_id = viaje_id
+        reserva.cliente_id = current_cliente.id
+
+        #si tiene saldo, se guarda a la bd con estatus 2 (pagada)
+          #reserva.estadotipo_id = 2
+          #reserva.estatus = true
+          #reserva.save
+
+        #si no tiene saldo guardar reservaciones en sesión
+          session[:reservaciones] << viaje_id
+      end
+
+    end
+
+      #si tiene saldo, da render a mensaje exitoso
+      redirect_to :action=>'viajes', :mensaje => "Compra exitosa"
+
+      #si no tiene saldo, guarda las reservas en la sesión y
+      #redirecciona a recargar saldo con mensaje que necesita recargar saldo
+      #redirect_to :action=>'viajes', :mensaje => "No tienes saldo suficiente"
+
+
+
+
+  end
+
+  #carrito
+  def reservaciones
+    viajes_id = session[:reservaciones]
+    if viajes_id
+      @viajes = []
+      viajes_id.each do |viaje_id|
+        @viajes << Viaje.find(viaje_id)
+      end
+    end
+    
+
+
+    render 'show_reservaciones'
+  end
 
 
   # =======================================================

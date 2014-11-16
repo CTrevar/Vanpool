@@ -1,6 +1,8 @@
 <% provide(:title, 'Sugerencias') %>
 <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp" %>
 <%= stylesheet_link_tag "rutas", media: "all" %>
+<%= javascript_include_tag "sugerencias.js.coffee" %>
+
 <script type="text/javascript">
 
 </script>
@@ -32,39 +34,13 @@
 
       <div class="row-fluid">
               <div class="col-md-6">
+                        <div id="mensaje"></div>
                         
-                        <% if(@results.first!=nil)%>
-                        <div class="slimScrollDiv" >
-                            <%= will_paginate @results %>
-                                <% @results.each do |result| %>
-                                  <% sug_id = result[:id] %>
-                                  <% result_cercanas = result[:sugerencias_cercanas]%>
-                                    <div class="item-ruta border">
-                                    <div class="row-fluid">
-                                            <button class="btn btn-danger btn-sm pull-right" onclick="borrarSugerencia(#{sug_id}, #{result_cercanas})"><i class="fa fa-trash-o"></i> Borrar</button></br>
-                                            <small class="label label-warning"><%= result[:numero_incidencias] %> incidencias</small></br>
-                                            <small>ORIGEN:</small><b><%= result[:sugerencia].sugerenciaparadas.order('posicion ASC').first.nombre.split(",")[0] %></b></br>
-                                            <small>DESTINO:</small><b><%= result[:sugerencia].sugerenciaparadas.order('posicion ASC').last.nombre.split(",")[0] %></b></br>
-                                       
-                                    </br>
-                                          
-                                          <%= link_to "Ver Detalle", '#', onclick: "mostrarDetalle(#{sug_id}, #{result_cercanas})", class: "btn btn-buscar-nav btn-flat span5 pull-right" %>
-                                         
-                                        </div>
-                                    
-                                    </div><!-- /.item -->
-                            <% end %>
-                            <%= will_paginate @results %>
-                          </div> <!--lista sugs -->
-                              <% else %>
-                                <div class="item-ruta border">
-                                    <h2>No hay sugerencias enviadas.</h2>
-                                </div>
-                            <% end %>
+                        <div id="sugerencias"><%= render partial: "shared/show_sugerencias" %></div>
                           </br>
                     </div><!--columna-->
                     <div class= "col-md-6">
-                      <div id="detalleSugerencia" style="display:none;"></di
+                      <div id="detalleSugerencia" style="display:none;"></div>
                     </div> <!--column-->
 
 
@@ -86,11 +62,22 @@
 
 
 <script type="text/javascript">
-  
-  function mostrarDetalle(sug_id, result){
+
+// $(function(){
+//  // $('#sugerencias').html('<%= render partial: "shared/show_sugerencias" %>');
+
+// $('.pagination').on('click', 'a', function(event) {
+//       $("#sugerencias").html($.get(this.href, null, null, "script"));
+//       event.preventDefault();
+//     });
+    
+// });
+
+
+  function mostrarDetalle(sug_id, cercanas){
     var data={
      sugerencia_id: sug_id,
-     resultado: result
+     resultado: cercanas
     };
     $.get('/administrador_detallesugerencia/', data, function(result){
                             $("#detalleSugerencia").html(result);
@@ -99,15 +86,20 @@
                       
   }
 
-  function borrarSugerencia(sug_id, result){
+  function borrarSugerencia(sug_id, cercanas){
     var data={
      sugerencia_id: sug_id,
-     cercanas_id: result
+     cercanas_id: cercanas
     };
     $.post('/borrar_sugerencia/', data, function(result){
-              location.reload(true);
+              $("#mensaje").html(result);
                         }).success();
-    
-  }
+  // 
+   $("#mensaje").show('fast');
+   location.reload();
+    // $.get('/mostrar_sugerencias', null, function(result){
+    //   $("#sugerencias").html(result);
+    //                     }).success();  
+}
 
 </script>

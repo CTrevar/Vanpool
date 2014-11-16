@@ -283,6 +283,16 @@ class AdministradorsController < ApplicationController
     @results = incidencias.reverse.paginate(:page => params[:page], :per_page => 5)
   end
 
+  def sugerencias_refresh
+    incidencias =incidencias_sugerencias
+    incidencias.sort_by! { |hsh| hsh[:numero_incidencias] }
+    @results = incidencias.reverse.paginate(:page => params[:page], :per_page => 5)
+
+    respond_to do |format|
+        format.html {render partial: 'shared/show_sugerencias', locals: { results: @results }}
+    end
+  end
+
   def administrador_detallesugerencia
     sugerencia_id = params[:sugerencia_id]
     result = params[:resultado]
