@@ -358,7 +358,7 @@ Zona.create!([
   {clave: "CTmty", nombre: "Centro", estauts: true, ciudad_id: 1},
   {clave: "CUmty", nombre: "Cumbres", estauts: true, ciudad_id: 1}
 ])
-Calificaciontipo.create!([
+Tipocalificacion.create!([
   {nombre: "Malo"},
   {nombre: "Regular"},
   {nombre: "Bueno"},
