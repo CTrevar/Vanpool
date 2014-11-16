@@ -4,7 +4,7 @@ class ChangeUser < ActiveRecord::Migration
     add_column :users, :apellidoPaterno, :string
     add_column :users, :apellidoMaterno, :string
     add_column :users, :fechaNacimiento, :datetime
-    add_column :users, :estatusUsuario, :boolean
+  
   end
 
   def down

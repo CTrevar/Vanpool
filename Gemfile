@@ -13,6 +13,8 @@ gem 'active_median', '~> 0.1.0'
 gem 'geocoder'
 gem 'whenever'
 gem 'delayed_job_active_record'
+gem 'pg'
+gem 'rack', "~> 1.4.5" 
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -26,7 +28,7 @@ gem 'omniauth-facebook'
 gem 'koala'
 
 group :development, :test do
-  gem 'sqlite3', '1.3.5'
+  gem 'sqlite3'
   gem 'rspec-rails', '2.9.0'
   gem 'guard-rspec', '0.5.5'
   gem 'guard-spork', '0.3.2'
