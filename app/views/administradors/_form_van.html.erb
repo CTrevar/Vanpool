@@ -1,7 +1,7 @@
 <% disabled ||= false %>
 <% exito ||= false %>
 <% create ||= false %>
-<%= form_for @van, remote: true, :url => "/van_controller/#{@action}" do |f| %>
+<%= form_for @van, :url => "/van_controller/#{@action}" do |f| %>
     </br>
     <%  if exito %>
         <div class="alert alert-success alert-dismissable">
@@ -26,7 +26,7 @@
           </ul>
         </div>
     <% end %>
-    <%= f.text_field :id, :value => @van.id%>
+    <%= f.hidden_field :id, :value => @van.id%>
 
 
       <div class="form-group">

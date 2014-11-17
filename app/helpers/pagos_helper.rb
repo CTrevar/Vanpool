@@ -44,18 +44,28 @@ module PagosHelper
   	end
 
 
-    def compra
+    def compra (cantidad)
         @cuenta=obtener_cuenta
+        @cliente=obtener_cliente(current_user)
 
         @transfers=@openpay.create(:transfers)
         request_hash={
-            "customer_id" => "ate1ywygq39yso3xz5yw",
-            "amount" => 30,
+            "customer_id" => @cliente.openpay_id, #openpay_id de cliente
+            "amount" => cantidad,
             "description" => "Compra de viaje"
         }
-        response_hash=@transfers.create(request_hash.to_hash, @cuenta["id"])
+        return @transfers.create(request_hash.to_hash, @cuenta["id"]) #numero de referencia de pago
         ##generar qr y reserva cambia de status
-        redirect_to :controller => 'clientes', :action => 'dashboard'
+        #redirect_to :controller => 'clientes', :action => 'dashboard'
+    end
+
+    def obtener_saldo
+        return obtener_cuenta["balance"]
+    end
+
+    def valida_saldo_suficiente (cantidad)
+        saldo = obtener_saldo
+        return saldo>cantidad
     end
 
 

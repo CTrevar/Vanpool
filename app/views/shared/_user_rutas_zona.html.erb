@@ -25,9 +25,9 @@
                             <tr>
                                 <td>
                                     <% if ruta.frecuencia.lunes %>
-                                    <input type="checkbox" style="position: absolute; opacity: 0;" name="lunes" checked>
+                                    <input type="checkbox" class="icheckbox_minimal" name="lunes" checked>
                                     <%else%>
-                                    <input type="checkbox"  name="lunes" style="position: absolute; opacity: 0;">
+                                    <input type="checkbox" class="icheckbox_minimal" name="lunes">
                                     <%end%>
                                 </td>
                                 <td>
@@ -53,21 +53,21 @@
                                 </td>
                                 <td>
                                     <% if ruta.frecuencia.viernes %>
-                                    <input type="checkbox" name="viernes" checked>
+                                    <input type="checkbox" class="icheckbox_minimal" name="viernes" checked>
                                     <%else%>
-                                    <input type="checkbox" name="viernes">
+                                    <input type="checkbox" class="icheckbox_minimal" name="viernes">
                                     <%end%>
                                 </td>
                                 <td><% if ruta.frecuencia.sabado %>
-                                    <input type="checkbox" name="sabado" checked>
+                                    <input type="checkbox" class="icheckbox_minimal" name="sabado" checked>
                                     <%else%>
-                                    <input type="checkbox" name="sabado">
+                                    <input type="checkbox" class="icheckbox_minimal" name="sabado">
                                     <%end%>
                                 </td>
                                 <td><% if ruta.frecuencia.domingo %>
-                                    <input type="checkbox" name="domingo" checked>
+                                    <input type="checkbox" class="icheckbox_minimal" name="domingo" checked>
                                     <%else%>
-                                    <input type="checkbox" name="domingo">
+                                    <input type="checkbox" class="icheckbox_minimal" name="domingo">
                                     <%end%>
                                 </td>
                             </tr>
@@ -84,9 +84,8 @@
                     </div>
             </br>
                 <div class="row-fluid" style ="position: absolute; bottom: 20px;">
-                 <%= link_to "Ver detalle", "#", onclick: "mostrarDetalle(#{ruta.id});", class:"btn btn-buscar-nav btn-flat span5 pull-right", style:"margin-right: 26px;" %>
-                 <% paradas=  ruta.paradas.to_json %>
-                <%= link_to "Comprar", '#', onclick: "trazarRuta(#{paradas});", class: "btn btn-pagar btn-flat span5" %>
+                 <!--#<%= link_to "Ver detalle", "#", onclick: "mostrarDetalle(#{ruta.id});", class:"btn btn-buscar-nav btn-flat span5 pull-right", style:"margin-right: 26px;" %>-->
+                <%= link_to "Comprar", "/ver_ruta/#{ruta.id}", class: "btn btn-buscar-nav btn-flat span5 pull-right", style:"margin-right: 26px;" %>
                 </div>
             
             </div><!-- /.item -->

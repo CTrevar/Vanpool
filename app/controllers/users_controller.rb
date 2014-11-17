@@ -18,8 +18,9 @@
 	end
 
 	def create
-		@user = User.new(params[:user])
-		if @user.save
+		ruta_id = params[:user][:ruta_id]
+		@user = User.new(params[:user].except(:ruta_id))
+		if @user.save!
 			
         	
 			sign_in @user
@@ -41,7 +42,11 @@
     		response_hash=@customers.create(request_hash.to_hash)
     		@cliente.openpay_id=response_hash["id"]
     		@cliente.save
-			redirect_to :controller => 'clientes', :action => 'dashboard'
+    		if ruta_id
+    			redirect_to '/ver_rutas/#{ruta_id}'
+    		else
+				redirect_to :controller => 'clientes', :action => 'dashboard'
+			end
 		else
 			render 'new'
 		end

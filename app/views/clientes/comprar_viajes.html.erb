@@ -1,10 +1,30 @@
 <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp" %>
 <%= stylesheet_link_tag "rutas", media: "all" %>
 <% provide(:title, @title) %>
+<%if signed_in? %>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $("#show").click(function(){
+        var data={
+         cantidad: $('.cantidad:checked').val(),
+         id: $('#id').val()
+        }
+
+        $.post('/mostrar_viajes' , data, function(result){
+                                    $("#lista").html(result);
+        }).success();
+        $("#lista").show();
+        
+      });
+    });
+    </script>
  <div class="wrapper row-offcanvas row-offcanvas-left">
     <aside class="left-side sidebar-offcanvas">
-        <%= render 'shared/user_sidebar' %> 
+        
+            <%= render 'shared/user_sidebar' %> 
+        
     </aside>
+<%end%>
     <aside class="right-side">
     <section class="content-header">
         <h1>Rutas</h1>
@@ -17,10 +37,13 @@
     <section class="content">
     	<div class="row-fluid">
     		<%= render 'shared/user_detalleruta'%>
-    	</div>
-        <div class="row-fluid">
-            <%= render 'shared/user_rutas_viajes' %>
+    	</div></br></br>
+        <div class="row-fluid" style="display:none;" id="lista">
+            
         </div>
     </section>                                  
     </aside><!-- /.right-side -->
 </div><!-- ./wrapper -->
+
+
+<%= render 'shared/modal_registro'%>

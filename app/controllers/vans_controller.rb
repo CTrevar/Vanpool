@@ -98,11 +98,11 @@ class VansController < ApplicationController
     jtPageSize = params[:jtPageSize]
     jtStartPage = jtStartIndex.to_i / jtPageSize.to_i + 1
 
-    @results = Van.order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+    @results = Van.where("estatus = 't'").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     respond_to do |format|
       # Regresamos el resultado de la operación a la jTable
       jTableResult = {:Result => "OK",
-                      :TotalRecordCount => Van.count,
+                      :TotalRecordCount => Van.where("estatus = 't'").count,
                       :Records => @results}
       format.json { render json: jTableResult}
       format.html
@@ -123,7 +123,7 @@ class VansController < ApplicationController
 
     # Si el campo de busqueda tiene solo espacios en blanco.
     if jtTextoBusqueda.blank? || jtTextoBusqueda.to_s == ''
-      @results = Van.order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+      @results = Van.where("estatus = 't'").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     else
       # Si contiene algo más realiza la búsqueda en todos los atributos de la tabla.
       @results = Van.where( "LOWER(placa) LIKE '%#{jtTextoBusqueda.downcase}%' OR LOWER(modelo) LIKE '%#{jtTextoBusqueda.downcase}%' OR
@@ -133,7 +133,7 @@ class VansController < ApplicationController
     respond_to do |format|
       # Regresamos el resultado de la operación a la jTable
       jTableResult = {:Result => "OK",
-                      :TotalRecordCount => Van.count,
+                      :TotalRecordCount => Van.where("estatus = 't'").count,
                       :Records => @results
                       }
       format.json { render json: jTableResult}
@@ -154,7 +154,9 @@ class VansController < ApplicationController
     bolExito = true
     errMensaje = ''
     begin
-      @van.delete
+      @van.activa = false
+      @van.estatus = false
+      @van.save
     rescue => e
       bolExito = false
       errMensaje = "No se pudo eliminar. Revise el error: #{e}"

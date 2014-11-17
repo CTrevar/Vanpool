@@ -1,7 +1,7 @@
 <% disabled ||= false %>
 <% exito ||= false %>
 <% create ||= false %>
-<%= form_for @medalla,  :url => "/medalla_controller/#{@action}", :html => { :multipart => true } do |f| %>
+<%= form_for @medalla,  :url => "/medalla_controller/#{@action}", :html =>{:multipart => true} do |f| %>
     </br>
     <%  if exito %>
         <div class="alert alert-success alert-dismissable">
@@ -63,10 +63,7 @@
       <div class="form-group">
         <label>ImagenMedalla</label>
 
-        <div class="row-fluid">
-          <input name="lol">
-          <input id="file" name="imagenmedalla" type="file"></input>
-
+        <div class="row-fluid"> 
             <%= f.file_field :imagenmedalla%>
   
         </div>

@@ -23,19 +23,23 @@
                                 </div>
                             <% else %>
                                 <%= form_tag(controller:"clientes", action:"reservar_viajes", method:"post" ) do%>
+                                <input type="text" style="display: none;" value="<%=@viajes.count%>" name="cantidad" >
+                                <input type="text" style="display: none;" value="<%=@viajes.first.ruta.id%>" name="id" >
                             <% @viajes.each_with_index do |viaje, index| %>
                              <div class="item-ruta border">   
                                     <div class="row-fluid">
-                                    <div class="span6">
-                                        <label>Ruta:</label>&nbsp<%=viaje.ruta.nombre%></br>
-                                        <label>Fecha:</label>&nbsp<%=viaje.fecha.strftime("%d/%m/%Y")%> </br>
-                                        <label>Km:</label>&nbsp<%=(viaje.ruta.paradas.sum(:distancia))/1000%></br></br>
-                                        
-                                    </div>
-                                    <div class="span6">
-                                        <input type="text" style="display:none;" name="viaje_id_<%=index%>" value="<%=viaje.id%>">   
-                                        <input type="checkbox" name="check_viaje_<%=index%>">                                    
-                                    </div>
+                                        <div class="span2">
+                                             <input type="text" name="viaje_<%=index%>" value="<%=@viajes[index].id%>" style="display:none;">   
+                                            <input type="checkbox" name="check_viaje_<%=index%>">                                 
+                                        </div>
+
+                                        <div class="span10">
+                                            <label>Ruta:</label>&nbsp<%=viaje.ruta.nombre%></br>
+                                            <label>Fecha:</label>&nbsp<%=viaje.fecha.strftime("%d/%m/%Y")%> </br>
+                                            <label>Km:</label>&nbsp<%=(viaje.ruta.paradas.sum(:distancia))/1000%></br></br>
+                                            
+                                        </div>
+                                    
                                 </div>
                             </div><!-- /.item ruta -->
                             <% end %><!--each reservación-->

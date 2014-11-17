@@ -21,8 +21,8 @@
                 </div>
                 </div>
             </br>
-                <div class="row-fluid">
-                 <%= link_to "Ver detalle", "/viajes/#{ruta.id}/detalle", class:"btn btn-buscar-nav btn-flat span5 pull-right" %>
+                <div class="row-fluid"><!--"/viajes/#{ruta.id}/detalle"-->
+                 <%= link_to "Ver detalle", "/ver_ruta/#{ruta.id}", class:"btn btn-buscar-nav btn-flat span5 pull-right" %>
                  <% paradas=  ruta.paradas.to_json %>
                 <%= link_to "Ver en Mapa", '#', onclick: "trazarRuta(#{paradas});", class: " span5" %>
                 </div>

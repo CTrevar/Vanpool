@@ -9,7 +9,14 @@ $(document).ready(function(){
     }
 
     $.post('/resultado_zona' , data, function(result){
-                                $("#lista").html(result);
+        /*  var styles = document.getElementsByTagName("link");
+          for (var i=0;i<styles.length;i++) {
+             if (styles[i].rel = "stylesheet" && styles[i].href=="/assets/AdminLTE.css?body=1"){
+                alert(styles[i].href);
+            }
+          }*/
+          document.getElementById("lista").innerHTML= result;
+                              //  $("#lista").html(result);
     }).success();
     $("#detalleRuta").hide('fast');
     $("#lista").show();

@@ -127,10 +127,8 @@ SampleApp::Application.routes.draw do
 
   match '/van_controller/jtable_list',   to: 'vans#jtable_list',   via: [:get, :post]
   match '/van_controller/jtable_filterlist',   to: 'vans#jtable_filterlist',   via: [:get, :post]
-  match '/van_controller/jtable_create',   to: 'vans#jtable_create',   via: [:get, :post]
   match '/van_controller/jtable_delete',   to: 'vans#jtable_delete',   via: [:post]
-  match '/van_controller/jtable_update',   to: 'vans#jtable_update',   via: [:post]
-  match '/van_controller/create',   to: 'vans#update',   via: [:post,:put]
+  match '/van_controller/create',   to: 'vans#create',   via: [:post,:put]
   match '/van_controller/update',   to: 'vans#update',   via: [:post,:put]
 
   match '/administrar_van_detalle',   to: 'administradors#administrador_detallevan',   via: [:get, :post, :put]
@@ -192,8 +190,10 @@ SampleApp::Application.routes.draw do
 
   match '/cliente_detalleruta', to: 'clientes#cliente_detalleruta', via: [:get]
 
-  match '/comprar_viajes', to: 'clientes#comprar_viajes', via: [:get]
+  match '/mostrar_viajes', to: 'clientes#comprar_viajes', via: [:get, :post]
   match '/comprar_viajes', to: 'clientes#reservar_viajes', via: [:post]
+
+  match '/ver_ruta/:id', to: 'clientes#ver_ruta', via:[:get]
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

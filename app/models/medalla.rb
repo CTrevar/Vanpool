@@ -5,5 +5,6 @@ class Medalla < ActiveRecord::Base
 	has_many :clientes, through: :medallasmuros, source: :cliente
 	has_one :descuentos
 	has_attached_file :imagenmedalla, :default_url => "/assets/avatar04.png"
-	validates_attachment_content_type :imagenmedalla, :content_type => /\Aimage\/.*\Z/
+	#validates_attachment_content_type :imagenmedalla, :content_type => /\Aimage\/.*\Z/
+	validates_attachment_content_type :imagenmedalla, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 end

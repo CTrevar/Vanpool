@@ -227,20 +227,20 @@ class ClientesController < ApplicationController
   end
 
   # GET /reservaciones
-  def reservaciones
-    @title="Mis Reservas"
-    @current_cliente = obtener_cliente(current_user)
-    @validareservas=valida_viajes(@cliente)
-    @validaviajes=valida_viajes_completos(@cliente)
+  # def reservaciones
+  #   @title="Mis Reservas"
+  #   @current_cliente = obtener_cliente(current_user)
+  #   @validareservas=valida_viajes(@cliente)
+  #   @validaviajes=valida_viajes_completos(@cliente)
 
-    @reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
-    @disponibilidad_pendientes = []
-    @reservaciones_pendientes.each do |reserva_pendiente|
-      @disponibilidad_pendientes<< calcula_disponibilidad_viaje(reserva_pendiente.viaje)
-    end
+  #   @reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
+  #   @disponibilidad_pendientes = []
+  #   @reservaciones_pendientes.each do |reserva_pendiente|
+  #     @disponibilidad_pendientes<< calcula_disponibilidad_viaje(reserva_pendiente.viaje)
+  #   end
     
-    render 'show_reservaciones'
-  end
+  #   render 'show_reservaciones'
+  # end
 
 
   def reporte
@@ -409,33 +409,52 @@ class ClientesController < ApplicationController
 
   def comprar_viajes
     @title = "Compra de Viajes"
-    @current_cliente = obtener_cliente(current_user)
-    @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2).last(3)
 
     @ruta = Ruta.find(params[:id])
-    @cantidad = params[:cantidad]
+    @cantidad = params[:cantidad].to_i
 
 
-    @viajes = Viaje.where("ruta_id = ? and estadoviaje_id = 2", @ruta.id)
+    @viajes = Viaje.where("ruta_id = ? and estadoviaje_id = 2", @ruta.id).take(@cantidad)
     @disponibilidad = []
 
     @viajes.each do |viaje|
       @disponibilidad<<calcula_disponibilidad_viaje(viaje)
     end
 
-    render 'comprar_viajes'
+    respond_to do |format|
+        format.html {render partial: 'shared/user_rutas_viajes', locals: { viajes: @viajes }, layout:false}
+    end
+    #render 'comprar_viajes'
   end
 
 
   def reservar_viajes
     current_cliente = obtener_cliente(current_user)
-    cantidad = params[:cantidad]
+    cantidad_viajes = params[:cantidad].to_i
+    cantidad_viajes_seleccionados = 0
+    cantidad_viajes.times do |index|
+      checked=params[:"check_viaje_#{index}"]
+      if checked
+        cantidad_viajes_seleccionados += 1
+      end
+    end
 
-    #checar si hay saldo
+    costo_por_viaje = Ruta.find(params[:id]).precio.to_f
+    cantidad_pago = cantidad_viajes_seleccionados*costo_por_viaje
+
+    #checar si tiene saldo suficiente
+    tiene_saldo= valida_saldo_suficiente(cantidad_pago)
+
+    if tiene_saldo
+        referenciapago=compra(cantidad_pago)
+    end
+
     #si no hay saldo
+    if !tiene_saldo
       session[:reservaciones] =  Array.new if !session[:reservaciones]
+    end
 
-    cantidad.to_i.times do |index|
+    cantidad_viajes.times do |index|
       checked=params[:"check_viaje_#{index}"]
       if checked
         viaje_id = params[:"viaje_#{index}"]
@@ -444,22 +463,31 @@ class ClientesController < ApplicationController
         reserva.cliente_id = current_cliente.id
 
         #si tiene saldo, se guarda a la bd con estatus 2 (pagada)
-          #reserva.estadotipo_id = 2
-          #reserva.estatus = true
-          #reserva.save
+        if tiene_saldo
+          reserva.estadotipo_id = 2
+          reserva.estatus = true
+          reserva.referenciapago_id = referenciapago
+          reserva.save
+        end
 
         #si no tiene saldo guardar reservaciones en sesión
+        if !tiene_saldo
           session[:reservaciones] << viaje_id
+        end
       end
 
     end
 
       #si tiene saldo, da render a mensaje exitoso
-      redirect_to :action=>'viajes', :mensaje => "Compra exitosa"
+      if tiene_saldo
+        redirect_to :action=>'viajes', :mensaje => "Compra exitosa"
+      end
 
       #si no tiene saldo, guarda las reservas en la sesión y
       #redirecciona a recargar saldo con mensaje que necesita recargar saldo
-      #redirect_to :action=>'viajes', :mensaje => "No tienes saldo suficiente"
+      if !tiene_saldo
+        redirect_to :action=>'compracredito', :mensaje => "No tienes saldo suficiente. Recarga."
+      end
 
 
 
@@ -468,6 +496,9 @@ class ClientesController < ApplicationController
 
   #carrito
   def reservaciones
+    @title="Mis Reservas"
+    @current_cliente = obtener_cliente(current_user)
+
     viajes_id = session[:reservaciones]
     if viajes_id
       @viajes = []
@@ -480,6 +511,17 @@ class ClientesController < ApplicationController
 
     render 'show_reservaciones'
   end
+
+
+  def ver_ruta
+    @ruta=Ruta.find(params[:id])
+    @title = @ruta.nombre
+    if signed_in?
+      @current_cliente = obtener_cliente(current_user)
+    end
+    render 'comprar_viajes'
+  end
+
 
 
   # =======================================================

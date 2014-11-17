@@ -28,9 +28,7 @@ class MedallasController < ApplicationController
   # GET /medallas/new
   # GET /medallas/new.json
   def new
-    @user = User.new
     @medalla = Medalla.new
-    @cliente = obtener_cliente
 
     respond_to do |format|
       format.html # new.html.erb
@@ -91,20 +89,21 @@ class MedallasController < ApplicationController
   # POST /conductors
   # POST /conductors.json
   def create
-    #paramsmedalla = OpenStruct.new params[:medalla]
-    #paramsuser = OpenStruct.new paramsconductor.user
-    @medalla = Medalla.new(params[:medalla])
-    #user = User.new
-    # @medalla.attributes = {:nombre => paramsmedalla.nombre, 
-    #                       :puntos => paramsmedalla.puntos, 
-    #                       :tipomedalla_id => paramsmedalla.tipomedalla_id, 
-    #                       :imagen => paramsmedalla.imagen, 
-    #                       :estatus => true,
-    #                       :estado => paramsmedalla.estado, 
-    #                       :descripcion => paramsmedalla.descripcion,
-    #                       :imagenmedalla => paramsmedalla.imagenmedalla
-    #                    } 
-    #@conductor.user = user
+    paramsmedalla = OpenStruct.new params[:medalla]
+    
+    @medalla = Medalla.new #(params[:medalla])
+
+    
+    @medalla.attributes = {:nombre => paramsmedalla.nombre, 
+                          :puntos => paramsmedalla.puntos, 
+                          :tipomedalla_id => paramsmedalla.tipomedalla_id, 
+                          :imagen => paramsmedalla.imagen, 
+                          :estatus => true,
+                          :estado => paramsmedalla.estado, 
+                          :descripcion => paramsmedalla.descripcion,
+                          :imagenmedalla => paramsmedalla.imagenmedalla
+                       } 
+    
     @action = 'create'
     if @medalla.valid?
         if @medalla.save!

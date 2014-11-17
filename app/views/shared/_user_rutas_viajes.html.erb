@@ -6,16 +6,17 @@
     <% if @viajes.first != nil %>
         <%= form_tag(controller:"clientes", action:"reservar_viajes", method:"post" ) do%>
         <input type="text" style="display: none;" value="<%=@viajes.count%>" name="cantidad" >
-            <%@cantidad.to_i.times do |index| %>
+        <input type="text" style="display: none;" value="<%=@viajes.first.ruta.id%>" name="id" >
+            <%@viajes.each_with_index do |viaje, index| %>
             <div class="item-ruta border">
                 <div class="row-fluid">
                     <div class="span4">
-                        <small>FECHA:</small><b><%= @viajes[index].fecha.strftime("%d/%m/%Y") %></b></br>
+                        <small>FECHA:</small><b><%= viaje.fecha.strftime("%d/%m/%Y") %></b></br>
                         <input type="text" name="viaje_<%=index%>" value="<%=@viajes[index].id%>" style="display:none;">
                     </div>
                     <div class="span4">
                         <%if @disponibilidad[index]>0%>
-                                <input type="checkbox" name="check_viaje_<%=index%>">
+                                <input type="checkbox" name="check_viaje_<%=index%>" checked>
                         <%else%>
                             Este viaje va lleno
                                 <button>Solicitar ruta</button>
@@ -26,8 +27,11 @@
             </div   ><!-- /.item -->
 
             <%end%>
-
-            <%= submit_tag("Comprar", :class => "btn btn-pagar btn-flat pull-right")%>
+            <%if signed_in? %>
+                <%= submit_tag("Comprar", :class => "btn btn-pagar btn-flat pull-right")%>
+            <%else%>
+                <button data-toggle="modal" data-target="#regitro-modal">Comprar</button>
+            <%end%>
         <%end%>
     <%else%>
     <div class="item-ruta border">
