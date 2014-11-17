@@ -198,7 +198,7 @@ module GamificationHelper
 	def calcula_co2(reservacion)
     	co2emitido=calcula_co2_viaje(reservacion)
         #corregir 
-    	reservacion.cliente.facebook_id= reservacion.cliente.facebook_id.to_f+co2emitido
+    	reservacion.cliente.emisionco2= reservacion.cliente.emisionco2.to_f+co2emitido
     	reservacion.cliente.save
 	end
 

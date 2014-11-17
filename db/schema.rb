@@ -25,15 +25,15 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
   add_index "ciudads", ["pais_id"], :name => "index_ciudads_on_pais_id"
 
   create_table "clientes", :force => true do |t|
-    t.integer  "puntaje",     :default => 0
-    t.integer  "nivel_id",    :default => 1
+    t.integer  "puntaje",    :default => 0
+    t.integer  "nivel_id",   :default => 1
     t.integer  "user_id"
-    t.float    "kilometros",  :default => 0.0
-    t.string   "facebook_id"
+    t.float    "kilometros", :default => 0.0
+    t.float    "emisionco2", :default => 0.0
     t.string   "openpay_id"
-    t.boolean  "estatus",     :default => true
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.boolean  "estatus",    :default => true
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
 
   create_table "conductors", :force => true do |t|
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
 
   create_table "configuracions", :force => true do |t|
     t.string   "nombre"
-    t.text   "valor"
+    t.text     "valor"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -170,12 +170,10 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
 
   create_table "retroalimentacions", :force => true do |t|
     t.integer  "reservacion_id"
-    t.integer  "retroaspecto_id"
-    t.integer  "calificacion"
+    t.integer  "tipocalificacion_id"
     t.integer  "aspecto_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
-    t.integer  "tipocalificacion_id"
   end
 
   create_table "retroaspectos", :force => true do |t|
@@ -240,6 +238,9 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
     t.string   "uid"
     t.boolean  "admin",                  :default => false
     t.boolean  "estatusUsuario",         :default => true
+    t.datetime "fechaNacimiento"
+    t.string   "apellidoPaterno"
+    t.string   "apellidoMaterno"
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
     t.string   "email",                  :default => "",    :null => false
@@ -252,10 +253,6 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.integer  "idTipoUsuario"
-    t.string   "apellidoPaterno"
-    t.string   "apellidoMaterno"
-    t.datetime "fechaNacimiento"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

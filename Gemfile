@@ -13,8 +13,9 @@ gem 'active_median', '~> 0.1.0'
 gem 'geocoder'
 gem 'whenever'
 gem 'delayed_job_active_record'
-gem 'pg'
+#gem 'pg'
 gem 'rack', "~> 1.4.5" 
+gem 'grape'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -68,7 +69,7 @@ group :test do
 end
 
 group :production do
-  #gem 'pg'
+  gem 'pg'
 end
 
 # To use ActiveModel has_secure_password

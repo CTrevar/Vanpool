@@ -5,7 +5,7 @@ class CreateClientes < ActiveRecord::Migration
       t.integer :nivel_id, :default => 1
       t.integer :user_id
       t.float :kilometros, :default => 0.0
-      t.string :facebook_id
+      t.float :emisionco2, :default => 0.0
       t.string :openpay_id
       t.boolean :estatus, :default =>true
 

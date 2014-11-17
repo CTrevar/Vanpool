@@ -6,6 +6,9 @@ class CreateUsers < ActiveRecord::Migration
       t.string :uid
       t.boolean :admin, :default => false
       t.boolean :estatusUsuario, :default => true
+      t.datetime :fechaNacimiento
+      t.string :apellidoPaterno
+      t.string :apellidoMaterno
 
       t.timestamps
     end

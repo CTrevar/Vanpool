@@ -90,6 +90,8 @@ module SampleApp
     #Example:
     #   openpay_prod=OpenpayApi.new(merchant_id,private_key,false,30)
 
+    config.paths.add "app/api", glob: "**/*.rb"
+    config.autoload_paths += Dir["#{Rails.root}/app/api/*"]
 
 
   end

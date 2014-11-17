@@ -20,6 +20,9 @@ namespace :api, :defaults => {:format => :json} do
   
 end
 
+  mount API::Root => '/api'
+
+
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
 
   resources :conductors
