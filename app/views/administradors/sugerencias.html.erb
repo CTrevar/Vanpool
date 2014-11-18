@@ -1,38 +1,9 @@
 <% provide(:title, 'Sugerencias') %>
 <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp" %>
 <%= stylesheet_link_tag "rutas", media: "all" %>
+<%= javascript_include_tag "sugerencias.js.coffee" %>
+
 <script type="text/javascript">
-var map;
-var arregloMarcadores = [];
-
-var infowindow = new google.maps.InfoWindow();
-var dir;
-
-
-function initialize() {
-    
-        //set up del mapa, zoom, centro
-      var mapOptions = {
-        zoom: 13,
-        center: new google.maps.LatLng(19.4329459, -99.1384108)
-      };
-    
-    map = new google.maps.Map(document.getElementById('map-canvas'),
-        mapOptions);
-
-
-    var rendererOptions = { 
-      map: map,
-      draggable: false
-    };
-
-    directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
-    //trazarRuta();
-    
-}
-
-  google.maps.event.addDomListener(window, 'load', initialize);
-
 
 </script>
 <div class="wrapper row-offcanvas row-offcanvas-left">
@@ -63,44 +34,16 @@ function initialize() {
 
       <div class="row-fluid">
               <div class="col-md-6">
-                        <div class="border green">
-                        <h3 class="nomargin">Sugerencias de rutas</h3>
-                        </div> <!--bordergreen-->
-
-                        <% if(@sugerencias.first!=nil)%>
-                        <div class="slimScrollDiv" style="overflow:auto; height: 350px">
-                                <% @sugerencias.each do |sugerencia| %>
-                                    <div class="item-ruta border">
-                                    <div class="row-fluid">
-                                        <div class="span6">
-                                            <h4></h4>
-                                            <small>ORIGEN:</small><b><%= sugerencia.sugerenciaparadas.order('posicion ASC').first.nombre %></b></br>
-                                            <small>DESTINO:</small><b><%= sugerencia.sugerenciaparadas.order('posicion ASC').last.nombre %></b></br>
-                                        </div>
-                                        </div>
-                                    </br>
-                                        <div class="row-fluid">
-                                          <% paradas=  sugerencia.sugerenciaparadas.to_json %>
-                                          <%= link_to "Ver detalle", '#', onclick: "trazarRuta(#{paradas});", class: "btn btn-buscar-nav btn-flat span12 pull-right" %>
-                                         
-                                        </div>
-                                    
-                                    </div><!-- /.item -->
-                            <% end %>
-                          </div> <!--lista sugs -->
-                              <% else %>
-                                <div class="item-ruta border">
-                                    <h2>No hay sugerencias enviadas.</h2>
-                                </div>
-                            <% end %>
+                        <div id="mensaje"></div>
+                        
+                        <div id="sugerencias"><%= render partial: "shared/show_sugerencias" %></div>
                           </br>
                     </div><!--columna-->
                     <div class= "col-md-6">
-                    <div id="mapa">
-                        <div class="mapbox" id="map-canvas">
-                        </div>
-                    </div>
-              </div> <!--column-->
+                      <div id="detalleSugerencia" style="display:none;"></div>
+                    </div> <!--column-->
+
+
       </div><!--row fluid-->
       
 
@@ -108,10 +51,6 @@ function initialize() {
 
         <br/>
       <hr>
-
-
-
-      </table>
 
       <br />
 
@@ -124,70 +63,43 @@ function initialize() {
 
 <script type="text/javascript">
 
+// $(function(){
+//  // $('#sugerencias').html('<%= render partial: "shared/show_sugerencias" %>');
 
- function trazarRuta(paradas){
-    var arregloMarcadores= paradas;
-    var origen = arregloMarcadores[0].latitud+", "+arregloMarcadores[0].longitud;
+// $('.pagination').on('click', 'a', function(event) {
+//       $("#sugerencias").html($.get(this.href, null, null, "script"));
+//       event.preventDefault();
+//     });
     
-    var destino = arregloMarcadores[arregloMarcadores.length-1].latitud+", "+arregloMarcadores[arregloMarcadores.length-1].longitud;
-    var arregloParadas=[];
-
-        if(arregloMarcadores.length>2){
-
-          for(i= 1; i<arregloMarcadores.length-1;i++){
-            var posicionParada = arregloMarcadores[i].latitud+", "+arregloMarcadores[i].longitud;
-            arregloParadas.push({
-                              location: posicionParada,
-                              stopover: true
-                            });
-            
-          }
-
-        }
-
-        //optimize waypoints for admin false, for client will be true
-        var request = {
-          origin: origen,
-          destination: destino,
-          waypoints: arregloParadas,
-          travelMode: google.maps.DirectionsTravelMode.DRIVING,
-          unitSystem: google.maps.UnitSystem.METRIC,
-          optimizeWaypoints: false
-        }
-
-        directionsService = new google.maps.DirectionsService();
-        var rutaa= directionsService.route(request, function(response, status) {
-          if (status == google.maps.DirectionsStatus.OK) {
-            var lineSymbol = {
-              path: google.maps.SymbolPath.FORWARD_OPEN_ARROW
-            };
+// });
 
 
-            var renderOptions = { 
-              map: map,
-              draggable: false,
-              polylineOptions: {
-                  strokeWeight: 4,
-                  strokeOpacity: 0.8,
-                  strokeColor: '#D84743',
-                  icons: [{
-                    icon: lineSymbol,
-                    offset: '25%'
-                  }, {icon: lineSymbol,
-                    offset: '75%'
-                  }]
-              }
-            };
-            directionsDisplay.setOptions(renderOptions);
-            directionsDisplay.setDirections(response);
-            var routeDrawn = response.routes[0];
-                 
-          }
-          else
-            alert ('no se pudo obtener direcciones');
-        });
-
-        
-
+  function mostrarDetalle(sug_id, cercanas){
+    var data={
+     sugerencia_id: sug_id,
+     resultado: cercanas
+    };
+    $.get('/administrador_detallesugerencia/', data, function(result){
+                            $("#detalleSugerencia").html(result);
+                        }).success();
+                        $("#detalleSugerencia").show('fast');
+                      
   }
+
+  function borrarSugerencia(sug_id, cercanas){
+    var data={
+     sugerencia_id: sug_id,
+     cercanas_id: cercanas
+    };
+    $.post('/borrar_sugerencia/', data, function(result){
+              $("#mensaje").html(result);
+                        }).success();
+  // 
+   $("#mensaje").show('fast');
+   location.reload();
+    // $.get('/mostrar_sugerencias', null, function(result){
+    //   $("#sugerencias").html(result);
+    //                     }).success();  
+}
+
 </script>

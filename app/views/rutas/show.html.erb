@@ -1,5 +1,5 @@
-<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp" %>
-<%= javascript_include_tag "mapa" %>
+<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places" %>
+<%= javascript_include_tag "editarrutas" %>
 <%= stylesheet_link_tag "rutas", media: "all" %>
 
 <% provide(:title, 'Ruta') %>
@@ -12,11 +12,12 @@
     <aside class="right-side">
     	<section class="content-header">
                     <h1>
-                        Ruta
+                        Ruta<small><%= @ruta.nombre %></small>
                     </h1>
                     <ol class="breadcrumb">
-                    	<li>Rutas</li>
-                        <li class="active"><%= @ruta.nombre %></li>
+                    	<li><a href="/inicio"><i class="fa fa-home"></i> Inicio</a></li>
+                      <li><a href="/rutas"><i class="fa fa-map-marker"></i> Rutas</a></li>
+                      <li class="active"><%= @ruta.nombre %></li>
                     </ol>
          </section>
 
@@ -29,11 +30,13 @@
 
 <script type="text/javascript">
 
+$(function() {
+  getArreglo(arregloMarcadores);
+});
+var arregloMarcadores= <%= raw @paradas_ruta.to_json %>;
 
-
-
-   function trazarRuta(){
-   	var arregloMarcadores= <%= raw @paradas_ruta.to_json %>;
+   function trazarRutaActual(){
+   	
     var origen = arregloMarcadores[0].latitud+", "+arregloMarcadores[0].longitud;
     var destino = arregloMarcadores[arregloMarcadores.length-1].latitud+", "+arregloMarcadores[arregloMarcadores.length-1].longitud;
     var arregloParadas=[];

@@ -89,3 +89,4 @@ end
 gem 'will_paginate'
 
 gem 'seed_dump'
+gem 'paperclip'

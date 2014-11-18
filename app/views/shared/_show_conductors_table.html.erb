@@ -93,14 +93,6 @@
                         edit: false,
                         create: false
                     },
-                    apellidoPaterno: {
-                        title: 'Apellido P',
-                        width: '10%'
-                    },
-                    apellidoMaterno: {
-                        title: 'Apellido M',
-                        width: '10%'
-                    },
                     fechaNacimiento: {
                         title: 'Nacimiento',
                         width: '10%',
@@ -132,7 +124,7 @@
                   		$selectedRows.each(function(){
                   			var record = $(this).data('record');
                   			$("#conductorId").val(record.id);
-                  			$("#conductorNombre").val(record.name+" "+record.apellidoPaterno);
+                  			$("#conductorNombre").val(record.name);
                   			$("#conductorLicencia").val(record.licenciaConductor);
                   		});
                   		

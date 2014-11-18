@@ -4,67 +4,8 @@
 </ul>
 <div class="tab-content">
   <div class="tab-pane active" id="tab_1-1">
-    <div id="forma_detalle_conductor">
+    <div id="forma_detalle_medalla">
       <h2>Medalla</h2>
-      <%= form_for @medalla do |f| %>
-      
-      <% if @medalla.errors.any? %>
-          <div id="error_explanation">
-            <h2>No se pudo grabar por</h2>
-            <ul>
-              <% @medalla.errors.full_messages.each do |msg| %>
-                  <li><%= msg %></li>
-              <% end %>
-            </ul>
-          </div>
-      <% end %>
-
-      <p>
-        <%= f.text_field :id, style: 'display: none' %>
-      </p>
-      <div class="form-group">
-        <label>Nombre</label>
-        <div class="row-fluid">
-          <%= f.text_field :nombre, class:"form-control span12" %>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Descripción</label>
-        <div class="row-fluid">
-          <%= f.text_field :descripcion, class:"form-control span12" %>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Puntos que asigna</label>
-        <div class="row-fluid">
-          <%= f.number_field :puntos, in: 1.. 1000000, class:"form-control span12" %>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Estado (Cantidad de viajes, retros, etc)</label>
-        <div class="row-fluid">
-          <%= f.number_field :estado, in: 1.. 1000000, class:"form-control span12" %>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Tipo de medalla</label>
-        <div class="row-fluid">
-          <%= f.number_field :tipomedalla_id, in: 1.. 10, class:"form-control span12" %>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Imagen</label>
-        <div class="row-fluid">
-          <%= f.text_field :imagen, class:"form-control span12" %>
-        </div>
-      </div>
-    
-    </div>
-    <div class="row" align=" right">
-      <%= f.submit "Editar", class:"btn btn-flat btn-success pull-right" %>
-    </div>
-  </div><!-- /.tab-pane -->
-  <%end%>
-
+ <%= render 'administradors/form_medalla', locals: { medalla: @medalla, action: @action } %>
 
 </div><!-- /.tab-content -->

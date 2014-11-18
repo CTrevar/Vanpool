@@ -1,20 +1,71 @@
 <% provide(:title, 'La nueva forma de llegar a tu destino') %>
 
+<<<<<<< HEAD
 <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp" %>
 
+=======
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places" %>
+>>>>>>> octubretreinta
 <%= javascript_include_tag "busquedarutas" %>
 
 
+<<<<<<< HEAD
 <%= stylesheet_link_tag "rutas", media: "all" %>
+=======
+<% if signed_in? %>
+	
+			<%= redirect_to '/dashboard' %>
+		
+<% else %>
+<script>
+$(document).ready(function(){
+  $("#show").click(function(){
+    var data={
+     origenLat: $('#origenLat').val(),
+     origenLng: $('#origenLng').val(),
+     destinoLat: $('#destinoLat').val(),
+     destinoLng: $('#destinoLng').val(),
+     horainicio: $('#horainicio').val(),
+     origenRuta: $('#origenRuta').val(),
+     destinoRuta: $('#destinoRuta').val(),
+     fechainicio: $('#diaViajeRuta').val()
+    }
+>>>>>>> octubretreinta
 
+    $.post('/procesar_busqueda' , data, function(result){
+                                $("#lista").html(result);
+    }).success();
+    $("#formaBusqueda").hide();
+    $("#regresar").show();
+    $("#lista").show();
+  });
+});
+
+function buscarOtra(){
+  $("#regresar").hide();
+  $("#lista").hide();
+  $("#formaBusqueda").show();
+
+    directionsDisplay.setMap(null);
+    borrarMarcadores();
+}
+</script>
 	 <div class="row-fluid map">
       <div class="span12">
         <div class="container">
           <div class="row-fluid">
                   <div class="span4">
                     <div class="box">
-                        
-                        <div style="overflow:auto; height: 400px">
+
+                        <div id="formaBusqueda">
+                          <div class="box-header">
+                            </br>
+                            <h3 class="box-title">Busca tu ruta</h3>
+                          </div><!-- /.box-header --> 
+                          <%= render 'shared/user_campos_busqueda', locals: {title: @title} %>
+                        </div><!--formabusqueda-->
+                        <a id="regresar" style="display:none;" onclick="javascript:buscarOtra()"><i class="fa fa-angle-double-left"></i>&nbsp;Buscar otra ruta</a>
+                        <div id="lista" style="overflow:auto; height: 400px; display:none;">
                            
                          </div>
                     </div><!-- /.box -->

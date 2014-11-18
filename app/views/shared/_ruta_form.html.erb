@@ -11,33 +11,6 @@
                     showInputs: false
                 });
             });
- function masParadas(){
-    contador+=1;
-    /*
-    $("#Paradas").append("<input  class='form-control' id='nombreParada_"+contador+"'  name='nombreParada_"+contador+"' size='25'> </input>"+
-                            "<input  class='form-control' id='latitudParada_"+contador+"' name='latitudParada_"+contador+"'  > </input>"+
-                        "<input  class='form-control' id='longitudParada_"+contador+"' name='longitudParada_"+contador+"' > </input>"+
-                        "<input  class='form-control' id='posicionParada_"+contador+"' name='posicionParada_"+contador+"' style='display: none'> </input>"+
-                        "<input  class='form-control' id='tiempoParada_"+contador+"' name='tiempoParada_"+contador+"' style='display: none'> </input>"+
-                        "<input  class='form-control' id='distanciaParada_"+contador+"' name='distanciaParada_"+contador+"' style='display: none'> </input>"+
-                        "<input type='button' value='Buscar' onclick='geocodeMarcador()'>");*/
-    //<%= text_field_tag("vanId") %>
-    $("#Paradas2").html('<%= render :partial => "paradas_form" %>');
-    document.getElementById("numeroParadas").value = contador;
-
- 
-   
-    
-
-}
-
-    function unhideParadas(countParadas){
-        $( "#nombreParada_"+countParadas).show();
-        var c = parseInt($("#numeroParadas").val())+1;
-        $("#numeroParadas").val(c);
-    }
-
-    
 
     
 </script>
@@ -180,29 +153,13 @@
                         
 
                     <!-- Paradas -->
-                    <div id = "Paradas">
+                    <div id = "Paradas" class="box-body">
                         <%=render 'shared/paradas_form_count' %>
                         
 
                     </div>
 
-                    <div id="Paradas2"></div>
 
-
-
-                    <% count = 0%>
-                    <input id="numeroParadas" name="numeroParadas" placeholder="NUm" value ="2" style="display: none"> </input>
-                    <%= link_to "Mas Paradas", '#', onclick: "unhideParadas(#{count});" %>
-                    
-
-                <script type="text/javascript">
-                    function agag(contator){
-                      $("#Paradas2").html("<%= j render(:partial => 'shared/paradas_form_count', :locals => {:countParadas => count}) %>");
-                        var c = parseInt($("#numeroParadas").val())+1;
-                        $("#numeroParadas").val(c);
-                    }
-
-                </script>
 
                 <p></p>
 
@@ -232,49 +189,13 @@
 
 
 <script type="text/javascript">
-
-$(document).ready(function(){
-
-  var substringMatcher = function(strs) {
-    return function findMatches(q, cb) {
-      var matches, substringRegex;
-
-      // an array that will be populated with substring matches
-      matches = [];
-
-      // regex used to determine if a string contains the substring `q`
-      substrRegex = new RegExp(q, 'i');
-
-      // iterate through the pool of strings and for any string that
-      // contains the substring `q`, add it to the `matches` array
-      $.each(strs, function(i, str) {
-        if (substrRegex.test(str)) {
-          // the typeahead jQuery plugin expects suggestions to a
-          // JavaScript object, refer to typeahead docs for more info
-          matches.push({ value: str });
-        }
-      });
-
-      cb(matches);
-    };
-  };
-
-
-  var paradas= <%= raw @nombres_paradas.to_json %>
-
-  $('.typeahead').typeahead({
-    hint: true,
-    highlight: true,
-    minLength: 1
-  },
-  {
-    name: 'states',
-    displayKey: 'value',
-    source: substringMatcher(paradas)
+$(document).ready(function() {
+  $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
   });
-
-}); 
-
-//;
+});
 
 </script>

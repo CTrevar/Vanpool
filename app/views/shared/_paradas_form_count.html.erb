@@ -1,11 +1,14 @@
-asdhkhlhe
-<% 8.times do |count|%>
-                        <input  class="form-control" id="idParada_<%=count%>" name="idParada_<%=count%>" style="display: none" > </input>
-                        <input  class="form-control" id="nombreParada_<%=count%>"  name="nombreParada_<%=count%>" size="25" autocomplete="off"> </input>
-                        <input  class="form-control" id="latitudParada_<%=count%>" name="latitudParada_<%=count%>" style="display: none" > </input>
-                        <input  class="form-control" id="longitudParada_<%=count%>" name="longitudParada_<%=count%>" style="display: none"> </input>
-                        <input  class="form-control" id="posicionParada_<%=count%>" name="posicionParada_<%=count%>" style="display: none"> </input>
-                        <input  class="form-control" id="tiempoParada_<%=count%>" name="tiempoParada_<%=count%>" style="display: none"> </input>
-                        <input  class="form-control" id="distanciaParada_<%=count%>" name="distanciaParada_<%=count%>" style="display: none"> </input>
+
+
+<% 10.times do |count|%>
+    	<div class="input-group">
+          <span class="input-group-addon"><%=@letras[count]%></span>
+            <input type="text" id="nombreParada_<%=count%>"  name="nombreParada_<%=count%>" class="form-control" autocomplete="off">
+         </div>
+    		<input id="latitudParada_<%=count%>" name="latitudParada_<%=count%>" style="display: none" > </input>
+	        <input id="longitudParada_<%=count%>" name="longitudParada_<%=count%>" style="display: none"> </input>
+	        <input id="posicionParada_<%=count%>" name="posicionParada_<%=count%>" style="display: none"> </input>
+	        <input id="tiempoParada_<%=count%>" name="tiempoParada_<%=count%>" style="display: none"> </input>
+	        <input id="distanciaParada_<%=count%>" name="distanciaParada_<%=count%>" style="display: none"> </input>
+    </br>
 <%end%>
-                        

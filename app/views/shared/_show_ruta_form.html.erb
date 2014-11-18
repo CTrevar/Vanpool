@@ -8,6 +8,14 @@
                     showInputs: false
                 });
             });
+   $(document).ready(function() {
+  $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  });
+});
    </script>
 
         <section class="content">
@@ -56,9 +64,7 @@
 
                 <div class="form-group">
                     <label for="precioRuta">Zona</label>
-                    <div class="input-group">
                         <%= collection_select(:ruta, :zona_id, Zona.all(:order => 'nombre'), :id, :nombre, { :selected => @ruta.zona_id }, :class => "form-control" ) %>
-                    </div>
                 </div>
 
                 <div class="bootstrap-timepicker">
@@ -201,9 +207,31 @@
 
                     <!-- Paradas -->
                     <div id = "Paradas">
-                        <% @paradas_ruta.each_with_index do |parada, index| %>
-                            <input id="nombreParada_<%=index%>" name="nombreParada_<%=index%>" class="form-control"  value="<%= parada.nombre %>"></input>
+                        <% @paradas_ruta.each_with_index do |parada, count| %>
+                        <div class="input-group">
+                          <span class="input-group-addon"><%=@letras[count]%></span>
+                            <input type="text" id="nombreParada_<%=count%>"  name="nombreParada_<%=count%>" class="form-control" autocomplete="off" value="<%= parada.nombre %>">
+                         </div>
+                            <input id="latitudParada_<%=count%>" name="latitudParada_<%=count%>" value="<%=parada.latitud%>" style="display: none" > </input>
+                            <input  id="longitudParada_<%=count%>" name="longitudParada_<%=count%>" value ="<%=parada.longitud%>" style="display: none"> </input>
+                            <input  id="posicionParada_<%=count%>" name="posicionParada_<%=count%>" value="<%=@rel[count].posicion%>" style="display: none"> </input>
+                            <input  id="tiempoParada_<%=count%>" name="tiempoParada_<%=count%>" value="<%=@rel[count].tiempo%>" style="display: none"> </input>
+                            <input  id="distanciaParada_<%=count%>" name="distanciaParada_<%=count%>" value="<%=@rel[count].distancia%>" style="display: none"> </input>
                             </br>
+                        <% end %>
+
+                        <% (10-@paradas_ruta.count).times do |index| %>
+                            <% i = @paradas_ruta.count+index%>
+                            <div class="input-group">
+                              <span class="input-group-addon"><%=@letras[i]%></span>
+                                <input type="text" id="nombreParada_<%=i%>"  name="nombreParada_<%=i%>" class="form-control" autocomplete="off">
+                             </div>
+                                <input id="latitudParada_<%=i%>" name="latitudParada_<%=i%>" style="display: none" > </input>
+                                <input id="longitudParada_<%=i%>" name="longitudParada_<%=i%>" style="display: none"> </input>
+                                <input id="posicionParada_<%=i%>" name="posicionParada_<%=i%>" style="display: none"> </input>
+                                <input id="tiempoParada_<%=i%>" name="tiempoParada_<%=i%>" style="display: none"> </input>
+                                <input id="distanciaParada_<%=i%>" name="distanciaParada_<%=i%>" style="display: none"> </input>
+                        </br>
                         <% end %>
 
                     </div>
@@ -213,7 +241,7 @@
 
 
 
-                    <input id="numeroParadas" name="numeroParadas" placeholder="NUm" value ="1" style="display: none"> </input>
+                    <input id="numeroParadas" name="numeroParadas" placeholder="NUm" value ="<%=@ruta.paradas.count%>" style=""> </input>
                     <input type="button" value="Más Paradas" onclick="masParadas()">
 
                 
@@ -226,7 +254,7 @@
              </div><!-- /.box -->
 
             
-                
+                <%= submit_tag("Editar", :class => "btn btn-success")%>
              <% end %>
         
 

@@ -4,56 +4,8 @@
 </ul>
 <div class="tab-content">
   <div class="tab-pane active" id="tab_1-1">
-    <div id="forma_detalle_conductor">
-      <h2>Van</h2>
-      <%= form_for @van do |f| %>
-      
-      <% if @van.errors.any? %>
-          <div id="error_explanation">
-            <h2>No se pudo grabar por</h2>
-            <ul>
-              <% @van.errors.full_messages.each do |msg| %>
-                  <li><%= msg %></li>
-              <% end %>
-            </ul>
-          </div>
-      <% end %>
-
-      <p>
-        <%= f.text_field :id, style: 'display: none' %>
-      </p>
-
-      <p>
-        <%= f.label :placa %>
-        <%= f.text_field :placa, class: "form-control" %>
-      </p>
-
-      <p>
-        <%= f.label :modelo %>
-        <%= f.text_field :modelo, class: "form-control" %>
-      </p>
-
-      <p>
-        <%= f.label :capacidad %>
-        <%= f.number_field :capacidad, in: 1 .. 20 %>
-      </p>
-
-      <p>
-        <%= f.label :pais %>
-        <%= f.collection_select :pais_id, Pais.all, :id, :nombre %>
-      </p>
-
-      <p>
-        <%= f.label :fecha_compra %>
-        <%= f.text_field :fecha_compra, class: "form-control", data: {inputmask:"'alias': 'dd/mm/yyyy'", mask:''} %>
-      </p>
-
-      <p>
-        
-    </div>
-    <%= f.submit "Guardar", class: "btn btn-success"  %>
-      </p>
-    <%end%>
+    <div id="forma_detalle_van">
+     <%= render 'administradors/form_van', locals: { van: @van, action: @action } %>
     </div>
   </div><!-- /.tab-pane -->
   
@@ -62,21 +14,3 @@
 </div><!-- /.tab-content -->
 
 
-<script type="text/javascript">
-$("form").submit(function (event) {
-                event.preventDefault();
-                var request = $.ajax({
-                    type: "POST",
-                    url: '<%= "/van_controller/update" %>',
-                    data: $(this).serialize()
-                });
-                request.done(function( msg ) {
-                    
-                });
-                request.fail(function( jqXHR, textStatus ) {
-                    alert(textStatus);
-                });
-                $('#vansTableContainer').jtable('reload');
-                return false;
-            });
-</script>

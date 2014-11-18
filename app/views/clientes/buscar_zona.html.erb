@@ -1,51 +1,29 @@
 <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp" %>
 <%= stylesheet_link_tag "rutas", media: "all" %>
+
 <script>
 $(document).ready(function(){
   $("#show").click(function(){
     var data={
-     zona_id: $('#_zona_id').val(),
-     filtro_fecha: $('#filtro_fecha').val()
+     zona_id: $('#_zona_id').val()
     }
 
     $.post('/resultado_zona' , data, function(result){
-                                $("#lista").html(result);
+        /*  var styles = document.getElementsByTagName("link");
+          for (var i=0;i<styles.length;i++) {
+             if (styles[i].rel = "stylesheet" && styles[i].href=="/assets/AdminLTE.css?body=1"){
+                alert(styles[i].href);
+            }
+          }*/
+          document.getElementById("lista").innerHTML= result;
+                              //  $("#lista").html(result);
     }).success();
+    $("#detalleRuta").hide('fast');
     $("#lista").show();
     
   });
 });
 
-var map;
-var arregloMarcadores = [];
-
-var infowindow = new google.maps.InfoWindow();
-var dir;
-
-
-function initialize() {
-    
-        //set up del mapa, zoom, centro
-      var mapOptions = {
-        zoom: 13,
-        center: new google.maps.LatLng(19.4329459, -99.1384108)
-      };
-    
-    map = new google.maps.Map(document.getElementById('map-canvas'),
-        mapOptions);
-
-
-    var rendererOptions = { 
-      map: map,
-      draggable: false
-    };
-
-    directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
-    //trazarRuta();
-    
-}
-
-  google.maps.event.addDomListener(window, 'load', initialize);
 
 
 </script>
@@ -57,41 +35,27 @@ function initialize() {
     </aside>
     <aside class="right-side">
     <section class="content-header">
-        <h1>Buscar nuevo viaje</h1>
+        <h1>Rutas</h1>
         <ol class="breadcrumb">
             <li><a href="/dashboard"><i class="fa fa-home"></i> Inicio</a></li>
-            <li class="active">Viajes</li>
+            <li class="active">Rutas por zona</li>
         </ol>
     </section>
     <section class="content">
         <div class="row-fluid">
             <div class="row-fluid">
-                <div class="span12">
-                      <div class="form-group">
-                    <label for="precioRuta">Zona</label>
-                    <div class="input-group">
+                <div class="col-sm-3" style="margin: 0; padding: 0;">
                           <%= collection_select(nil, :zona_id, Zona.all(:order => 'nombre'), :id, :nombre, { :prompt => 'Zona' }, :class => "form-control" ) %>
-                    </div>
-                    <div class="input-group">
-                      <select class="form-control" id="filtro_fecha">
-                        <option>Hoy</option>
-                        <option>Esta Semana</option>
-                        <option>Proxima Semana</option>
-                        <option>Este Mes</option>
-                      </select>
-                    </div>
-                    <button id="show" type="submit" class="btn btn-flat btn-registro" style="margin-top:20px">Filtrar</button> 
-                  </div>
-                     
-      
                 </div>
-            </div>
+                  <div class="col-sm-3" style="margin: 0; padding: 0;">
+                     <button id="show" type="submit" class="btn btn-flat btn-registro" style="padding-top: 5px; padding-bottom:5px;">Filtrar</button> 
+                  </div>
+      
+                
+            </div></br>
+            <div id="detalleRuta" class="row-fluid" style="display:none;"></div>
             <div class="row-fluid">
-                    <div id="mapa" class="col-md-6">
-                        <div class="mapbox" id="map-canvas">
-                        </div>
-                    </div>
-                    <div id="lista" class="col-md-6">
+                    <div id="lista">
                         <%= render 'shared/user_rutas_zona' %>
                     </div>
             </div>

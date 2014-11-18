@@ -4,6 +4,11 @@ class VansController < ApplicationController
 
   def new
     @van = Van.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @van}
+    end
   end
 
   def create
@@ -11,12 +16,36 @@ class VansController < ApplicationController
     @van.estatus= true
     @van.activa = true
 
-    @van.save
+    # @van.save
 
-    if @van.save
-      redirect_to vans_path
+    # if @van.save
+    #   redirect_to vans_path
+    # else
+    #   render 'new'
+    # end
+
+
+    #@conductor.user = user
+    @action = 'create'
+    if @van.valid?
+        if @van.save!
+          respond_to do |format|
+            # format.js { render :js => "window.location = '#{forma_detalle_conductor @conductor}'" }
+            format.html { render partial: 'administradors/form_van', van:@van, locals: {exito:true}, create: true}
+          end
+        else
+          respond_to do |format|
+            # format.js { render :js => "window.location = '#{forma_detalle_conductor @conductor}'" }
+            format.html { render partial: 'administradors/form_van', van:@van, create: true }
+            format.json { render json: @van.errors, status: :unprocessable_entity }
+          end
+        end
     else
-      render 'new'
+      respond_to do |format|
+        # format.js { render :js => "window.location = '#{forma_detalle_conductor @conductor}'" }
+        format.html { render partial: 'administradors/form_van', medalla:@van, create: true }
+        format.json { render json: @van.errors, status: :unprocessable_entity }
+      end
     end
     
     
@@ -28,6 +57,14 @@ class VansController < ApplicationController
 
   def index
     @vans = Van.all
+    van_id = params[:id]
+    if van_id.nil?
+      @van = Van.new
+      @action = 'create'
+    else
+      @van = Van.find(van_id)
+      @action = 'update'
+    end
   end
 
   def destroy
@@ -64,11 +101,11 @@ class VansController < ApplicationController
     jtPageSize = params[:jtPageSize]
     jtStartPage = jtStartIndex.to_i / jtPageSize.to_i + 1
 
-    @results = Van.order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+    @results = Van.where("estatus = 't'").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     respond_to do |format|
       # Regresamos el resultado de la operación a la jTable
       jTableResult = {:Result => "OK",
-                      :TotalRecordCount => Van.count,
+                      :TotalRecordCount => Van.where("estatus = 't'").count,
                       :Records => @results}
       format.json { render json: jTableResult}
       format.html
@@ -89,7 +126,7 @@ class VansController < ApplicationController
 
     # Si el campo de busqueda tiene solo espacios en blanco.
     if jtTextoBusqueda.blank? || jtTextoBusqueda.to_s == ''
-      @results = Van.order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+      @results = Van.where("estatus = 't'").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     else
       # Si contiene algo más realiza la búsqueda en todos los atributos de la tabla.
       @results = Van.where( "LOWER(placa) LIKE '%#{jtTextoBusqueda.downcase}%' OR LOWER(modelo) LIKE '%#{jtTextoBusqueda.downcase}%' OR
@@ -99,7 +136,7 @@ class VansController < ApplicationController
     respond_to do |format|
       # Regresamos el resultado de la operación a la jTable
       jTableResult = {:Result => "OK",
-                      :TotalRecordCount => Van.count,
+                      :TotalRecordCount => Van.where("estatus = 't'").count,
                       :Records => @results
                       }
       format.json { render json: jTableResult}
@@ -120,7 +157,9 @@ class VansController < ApplicationController
     bolExito = true
     errMensaje = ''
     begin
-      @van.delete
+      @van.activa = false
+      @van.estatus = false
+      @van.save
     rescue => e
       bolExito = false
       errMensaje = "No se pudo eliminar. Revise el error: #{e}"

@@ -37,7 +37,7 @@ class ViajesController < ApplicationController
     		proximo_viaje[:viaje_id] = viaje.id
     		proximo_viaje[:fecha] = viaje.fecha.strftime("%d, %b %y")
     		proximo_viaje[:fecha_sinformato] = viaje.fecha
-    		proximo_viaje[:conductor] = viaje.ruta.conductor.user.name.concat(" ")+viaje.ruta.conductor.user.apellidoPaterno
+    		proximo_viaje[:conductor] = viaje.ruta.conductor.user.name
     		proximo_viaje[:hora_salida] = viaje.horainicio.strftime("%H:%M")
     		proximo_viaje[:hora_llegada] = (viaje.horainicio+ viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%H:%M")
     		proximo_viaje[:disponibilidad] = calcula_disponibilidad_viaje(viaje)
@@ -85,7 +85,7 @@ class ViajesController < ApplicationController
     		realizado_viaje[:viaje_id] = viaje.id
     		realizado_viaje[:fecha] = viaje.fecha.strftime("%d, %b %y")
     		realizado_viaje[:fecha_sinformato] = viaje.fecha
-    		realizado_viaje[:conductor] = viaje.ruta.conductor.user.name.concat(" ").concat(viaje.ruta.conductor.user.apellidoPaterno)
+    		realizado_viaje[:conductor] = viaje.ruta.conductor.user.name
     		realizado_viaje[:hora_salida] = viaje.horainicio.strftime("%H:%M")
     		realizado_viaje[:hora_llegada] = (viaje.horainicio+ viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%H:%M")
     		realizado_viaje[:origen] = viaje.ruta.paradas.order('posicion ASC').first.nombre
@@ -156,6 +156,6 @@ class ViajesController < ApplicationController
       format.html
       format.js
     end
-  end#proximos_jtable
+  end#paradas_jtable
 
 end
