@@ -23,13 +23,14 @@
 set :environment, "development"
 set :output, {:error => "log/cron_error_log.log", :standard => "log/cron_log.log"}
 
+require File.expand_path(File.dirname(__FILE__) + "/environment")
 
 # every 3.minutes do
 # 	command "echo 'cron nom nom'"
 # end
-require "#{RAILS_ROOT}/config/environment.rb"
+# require "#{Rails.root}/config/environment.rb"
 @dias = Configuracion.find(8)
 
-every eval("#{@dias.value}.minutes") do
-  runner "UserMailer.enviar_correo_prueba"
+every eval(@dias.valor).to_i.minutes do
+  runner "UserMailer.enviar_correo_prueba.deliver"
 end
