@@ -523,18 +523,22 @@ class AdministradorsController < ApplicationController
     jtPageSize = params[:jtPageSize]
     jtStartPage = jtStartIndex.to_i / jtPageSize.to_i + 1
 
+    # Convertimos los valores para que puedan ser procesados por posgresql
+    jtSorting = jtSorting.gsub(/(apellidoMaterno)/i, '"apellidoMaterno"')
+    jtSorting = jtSorting.gsub(/(apellidoPaterno)/i, '"apellidoPaterno"')
+    jtSorting = jtSorting.gsub(/(fechaNacimiento)/i, '"fechaNacimiento"')
+
     # Si el campo de busqueda tiene solo espacios en blanco.
     if jtTextoBusqueda.blank? || jtTextoBusqueda.to_s == ''
       @results = User.where("admin = 't'").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     else
       # Si contiene algo más realiza la búsqueda en todos los atributos de la tabla.
-      @results = User.where("( LOWER(name) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                                 LOWER(apellidoMaterno) LIKE '%#{jtTextoBusqueda.downcase}%' OR 
-                                 LOWER(apellidoPaterno) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                                 LOWER(email) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                                 LOWER(fechaNacimiento) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                                 LOWER(idTipoUsuario) LIKE '%#{jtTextoBusqueda.downcase}%'
-                                ) AND estatusUsuario = 't' AND admin = 't'").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+      @results = User.where("( name ILIKE :search OR
+                             \"apellidoMaterno\" ILIKE :search OR
+                             \"apellidoPaterno\" ILIKE :search OR
+                               email ILIKE :search OR
+                               to_char(\"fechaNacimiento\", 'MM/DD/YYYY') ILIKE :search
+                              ) AND \"estatusUsuario\" = 't' AND admin = 't'",search: "%#{jtTextoBusqueda.strip}%").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     end
     respond_to do |format|
       # Regresamos el resultado de la operación a la jTable
