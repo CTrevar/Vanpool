@@ -271,12 +271,10 @@ class ClientesController < ApplicationController
     @destino.latitud = params[:destinoLat]
     @destinoDireccion = params[:destinoRuta]
 
-    @horainicio = params[:horainicio]
-
     @result=busqueda(@origen, @destino)
 
     if @result.blank?
-      create_sugerencia(@origen, @destino, @horainicio, @origenDireccion, @destinoDireccion)
+      create_sugerencia(@origen, @destino, @origenDireccion, @destinoDireccion)
     end
 
     respond_to do |format|
@@ -520,6 +518,18 @@ class ClientesController < ApplicationController
       @current_cliente = obtener_cliente(current_user)
     end
     render 'comprar_viajes'
+  end
+
+
+  def enviar_sugerencia
+    viaje = Viaje.find(params[:id])
+    origen = viaje.ruta.paradas.order('posicion ASC').first
+    destino = viaje.ruta.paradas.order('posicion ASC').last
+    create_sugerencia(origen, destino, origen.nombre, destino.nombre)
+
+    respond_to do |format|
+        format.html {render partial: 'shared/user_sugerencia_enviada', layout:false}
+    end
   end
 
 

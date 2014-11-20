@@ -1,8 +1,7 @@
 module SugerenciasHelper
 
-	def create_sugerencia (origen, destino, horainicio, origenDireccion, destinoDireccion)
+	def create_sugerencia (origen, destino, origenDireccion, destinoDireccion)
 		sugerencia = Sugerencia.new
-		sugerencia.hora_inicio = Time.parse(horainicio)
 		
 		if sugerencia.valid?
 			

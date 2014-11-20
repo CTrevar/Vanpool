@@ -9,7 +9,7 @@ class VansController < ApplicationController
   end
 
   def create
-    @van = Van.new(params[:van])
+    @van = Van.new(params[:van].except(:imagenmedalla))
     @van.estatus= true
     @van.activa = true
 

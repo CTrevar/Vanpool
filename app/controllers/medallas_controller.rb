@@ -89,20 +89,52 @@ class MedallasController < ApplicationController
   # POST /conductors
   # POST /conductors.json
   def create
-    paramsmedalla = OpenStruct.new params[:medalla]
+  #  paramsmedalla = OpenStruct.new params[:medalla]
     
     @medalla = Medalla.new #(params[:medalla])
-
     
-    @medalla.attributes = {:nombre => paramsmedalla.nombre, 
-                          :puntos => paramsmedalla.puntos, 
-                          :tipomedalla_id => paramsmedalla.tipomedalla_id, 
-                          :imagen => paramsmedalla.imagen, 
+    @medalla.attributes = {:nombre => params[:nombre], 
+                          :puntos => params[:puntos], 
+                          :tipomedalla_id => params[:tipomedalla_id], 
                           :estatus => true,
-                          :estado => paramsmedalla.estado, 
-                          :descripcion => paramsmedalla.descripcion,
-                          :imagenmedalla => paramsmedalla.imagenmedalla
+                          :estado => params[:estado], 
+                          :descripcion => params[:descripcion]
                        } 
+
+    puts(params[:base64data])
+    puts("IMAGEN ^")
+    nombre_medalla = params[:nombre]
+    # get the file_type that have been uploaded
+    _file = params[:imagenmedalla]
+    file_type = _file[:type]
+
+     if file_type == 'image/jpeg' || file_type == 'image/jpg' || file_type == 'image/png' || file_type == 'image/gif' || file_type == 'image/bmp'
+
+    # as per the file type give the images name
+      case file_type
+         when "image/jpeg"
+            file_name = "pic_#{nombre_medalla}.jpg"
+         when "image/png"
+            file_name = "pic_#{nombre_medalla}.png"
+         when "image/gif"
+            file_name = "pic_#{nombre_medalla}.gif"
+         when "image/bmp"
+            file_name = "pic_#{nombre_medalla}.bmp"
+      end
+    end
+    # give the file path for image
+      file_path = File.join(Rails.root, 'app', 'assets', 'images', 'medals', file_name)
+
+    # copy the image from the uploaded one to file_path
+      # File.open(file_path, 'wb') do |f|
+      #       f.write _file
+      # end
+
+      File.open(file_path, 'wb') do|f|
+        f.write(Base64.decode64(params[:base64data]))
+      end
+
+   @medalla.imagen = file_name
     
     @action = 'create'
     if @medalla.valid?
