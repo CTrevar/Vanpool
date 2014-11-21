@@ -98,6 +98,7 @@ end
   match '/dashboard', to: 'clientes#dashboard'
   match '/buscar', to: 'clientes#buscarviaje'
   match '/reservaciones', to: 'clientes#reservaciones'
+  match '/mis_viajes', to: 'clientes#viajes'
   match '/reporte', to: 'clientes#reporte'
   match '/retro', to: 'reservacions#create_retro'
   match '/retro', to: 'reservacions#retro'
@@ -154,9 +155,8 @@ end
 
   match '/van_controller/jtable_list',   to: 'vans#jtable_list',   via: [:get, :post]
   match '/van_controller/jtable_filterlist',   to: 'vans#jtable_filterlist',   via: [:get, :post]
-  match '/van_controller/jtable_create',   to: 'vans#jtable_create',   via: [:get, :post]
   match '/van_controller/jtable_delete',   to: 'vans#jtable_delete',   via: [:post]
-  match '/van_controller/jtable_update',   to: 'vans#jtable_update',   via: [:post]
+  match '/van_controller/create',   to: 'vans#create',   via: [:post,:put]
   match '/van_controller/update',   to: 'vans#update',   via: [:post,:put]
   match '/administrar_van_detalle',   to: 'administradors#administrador_detallevan',   via: [:get, :post, :put]
 
@@ -201,8 +201,8 @@ end
 
   match '/registrar_subida',   to: 'conductors#registrar_subida',   via: [:post,:get]
 
-  match '/buscar_zona', to:'clientes#buscar_viaje_zona'
-  match '/resultado_zona', to: 'rutas#listar_por_zona', via: [:get, :post]
+  match '/buscar_zona', to:'clientes#listar_rutas'
+  match '/resultado_zona', to: 'clientes#listar_rutas_zona', via: [:get, :post]
 
   match '/viaje_controller/proximos_jtable_filterlist',   to: 'viajes#proximos_jtable_filterlist',   via: [:get, :post]
   match '/viaje_controller/realizados_jtable_filterlist',   to: 'viajes#realizados_jtable_filterlist',   via: [:get, :post]
@@ -210,8 +210,25 @@ end
 
   match '/viaje_controller/paradas_jtable_filterlist/',   to: 'viajes#paradas_jtable_filterlist',   via: [:get, :post]
 
+
   match '/configuraciones', to: 'administradors#configuraciones'
   match '/cambiar_configuracion', to: 'administradors#cambiar_configuracion'
+
+  match '/ruta_controller/paradas_jtable_filterlist/',   to: 'rutas#paradas_jtable_filterlist',   via: [:get, :post]
+
+  match '/administrador_detallesugerencia/', to: 'administradors#administrador_detallesugerencia', via: [:get, :post]
+  match '/borrar_sugerencia', to: 'sugerencias#borrar_sugerencia', via: [:post]
+  match '/mostrar_sugerencias', to: 'administradors#sugerencias_refresh', via: [:get]
+
+  match '/cliente_detalleruta', to: 'clientes#cliente_detalleruta', via: [:get]
+
+  match '/mostrar_viajes', to: 'clientes#comprar_viajes', via: [:get, :post]
+  match '/comprar_viajes', to: 'clientes#reservar_viajes', via: [:post]
+
+  match '/ver_ruta/:id', to: 'clientes#ver_ruta', via:[:get]
+
+  match '/enviar_sugerencia', to: 'clientes#enviar_sugerencia', via:[:post]
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -267,9 +267,9 @@ class ClientesController < ApplicationController
     render 'show_muro'
   end
 
-  # GET /reservaciones
-  def reservaciones
-    @title="Reservaciones"
+  # GET /viajes
+  def viajes
+    @title="Mis Viajes"
     @current_cliente = obtener_cliente(current_user)
     @validareservas=valida_viajes(@cliente)
     @validaviajes=valida_viajes_completos(@cliente)
@@ -288,13 +288,25 @@ class ClientesController < ApplicationController
 
     @reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
     @reservaciones_canceladas=@current_cliente.reservacions.find_all_by_estadotipo_id(4)
-
-
     
-
-    
-    render 'show_reservaciones'
+    render 'show_viajes'
   end
+
+  # GET /reservaciones
+  # def reservaciones
+  #   @title="Mis Reservas"
+  #   @current_cliente = obtener_cliente(current_user)
+  #   @validareservas=valida_viajes(@cliente)
+  #   @validaviajes=valida_viajes_completos(@cliente)
+
+  #   @reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
+  #   @disponibilidad_pendientes = []
+  #   @reservaciones_pendientes.each do |reserva_pendiente|
+  #     @disponibilidad_pendientes<< calcula_disponibilidad_viaje(reserva_pendiente.viaje)
+  #   end
+    
+  #   render 'show_reservaciones'
+  # end
 
 
   def reporte
@@ -325,14 +337,10 @@ class ClientesController < ApplicationController
     @destino.latitud = params[:destinoLat]
     @destinoDireccion = params[:destinoRuta]
 
-    @horainicio = params[:horainicio]
-
-    @fechainicio = params[:fechainicio]
-
-    @result=busqueda(@origen, @destino, @fechainicio)
+    @result=busqueda(@origen, @destino)
 
     if @result.blank?
-      create_sugerencia(@origen, @destino, @horainicio, @origenDireccion, @destinoDireccion)
+      create_sugerencia(@origen, @destino, @origenDireccion, @destinoDireccion)
     end
 
     respond_to do |format|
@@ -368,6 +376,60 @@ class ClientesController < ApplicationController
     end
 
     render 'buscar_zona'
+  end
+
+  def listar_rutas
+    @title="Buscar Rutas"
+    @current_cliente = obtener_cliente(current_user)
+    @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2).last(3)
+    
+    @result = Ruta.where("estatus = 't'")
+
+    render 'buscar_zona'
+
+  end
+
+  def listar_rutas_zona
+    filtro_zona_id = params[:zona_id]
+    @result = []
+
+    if filtro_zona_id.blank?
+      @result = Ruta.where("estatus = 't'")
+    else
+      @result = Ruta.where("estatus = 't' and zona_id = ?", filtro_zona_id)
+    end
+
+
+    respond_to do |format|
+        #Enviar viajes resultantes
+        format.html { render partial: 'shared/user_rutas_zona', locals: { result: @result}, layout:false}
+        
+    end
+      
+  end
+
+  def cliente_detalleruta
+
+      @ruta= Ruta.find(params[:ruta_id])
+      @paradas = @ruta.paradas.order('posicion ASC')
+      @origen = @paradas.first
+      @destino = @paradas.last
+      
+      @tiempoParadas = []
+      @paradas.each_with_index do |parada, i|
+        if i == 0
+          @tiempoParadas << 0
+        elsif i<=@paradas.count
+          parada_id = parada.id
+          tiempo = Rutaparada.find_by_ruta_id_and_parada_id(@ruta.id, parada_id).tiempo
+          @tiempoParadas<< (@tiempoParadas[i-1]+tiempo.to_i)        
+        end
+      end
+
+
+      respond_to do |format|
+        format.html {render partial: 'shared/user_detalleruta', locals: { ruta: @ruta, origen: @origen, destino: @destino, paradas: @paradas, tiempoParadas: @tiempoParadas }}
+      end
   end
 
 
@@ -409,6 +471,132 @@ class ClientesController < ApplicationController
   end
 
 
+  def comprar_viajes
+    @title = "Compra de Viajes"
+
+    @ruta = Ruta.find(params[:id])
+    @cantidad = params[:cantidad].to_i
+
+
+    @viajes = Viaje.where("ruta_id = ? and estadoviaje_id = 2", @ruta.id).take(@cantidad)
+    @disponibilidad = []
+
+    @viajes.each do |viaje|
+      @disponibilidad<<calcula_disponibilidad_viaje(viaje)
+    end
+
+    respond_to do |format|
+        format.html {render partial: 'shared/user_rutas_viajes', locals: { viajes: @viajes }, layout:false}
+    end
+    #render 'comprar_viajes'
+  end
+
+
+  def reservar_viajes
+    current_cliente = obtener_cliente(current_user)
+    cantidad_viajes = params[:cantidad].to_i
+    cantidad_viajes_seleccionados = 0
+    cantidad_viajes.times do |index|
+      checked=params[:"check_viaje_#{index}"]
+      if checked
+        cantidad_viajes_seleccionados += 1
+      end
+    end
+
+    costo_por_viaje = Ruta.find(params[:id]).precio.to_f
+    cantidad_pago = cantidad_viajes_seleccionados*costo_por_viaje
+
+    #checar si tiene saldo suficiente
+    tiene_saldo= valida_saldo_suficiente(cantidad_pago)
+
+    if tiene_saldo
+        referenciapago=compra(cantidad_pago)
+    end
+
+    #si no hay saldo
+    if !tiene_saldo
+      session[:reservaciones] =  Array.new if !session[:reservaciones]
+    end
+
+    cantidad_viajes.times do |index|
+      checked=params[:"check_viaje_#{index}"]
+      if checked
+        viaje_id = params[:"viaje_#{index}"]
+        reserva = Reservacion.new
+        reserva.viaje_id = viaje_id
+        reserva.cliente_id = current_cliente.id
+
+        #si tiene saldo, se guarda a la bd con estatus 2 (pagada)
+        if tiene_saldo
+          reserva.estadotipo_id = 2
+          reserva.estatus = true
+          reserva.referenciapago_id = referenciapago
+          reserva.save
+        end
+
+        #si no tiene saldo guardar reservaciones en sesión
+        if !tiene_saldo
+          session[:reservaciones] << viaje_id
+        end
+      end
+
+    end
+
+      #si tiene saldo, da render a mensaje exitoso
+      if tiene_saldo
+        redirect_to :action=>'viajes', :mensaje => "Compra exitosa"
+      end
+
+      #si no tiene saldo, guarda las reservas en la sesión y
+      #redirecciona a recargar saldo con mensaje que necesita recargar saldo
+      if !tiene_saldo
+        redirect_to :action=>'compracredito', :mensaje => "No tienes saldo suficiente. Recarga."
+      end
+
+
+
+
+  end
+
+  #carrito
+  def reservaciones
+    @title="Mis Reservas"
+    @current_cliente = obtener_cliente(current_user)
+
+    viajes_id = session[:reservaciones]
+    if viajes_id
+      @viajes = []
+      viajes_id.each do |viaje_id|
+        @viajes << Viaje.find(viaje_id)
+      end
+    end
+    
+
+
+    render 'show_reservaciones'
+  end
+
+
+  def ver_ruta
+    @ruta=Ruta.find(params[:id])
+    @title = @ruta.nombre
+    if signed_in?
+      @current_cliente = obtener_cliente(current_user)
+    end
+    render 'comprar_viajes'
+  end
+
+
+  def enviar_sugerencia
+    viaje = Viaje.find(params[:id])
+    origen = viaje.ruta.paradas.order('posicion ASC').first
+    destino = viaje.ruta.paradas.order('posicion ASC').last
+    create_sugerencia(origen, destino, origen.nombre, destino.nombre)
+
+    respond_to do |format|
+        format.html {render partial: 'shared/user_sugerencia_enviada', layout:false}
+    end
+  end
 
 
 
@@ -455,6 +643,12 @@ class ClientesController < ApplicationController
     jtStartPage = jtStartIndex.to_i / jtPageSize.to_i + 1
     @queryFiltrado = ""
     @query = ""
+
+    # Convertimos los valores para que puedan ser procesados por posgresql
+    jtSorting = jtSorting.gsub(/(apellidoMaterno)/i, '"apellidoMaterno"')
+    jtSorting = jtSorting.gsub(/(apellidoPaterno)/i, '"apellidoPaterno"')
+    jtSorting = jtSorting.gsub(/(fechaNacimiento)/i, '"fechaNacimiento"')
+
     # Si el campo de busqueda tiene solo espacios en blanco.
     if jtTextoBusqueda.blank? || jtTextoBusqueda.to_s == ''
       if jtAtributoCondicion.present? && jtCondicion.present? && jtValorCondicion.present?
@@ -466,13 +660,14 @@ class ClientesController < ApplicationController
       if jtAtributoCondicion.present? && jtCondicion.present? && jtValorCondicion.present?
           @queryFiltrado = " AND ( #{jtAtributoCondicion} #{jtCondicion} #{jtValorCondicion} ) "
       end
-      @query = "(LOWER(name) LIKE '%#{jtTextoBusqueda.downcase}%'  OR LOWER(email) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                 LOWER(fechaNacimiento) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                 LOWER(nivels.nombre) LIKE '%#{jtTextoBusqueda.downcase}%'
+      @query = "(name ILIKE :search OR
+                 email ILIKE :search OR
+                 to_char(\"fechaNacimiento\", 'MM/DD/YYYY') ILIKE :search OR
+                 nivels.nombre ILIKE :search
                 ) #{@queryFiltrado} AND clientes.estatus = 't'"
       # Si contiene algo más realiza la búsqueda en todos los atributos de la tabla.
       @results =  Cliente.joins(:user).select('*').joins(:nivel).select('nombre as nombre_nivel, nivels.estatus as estatus_nivel, nivels.id as nivel_id, clientes.id as cliente_id')
-      .where(@query).select('*').order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+      .where(@query,search: "%#{jtTextoBusqueda.strip}%").select('*').order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     end
     respond_to do |format|
       # Regresamos el resultado de la operación a la jTable

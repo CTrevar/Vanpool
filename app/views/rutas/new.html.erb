@@ -1,9 +1,7 @@
 
 
-<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp" %>
-<%= javascript_include_tag "typeahead" %>
-<%= javascript_include_tag "rutas" %>
-<%= javascript_include_tag "paradastypeahead" %>
+<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places" %>
+<%= javascript_include_tag "agregarrutas" %>
 
 
 <%= stylesheet_link_tag "rutas", media: "all" %>
@@ -22,7 +20,8 @@
                         Nueva Ruta
                     </h1>
                     <ol class="breadcrumb">
-                    	<li>Rutas</li>
+                        <li><a href="/inicio"><i class="fa fa-home"></i> Inicio</a></li>
+                        <li><a href="/rutas"><i class="fa fa-map-marker"></i> Rutas</a></li>
                         <li class="active">Nueva Ruta</li>
                     </ol>
 

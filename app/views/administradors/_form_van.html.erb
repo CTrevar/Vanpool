@@ -1,0 +1,93 @@
+<% disabled ||= false %>
+<% exito ||= false %>
+<% create ||= false %>
+<%= form_for @van, :url => "/van_controller/#{@action}" do |f| %>
+    </br>
+    <%  if exito %>
+        <div class="alert alert-success alert-dismissable">
+          <i class="fa fa-check"></i>
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <% if @action=='create' %>
+              <p>Se creó la van correctamente.</p>
+          <% else%>
+              <p>Se actualizó la van correctamente.</p>
+          <% end%>
+        </div>
+    <%  end %>
+    <% if @van.errors.any? %>
+        <div class="alert alert-danger alert-dismissable">
+          <i class="fa fa-times"></i>
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <b><%= pluralize(@van.errors.count, "error") %>:</b>
+          <ul>
+            <% @van.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <%= f.hidden_field :id, :value => @van.id%>
+
+
+      <div class="form-group">
+        <label>Placa</label>
+        <div class="row-fluid">
+          <%= f.text_field :placa, class:"form-control span12" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Modelo</label>
+        <div class="row-fluid">
+          <%= f.text_field :modelo, class:"form-control span12" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Capacidad</label>
+        <div class="row-fluid">
+          <%= f.number_field :capacidad, in: 10.. 20, class:"form-control span12" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>País</label>
+        <div class="row-fluid">
+          <%= f.collection_select :pais_id, Pais.all, :id, :nombre, class:"form-control span12" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Fecha Compra</label>
+        <div class="row-fluid">
+          <%= f.text_field :fecha_compra, class: "form-control span12", data: {inputmask:"'alias': 'dd/mm/yyyy'", mask:''}%>
+        </div>
+      </div>
+  
+    <hr>
+    <div class="actions" align="right">
+      <button id="btnSubmit" class="btn btn-success">
+        <i class="fa fa-save"></i>  Guardar
+      </button>
+      <script type="text/javascript" charset="utf-8">
+       
+            $("form").submit(function (event) {
+                event.preventDefault();
+                var request = $.ajax({
+                    type: "POST",
+                    url: '<%= "/van_controller/#{@action}" %>',
+                    data: $(this).serialize()
+                });
+                request.done(function( msg ) {
+                    <% if @action == 'create' %>
+                        $("#modal-body #forma_detalle_van").html(msg);
+                    <% else %>
+                        $("#forma_detalle_van").html(msg);
+                    <% end %>
+                });
+                request.fail(function( jqXHR, textStatus ) {
+                    alert(textStatus);
+                });
+                $('#vansTableContainer').jtable('reload');
+                return false;
+            });
+      </script>
+    </div>
+<% end %>

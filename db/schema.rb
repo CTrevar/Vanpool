@@ -11,7 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+
 ActiveRecord::Schema.define(:version => 20141116081805) do
+
+
 
   create_table "ciudads", :force => true do |t|
     t.string   "clave",      :limit => 45
@@ -34,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
     t.boolean  "estatus",    :default => true
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
+
   end
 
   create_table "conductors", :force => true do |t|
@@ -104,6 +108,7 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
     t.datetime "updated_at", :null => false
   end
 
+
   create_table "medallas", :force => true do |t|
     t.integer  "tipomedalla_id"
     t.string   "nombre"
@@ -115,6 +120,7 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
   end
+
 
   create_table "medallasmuros", :force => true do |t|
     t.integer  "cliente_id"
@@ -176,6 +182,7 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
     t.datetime "updated_at",          :null => false
   end
 
+
   create_table "retroaspectos", :force => true do |t|
     t.string   "nombre"
     t.boolean  "estatus"
@@ -215,9 +222,9 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
   end
 
   create_table "sugerencias", :force => true do |t|
-    t.string   "hora_inicio"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "hora_inicio", :limit => 255
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   create_table "tipocalificacions", :force => true do |t|

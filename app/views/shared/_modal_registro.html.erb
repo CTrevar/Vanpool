@@ -1,0 +1,46 @@
+<div class="modal fade" id="registroModal" tabindex="-1" role="dialog" aria-labelledby="conductorsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Registro</h4>
+      </div>
+      <div class="modal-body">
+        Para poder comprar necesitas registrarte.
+        <%= form_for(User.new) do |f| %>
+          <div class="box-login">
+              <div class="box-body">
+                  <div class="form-group">
+                      <label>Nombre</label>
+                      <%= f.text_field :name, class:"form-control", placeholder:"Tu nombre" %>
+                  </div>
+                  <div class="form-group">
+                      <label for="exampleInputEmail1">Correo Electrónico</label>
+                      <%= f.text_field :email, class:"form-control", placeholder:"correo@ejemplo.com" %>
+                  </div>
+                  <div class="form-group">
+                      <label for="exampleInputPassword1">Contraseña</label>
+                      <%= f.password_field :password, class:"form-control", placeholder:"tu contraseña"%>
+                  </div>
+                  <div class="form-group">
+                      <label for="exampleInputPassword1">Verificar Contraseña</label>
+                       <%= f.password_field :password_confirmation, class:"form-control", placeholder:"tu contraseña"%>
+                  </div>
+                  <%= f.hidden_field :ruta_id, :value=>"#{@ruta.id}"%>
+                  <div class="box-footer">
+                      <%= f.submit "Crear mi cuenta", class: "btn btn-flat btn-registro pull-right" %>
+                      </br>
+                      <hr></hr>
+                  </div>
+              </div><!-- /.box-body -->
+                  
+          </div>
+      
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i> Registrate con Facebook </a>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

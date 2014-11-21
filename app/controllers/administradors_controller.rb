@@ -220,7 +220,7 @@ class AdministradorsController < ApplicationController
   end
 
   #
-  # Metodo para ver información básica de un cliente en un div lateral
+  # Metodo para ver información básica de una medalla en un div lateral
   #
   def medallas
     medalla_id = params[:medalla_id]
@@ -233,7 +233,7 @@ class AdministradorsController < ApplicationController
     end
   end
   #
-  # Metodo para ver el detalle de la información de un cliente.
+  # Metodo para ver el detalle de la información de una medalla.
   #
   def administrador_detallemedalla
     medalla_id = params[:medalla_id]
@@ -251,6 +251,7 @@ class AdministradorsController < ApplicationController
       end
     end
   end
+
   #
   # Metodo para mostrar la página de configuraciones.
   #
@@ -305,6 +306,16 @@ class AdministradorsController < ApplicationController
         @correoFrecuenciaRecordatorio.valor = paramsconf.valor
         if @correoFrecuenciaRecordatorio.valid?
           @correoFrecuenciaRecordatorio.save!
+          logger.info "\n================================================"
+          logger.info "\n"
+          # logger.info system "bundle exec whenever -i"
+          logger.info %x(sh whenever.sh)
+          # logger.info %x(whenever -i)
+          logger.info `pwd`
+          logger.info `ls`
+          logger.info "\n"
+          logger.info "\n"
+          logger.info "\n================================================"
           respond_to do |format|
             format.html { render partial: 'administradors/form_configuracion_correos_frecuencia', correoFrecuenciaRecordatorio:@correoFrecuenciaRecordatorio,locals: {exito:true} }
           end
@@ -316,6 +327,7 @@ class AdministradorsController < ApplicationController
         end
     end
   end
+
 
   #
   # Metodo para ver el perfil con la información de un cliente.
@@ -345,25 +357,39 @@ class AdministradorsController < ApplicationController
   end
 
   def sugerencias
-    @sugerencias = Sugerencia.all
-    
+    incidencias =incidencias_sugerencias
+    incidencias.sort_by! { |hsh| hsh[:numero_incidencias] }
+    @results = incidencias.reverse.paginate(:page => params[:page], :per_page => 5)
+  end
+
+  def sugerencias_refresh
+    incidencias =incidencias_sugerencias
+    incidencias.sort_by! { |hsh| hsh[:numero_incidencias] }
+    @results = incidencias.reverse.paginate(:page => params[:page], :per_page => 5)
+
+    respond_to do |format|
+        format.html {render partial: 'shared/show_sugerencias', locals: { results: @results }}
+    end
   end
 
   def administrador_detallesugerencia
     sugerencia_id = params[:sugerencia_id]
-    if sugerencia_id.nil?
-      
-      # respond_to do |format|
-      #   format.html #listaconductores.html.erb
-      # end
-    else
+    result = params[:resultado]
+    @coincidencias_sugerencia = []
+    if !result.nil?
+      result.each do |sug_id|
+        @coincidencias_sugerencia<< Sugerencia.find(sug_id)
+      end
+    end
+    
+    if !sugerencia_id.nil?
       @sugerencia = Sugerencia.find(sugerencia_id)
       @paradas =@sugerencia.sugerenciaparadas.sort { |a, b| a.posicion <=> b.posicion }
       @origen = @paradas.first
       @destino = @paradas.last
 
       respond_to do |format|
-        format.html {render partial: 'shared/administrador_detallesugerencia', locals: { sugerencia: @sugerencia, origen: @origen, destino: @destino, paradas: @paradas }}
+        format.html {render partial: 'shared/administrador_detallesugerencia', locals: { sugerencia: @sugerencia, origen: @origen, destino: @destino, paradas: @paradas, coincidencias_sugerencia: @coincidencias_sugerencia }}
       end
     end
   end
@@ -523,18 +549,22 @@ class AdministradorsController < ApplicationController
     jtPageSize = params[:jtPageSize]
     jtStartPage = jtStartIndex.to_i / jtPageSize.to_i + 1
 
+    # Convertimos los valores para que puedan ser procesados por posgresql
+    jtSorting = jtSorting.gsub(/(apellidoMaterno)/i, '"apellidoMaterno"')
+    jtSorting = jtSorting.gsub(/(apellidoPaterno)/i, '"apellidoPaterno"')
+    jtSorting = jtSorting.gsub(/(fechaNacimiento)/i, '"fechaNacimiento"')
+
     # Si el campo de busqueda tiene solo espacios en blanco.
     if jtTextoBusqueda.blank? || jtTextoBusqueda.to_s == ''
       @results = User.where("admin = 't'").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     else
       # Si contiene algo más realiza la búsqueda en todos los atributos de la tabla.
-      @results = User.where("( LOWER(name) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                                 LOWER(apellidoMaterno) LIKE '%#{jtTextoBusqueda.downcase}%' OR 
-                                 LOWER(apellidoPaterno) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                                 LOWER(email) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                                 LOWER(fechaNacimiento) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                                 LOWER(idTipoUsuario) LIKE '%#{jtTextoBusqueda.downcase}%'
-                                ) AND estatusUsuario = 't' AND admin = 't'").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+      @results = User.where("( name ILIKE :search OR
+                             \"apellidoMaterno\" ILIKE :search OR
+                             \"apellidoPaterno\" ILIKE :search OR
+                               email ILIKE :search OR
+                               to_char(\"fechaNacimiento\", 'MM/DD/YYYY') ILIKE :search
+                              ) AND \"estatusUsuario\" = 't' AND admin = 't'",search: "%#{jtTextoBusqueda.strip}%").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     end
     respond_to do |format|
       # Regresamos el resultado de la operación a la jTable

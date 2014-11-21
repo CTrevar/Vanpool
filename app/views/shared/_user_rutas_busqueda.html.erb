@@ -3,35 +3,35 @@
 <h3 class="nomargin">Rutas que coinciden contigo</h3>
 </div>
 <% if(@result.first!=nil)%>
-        <% @result.each do |viaje| %>
+        <% @result.each do |ruta| %>
             <div class="item-ruta border">
             <div class="row-fluid">
                 <div class="span6">
-                    <h4><%=viaje.ruta.nombre%></h4>
-                    <small>ORIGEN:</small><b><%= viaje.ruta.paradas.order('posicion ASC').first.nombre.split(",")[0] %></b></br>
-                    <small>DESTINO:</small><b><%= viaje.ruta.paradas.order('posicion ASC').last.nombre.split(",")[0] %></b></br>
+                    <h4><%=ruta.nombre%></h4>
+                    <small>ORIGEN:</small><b><%= ruta.paradas.order('posicion ASC').first.nombre.split(",")[0] %></b></br>
+                    <small>DESTINO:</small><b><%= ruta.paradas.order('posicion ASC').last.nombre.split(",")[0] %></b></br>
                     
                 </div>
                 <div class="span6">
                     </br>
                     </br>
-                    <small>HORA DE SALIDA:</small><b><%=viaje.horainicio.strftime("%I:%M%p")%> </b></br>
-                    <small>HORA DE LLEGADA:</small><b><%=(viaje.horainicio+ viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></b></br>
-                    <small>Precio:</small><b><%=number_to_currency(viaje.ruta.precio, :unit => "$")%></b>
+                    <small>HORA SALIDA:</small><b><%=ruta.horario.hora.strftime("%I:%M%p")%> </b></br>
+                    <small>HORA LLEGADA:</small><b><%=(ruta.horario.hora+ ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></b></br>
+                    <small>Precio:</small><b><%=number_to_currency(ruta.precio, :unit => "$")%></b>
                 </div>
                 </div>
             </br>
-                <div class="row-fluid">
-                 <%= link_to "Ver detalle", "/viajes/#{viaje.id}/detalle", class:"btn btn-buscar-nav btn-flat span5 pull-right" %>
-                 <% paradas=  viaje.ruta.paradas.to_json %>
-                <%= link_to "Ver en Mapa", '#', onclick: "trazarRuta(#{paradas});", class: "btn btn-buscar-nav btn-flat span5" %>
+                <div class="row-fluid"><!--"/viajes/#{ruta.id}/detalle"-->
+                 <%= link_to "Ver detalle", "/ver_ruta/#{ruta.id}", class:"btn btn-buscar-nav btn-flat span5 pull-right" %>
+                 <% paradas=  ruta.paradas.to_json %>
+                <%= link_to "Ver en Mapa", '#', onclick: "trazarRuta(#{paradas});", class: " span5" %>
                 </div>
             
             </div><!-- /.item -->
     <% end %>
       <% else %>
         <div class="item-ruta border">
-            <h2>No hay viajes disponibles para tu ruta.</h2>
+            <h2>No hay rutas compatibles con tu viaje. Tu sugerencia ha sido enviada.</h2>
         </div>
     <% end %>
 

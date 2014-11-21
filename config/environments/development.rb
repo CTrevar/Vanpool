@@ -22,7 +22,7 @@ SampleApp::Application.configure do
   :port => 587,
   :domain =>"gmail.com",
   :user_name =>"serviciovanpool@gmail.com",
-  :password =>"vanpool2014",
+  :password =>"vanpool2015",
   :authentication => "plain",
   :enable_starttls_auto =>true
 }

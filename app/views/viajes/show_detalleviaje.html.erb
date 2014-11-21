@@ -28,35 +28,42 @@
                     
                             <div class="span4">
                                 <div class="span6">
-                                    <small>PARADA ORIGEN:</small>
-                                <h4><%= @viaje.ruta.paradas.order('posicion ASC').first.nombre.split(",")[0] %></h4>
-                                <small>PARADA DESTINO:</small>
-                                <h4><%= @viaje.ruta.paradas.order('posicion ASC').last.nombre.split(",")[0] %></h4>                                
-                                </br>
+                                    <small>ORIGEN:</small>
+                                    <h4><%= @viaje.ruta.paradas.order('posicion ASC').first.nombre.split(",")[0] %></h4>
+                                    <small>DESTINO:</small>
+                                    <h4><%= @viaje.ruta.paradas.order('posicion ASC').last.nombre.split(",")[0] %></h4>
+                                    <small>PRECIO:</small>
+                                    <h4><%=number_to_currency(@viaje.ruta.precio, :unit => "$")%></h4>
+                                    </br>
                                 </div>
 
                                 <div class="span6">
-                                <small>HORA DE SALIDA:</small>
-                                <h4><%=@viaje.horainicio.strftime("%I:%M%p")%></h4>
-                                <small>HORA DE LLEGADA:</small>
-                                <h4><%=(@viaje.horainicio + @viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></h4>
+                                    <small>FECHA:</small>
+                                    <h4><%= @viaje.fecha.strftime("%d/%m/%Y")%></h4>
+                                    <small>HORA DE SALIDA:</small>
+                                    <h4><%=@viaje.horainicio.strftime("%I:%M%p")%></h4>
+                                    <small>HORA DE LLEGADA:</small>
+                                    <h4><%=(@viaje.horainicio + @viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></h4>
                                 
 
-                                <small>DISPONIBILIDAD:</small>
-                                <h4><%=@disponibilidad%></h4>
-                                </br>
+                                    <small>DISPONIBILIDAD:</small>
+                                    <h4><%=@disponibilidad%></h4>
+                                    </br>
                                 
                                 </div>
                                 <div class="row-fluid">
                                   <small>PARADAS</small>
-                                <div id="paradasTableContainer"></div></br>
+                                  <div id="paradasTableContainer"></div></br>
                                     <%= link_to "Buscar otra ruta", "/buscar", class:"btn btn-buscar-nav btn-flat" %>
                                     <%= link_to "Comprar viaje", "/compra", class:"btn btn-pagar-l btn-flat pull-right" %>
+                                  </br>
                                 </div>
+                              </br>
                             </div>
                                
                             <div class="span8">
-                            <div class="mapbox" id="map-canvas"></div>
+                              <small>RECORRIDO</small>
+                              <div class="mapbox" id="map-canvas"></div>
                             </div> 
                 </div>
                 

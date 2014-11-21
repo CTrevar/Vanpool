@@ -1,3 +1,4 @@
+#encoding: utf-8
 # Use this file to easily define all of your cron jobs.
 #
 # It's helpful, but not entirely necessary to understand cron before proceeding.
@@ -19,10 +20,17 @@
 
 # Learn more: http://github.com/javan/whenever
 
+set :environment, "development"
+set :output, {:error => "log/cron_error_log.log", :standard => "log/cron_log.log"}
+
+require File.expand_path(File.dirname(__FILE__) + "/environment")
 
 # every 3.minutes do
 # 	command "echo 'cron nom nom'"
 # end
-every 1.minute do
-  runner "UserMailer.enviar_correo_prueba"
+# require "#{Rails.root}/config/environment.rb"
+@dias = Configuracion.find(8)
+
+every eval(@dias.valor).to_i.days do
+  runner "UserMailer.enviar_correo_prueba.deliver"
 end

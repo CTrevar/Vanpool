@@ -1,6 +1,42 @@
 class SugerenciasController < ApplicationController
 
+  def borrar_sugerencia
+    sugerencia_id = params[:sugerencia_id]
+    sugerencia = Sugerencia.find(sugerencia_id)
 
+    sugerencia_paradas = Sugerenciaparada.where("sugerencia_id = ?", sugerencia_id)
+    sugerencia_paradas.each do |sug_parada|
+      sug_parada.destroy
+    end
+
+    cercanas_id = params[:cercanas_id]
+    sugerencias_count = 1
+    
+
+    if !cercanas_id.nil? 
+      sugerencias_count += cercanas_id.count
+      cercanas_id.each do |cercana_id|
+        sug = Sugerencia.find(cercana_id)
+        sug_cercana_paradas = Sugerenciaparada.where("sugerencia_id = ?",sug.id)
+        sug_cercana_paradas.each do |sug_cercana_parada|
+          sug_cercana_parada.destroy
+        end
+        sug.destroy
+      end
+    end
+    sugerencia.destroy
+
+    @mensaje =""
+    if sugerencias_count == 1
+      @mensaje = "Se borro 1 sugerencia"
+    else
+      @mensaje = "Se borraron #{sugerencias_count} sugerencias"
+    end
+
+    respond_to do |format|
+        format.html {render partial: 'shared/administrador_mensajesugerencia', locals: { mensaje: @mensaje }}
+    end
+  end
  # =======================================================
   # =======================================================
   # Métodos para las jTables

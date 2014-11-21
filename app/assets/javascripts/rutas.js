@@ -153,7 +153,7 @@ function agregarMarcador(location) {
             desplegarParadas(routeDrawn);
                  
 
-                               //document.getElementById("destinoRuta").value = response.routes[0].legs[0].distance.text;
+            //document.getElementById("destinoRuta").value = response.routes[0].legs[0].distance.text;
             //document.getElementById("origenRuta").value = response.routes[0].legs[0].distance.value;
           }
           else

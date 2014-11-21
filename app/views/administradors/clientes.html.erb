@@ -45,10 +45,29 @@
       </div>
     </div>
     <script type="text/javascript" charset="utf-8">
-        $('#btnFiltrar').click(function(e) {
-            e.preventDefault();
-            $('#filtro').toggle();
-            $("#valorCondicion").val("");
+        $(document).ready(function () {
+            $('#btnFiltrar').click(function(e) {
+                e.preventDefault();
+                $('#filtro').toggle();
+                $("#valorCondicion").val("");
+            });
+            $('#valorCondicion').keydown(function (e) {
+                // Allow: backspace, delete, tab, escape, enter and shift
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110,16]) !== -1 ||
+                    // Allow: Ctrl+A, CMD+A
+                        (e.keyCode == 65 && e.ctrlKey === true) || (e.keyCode == 91 && e.keyCode == 65) ||
+                    // Allow: home, end, left, right
+                        (e.keyCode >= 35 && e.keyCode <= 39)) {
+                    // let it happen, don't do anything
+                    return;
+                }
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    //display error message
+                    $("#errmsg").html("Solamente números").show().fadeOut("slow");
+                    return false;
+                }
+            });
         });
     </script>
     <br/>
@@ -75,6 +94,7 @@
         <div class="col-xs-4">
           <label>Valor</label>
           <input id="valorCondicion" type="text" class="form-control" placeholder="Valor...">
+          <span id="errmsg" style="   color:red;"></span>
         </div>
         <br/>
         <br/>
@@ -174,7 +194,7 @@
                     edit: false,
                     create: false
                 },
-                co2: {
+                emisionco2: {
                     title: 'CO2',
                     edit: false,
                     create: false

@@ -10,14 +10,14 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    <i class="fa fa-fw fa-users"></i>
-    medallas
+    <i class="fa fa-fw fa-trophy"></i>
+    Medallas
   </h1>
   <ol class="breadcrumb">
-    <li >Inicio</li>
+    <li><a href="/inicio"><i class="fa fa-home"></i> Inicio</a></li>
     <li class="active">
-      <i class="fa fa-fw fa-users"></i>
-      medallas
+      <i class="fa fa-fw fa-trophy"></i>
+      Medallas
     </li>
   </ol>
 </section>
@@ -158,6 +158,9 @@
                     title: 'Estado',
                     width:'10%'
                 },
+                estatus:{
+                    list:false
+                },
                 imagen: {
                     list: false,
                     title: 'Imagen',
@@ -280,10 +283,10 @@
 <!-- Modal de creación de usuario -->
 <script type="text/javascript" charset="utf-8">
     $(document).ready(function (){
-        $("#btnAgregar").click(function(event){
-            
+            $("#btnAgregar").click(function(event){
+                $("#modal-body").html("<%= escape_javascript(render partial: 'shared/administrador_detallemedalla', locals: { medalla: @medalla, action:'create' } )%>");
+            });
         });
-    });
 </script>
 <style>
     #basicModal .modal-dialog
@@ -297,6 +300,7 @@
         height: 90%;
     }
 </style>
+
 <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

@@ -1,7 +1,45 @@
 <script type="text/javascript">
+      var mapOptions = {
+        zoom: 13
+      };
+$(function(){
+    
+    if(map){
+    google.maps.event.trigger(map, "resize");    
+    }
+    var map = new google.maps.Map(document.getElementById('map-canvas'),
+        mapOptions);
+    
+    
+
+    var lineSymbol = {
+      path: google.maps.SymbolPath.FORWARD_OPEN_ARROW
+    };
 
 
- function trazarRuta(){
+    var rendererOptions = { 
+      map: map,
+      draggable: false,
+      polylineOptions: {
+          strokeWeight: 4,
+          strokeOpacity: 0.8,
+          strokeColor: '#D84743',
+          icons: [{
+            icon: lineSymbol,
+            offset: '25%'
+          }, {icon: lineSymbol,
+            offset: '75%'
+          }]
+      }
+    };
+
+    directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+    trazarRutaSugerencia();
+    
+});
+
+
+ function trazarRutaSugerencia(){
     var arregloMarcadores= <%= raw @paradas.to_json %>;
     var origen = arregloMarcadores[0].latitud+", "+arregloMarcadores[0].longitud;
     var destino = arregloMarcadores[arregloMarcadores.length-1].latitud+", "+arregloMarcadores[arregloMarcadores.length-1].longitud;
@@ -44,6 +82,50 @@
         
 
   }
+
+  function trazarRuta (paradas){
+
+    var arregloMarcadores= paradas;
+    var origen = arregloMarcadores[0].latitud+", "+arregloMarcadores[0].longitud;
+    var destino = arregloMarcadores[arregloMarcadores.length-1].latitud+", "+arregloMarcadores[arregloMarcadores.length-1].longitud;
+    var arregloParadas=[];
+
+        if(arregloMarcadores.length>2){
+
+          for(i= 1; i<arregloMarcadores.length-1;i++){
+            var posicionParada = arregloMarcadores[i].latitud+", "+arregloMarcadores[i].longitud;
+            arregloParadas.push({
+                              location: posicionParada,
+                              stopover: true
+                            });
+            
+          }
+
+        }
+
+        //optimize waypoints for admin false, for client will be true
+        var request = {
+          origin: origen,
+          destination: destino,
+          waypoints: arregloParadas,
+          travelMode: google.maps.DirectionsTravelMode.DRIVING,
+          unitSystem: google.maps.UnitSystem.METRIC,
+          optimizeWaypoints: false
+        }
+
+        directionsService = new google.maps.DirectionsService();
+        var rutaa= directionsService.route(request, function(response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+            var routeDrawn = response.routes[0];
+                 
+          }
+          else
+            alert ('no se pudo obtener direcciones');
+        });
+
+  }
+
 </script>
 
 <ul class="nav nav-tabs pull-right">
@@ -52,32 +134,41 @@
 </ul>
 <div class="tab-content">
   <div class="tab-pane active" id="tab_1-1">
-    <div id="forma_detalle_conductor">
-      <h2>Sugerencia</h2>
-
-
+    <div class="row-fluid">
+      <h2>Sugerencia</h2><small class="label label-warning"><%= @coincidencias_sugerencia.count%> Incidencias</small>
 
       <p>
         <b>Hora Inicio: </b>
-        <%= @sugerencia.hora_inicio %>
-      </p>
-
-      <p>
+        <%= @sugerencia.hora_inicio.strftime("%I:%M %p") %> </br>
         <b>Origen: </b>
-        <%= @origen.nombre %>
-      </p>
-
-      <p>
+        <%= @origen.nombre %></br>
         <b>Destino: </b>
-        <%= @destino.nombre %>
+        <%= @destino.nombre %></br>
       </p>
 
-      </p>
+
+      <% if !@coincidencias_sugerencia.first.nil? %>
+        <small>COINCIDENCIAS</small></br>
+        <% @coincidencias_sugerencia.each do |sugerencia| %>
+          <b>Origen: </b><%=sugerencia.sugerenciaparadas.find_by_posicion(0).nombre.split(",")[0] %>
+          <b>Destino: </b><%=sugerencia.sugerenciaparadas.find_by_posicion(1).nombre.split(",")[0] %>
+          <% paradas_sug = sugerencia.sugerenciaparadas.to_json %>
+          <%= link_to "Ver en Mapa", '#Recorrido', onclick: "trazarRuta(#{paradas_sug});"%>
+          </br>
+        <%end%>
+        </br>
+      <%end%>
     
     </div>
-    <div class="row" align=" right">
-      <button class="btn btn-default" onclick="trazarRuta()"><i class="fa fa-fw fa-info"></i> Ver M&aacute;s</button>
+    
+    <div class="row-fluid">
+      <section id="Recorrido">
+        <small>RECORRIDO de SUGERENCIA</small>
+        <div id="map-canvas" style="height: 500px;  max-width:none;"></div>
+      </section>
     </div>
+
+
   </div><!-- /.tab-pane -->
   
 

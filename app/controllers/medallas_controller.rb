@@ -31,9 +31,7 @@ class MedallasController < ApplicationController
   # GET /medallas/new
   # GET /medallas/new.json
   def new
-    @user = User.new
     @medalla = Medalla.new
-    @cliente = obtener_cliente
 
     respond_to do |format|
       format.html # new.html.erb
@@ -94,18 +92,53 @@ class MedallasController < ApplicationController
   # POST /conductors
   # POST /conductors.json
   def create
-    paramsmedalla = OpenStruct.new params[:medalla]
-    #paramsuser = OpenStruct.new paramsconductor.user
-    @medalla = Medalla.new
-    #user = User.new
-    @medalla.attributes = {:nombre => paramsmedalla.nombre, 
-                          :puntos => paramsmedalla.puntos, 
-                          :tipomedalla_id => paramsmedalla.tipomedalla_id, 
-                          :imagen => paramsmedalla.imagen, 
-                          :estatus => paramsmedalla.estatus, 
-                          :descripcion => paramsmedalla.descripcion
+  #  paramsmedalla = OpenStruct.new params[:medalla]
+    
+    @medalla = Medalla.new #(params[:medalla])
+    
+    @medalla.attributes = {:nombre => params[:nombre], 
+                          :puntos => params[:puntos], 
+                          :tipomedalla_id => params[:tipomedalla_id], 
+                          :estatus => true,
+                          :estado => params[:estado], 
+                          :descripcion => params[:descripcion]
                        } 
-    #@conductor.user = user
+
+    puts(params[:base64data])
+    puts("IMAGEN ^")
+    nombre_medalla = params[:nombre]
+    estado_medalla = params[:estado]
+
+    if (params[:base64data]!=nil)
+        #obtener el tipo de imagen
+        _file = params[:imagenmedalla]
+        file_type = _file[:type]
+
+         if file_type == 'image/jpeg' || file_type == 'image/jpg' || file_type == 'image/png' || file_type == 'image/gif' || file_type == 'image/bmp'
+
+        
+          case file_type
+             when "image/jpeg"
+                file_name = "#{nombre_medalla}_#{estado_medalla}.jpg"
+             when "image/png"
+                file_name = "#{nombre_medalla}_#{estado_medalla}.png"
+             when "image/gif"
+                file_name = "#{nombre_medalla}_#{estado_medalla}.gif"
+             when "image/bmp"
+                file_name = "#{nombre_medalla}_#{estado_medalla}.bmp"
+          end
+        end
+
+        # dar el file path para imagen
+          file_path = File.join(Rails.root, 'app', 'assets', 'images', 'medals', file_name)
+
+          File.open(file_path, 'wb') do|f|
+            f.write(Base64.decode64(params[:base64data]))
+          end
+
+       @medalla.imagen = file_name
+    end #si se subió una imagen.
+    
     @action = 'create'
     if @medalla.valid?
         if @medalla.save!
@@ -123,23 +156,55 @@ class MedallasController < ApplicationController
     else
       respond_to do |format|
         # format.js { render :js => "window.location = '#{forma_detalle_conductor @conductor}'" }
-        format.html { render partial: 'administradors/form_conductor', conductor:@conductor, create: true }
-        format.json { render json: @conductor.errors, status: :unprocessable_entity }
+        format.html { render partial: 'administradors/form_medalla', medalla:@medalla, create: true }
+        format.json { render json: @medalla.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # Método para actualizar los datos de un conductor a través dela forma del panel lateral.
   def update
-    paramsmedalla = OpenStruct.new params[:medalla]
-    @medalla = Medalla.find(paramsmedalla.id)
-    @medalla.attributes = {:nombre => paramsmedalla.nombre, 
-                          :puntos => paramsmedalla.puntos, 
-                          :tipomedalla_id => paramsmedalla.tipomedalla_id, 
-                          :imagen => paramsmedalla.imagen, 
-                          :estatus => paramsmedalla.estatus, 
-                          :descripcion => paramsmedalla.descripcion
+    #paramsmedalla = OpenStruct.new params[:medalla]
+    @medalla = Medalla.find(params[:id])
+    @medalla.attributes = {:nombre => params[:nombre], 
+                          :puntos => params[:puntos], 
+                          :tipomedalla_id => params[:tipomedalla_id], 
+                          :estatus => true,
+                          :estado => params[:estado], 
+                          :descripcion => params[:descripcion]
                        } 
+
+    if (params[:base64data]!=nil)
+        #obtener el tipo de imagen
+        _file = params[:imagenmedalla]
+        file_type = _file[:type]
+
+         if file_type == 'image/jpeg' || file_type == 'image/jpg' || file_type == 'image/png' || file_type == 'image/gif' || file_type == 'image/bmp'
+
+        nombre_medalla = params[:nombre]
+        estado_medalla = params[:estado]
+          case file_type
+             when "image/jpeg"
+                file_name = "#{nombre_medalla}_#{estado_medalla}.jpg"
+             when "image/png"
+                file_name = "#{nombre_medalla}_#{estado_medalla}.png"
+             when "image/gif"
+                file_name = "#{nombre_medalla}_#{estado_medalla}.gif"
+             when "image/bmp"
+                file_name = "#{nombre_medalla}_#{estado_medalla}.bmp"
+          end
+        end
+
+        # dar el file path para imagen
+          file_path = File.join(Rails.root, 'app', 'assets', 'images', 'medals', file_name)
+
+          File.open(file_path, 'wb') do|f|
+            f.write(Base64.decode64(params[:base64data]))
+          end
+
+       @medalla.imagen = file_name
+    end #si se subió una imagen.
+
     @action = 'update'
     if @medalla.valid?
       @medalla.save!
@@ -150,7 +215,7 @@ class MedallasController < ApplicationController
     else
       respond_to do |format|
         # format.js { render :js => "window.location = '#{forma_detalle_conductor @conductor}'" }
-        format.html { render partial: 'administradors/form_conductor', medalla:@medalla }
+        format.html { render partial: 'administradors/form_medalla', medalla:@medalla }
         format.json { render json: @medalla.errors, status: :unprocessable_entity }
       end
     end
@@ -221,7 +286,7 @@ class MedallasController < ApplicationController
   # Método para eliminar registro de la BD
   #
   def jtable_delete
-    medalla = Medalla.find_by_medalla_id(params[:id])
+    medalla = Medalla.find(params[:medalla_id])
 
     # Iniciamos la eliminación del registro, si no se elimina, almacenamos el resultado en un boleano.
     bolExito = true

@@ -1,0 +1,237 @@
+<div class="span12" style="font-size: 16px;">
+  <div class="span4" >
+    <h3><%=@ruta.nombre%></h3>  
+    <input type="text" style="display: none;" value="<%=@ruta.id%>" id="id" >
+
+      <small>ORIGEN:</small>
+      &nbsp;<%= @ruta.paradas.order('posicion ASC').first.nombre.split(",")[0] %></br>
+      <small>DESTINO:</small>
+      &nbsp;<%= @ruta.paradas.order('posicion ASC').last.nombre.split(",")[0] %></br>
+      <small>PRECIO:</small>
+      &nbsp;<%=number_to_currency(@ruta.precio, :unit => "$")%>
+      </br>
+      
+      <small>HORA SALIDA:</small>
+      &nbsp;<%=@ruta.horario.hora.strftime("%I:%M%p")%></br>
+      <small>HORA LLEGADA:</small>
+      &nbsp;<%=(@ruta.horario.hora + @ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></br></br>
+
+                
+      <div class="row-fluid">
+        <small>PARADAS</small>
+        <div id="paradasTableContainer"></div></br>
+           
+        <small>¿CUÁNTOS DÍAS QUIERES VIAJAR?</small></br>
+          <div class="diasViajes span4 pull-right">
+              <i>30</i> días </br> <input type="radio" name="cantidad_viajes" class="cantidad" value="30">
+          </div>
+          <div class="diasViajes span4 pull-right">
+              <i>15</i> días </br> <input type="radio" name="cantidad_viajes" class="cantidad" value="15" checked>
+          </div>
+          <div class="diasViajes span4 pull-right">
+              <i>1</i> día </br> <input type="radio" name="cantidad_viajes" class="cantidad" value="1">
+          </div></br></br></br></br>
+
+          <%if signed_in? %>
+          <%= link_to "Buscar otra ruta", "/buscar", class:"" %>
+          <button id="show" class="btn btn-pagar btn-flat pull-right">Comprar viaje</button>
+          <%else%>
+          <%= link_to "Buscar otra ruta", "/" %>
+          <button id="show" data-toggle="modal" data-target="#registroModal" class="btn btn-pagar btn-flat pull-right">Comprar viaje</button>
+          <%end%>
+          </br>
+        </div>
+        </br>
+      </div>   
+    
+    <div class="span8">
+      <small>RECORRIDO</small>
+      <div class="mapbox" id="map-canvas"></div>
+    </div> 
+</div>
+
+            
+
+<script type="text/javascript">
+
+      var mapOptions = {
+        zoom: 13
+      };
+$(function(){
+    
+    if(map){
+    google.maps.event.trigger(map, "resize");    
+    }
+    var map = new google.maps.Map(document.getElementById('map-canvas'),
+        mapOptions);
+    
+    
+
+    var lineSymbol = {
+      path: google.maps.SymbolPath.FORWARD_OPEN_ARROW
+    };
+
+
+    var rendererOptions = { 
+      map: map,
+      draggable: false,
+      polylineOptions: {
+          strokeWeight: 4,
+          strokeOpacity: 0.8,
+          strokeColor: '#D84743',
+          icons: [{
+            icon: lineSymbol,
+            offset: '25%'
+          }, {icon: lineSymbol,
+            offset: '75%'
+          }]
+      }
+    };
+
+    directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+    trazarRuta();
+    
+});
+
+   function trazarRuta(){
+    var arregloMarcadores= <%= raw @ruta.paradas.to_json %>;
+    var origen = arregloMarcadores[0].latitud+", "+arregloMarcadores[0].longitud;
+    var destino = arregloMarcadores[arregloMarcadores.length-1].latitud+", "+arregloMarcadores[arregloMarcadores.length-1].longitud;
+    var arregloParadas=[];
+
+        if(arregloMarcadores.length>2){
+
+          for(i= 1; i<arregloMarcadores.length-1;i++){
+            var posicionParada = arregloMarcadores[i].latitud+", "+arregloMarcadores[i].longitud;
+            arregloParadas.push({
+                              location: posicionParada,
+                              stopover: true
+                            });
+            
+          }
+
+        }
+
+        //optimize waypoints for admin false, for client will be true
+        var request = {
+          origin: origen,
+          destination: destino,
+          waypoints: arregloParadas,
+          travelMode: google.maps.DirectionsTravelMode.DRIVING,
+          unitSystem: google.maps.UnitSystem.METRIC,
+          optimizeWaypoints: false
+        }
+
+        directionsService = new google.maps.DirectionsService();
+        var rutaa= directionsService.route(request, function(response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+            var routeDrawn = response.routes[0];
+                 
+          }
+          else
+            alert ('no se pudo obtener direcciones');
+        });
+
+        
+
+  }
+var id = <%=@ruta.id.to_i %>
+
+ $(document).ready(function () {
+  
+              $('#paradasTableContainer').jtable({
+                  messages: {
+                      serverCommunicationError: 'Ocurri&oacute; un error al comunicarse con el servidor.',
+                      loadingMessage: 'Cargando Registros...',
+                      noDataAvailable: '&iexcl;No hay Datos!',
+                      addNewRecord: 'Agregar Viaje',
+                      editRecord: 'Editar pregunta',
+                      areYouSure: '¿Está seguro?',
+                      deleteConfirmation: '&iquest;Est&aacute; seguro de eliminar este viaje?',
+                      save: 'Guardar',
+                      saving: 'Guardando',
+                      cancel: 'Cancelar',
+                      deleteText: 'Eliminar',
+                      deleting: 'Eliminando',
+                      error: 'Error',
+                      close: 'Cerrar',
+                      cannotLoadOptionsFor: 'No se pueden cargar las opciones para el campo {0}',
+                      pagingInfo: 'Mostrando {0} a {1} de {2} viajes',
+                      pageSizeChangeLabel: 'N&uacute;mero de registros',
+                      gotoPageLabel: 'Ir a la p&aacute;gina',
+                      canNotDeletedRecords: '&excl;¡No se pudieron eliminar {0} de {1} registros!',
+                      deleteProgress: 'Eliminadas {0} de {1} viajes, procesando...'
+                  },
+                  
+                  useBootstrap: true,
+                  paging: false, //Habilitamos paginación.
+                  pageSize: 10, //Definimos el número de registros a mostrar a 10.
+                  sorting: false, //Habilitamos ordenación.
+                  defaultDateFormat: 'yy-mm-dd',
+                  gotoPageArea: 'combobox',
+                  selecting: false, //Habilitar Seleccion.
+                  selectingCheckboxes: true, //Mostrar checkbox en la primer columna
+                  selectOnRowClick: true, //Habilitamos selección con la fila
+                  deleteConfirm: true,
+                  actions: {
+                      //Aquí va el URL del método del controlador, debemos definirlos primero en config/routes.
+                      listAction: "/ruta_controller/paradas_jtable_filterlist/?id="+id
+                  },
+                  fields: {
+                      //Columna en la tabla. Deben ponerse todas las columnas, si no deben ser visible, solamente
+                      //habilitamos la opción list:false. Si un campo no debe editarse configuramos edit:false.
+                      
+                      letra: {
+                          width: '2%'
+                      },
+                      nombre_parada: {
+                          title: 'Parada',
+                          width: '30%'
+                      },
+                      tiempo_parada: {
+                          title: 'Hora',
+                          width: '10%'
+                      }
+                  }
+                  
+
+              });
+
+              
+              // Esta línea carga los datos de la jTable al desplegar la página.
+              $('#paradasTableContainer').jtable('load');
+              
+
+$("#remove-frame").click(function(){
+       $("#detalleRuta").hide();
+                });
+
+
+  });
+
+
+
+        
+  </script>
+
+  <style type="text/css">
+
+  .diasViajes{
+    cursor:auto; 
+    border-style: solid; 
+    border-color: #aaa;
+    position: relative;
+    padding: 15px 5px;
+    margin: 0 0 5px 5px;
+    max-width: 85px;
+    height: 60px;
+    box-shadow: none;
+    border-radius: 0;
+    text-align: center;
+    color: #666;
+    border: 1px solid #ddd;
+    font-size: 12px;
+  }
+  
+  </style>

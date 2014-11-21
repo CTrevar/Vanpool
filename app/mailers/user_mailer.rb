@@ -38,6 +38,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def enviar_correo_prueba
+    puts DateTime.now.strftime('%d/%m/%Y- %T ===> ')
     mail(to: "alvaro9210@gmail.com",
          body: Configuracion.find(7).valor.gsub(/(@usuario)/i, Cliente.find(1).user.name),
          content_type: "text/html",

@@ -30,13 +30,11 @@ function initialize() {
           strokeColor: '#D84743',
           icons: [{
             icon: lineSymbol,
-            offset: '25%'
-          }, {icon: lineSymbol,
-            offset: '75%'
+            offset: '50%'
           }]
       }
     };
-
+    
     directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
     trazarRuta();
     
