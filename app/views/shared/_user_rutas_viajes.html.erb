@@ -1,3 +1,7 @@
+<div id="sugerenciaEnviada" style="display:none;" class="alert alert-info alert-dismissable">
+    
+</div>
+
 <div class="border green">
 <h3 class="nomargin">Viajes de la Ruta</h3>
 </div>
@@ -19,7 +23,7 @@
                                 <input type="checkbox" name="check_viaje_<%=index%>" checked>
                         <%else%>
                             Este viaje va lleno
-                                <button>Solicitar ruta</button>
+                                <a onclick="solicitarRuta(<%=viaje.id%>)"> Solicitar</a>
                         <%end%>
                     </div>
                 </div>
@@ -38,3 +42,22 @@
         <h2>No hay viajes disponibles en esta ruta.</h2>
     </div><!-- /.item -->
     <%end%>
+
+<script type="text/javascript">
+    function solicitarRuta(viaje_id){
+        var data={
+            id: viaje_id
+        }
+
+        $.post('/enviar_sugerencia' , data, function(result){
+                 $("#sugerenciaEnviada").html(result);
+    }).success();
+        $('#sugerenciaEnviada').show();
+    }
+
+    function cerrar(){
+        $('#sugerenciaEnviada').hide();
+    }
+
+
+</script>

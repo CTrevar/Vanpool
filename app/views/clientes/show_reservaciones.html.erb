@@ -19,7 +19,7 @@
                             
                             <% if @viajes==nil%>
                                 <div class="msg-vacio">
-                                    <h4><b>Aún no tienes viajes</b></h4>
+                                    <h4><b>Aún no has reservado un viaje.</b></h4>
                                 </div>
                             <% else %>
                                 <%= form_tag(controller:"clientes", action:"reservar_viajes", method:"post" ) do%>

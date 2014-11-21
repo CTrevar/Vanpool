@@ -1,7 +1,8 @@
 <% disabled ||= false %>
 <% exito ||= false %>
 <% create ||= false %>
-<%= form_for @medalla,  :url => "/medalla_controller/#{@action}", :html =>{:multipart => true} do |f| %>
+
+<%= form_for @medalla,  :url => "/medalla_controller/#{@action}", :html => { :multipart => true }, :remote => true do |f| %>
     </br>
     <%  if exito %>
         <div class="alert alert-success alert-dismissable">
@@ -56,20 +57,22 @@
       <div class="form-group">
         <label>Tipo de medalla</label>
         <div class="row-fluid">
-          <%= f.number_field :tipomedalla_id, in: 1.. 10, class:"form-control span12" %>
+          <%= f.collection_select :tipomedalla_id, Tipomedalla.all, :id, :nombre, class:"form-control span12" %>
         </div>
       </div>
 
       <div class="form-group">
-        <label>ImagenMedalla</label>
+        <label>Imagen</label>
 
         <div class="row-fluid"> 
-            <%= f.file_field :imagenmedalla%>
-  
+          <p class="help-block">Selecciona una imagen 150 x 150</p>
+          <input type='file' onchange="readURL(this);" name="imagenmedalla" id="imagenmedalla"/></br>
+          <% if @action=='create' or @medalla.imagen.blank? %>
+            <img id="img_prev" src="#" alt="medalla" style="display:none;"/>
+          <%end%>
         </div>
-        <% if @action=='update' %>
-        
-        <%= image_tag(@medalla.imagenmedalla.url) %>
+        <% if @action=='update' and !@medalla.imagen.blank? %>
+          <%= image_tag("/assets/medals/#{@medalla.imagen}" , :id=>"img_prev") %>
         <%end%>
     </div>
   
@@ -79,13 +82,83 @@
         <i class="fa fa-save"></i>  Guardar
       </button>
       <script type="text/javascript" charset="utf-8">
-       
+
+        function readURL(input) {
+        if (input.files && input.files[0]) {
+          $('#img_prev').show();
+         // formData.append("imagenmedalla", input.files[0]);
+         // $('#imagenmedalla').val(input.files[0]);
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+        $('#img_prev')
+        .attr('src', e.target.result)
+        .width(150)
+        .height(150);
+        
+        };
+
+        reader.readAsDataURL(input.files[0]);
+        }
+        }
+
+        function getBase64Image(img, type) {
+            // Create an empty canvas element
+            var canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            // Copy the image contents to the canvas
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+
+            // Get the data-URL formatted image
+            // Firefox supports PNG and JPEG. You could check img.src to
+            // guess the original format, but be aware the using "image/jpg"
+            // will re-encode the image.
+            var dataURL = canvas.toDataURL(type);
+
+            return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+        }
+
             $("form").submit(function (event) {
                 event.preventDefault();
+                if ($("#imagenmedalla")[0].files[0]){
+                  b64_data = getBase64Image(img_prev, $("#imagenmedalla")[0].files[0].type);
+                } else {
+                  b64_data = null;
+                }
+                
+               // formData.append("imagenmedalla",  $( '#imagenmedalla' )[0].files[0]);
+        //      alert(binary_data);
+          //      formData.append($(this).serialize());
+                var d_data = {
+                  id : $("#medalla_id").val(),
+                  nombre: $("#medalla_nombre").val(),
+                  descripcion: $("#medalla_descripcion").val(),
+                  puntos: $("#medalla_puntos").val(),
+                  estado: $("#medalla_estado").val(),
+                  tipomedalla_id: $("#medalla_tipomedalla_id").val(),
+                  base64data: b64_data,
+                  imagenmedalla: $("#imagenmedalla")[0].files[0]
+                };
+
+               //  d_data = JSON.parse(d_data);
                 var request = $.ajax({
                     type: "POST",
+                    cache: false,
+                    contentType: "application/json", //;   multipart/form-data; charset=utf-8;",
+                    processData: false,
                     url: '<%= "/medalla_controller/#{@action}" %>',
-                    data: $(this).serialize()
+                    data: JSON.stringify(d_data), //$(this).serialize(),
+                    success:function(data){
+                        console.log("success");
+                        console.log(data);
+                    },
+                    error: function(data){
+                        console.log("error");
+                        console.log(data);
+                    }
                 });
                 request.done(function( msg ) {
                     <% if @action == 'create' %>
@@ -102,4 +175,5 @@
             });
       </script>
     </div>
+
 <% end %>

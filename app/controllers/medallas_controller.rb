@@ -92,20 +92,52 @@ class MedallasController < ApplicationController
   # POST /conductors
   # POST /conductors.json
   def create
-    paramsmedalla = OpenStruct.new params[:medalla]
+  #  paramsmedalla = OpenStruct.new params[:medalla]
     
     @medalla = Medalla.new #(params[:medalla])
-
     
-    @medalla.attributes = {:nombre => paramsmedalla.nombre, 
-                          :puntos => paramsmedalla.puntos, 
-                          :tipomedalla_id => paramsmedalla.tipomedalla_id, 
-                          :imagen => paramsmedalla.imagen, 
+    @medalla.attributes = {:nombre => params[:nombre], 
+                          :puntos => params[:puntos], 
+                          :tipomedalla_id => params[:tipomedalla_id], 
                           :estatus => true,
-                          :estado => paramsmedalla.estado, 
-                          :descripcion => paramsmedalla.descripcion,
-                          :imagenmedalla => paramsmedalla.imagenmedalla
+                          :estado => params[:estado], 
+                          :descripcion => params[:descripcion]
                        } 
+
+    puts(params[:base64data])
+    puts("IMAGEN ^")
+    nombre_medalla = params[:nombre]
+    estado_medalla = params[:estado]
+
+    if (params[:base64data]!=nil)
+        #obtener el tipo de imagen
+        _file = params[:imagenmedalla]
+        file_type = _file[:type]
+
+         if file_type == 'image/jpeg' || file_type == 'image/jpg' || file_type == 'image/png' || file_type == 'image/gif' || file_type == 'image/bmp'
+
+        
+          case file_type
+             when "image/jpeg"
+                file_name = "#{nombre_medalla}_#{estado_medalla}.jpg"
+             when "image/png"
+                file_name = "#{nombre_medalla}_#{estado_medalla}.png"
+             when "image/gif"
+                file_name = "#{nombre_medalla}_#{estado_medalla}.gif"
+             when "image/bmp"
+                file_name = "#{nombre_medalla}_#{estado_medalla}.bmp"
+          end
+        end
+
+        # dar el file path para imagen
+          file_path = File.join(Rails.root, 'app', 'assets', 'images', 'medals', file_name)
+
+          File.open(file_path, 'wb') do|f|
+            f.write(Base64.decode64(params[:base64data]))
+          end
+
+       @medalla.imagen = file_name
+    end #si se subió una imagen.
     
     @action = 'create'
     if @medalla.valid?
@@ -132,16 +164,47 @@ class MedallasController < ApplicationController
 
   # Método para actualizar los datos de un conductor a través dela forma del panel lateral.
   def update
-    paramsmedalla = OpenStruct.new params[:medalla]
-    @medalla = Medalla.find(paramsmedalla.id)
-    @medalla.attributes = {:nombre => paramsmedalla.nombre, 
-                          :puntos => paramsmedalla.puntos, 
-                          :tipomedalla_id => paramsmedalla.tipomedalla_id, 
-                          :imagen => paramsmedalla.imagen, 
-                          :estatus => true, 
-                          :estado => paramsmedalla.estado, 
-                          :descripcion => paramsmedalla.descripcion
+    #paramsmedalla = OpenStruct.new params[:medalla]
+    @medalla = Medalla.find(params[:id])
+    @medalla.attributes = {:nombre => params[:nombre], 
+                          :puntos => params[:puntos], 
+                          :tipomedalla_id => params[:tipomedalla_id], 
+                          :estatus => true,
+                          :estado => params[:estado], 
+                          :descripcion => params[:descripcion]
                        } 
+
+    if (params[:base64data]!=nil)
+        #obtener el tipo de imagen
+        _file = params[:imagenmedalla]
+        file_type = _file[:type]
+
+         if file_type == 'image/jpeg' || file_type == 'image/jpg' || file_type == 'image/png' || file_type == 'image/gif' || file_type == 'image/bmp'
+
+        nombre_medalla = params[:nombre]
+        estado_medalla = params[:estado]
+          case file_type
+             when "image/jpeg"
+                file_name = "#{nombre_medalla}_#{estado_medalla}.jpg"
+             when "image/png"
+                file_name = "#{nombre_medalla}_#{estado_medalla}.png"
+             when "image/gif"
+                file_name = "#{nombre_medalla}_#{estado_medalla}.gif"
+             when "image/bmp"
+                file_name = "#{nombre_medalla}_#{estado_medalla}.bmp"
+          end
+        end
+
+        # dar el file path para imagen
+          file_path = File.join(Rails.root, 'app', 'assets', 'images', 'medals', file_name)
+
+          File.open(file_path, 'wb') do|f|
+            f.write(Base64.decode64(params[:base64data]))
+          end
+
+       @medalla.imagen = file_name
+    end #si se subió una imagen.
+
     @action = 'update'
     if @medalla.valid?
       @medalla.save!

@@ -218,6 +218,8 @@ end
 
   match '/ver_ruta/:id', to: 'clientes#ver_ruta', via:[:get]
 
+  match '/enviar_sugerencia', to: 'clientes#enviar_sugerencia', via:[:post]
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
