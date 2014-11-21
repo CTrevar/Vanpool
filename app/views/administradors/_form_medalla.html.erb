@@ -57,7 +57,7 @@
       <div class="form-group">
         <label>Tipo de medalla</label>
         <div class="row-fluid">
-          <%= f.number_field :tipomedalla_id, in: 1.. 10, class:"form-control span12" %>
+          <%= f.collection_select :tipomedalla_id, Tipomedalla.all, :id, :nombre, class:"form-control span12" %>
         </div>
       </div>
 
@@ -67,11 +67,12 @@
         <div class="row-fluid"> 
           <p class="help-block">Selecciona una imagen 150 x 150</p>
           <input type='file' onchange="readURL(this);" name="imagenmedalla" id="imagenmedalla"/></br>
-          <img id="img_prev" src="#" alt="medalla" style="display:none;"/>
-  
+          <% if @action=='create' or @medalla.imagen.blank? %>
+            <img id="img_prev" src="#" alt="medalla" style="display:none;"/>
+          <%end%>
         </div>
         <% if @action=='update' and !@medalla.imagen.blank? %>
-          <%= image_tag("/assets/medals/#{@medalla.imagen}") %>
+          <%= image_tag("/assets/medals/#{@medalla.imagen}" , :id=>"img_prev") %>
         <%end%>
     </div>
   
@@ -84,6 +85,7 @@
 
         function readURL(input) {
         if (input.files && input.files[0]) {
+          $('#img_prev').show();
          // formData.append("imagenmedalla", input.files[0]);
          // $('#imagenmedalla').val(input.files[0]);
         var reader = new FileReader();
@@ -93,7 +95,7 @@
         .attr('src', e.target.result)
         .width(150)
         .height(150);
-        $('#img_prev').show();
+        
         };
 
         reader.readAsDataURL(input.files[0]);
@@ -121,7 +123,12 @@
 
             $("form").submit(function (event) {
                 event.preventDefault();
-                b64_data = getBase64Image(img_prev, $("#imagenmedalla")[0].files[0].type);
+                if ($("#imagenmedalla")[0].files[0]){
+                  b64_data = getBase64Image(img_prev, $("#imagenmedalla")[0].files[0].type);
+                } else {
+                  b64_data = null;
+                }
+                
                // formData.append("imagenmedalla",  $( '#imagenmedalla' )[0].files[0]);
         //      alert(binary_data);
           //      formData.append($(this).serialize());
