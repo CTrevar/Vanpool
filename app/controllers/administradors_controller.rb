@@ -305,6 +305,16 @@ class AdministradorsController < ApplicationController
         @correoFrecuenciaRecordatorio.valor = paramsconf.valor
         if @correoFrecuenciaRecordatorio.valid?
           @correoFrecuenciaRecordatorio.save!
+          logger.info "\n================================================"
+          logger.info "\n"
+          # logger.info system "bundle exec whenever -i"
+          logger.info %x(sh whenever.sh)
+          # logger.info %x(whenever -i)
+          logger.info `pwd`
+          logger.info `ls`
+          logger.info "\n"
+          logger.info "\n"
+          logger.info "\n================================================"
           respond_to do |format|
             format.html { render partial: 'administradors/form_configuracion_correos_frecuencia', correoFrecuenciaRecordatorio:@correoFrecuenciaRecordatorio,locals: {exito:true} }
           end
