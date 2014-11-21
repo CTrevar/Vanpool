@@ -631,6 +631,12 @@ class ClientesController < ApplicationController
     jtStartPage = jtStartIndex.to_i / jtPageSize.to_i + 1
     @queryFiltrado = ""
     @query = ""
+
+    # Convertimos los valores para que puedan ser procesados por posgresql
+    jtSorting = jtSorting.gsub(/(apellidoMaterno)/i, '"apellidoMaterno"')
+    jtSorting = jtSorting.gsub(/(apellidoPaterno)/i, '"apellidoPaterno"')
+    jtSorting = jtSorting.gsub(/(fechaNacimiento)/i, '"fechaNacimiento"')
+
     # Si el campo de busqueda tiene solo espacios en blanco.
     if jtTextoBusqueda.blank? || jtTextoBusqueda.to_s == ''
       if jtAtributoCondicion.present? && jtCondicion.present? && jtValorCondicion.present?
@@ -642,13 +648,14 @@ class ClientesController < ApplicationController
       if jtAtributoCondicion.present? && jtCondicion.present? && jtValorCondicion.present?
           @queryFiltrado = " AND ( #{jtAtributoCondicion} #{jtCondicion} #{jtValorCondicion} ) "
       end
-      @query = "(LOWER(name) LIKE '%#{jtTextoBusqueda.downcase}%'  OR LOWER(email) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                 LOWER(fechaNacimiento) LIKE '%#{jtTextoBusqueda.downcase}%' OR
-                 LOWER(nivels.nombre) LIKE '%#{jtTextoBusqueda.downcase}%'
+      @query = "(name ILIKE :search OR
+                 email ILIKE :search OR
+                 to_char(\"fechaNacimiento\", 'MM/DD/YYYY') ILIKE :search OR
+                 nivels.nombre ILIKE :search
                 ) #{@queryFiltrado} AND clientes.estatus = 't'"
       # Si contiene algo más realiza la búsqueda en todos los atributos de la tabla.
       @results =  Cliente.joins(:user).select('*').joins(:nivel).select('nombre as nombre_nivel, nivels.estatus as estatus_nivel, nivels.id as nivel_id, clientes.id as cliente_id')
-      .where(@query).select('*').order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+      .where(@query,search: "%#{jtTextoBusqueda.strip}%").select('*').order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     end
     respond_to do |format|
       # Regresamos el resultado de la operación a la jTable

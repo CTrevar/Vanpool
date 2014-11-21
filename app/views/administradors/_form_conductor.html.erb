@@ -262,7 +262,11 @@
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <%= user.text_field :fechaNacimiento, class: "form-control", data: {inputmask:"'alias': 'dd/mm/yyyy'", mask:''}, :disabled => disabled %>
+                    <% if @conductor.user.fechaNacimiento.present? %>
+                        <%= user.text_field :fechaNacimiento, value: @conductor.user.fechaNacimiento.strftime('%d%m%Y'), class: "form-control", data: {inputmask:"'alias': 'dd/mm/yyyy'", mask:''}, :disabled => disabled %>
+                    <% else %>
+                        <%= user.text_field :fechaNacimiento, class: "form-control", data: {inputmask:"'alias': 'dd/mm/yyyy'", mask:''}, :disabled => disabled %>
+                    <% end %>
                   </div>
                 </div>
         <%   end %>
@@ -303,11 +307,11 @@
                     <% else %>
                         $("#forma_detalle_conductor").html(msg);
                     <% end %>
+                    $('#conductorsTableContainer').jtable('reload');
                 });
                 request.fail(function( jqXHR, textStatus ) {
                     alert(textStatus);
                 });
-                $('#conductorsTableContainer').jtable('reload');
                 return false;
             });
       </script>
