@@ -16,6 +16,7 @@ gem 'delayed_job_active_record'
 #gem 'pg'
 gem 'rack', "~> 1.4.5" 
 gem 'grape'
+gem 'simple_token_authentication'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

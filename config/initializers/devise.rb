@@ -261,4 +261,8 @@ Devise.setup do |config|
   #ID first, secret second
   config.omniauth :facebook, "708292565932035", "0961c370c701538ac20f349b9a02b4b3"
 
+  config.http_authenticatable_on_xhr = false
+  config.navigational_formats = ["*/*", :html, :json]
+   #config.navigational_formats = ["/", :json]
+
 end

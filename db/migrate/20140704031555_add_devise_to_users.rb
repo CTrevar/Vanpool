@@ -20,9 +20,9 @@ class AddDeviseToUsers < ActiveRecord::Migration
       t.string   :last_sign_in_ip
 
       ## Confirmable
-      # t.string   :confirmation_token
-      # t.datetime :confirmed_at
-      # t.datetime :confirmation_sent_at
+      #t.string   :confirmation_token
+      #t.datetime :confirmed_at
+      #t.datetime :confirmation_sent_at
       # t.string   :unconfirmed_email # Only if using reconfirmable
 
       ## Lockable
@@ -30,6 +30,8 @@ class AddDeviseToUsers < ActiveRecord::Migration
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
+      ## Token authenticatable
+      
 
       # Uncomment below if timestamps were not included in your original model.
       # t.timestamps
@@ -37,13 +39,37 @@ class AddDeviseToUsers < ActiveRecord::Migration
 
     add_index :users, :email,                unique: true
     add_index :users, :reset_password_token, unique: true
-    # add_index :users, :confirmation_token,   unique: true
+    #add_index :users, :confirmation_token,   unique: true
     # add_index :users, :unlock_token,         unique: true
+    
   end
 
   def self.down
     # By default, we don't want to make any assumption about how to roll back a migration when your
     # model already existed. Please edit below which fields you would like to remove in this migration.
-    raise ActiveRecord::IrreversibleMigration
+    # raise ActiveRecord::IrreversibleMigration
+    remove_index :users, :email
+    remove_index :users, :reset_password_token
+    remove_index :users, :confirmation_token
+    remove_index :users, :authentication_token
+
+    [
+      :encrypted_password,
+      :reset_password_token,
+      :reset_password_sent_at,
+      :remember_created_at,
+      :sign_in_count,
+      :current_sign_in_at,
+      :last_sign_in_at,
+      :current_sign_in_ip,
+      :last_sign_in_ip,
+      :confirmation_token,
+      :confirmed_at,
+      :confirmation_sent_at,
+      :unconfirmed_email,
+      :authentication_token
+    ].each do |column|
+      remove_column :users, column
+    end
   end
 end

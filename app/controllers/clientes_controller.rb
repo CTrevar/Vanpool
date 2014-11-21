@@ -129,15 +129,17 @@ class ClientesController < ApplicationController
     @picture = @graph.get_picture("me")
     @profile = @graph.get_object("me")
     @friends = @graph.get_connections("me", "friends")
-    @friends.each do |friend| 
-      friendsvanpool<<User.find_by_uid(friend["uid"])
-    end
 
-    friendsvanpool.each do |f|
-      clientesvanpool<<Cliente.find_by_user_id(f.id)
-    end
+    #friendsvanpool=Array.new
+    #@friends.each do |friend| 
+    #  friendsvanpool<<User.find_by_uid(friend["uid"])
+    #end
+
+    #friendsvanpool.each do |f|
+    #  clientesvanpool<<Cliente.find_by_user_id(f.id)
+    #end
     
-    tabla_lideres_facebook(@current_cliente, Cliente.where(id: clientesvanpool.map(&:id)))
+    #tabla_lideres_facebook(@current_cliente, Cliente.where(id: clientesvanpool.map(&:id)))
 
     end
 

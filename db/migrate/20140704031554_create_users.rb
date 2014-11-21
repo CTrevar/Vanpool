@@ -9,8 +9,10 @@ class CreateUsers < ActiveRecord::Migration
       t.datetime :fechaNacimiento
       t.string :apellidoPaterno
       t.string :apellidoMaterno
+      t.string :authentication_token
 
       t.timestamps
     end
+    add_index :users, :authentication_token, :unique => true
   end
 end
