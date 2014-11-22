@@ -1,0 +1,21 @@
+<div class="row-fluid">
+<div class="span12">
+	<% if @validalider==false then %>
+		<div class="msg-vacio">
+            <h4><b>Aún no eres líder de ruta</b></h4>
+        </div>
+    <% end %>
+</div>
+</div>
+<div class="row-fluid">
+    <% @lider.each do |lid| %>
+    <div style="margin:7px" class="span3">
+        
+                <img src="/assets/medals/retro1.png" class="img-circle" /></br>
+                <center><b><%= lid.ruta.nombre%></b></center>
+                <center><b><%= lid.record%> check-ins</b></center>
+                <center><%= lid.created_at.to_date%></center>
+        
+    </div><!-- /.item -->
+    <% end %>
+</div>

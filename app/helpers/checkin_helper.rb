@@ -11,6 +11,7 @@ module CheckinHelper
         asigna_medalla_viaje(@reservacion.cliente)
         asigna_medalla_llenototal(@reservacion.cliente)
         cambio_nivel(@reservacion.cliente)
+        asigna_lider(@reservacion.cliente, @reservacion.viaje.ruta)
     	  # redirect_to :controller => 'clientes', :action => 'reservaciones'
   	end
 end

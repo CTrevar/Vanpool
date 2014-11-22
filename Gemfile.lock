@@ -257,6 +257,10 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    simple_token_authentication (1.6.0)
+      actionmailer (>= 3.2.6, < 5)
+      actionpack (>= 3.2.6, < 5)
+      devise (~> 3.2)
     slop (3.6.0)
     spork (0.9.0)
     sprockets (2.2.1)
@@ -331,6 +335,7 @@ DEPENDENCIES
   rspec-rails (= 2.9.0)
   sass-rails (~> 3.2.3)
   seed_dump
+  simple_token_authentication
   spork (= 0.9.0)
   sprockets (= 2.2.1)
   sprockets-rails

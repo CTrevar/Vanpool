@@ -59,6 +59,8 @@ module PagosHelper
         #redirect_to :controller => 'clientes', :action => 'dashboard'
     end
 
+    
+
     def obtener_saldo
         return obtener_cuenta["balance"]
     end

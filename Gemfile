@@ -1,3 +1,5 @@
+LANG="en_US.UTF-8"
+LC_ALL="en_US.UTF-8"
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
@@ -16,6 +18,7 @@ gem 'delayed_job_active_record'
 #gem 'pg'
 gem 'rack', "~> 1.4.5" 
 gem 'grape'
+gem 'simple_token_authentication'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

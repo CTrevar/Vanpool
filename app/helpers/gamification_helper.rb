@@ -20,6 +20,9 @@ module GamificationHelper
       			medallamuro = Medallasmuro.create(cliente_id:cliente.id,medalla_id:medalla.id)
       			medallamuro.save
       			aumenta_puntos(cliente,medalla.puntos)
+                if valida_promocion(medallamuro)
+                    asigna_saldo_promocion(medallamuro)
+                end
     		end
     	end
     end
@@ -41,6 +44,9 @@ module GamificationHelper
                 medallamuro = Medallasmuro.create(cliente_id:cliente.id,medalla_id:medalla.id)
                 medallamuro.save
                 aumenta_puntos(cliente,medalla.puntos)
+                if valida_promocion(medallamuro)
+                    asigna_saldo_promocion(medallamuro)
+                end
             end
         end
     end
@@ -67,6 +73,9 @@ module GamificationHelper
                 medallamuro = Medallasmuro.create(cliente_id:cliente.id,medalla_id:medalla.id)
                 medallamuro.save
                 aumenta_puntos(cliente,medalla.puntos)
+                if valida_promocion(medallamuro)
+                    asigna_saldo_promocion(medallamuro)
+                end
             end
         end
     end
@@ -87,6 +96,9 @@ module GamificationHelper
                 medallamuro = Medallasmuro.create(cliente_id:cliente.id,medalla_id:medalla.id)
                 medallamuro.save
                 aumenta_puntos(cliente,medalla.puntos)
+                if valida_promocion(medallamuro)
+                    asigna_saldo_promocion(medallamuro)
+                end
             end
         end
     end
@@ -135,6 +147,9 @@ module GamificationHelper
                 medallamuro = Medallasmuro.create(cliente_id:cliente.id,medalla_id:medalla.id)
                 medallamuro.save
                 aumenta_puntos(cliente,medalla.puntos)
+                if valida_promocion(medallamuro)
+                    asigna_saldo_promocion(medallamuro)
+                end
             end
         end
     end
@@ -150,6 +165,9 @@ module GamificationHelper
                 medallamuro = Medallasmuro.create(cliente_id:cliente.id,medalla_id:medalla.id)
                 medallamuro.save
                 aumenta_puntos(cliente,medalla.puntos)
+                if valida_promocion(medallamuro)
+                    asigna_saldo_promocion(medallamuro)
+                end
             #end
         end
     end
@@ -164,7 +182,30 @@ module GamificationHelper
                 medallamuro = Medallasmuro.create(cliente_id:cliente.id,medalla_id:medalla.id)
                 medallamuro.save
                 aumenta_puntos(cliente,medalla.puntos)
+                if valida_promocion(medallamuro)
+                    asigna_saldo_promocion(medallamuro)
+                end
             end
+        end
+    end
+
+    #asigna lider de parada
+    def asigna_lider(cliente, ruta)
+        recordcliente=Cliente.find(cliente.id).reservacions.joins(:viaje).where('viajes.ruta_id'=>ruta.id,'reservacions.estadotipo_id'=>3).count
+        recordactual= Lider.where(:ruta_id=>ruta.id, :estatus=>true).maximum(:record)
+           
+        if Lider.where(:ruta_id=>ruta.id).exists? && recordactual != nil
+                if recordcliente > recordactual
+                    lider= Lider.create(cliente_id: cliente.id, ruta_id: ruta.id, record: recordcliente, estatus: true)
+                    lideresanteriores=Lider.where(:ruta_id=>ruta.id, :estatus=>true, :record=>recordactual)
+                
+                    lideresanteriores.each do |lider|
+                        lider.estatus=false
+                        lider.save
+                    end                    
+                end        
+        else
+            lider= Lider.create(cliente_id: cliente.id, ruta_id: ruta.id, record: recordcliente, estatus: true)
         end
     end
     
@@ -204,6 +245,13 @@ module GamificationHelper
 
     def calcula_co2_viaje(reservacion)
         return (calcular_distancia(reservacion)*(Configuracion.find(6).valor.to_f/1000))/Reservacion.find_all_by_estadotipo_id_and_viaje_id([2,3],reservacion.viaje_id).count
+    end
+
+     def calcula_co2ahorrado(cliente)
+       current_cliente=cliente
+       co2emitido = current_cliente.emisionco2.to_f
+       co2auto =current_cliente.kilometros.to_f*(Configuracion.find(1).valor.to_f/1000)
+       return co2auto-co2emitido
     end
 
     def tabla_lideres(current_cliente)

@@ -1,5 +1,18 @@
 class API::ClienteController < ApplicationController
 
+  #http_basic_authenticate_with name: 'admin', password: 'secret'
+  #respond_to :json
+
+  #before_filter :authenticate_user! 
+
+  ##registrar usuario
+  #curl -H "Content-Type: application/json" -d '{"user":{"name":"sergios","email":"sergios@purpledunes.com","password":"12345678"}}' -X POST http://localhost:3000/api/signup
+
+  ##login de usuario
+  ##curl -H 'Content-Type: application/json'   -H 'Accept: application/json' -X POST http://localhost:3000/api/signin   -d '{"user": {"email": "cliente3@gmail.com", "password": "12345678"}}'
+  #return {"user":{"admin":false,"apellidoMaterno":null,"apellidoPaterno":null, "authentication_token":"bfTkFLmU0UuXMnVpy/A8+qDeRY5uNtOnSrQ9pdjoWuk=","created_at":"2014-11-19T08:12:35Z","email":"cliente3@gmail.com","estatusUsuario":true,"fechaNacimiento":"1992-07-29T00:00:00Z","id":3,"name":"Marta Jiménez","provider":null,"uid":null,"updated_at":"2014-11-19T20:34:42Z"},"status":"ok","authentication_token":"bfTkFLmU0UuXMnVpy/A8+qDeRY5uNtOnSrQ9pdjoWuk="
+
+
   	def cliente_perfil
 		id=params[:id]
     	@perfil = Cliente.joins(:user).select('name, puntaje, kilometros, nivel_id').find(id)
@@ -253,8 +266,13 @@ class API::ClienteController < ApplicationController
 
      def cliente_checkin 
       id=params[:id]
-       checkin(id)
-       @exito=true
+      if Reservacion.find(id).estadotipo_id==2
+        checkin(id)
+        @exito=true
+      else
+        @exito="Ya ha realizado checkin anteriormente"
+      end
+
        respond_to do |format|
           format.json { render :json => @exito }
       end

@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
      :omniauthable, :omniauth_providers => [:facebook]
+  #acts_as_token_authenticatable
 
   def self.from_omniauth(auth)
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -15,10 +16,11 @@ class User < ActiveRecord::Base
       end
   end
 
+
   # Setup accessible (or protected) attributes for your model
   #attr_accessible :email, :password, :password_confirmation, :name, :admin
   attr_accessible :email, :name,:password, :password_confirmation, :fechaNacimiento, :estatusUsuario, :admin, :provider, :uid, 
-  :apellidoPaterno, :apellidoMaterno
+  :apellidoPaterno, :apellidoMaterno, :remember_me
   #has_secure_password
   has_one :clients, dependent: :destroy
 

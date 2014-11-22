@@ -18,10 +18,19 @@ namespace :api, :defaults => {:format => :json} do
   match '/cliente_envia_reporte', to: 'cliente#cliente_envia_reporte'
   match '/cliente_envia_sugerencia', to: 'cliente#cliente_envia_sugerencia'
   
+  devise_scope :user do
+    #match '/sessions' => 'sessions#destroy', :via => :delete
+    match '/signup' => 'registrations#create', :via => :post
+    match '/signin' => 'sessions#create', :via => :post
+    match '/signinfacebook' => 'sessions#createface', :via => :post
+    match '/signout' => 'sessions#destroy', :via => :delete
+  end
+  
 end
 
-  mount API::Root => '/api'
+  #mount API::Cliente => '/api'
 
+  #devise_for :users, :controllers => {:sessions => "sessions"}
 
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
 
@@ -87,6 +96,7 @@ end
   
   match '/inicio', to: 'administradors#inicio'
   match '/dashboard', to: 'clientes#dashboard'
+  match '/promociones', to: 'clientes#promociones'
   match '/buscar', to: 'clientes#buscarviaje'
   match '/reservaciones', to: 'clientes#reservaciones'
   match '/mis_viajes', to: 'clientes#viajes'

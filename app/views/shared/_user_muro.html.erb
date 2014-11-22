@@ -10,15 +10,16 @@
 </div>
 <div class="row-fluid">
     <% @muro.each do |medalla| %>
-    <div class="span2">
-        <div class="row-fluid">
+    <div style="margin:7px" class="span3">
+        
                 <img src="/assets/medals/<%= medalla.imagen%>" class="img-circle" alt="<%= medalla.nombre%>" /></br>
                 <center><b><%= medalla.nombre%></b></center>
-                <center><%= medalla.created_at%></center>
-        </div>
+                <center><%= medalla.created_at.to_date%></center>
+        
     </div><!-- /.item -->
     <% end %>
 </div>
+
 
 
 

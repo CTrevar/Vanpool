@@ -79,6 +79,9 @@ module SampleApp
     #it  points to the development environment  by default.
     openpay=OpenpayApi.new(merchant_id,private_key)
 
+    config.to_prepare do
+        DeviseController.respond_to :html, :json
+    end
     #To enable production mode you should pass a third argument as true.
     #openpay_prod=OpenpayApi.new(merchant_id,private_key,true)
 
@@ -90,9 +93,10 @@ module SampleApp
     #Example:
     #   openpay_prod=OpenpayApi.new(merchant_id,private_key,false,30)
 
-    config.paths.add "app/api", glob: "**/*.rb"
-    config.autoload_paths += Dir["#{Rails.root}/app/api/*"]
+    #config.paths.add "app/api", glob: "**/*.rb"
+    #config.autoload_paths += Dir["#{Rails.root}/app/api/*"]
 
+    #protect_from_forgery with: :null_session, :if => Proc.new { |c| c.request.format == 'application/json' }
 
   end
 end

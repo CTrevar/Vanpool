@@ -101,13 +101,13 @@ class ClientesController < ApplicationController
     
     @validamedallas=valida_medallas(@current_cliente)
     @muro = obtener_ultimas_medallas(@current_cliente)
-    @co2 = @current_cliente.kilometros*Configuracion.find(1).valor.to_f
+    @co2 = calcula_co2ahorrado(@current_cliente)
 
     tabla_lideres(@current_cliente)
 
-    @reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
+    #@reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
     @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
-    @reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
+    #@reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
 
     
     @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2).last(3)
@@ -117,8 +117,8 @@ class ClientesController < ApplicationController
     end
 
 
-    @reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
-    @reservaciones_canceladas=@current_cliente.reservacions.find_all_by_estadotipo_id(4)
+    #@reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
+    #@reservaciones_canceladas=@current_cliente.reservacions.find_all_by_estadotipo_id(4)
 
     if(current_user.provider)
     @oauth = Koala::Facebook::OAuth.new("708292565932035", "0961c370c701538ac20f349b9a02b4b3")
@@ -129,25 +129,36 @@ class ClientesController < ApplicationController
     @picture = @graph.get_picture("me")
     @profile = @graph.get_object("me")
     @friends = @graph.get_connections("me", "friends")
-    @friends.each do |friend| 
-      friendsvanpool<<User.find_by_uid(friend["uid"])
-    end
 
-    friendsvanpool.each do |f|
-      clientesvanpool<<Cliente.find_by_user_id(f.id)
-    end
+    #friendsvanpool=Array.new
+    #@friends.each do |friend| 
+    #  friendsvanpool<<User.find_by_uid(friend["uid"])
+    #end
+
+    #friendsvanpool.each do |f|
+    #  clientesvanpool<<Cliente.find_by_user_id(f.id)
+    #end
     
-    tabla_lideres_facebook(@current_cliente, Cliente.where(id: clientesvanpool.map(&:id)))
+    #tabla_lideres_facebook(@current_cliente, Cliente.where(id: clientesvanpool.map(&:id)))
 
     end
 
-    #@result=busqueda
-    #@result=Viaje.all
-    #puts @request_hash["name"]
-    #print "hola"
+
+    @regalos=obtener_regalos(@current_cliente).last(2)
+    @promociones=obtener_promociones(@current_cliente).last(2)
 
   end
 
+  def promociones
+    #@title="Muro de medallas"
+    #@user=User.find(params[:id])
+    #@current_cliente=Cliente.find_by_user_id(current_user.id)
+
+    @current_cliente = obtener_cliente(current_user)
+    @promociones=obtener_promociones(@current_cliente)
+    @regalos=obtener_regalos(@current_cliente)
+    render 'show_promociones'
+  end
 
   def compracredito
     @current_cliente = obtener_cliente(current_user)
@@ -214,41 +225,41 @@ class ClientesController < ApplicationController
 
 
   # GET /clientes/1/profile
-  def profile
-    @title = "Perfil"
-    @user = User.find(params[:id])
-    @current_cliente=Cliente.find_by_user_id(current_user.id)
+  #def profile
+  #  @title = "Perfil"
+  #  @user = User.find(params[:id])
+  #  @current_cliente=Cliente.find_by_user_id(current_user.id)
     
-    @cliente=obtener_cliente(@user)
-    @mensaje=obtener_mensaje_nivel(@cliente)
-    @validamedallas=valida_medallas(@cliente)
-    @muro = obtener_ultimas_medallas(@cliente)
-    @co2 = @cliente.co2ahorrado
-    @kilometros = @cliente.kilometraje
+  #  @cliente=obtener_cliente(@user)
+  #  @mensaje=obtener_mensaje_nivel(@cliente)
+  #  @validamedallas=valida_medallas(@cliente)
+  #  @muro = obtener_ultimas_medallas(@cliente)
+  #  @co2 = @cliente.co2ahorrado
+  #  @kilometros = @cliente.kilometraje
 
-    @reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
-    @disponibilidad_pendientes = []
-    @reservaciones_pendientes.each do |reserva_pendiente|
-      @disponibilidad_pendientes<< calcula_disponibilidad_viaje(reserva_pendiente.viaje)
-    end
+  #  @reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
+  #  @disponibilidad_pendientes = []
+  #  @reservaciones_pendientes.each do |reserva_pendiente|
+  #    @disponibilidad_pendientes<< calcula_disponibilidad_viaje(reserva_pendiente.viaje)
+  #  end
 
-    @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
-    @disponibilidad_pagadas = []
-    @reservaciones_pagadas.each do |reserva_pagada|
-      @disponibilidad_pagadas<< calcula_disponibilidad_viaje(reserva_pagada.viaje)
-    end
+  #  @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
+  #  @disponibilidad_pagadas = []
+  #  @reservaciones_pagadas.each do |reserva_pagada|
+  #    @disponibilidad_pagadas<< calcula_disponibilidad_viaje(reserva_pagada.viaje)
+  #  end
 
-    @reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
+  #  @reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
 
-    @disponibilidad_pagadas = []
-    @reservaciones_pagadas.each do |reserva_pagada|
-      @disponibilidad_pagadas<< calcula_disponibilidad_viaje(reserva_pagada.viaje)
-    end
+  #  @disponibilidad_pagadas = []
+  #  @reservaciones_pagadas.each do |reserva_pagada|
+  #    @disponibilidad_pagadas<< calcula_disponibilidad_viaje(reserva_pagada.viaje)
+  #  end
 
     #@descuentos=obtener_ultimo_descuento(@cliente)
 
-    render 'show_profile'
-  end
+  #  render 'show_profile'
+  #end
 
   # GET /clientes/1/muro
   def muro
@@ -260,8 +271,8 @@ class ClientesController < ApplicationController
     @mensaje=obtener_mensaje_nivel(@cliente)
     @validamedallas=valida_medallas(@cliente)
     @muro=obtener_muro(@cliente)
-    @co2 = @cliente.co2ahorrado
-    @kilometros = @cliente.kilometros
+    @lider=obtener_lider(@cliente)
+    
     render 'show_muro'
   end
 
