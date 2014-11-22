@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   #attr_accessible :email, :password, :password_confirmation, :name, :admin
   attr_accessible :email, :name,:password, :password_confirmation, :fechaNacimiento, :estatusUsuario, :admin, :provider, :uid, 
-  :apellidoPaterno, :apellidoMaterno
+  :apellidoPaterno, :apellidoMaterno, :remember_me
   #has_secure_password
   has_one :clients, dependent: :destroy
 

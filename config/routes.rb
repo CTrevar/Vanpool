@@ -96,6 +96,7 @@ end
   
   match '/inicio', to: 'administradors#inicio'
   match '/dashboard', to: 'clientes#dashboard'
+  match '/promociones', to: 'clientes#promociones'
   match '/buscar', to: 'clientes#buscarviaje'
   match '/reservaciones', to: 'clientes#reservaciones'
   match '/mis_viajes', to: 'clientes#viajes'

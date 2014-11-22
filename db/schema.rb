@@ -11,10 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
 ActiveRecord::Schema.define(:version => 20141116081805) do
-
-
 
   create_table "ciudads", :force => true do |t|
     t.string   "clave",      :limit => 45
@@ -31,13 +28,13 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
     t.integer  "puntaje",    :default => 0
     t.integer  "nivel_id",   :default => 1
     t.integer  "user_id"
+    t.integer  "perfil_id"
     t.float    "kilometros", :default => 0.0
     t.float    "emisionco2", :default => 0.0
     t.string   "openpay_id"
     t.boolean  "estatus",    :default => true
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
-
   end
 
   create_table "conductors", :force => true do |t|
@@ -108,19 +105,17 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
     t.datetime "updated_at", :null => false
   end
 
-
-  create_table "medallas", :force => true do |t|
-    t.integer  "tipomedalla_id"
-    t.string   "nombre"
-    t.integer  "puntos"
-    t.string   "imagen"
-    t.boolean  "estatus",        :default => true
-    t.integer  "estado",         :default => 0
-    t.string   "descripcion"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+  create_table "liders", :force => true do |t|
+    t.integer  "cliente_id"
+    t.integer  "ruta_id"
+    t.integer  "record"
+    t.boolean  "estatus"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
+# Could not dump table "medallas" because of following StandardError
+#   Unknown type 'attachment' for column 'imagenmedalla'
 
   create_table "medallasmuros", :force => true do |t|
     t.integer  "cliente_id"
@@ -156,6 +151,23 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
     t.datetime "updated_at",                :null => false
   end
 
+  create_table "perfils", :force => true do |t|
+    t.string   "nombre"
+    t.string   "descripcion"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "regalos", :force => true do |t|
+    t.string   "nombre"
+    t.string   "descripcion"
+    t.integer  "perfil_id"
+    t.integer  "medalla_id"
+    t.boolean  "estatus",     :default => true
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
   create_table "reportes", :force => true do |t|
     t.integer  "cliente_id"
     t.string   "descripcion"
@@ -181,7 +193,6 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
   end
-
 
   create_table "retroaspectos", :force => true do |t|
     t.string   "nombre"
@@ -209,6 +220,16 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
     t.integer  "zona_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "saldopromocions", :force => true do |t|
+    t.string   "nombre"
+    t.string   "descripcion"
+    t.float    "cantidad"
+    t.string   "medalla_id"
+    t.boolean  "estatus"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "sugerenciaparadas", :force => true do |t|

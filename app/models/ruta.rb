@@ -11,6 +11,7 @@ class Ruta < ActiveRecord::Base
   belongs_to :zona
   has_many :rutaparadas
   has_many :paradas, through: :rutaparadas, source: :parada
+  has_many :liders
 	#accepts_nested_attributes_for :viajes, :allow_destroy => true
 	#accepts_nested_attributes_for :paradas
 	#accepts_nested_attributes_for :frecuencia

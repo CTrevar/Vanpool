@@ -266,8 +266,13 @@ class API::ClienteController < ApplicationController
 
      def cliente_checkin 
       id=params[:id]
-       checkin(id)
-       @exito=true
+      if Reservacion.find(id).estadotipo_id==2
+        checkin(id)
+        @exito=true
+      else
+        @exito="Ya ha realizado checkin anteriormente"
+      end
+
        respond_to do |format|
           format.json { render :json => @exito }
       end

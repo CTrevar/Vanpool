@@ -12,10 +12,12 @@ class ApplicationController < ActionController::Base
   include ReservacionsHelper
   include VanHelper
   include RetroaspectosHelper
-  include DescuentosHelper
+  #include DescuentosHelper
   include PagosHelper
   include RutasHelper
   include AdministradorsHelper
   include SugerenciasHelper
+  include LidersHelper
+  include PromocionesHelper
 
 end
