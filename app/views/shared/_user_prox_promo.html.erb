@@ -5,7 +5,7 @@
     </div>
     <div class="box-body">
         <div class="item">
-            <% if @promociones==nil then %>
+            <% if @promociones[0]==nil && @regalos[0]==nil then %>
             <div class="msg-vacio">
                 <h4><b>Aún no tienes promociones.
                 <a href="#"> Aprende como ganar promociones.</a></b></h4>

@@ -42,28 +42,15 @@
                                  </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label>Cuenta Facebook</label>
-                            <div class="row-fluid">
-                                <div class="user-panel span4">
-                                    <div class="pull-left image">
-                                        <img src="/assets/avatar04.png" class="img-circle" alt="User Image" />
-                                    </div>
-                                    <div class="pull-left info">
-                                        <p><b>Jhonny Pérez</b></p>
-                                        <button type="submit" class="btn btn-flat btn-primary">Cambiar</button> 
-                                        <button type="submit" class="btn btn-flat btn-danger">Quitar</button> 
-                                        
-                                    </div>
-                                </div>
-                                <span class="help-inline span8 label-config-info">Cuando enlazas tu cuenta de Facebook puedes ver que amigos usan el servicio de Vanpool y ganar premios exclusivos.</span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Ciudad</label>
+                       
+                       <div class="form-group">
+                            <label>Perfil de viajero</label>
                             <div class="row-fluid">
                                 <input type="text" class="form-control span4" placeholder="Monterrey">
-                                <span class="help-inline span8 label-config-info">Recibe noticias de nuevas rutas de la ciudad en la que vives.</span>
+                                <div class="row-fluid">
+          <%= f.collection_select :perfil_id, Tipomedalla.all, :id, :nombre, class:"form-control span12" %>
+        </div>
+                                <span class="help-inline span8 label-config-info">¿Que te gusta hacer mientras viajas? Algunas medallas tienen premios exclusivos especialmente para tu personalidad</span>
                             </div>
                         </div>
                         </br>
