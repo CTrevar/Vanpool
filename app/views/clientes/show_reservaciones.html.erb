@@ -22,24 +22,36 @@
                                     <h4><b>Aún no has reservado un viaje.</b></h4>
                                 </div>
                             <% else %>
+                            <div id="sugerenciaEnviada" style="display:none;" class="alert alert-info alert-dismissable"></div> </br>
                                 <%= form_tag(controller:"clientes", action:"reservar_viajes", method:"post" ) do%>
                                 <input type="text" style="display: none;" value="<%=@viajes.count%>" name="cantidad" >
                                 <input type="text" style="display: none;" value="<%=@viajes.first.ruta.id%>" name="id" >
                             <% @viajes.each_with_index do |viaje, index| %>
-                             <div class="item-ruta border">   
+                             <div class="item-ruta border">
+                                     
                                     <div class="row-fluid">
                                         <div class="span2">
-                                             <input type="text" name="viaje_<%=index%>" value="<%=@viajes[index].id%>" style="display:none;">   
-                                            <input type="checkbox" name="check_viaje_<%=index%>">                                 
+                                             <input type="text" name="viaje_<%=index%>" value="<%=@viajes[index].id%>" style="display:none;"> 
+                                         <% if @disponibilidad[index]>0 %>   
+                                            <input type="checkbox" name="check_viaje_<%=index%>" checked>
+                                        <%end%>                                 
                                         </div>
-
-                                        <div class="span10">
-                                            <label>Ruta:</label>&nbsp<%=viaje.ruta.nombre%></br>
-                                            <label>Fecha:</label>&nbsp<%=viaje.fecha.strftime("%d/%m/%Y")%> </br>
-                                            <label>Km:</label>&nbsp<%=(viaje.ruta.paradas.sum(:distancia))/1000%></br></br>
+                       
+                                        <div class="span6">
+                                            <label>Ruta:</label>&nbsp<a href="/ver_ruta/<%=viaje.ruta.id%>"><%=viaje.ruta.nombre%></a></br>
+                                            <label>Fecha:</label>&nbsp<%=viaje.fecha.strftime("%d/%m/%Y")%>
                                             
                                         </div>
+                                        <div class="span2">
+
+                                            <% if @disponibilidad[index]>0 %>
+                                                Sólo quedan <b><%=@disponibilidad[index]%></b> lugares
+                                            <%else%>
+                                                Ya no hay cupo en este viaje <a onclick="solicitarRuta(<%=viaje.id%>)"> Solicitar</a>
+                                            <%end%>
+                                        </div>
                                     
+                                     
                                 </div>
                             </div><!-- /.item ruta -->
                             <% end %><!--each reservación-->
@@ -49,9 +61,6 @@
 
                         <% end %>
 
-
-                        
-                  
                     
                 </div><!-- nav tabs custom -->
             </div>
@@ -59,3 +68,22 @@
     </section>                                  
     </aside><!-- /.right-side -->
 </div><!-- ./wrapper -->
+
+<script type="text/javascript">
+    function solicitarRuta(viaje_id){
+        var data={
+            id: viaje_id
+        }
+
+        $.post('/enviar_sugerencia' , data, function(result){
+                 $("#sugerenciaEnviada").html(result);
+    }).success();
+        $('#sugerenciaEnviada').show();
+    }
+
+    function cerrar(){
+        $('#sugerenciaEnviada').hide();
+    }
+
+
+</script>

@@ -1,0 +1,133 @@
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        $('#edit_configuracion_1 #configuracion_valor').keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and shift
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110,16]) !== -1 ||
+                // Allow: Ctrl+A, CMD+A
+                    (e.keyCode == 65 && e.ctrlKey === true) || (e.keyCode == 91 && e.keyCode == 65) ||
+                // Allow: home, end, left, right
+                    (e.keyCode >= 35 && e.keyCode <= 39)) {
+                // let it happen, don't do anything
+                return;
+            }
+            //if the letter is not digit then display error and don't type anything
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //display error message
+                $("#errmsg").html("Solamente números").show().fadeOut("slow");
+                return false;
+            }
+        });
+        $("#edit_configuracion_1").submit(function (event) {
+            event.preventDefault();
+            var request = $.ajax({
+                type: "POST",
+                url: '<%= "/cambiar_configuracion" %>',
+                data: $(this).serialize()
+            });
+            request.done(function( msg ) {
+                $("#configura_emision_autmovil").html(msg);
+            });
+            request.fail(function( jqXHR, textStatus ) {
+                alert(textStatus);
+            });
+            return false;
+        });
+        $("#edit_configuracion_4").submit(function (event) {
+            event.preventDefault();
+            var request = $.ajax({
+                type: "POST",
+                url: '<%= "/cambiar_configuracion" %>',
+                data: $(this).serialize()
+            });
+            request.done(function( msg ) {
+                $("#configura_automovil").html(msg);
+            });
+            request.fail(function( jqXHR, textStatus ) {
+                alert(textStatus);
+            });
+            return false;
+        });
+        $("#edit_configuracion_5").submit(function (event) {
+            event.preventDefault();
+            var request = $.ajax({
+                type: "POST",
+                url: '<%= "/cambiar_configuracion" %>',
+                data: $(this).serialize()
+            });
+            request.done(function( msg ) {
+                $("#configura_emision_fuente").html(msg);
+            });
+            request.fail(function( jqXHR, textStatus ) {
+                alert(textStatus);
+            });
+            return false;
+        });
+        $("#edit_configuracion_9").submit(function (event) {
+            event.preventDefault();
+            var request = $.ajax({
+                type: "POST",
+                url: '<%= "/cambiar_configuracion" %>',
+                data: $(this).serialize()
+            });
+            request.done(function( msg ) {
+                $("#configura_emision_van").html(msg);
+            });
+            request.fail(function( jqXHR, textStatus ) {
+                alert(textStatus);
+            });
+            return false;
+        });
+    });
+</script>
+<div class="row">
+  <h2 class="page-header"><i class="fa fa-fw fa-cloud"></i> Configuración de Emisiones de CO<sub>2</sub></h2>
+  <div class="col-md-12">
+    <!-- Custom Tabs -->
+    <div class="nav-tabs-custom">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab_emisionAutomovil" data-toggle="tab">Emisión de Automóviles</a></li>
+        <li><a href="#tab_emisionVan" data-toggle="tab">Emisión de Vanes</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab_emisionAutomovil">
+          <h2 class="page-header">Autom&oacute;vil <small>&iquest;Qu&eacute; modelo de autom&oacute;vil se usar&aacute; para brindar referencia de emisiones de CO<sub>2</sub> al usuario?.</small></h2>
+          <div class="row">
+            <div class="col-xs-12">
+              <div id="configura_automovil">
+                <%= render partial: 'administradors/form_configuracion_automovil', automovil:@automovil %>
+              </div>
+            </div>
+          </div>
+          <br/>
+          <h2 class="page-header">Emisi&oacute;n de CO<sub>2</sub> <small>&iquest;Cu&aacute;anto CO<sub>2</sub> emite el autom&oacute;vil?</small></h2>
+          <div class="row">
+            <div class="col-xs-12">
+              <div id="configura_emision_automovil">
+                <%= render partial: 'administradors/form_configuracion_emision_automovil', emisionAutomovil:@emisionAutomovil %>
+              </div>
+            </div>
+          </div>
+          <br/>
+          <h2 class="page-header">Fuente del estudio de Emisi&oacute;n de CO<sub>2</sub> <small>&iquest;Cu&aacute;l es el estudio que respalda la cifra de emisi&oacute;n ingresada anteriormente?</small></h2>
+          <div class="row">
+            <div class="col-xs-12">
+              <div id="configura_emision_fuente">
+                <%= render partial: 'administradors/form_configuracion_fuente_co2', emisionFuente:@emisionFuente %>
+              </div>
+            </div>
+          </div>
+        </div><!-- /.tab-pane -->
+        <div class="tab-pane" id="tab_emisionVan">
+          <h2 class="page-header">Emisi&oacute;n de CO<sub>2</sub> de Vanes <i class="fa fa-truck"></i> <small>&iquest;Cu&aacute;anto CO<sub>2</sub> emite el veh&iacute;culo/Van de transporte?</small></h2>
+          <div class="row">
+            <div class="col-xs-12">
+              <div id="configura_emision_van">
+                <%= render partial: 'administradors/form_configuracion_emision_van', emisionFuenteVan:@emisionFuenteVan %>
+              </div>
+            </div>
+          </div>
+        </div><!-- /.tab-pane -->
+      </div><!-- /.tab-content -->
+    </div><!-- nav-tabs-custom -->
+  </div><!-- /.col -->
+</div>

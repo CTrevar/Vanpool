@@ -1,0 +1,59 @@
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        $('#edit_configuracion_3 #configuracion_valor').keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and shift
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110,16]) !== -1 ||
+                // Allow: Ctrl+A, CMD+A
+                    (e.keyCode == 65 && e.ctrlKey === true) || (e.keyCode == 91 && e.keyCode == 65) ||
+                // Allow: home, end, left, right
+                    (e.keyCode >= 35 && e.keyCode <= 39)) {
+                // let it happen, don't do anything
+                return;
+            }
+            //if the letter is not digit then display error and don't type anything
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //display error message
+                $("#errmsg").html("Solamente números").show().fadeOut("slow");
+                return false;
+            }
+        });
+        $("#edit_configuracion_3").submit(function (event) {
+            event.preventDefault();
+            var request = $.ajax({
+                type: "POST",
+                url: '<%= "/cambiar_configuracion" %>',
+                data: $(this).serialize()
+            });
+            request.done(function( msg ) {
+                $("#configura_resultados").html(msg);
+            });
+            request.fail(function( jqXHR, textStatus ) {
+                alert(textStatus);
+            });
+            return false;
+        });
+    });
+</script>
+<div class="row">
+  <h2 class="page-header"><i class="fa fa-search"></i> Configuración de Resultados de B&uacute;squeda </h2>
+  <div class="col-md-12">
+    <!-- Custom Tabs -->
+    <div class="nav-tabs-custom">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab_emisionAutomovil" data-toggle="tab">Radio de B&uacute;squeda</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab_emisionAutomovil">
+          <h2 class="page-header">Radio de B&uacute;squeda <small>&iquest;Cu&aacute;l es el valor del radio de b&uacute;squeda (en kil&oacute;metros) ?</small></h2>
+          <div class="row">
+            <div class="col-xs-12">
+              <div id="configura_resultados">
+                <%= render partial: 'administradors/form_configuracion_radio', radio:@radio %>
+              </div>
+            </div>
+          </div>
+        </div><!-- /.tab-pane -->
+      </div><!-- /.tab-content -->
+    </div><!-- nav-tabs-custom -->
+  </div><!-- /.col -->
+</div>

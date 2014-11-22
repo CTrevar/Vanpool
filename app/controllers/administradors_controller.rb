@@ -220,7 +220,7 @@ class AdministradorsController < ApplicationController
   end
 
   #
-  # Metodo para ver información básica de una medalla en un div lateral
+  # Metodo para ver información básica de un cliente en un div lateral
   #
   def medallas
     medalla_id = params[:medalla_id]
@@ -233,7 +233,7 @@ class AdministradorsController < ApplicationController
     end
   end
   #
-  # Metodo para ver el detalle de la información de una medalla.
+  # Metodo para ver el detalle de la información de un cliente.
   #
   def administrador_detallemedalla
     medalla_id = params[:medalla_id]
@@ -251,7 +251,6 @@ class AdministradorsController < ApplicationController
       end
     end
   end
-
   #
   # Metodo para mostrar la página de configuraciones.
   #
@@ -259,6 +258,12 @@ class AdministradorsController < ApplicationController
     @correoBienvenida = Configuracion.find(6)
     @correoRecordatorio = Configuracion.find(7)
     @correoFrecuenciaRecordatorio = Configuracion.find(8)
+    @emisionAutomovil = Configuracion.find(1)
+    @automovil = Configuracion.find(4)
+    @emisionFuente = Configuracion.find(5)
+    @emisionFuenteVan = Configuracion.find(9)
+    @radio = Configuracion.find(3)
+    @impuesto = Configuracion.find(2)
   end
   #
   # Metodo para mostrar la página de configuraciones.
@@ -267,6 +272,86 @@ class AdministradorsController < ApplicationController
     paramsconf = OpenStruct.new params[:configuracion]
     # Verificamos el id de la configuración
     case paramsconf.id.to_i
+      # En caso de ser de cantidad en gramos de CO2 por auto
+      when 1
+        @emisionAutomovil = Configuracion.new
+        @emisionAutomovil = Configuracion.find(paramsconf.id)
+        @emisionAutomovil.valor = paramsconf.valor
+        if @emisionAutomovil.valid?
+          @emisionAutomovil.save!
+          respond_to do |format|
+            format.html { render partial: 'administradors/form_configuracion_emision_automovil', emisionAutomovil:@emisionAutomovil, locals: {exito:true} }
+          end
+        else
+          respond_to do |format|
+            format.html { render partial: 'administradors/form_configuracion_emision_automovil', emisionAutomovil:@emisionAutomovil }
+            format.json { render json: @emisionAutomovil.errors, status: :unprocessable_entity }
+          end
+        end
+      # En caso de ser configuracion de impuestos
+      when 2
+        @impuesto = Configuracion.new
+        @impuesto = Configuracion.find(paramsconf.id)
+        @impuesto.valor = paramsconf.valor
+        if @impuesto.valid?
+          @impuesto.save!
+          respond_to do |format|
+            format.html { render partial: 'administradors/form_configuracion_impuesto', impuesto:@impuesto, locals: {exito:true} }
+          end
+        else
+          respond_to do |format|
+            format.html { render partial: 'administradors/form_configuracion_impuesto', impuesto:@impuesto }
+            format.json { render json: @impuesto.errors, status: :unprocessable_entity }
+          end
+        end
+      # En caso de ser el radio de búsqueda de los resultados de las rutas
+      when 3
+        @radio = Configuracion.new
+        @radio = Configuracion.find(paramsconf.id)
+        @radio.valor = paramsconf.valor
+        if @radio.valid?
+          @radio.save!
+          respond_to do |format|
+            format.html { render partial: 'administradors/form_configuracion_radio', radio:@radio, locals: {exito:true} }
+          end
+        else
+          respond_to do |format|
+            format.html { render partial: 'administradors/form_configuracion_radio', radio:@radio }
+            format.json { render json: @radio.errors, status: :unprocessable_entity }
+          end
+        end
+      # En caso de ser el modelo del auto
+      when 4
+        @automovil = Configuracion.new
+        @automovil = Configuracion.find(paramsconf.id)
+        @automovil.valor = paramsconf.valor
+        if @automovil.valid?
+          @automovil.save!
+          respond_to do |format|
+            format.html { render partial: 'administradors/form_configuracion_automovil', automovil:@automovil,locals: {exito:true} }
+          end
+        else
+          respond_to do |format|
+            format.html { render partial: 'administradors/form_configuracion_automovil', automovil:@automovil }
+            format.json { render json: @automovil.errors, status: :unprocessable_entity }
+          end
+        end
+      # En caso de ser la fuente del estudio del CO2
+      when 5
+        @emisionFuente = Configuracion.new
+        @emisionFuente = Configuracion.find(paramsconf.id)
+        @emisionFuente.valor = paramsconf.valor
+        if @emisionFuente.valid?
+          @emisionFuente.save!
+          respond_to do |format|
+            format.html { render partial: 'administradors/form_configuracion_fuente_co2', emisionFuente:@emisionFuente, locals: {exito:true} }
+          end
+        else
+          respond_to do |format|
+            format.html { render partial: 'administradors/form_configuracion_fuente_co2', emisionFuente:@emisionFuente }
+            format.json { render json: @emisionFuente.errors, status: :unprocessable_entity }
+          end
+        end
       # En caso de ser de correo bienvenida
       when 6
         @correoBienvenida = Configuracion.new
@@ -308,8 +393,8 @@ class AdministradorsController < ApplicationController
           @correoFrecuenciaRecordatorio.save!
           logger.info "\n================================================"
           logger.info "\n"
-          # logger.info system "bundle exec whenever -i"
-          logger.info %x(sh whenever.sh)
+          logger.info system "sudo whenever --update-crontab"
+          # logger.info %x(sh whenever.sh)
           # logger.info %x(whenever -i)
           logger.info `pwd`
           logger.info `ls`
@@ -325,9 +410,24 @@ class AdministradorsController < ApplicationController
             format.json { render json: @correoFrecuenciaRecordatorio.errors, status: :unprocessable_entity }
           end
         end
+      # En caso de ser el modelo del auto
+      when 9
+        @emisionFuenteVan = Configuracion.new
+        @emisionFuenteVan = Configuracion.find(paramsconf.id)
+        @emisionFuenteVan.valor = paramsconf.valor
+        if @emisionFuenteVan.valid?
+          @emisionFuenteVan.save!
+          respond_to do |format|
+            format.html { render partial: 'administradors/form_configuracion_emision_van', emisionFuenteVan:@emisionFuenteVan,locals: {exito:true} }
+          end
+        else
+          respond_to do |format|
+            format.html { render partial: 'administradors/form_configuracion_emision_van', emisionFuenteVan:@emisionFuenteVan }
+            format.json { render json: @emisionFuenteVan.errors, status: :unprocessable_entity }
+          end
+        end
     end
   end
-
 
   #
   # Metodo para ver el perfil con la información de un cliente.
@@ -357,39 +457,25 @@ class AdministradorsController < ApplicationController
   end
 
   def sugerencias
-    incidencias =incidencias_sugerencias
-    incidencias.sort_by! { |hsh| hsh[:numero_incidencias] }
-    @results = incidencias.reverse.paginate(:page => params[:page], :per_page => 5)
-  end
-
-  def sugerencias_refresh
-    incidencias =incidencias_sugerencias
-    incidencias.sort_by! { |hsh| hsh[:numero_incidencias] }
-    @results = incidencias.reverse.paginate(:page => params[:page], :per_page => 5)
-
-    respond_to do |format|
-        format.html {render partial: 'shared/show_sugerencias', locals: { results: @results }}
-    end
+    @sugerencias = Sugerencia.all
+    
   end
 
   def administrador_detallesugerencia
     sugerencia_id = params[:sugerencia_id]
-    result = params[:resultado]
-    @coincidencias_sugerencia = []
-    if !result.nil?
-      result.each do |sug_id|
-        @coincidencias_sugerencia<< Sugerencia.find(sug_id)
-      end
-    end
-    
-    if !sugerencia_id.nil?
+    if sugerencia_id.nil?
+      
+      # respond_to do |format|
+      #   format.html #listaconductores.html.erb
+      # end
+    else
       @sugerencia = Sugerencia.find(sugerencia_id)
       @paradas =@sugerencia.sugerenciaparadas.sort { |a, b| a.posicion <=> b.posicion }
       @origen = @paradas.first
       @destino = @paradas.last
 
       respond_to do |format|
-        format.html {render partial: 'shared/administrador_detallesugerencia', locals: { sugerencia: @sugerencia, origen: @origen, destino: @destino, paradas: @paradas, coincidencias_sugerencia: @coincidencias_sugerencia }}
+        format.html {render partial: 'shared/administrador_detallesugerencia', locals: { sugerencia: @sugerencia, origen: @origen, destino: @destino, paradas: @paradas }}
       end
     end
   end

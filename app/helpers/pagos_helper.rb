@@ -50,11 +50,11 @@ module PagosHelper
 
         @transfers=@openpay.create(:transfers)
         request_hash={
-            "customer_id" => @cliente.openpay_id, #openpay_id de cliente
+            "customer_id" => "ate1ywygq39yso3xz5yw", #openpay_id de cliente
             "amount" => cantidad,
             "description" => "Compra de viaje"
         }
-        return @transfers.create(request_hash.to_hash, @cuenta["id"]) #numero de referencia de pago
+        return @transfers.create(request_hash.to_hash, @cliente.openpay_id) #numero de referencia de pago
         ##generar qr y reserva cambia de status
         #redirect_to :controller => 'clientes', :action => 'dashboard'
     end

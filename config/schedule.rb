@@ -21,6 +21,7 @@
 # Learn more: http://github.com/javan/whenever
 
 set :environment, "development"
+set :path, "/home/Vanpool"
 set :output, {:error => "log/cron_error_log.log", :standard => "log/cron_log.log"}
 
 require File.expand_path(File.dirname(__FILE__) + "/environment")

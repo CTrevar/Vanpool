@@ -1,0 +1,85 @@
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        $('#edit_configuracion_1 #configuracion_valor').keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and shift
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110,16]) !== -1 ||
+                // Allow: Ctrl+A, CMD+A
+                    (e.keyCode == 65 && e.ctrlKey === true) || (e.keyCode == 91 && e.keyCode == 65) ||
+                // Allow: home, end, left, right
+                    (e.keyCode >= 35 && e.keyCode <= 39)) {
+                // let it happen, don't do anything
+                return;
+            }
+            //if the letter is not digit then display error and don't type anything
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //display error message
+                $("#errmsg").html("Solamente números").show().fadeOut("slow");
+                return false;
+            }
+        });
+        $("#edit_configuracion_1").submit(function (event) {
+            event.preventDefault();
+            var request = $.ajax({
+                type: "POST",
+                url: '<%= "/cambiar_configuracion" %>',
+                data: $(this).serialize()
+            });
+            request.done(function( msg ) {
+                $("#configura_emision_automovil").html(msg);
+            });
+            request.fail(function( jqXHR, textStatus ) {
+                alert(textStatus);
+            });
+            return false;
+        });
+    });
+</script>
+<% exito ||= false %>
+<%= form_for @emisionAutomovil, remote: true, :url => "/cambiar_configuracion", method: "POST" do |f| %>
+    <%= f.hidden_field :id, :value => @emisionAutomovil.id %>
+    <% if @emisionAutomovil.errors.any? %>
+        <div class="col-xs-6">
+          <div class="input-group input-group-lg has-error">
+            <%= f.text_field :valor,placeholder:'Cantidad de CO2 emitida por los autos...', class: "form-control" %>
+            <span class="input-group-btn">
+                    <%= submit_tag("Guardar",id:"btnSubmit",class:"btn btn-primary btn-flat") %>
+                  </span>
+          </div>
+          <div class="callout callout-danger">
+            <%= @emisionAutomovil.errors[:valor] %>
+          </div>
+          <span id="errmsg" style="   color:red;"></span>
+        </div>
+        <div class="col-xs-6">
+          <div class="alert alert-danger alert-dismissable">
+            <i class="fa fa-times"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <b><%= pluralize(@emisionAutomovil.errors.count, "error") %>:</b>
+            <ul>
+              <% @emisionAutomovil.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+    <% else %>
+        <div class="col-xs-6">
+          <div class="input-group input-group-lg">
+            <%= f.text_field :valor, placeholder:'Cantidad de CO2 emitida por los autos...', class:"form-control" %>
+            <span class="input-group-btn">
+                      <%= submit_tag("Guardar",id:"btnSubmit",class:"btn btn-primary btn-flat") %>
+                    </span>
+          </div>
+          <span id="errmsg" style="   color:red;"></span>
+        </div>
+        <%  if exito %>
+            <div class="col-xs-6">
+              <div class="alert alert-success alert-dismissable">
+                <i class="fa fa-check"></i>
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <p>Se actualizó el valor correctamente.</p>
+              </div>
+            </div>
+        <%  end %>
+    <% end %>
+<% end %>
