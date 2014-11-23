@@ -24,21 +24,74 @@
 
 <!-- Main content -->
 <section class="content">
+    <div class="row-fluid">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_1" data-toggle="tab">C&oacute;mo hacer una medalla</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane row-fluid active" id="tab_1">
+                    <div class="span3"><img src="https://38.media.tumblr.com/a2f3987fdf7b5a0f92882ae60481508a/tumblr_nffm4yOufL1r2a8avo1_1280.png"/></div>
+                    <div class="span9">
+                        <h4>Medidas</h4>
+                        Las medallas consisten en un círculo de 10 puntos con diámetro de 150 pixeles y una ilustración estilo flat al centro. </br></br>
+                        <h4>Gu&iacute;a de colores</h4>
+
+                        <div class="row-fluid">
+                        <div class="span4">
+                           <b>Primer Estado</b></br>
+                            <canvas style="background-color:#3B4794;" width="10" height="10"></canvas> #3B4794</br>
+                            <canvas style="background-color:#848FCE;" width="10" height="10"></canvas> #848FCE</br> 
+                        </div>
+                        <div class="span4">
+                           <b>Segundo Estado</b></br>
+                            <canvas style="background-color:#B73870;" width="10" height="10"></canvas> #B73870</br>
+                            <canvas style="background-color:#E8B2CA;" width="10" height="10"></canvas> #E8B2CA</br> 
+                        </div>
+                        <div class="span4">
+                           <b>Tercer Estado</b></br>
+                            <canvas style="background-color:#D84743;" width="10" height="10"></canvas> #D84743</br>
+                            <canvas style="background-color:#F5D0CF;" width="10" height="10"></canvas> #F5D0CF</br> 
+                        </div>
+                    </div>
+                </br>
+                    <div class="row-fluid">
+                        <div class="span4">
+                           <b>Cuarto Estado</b></br>
+                            <canvas style="background-color:#D88C43;" width="10" height="10"></canvas> #D88C43</br>
+                            <canvas style="background-color:#848FCE;" width="10" height="10"></canvas> #848FCE</br> 
+                        </div>
+                        <div class="span4">
+                           <b>Quinto Estado</b></br>
+                            <canvas style="background-color:#D8D443;" width="10" height="10"></canvas> #D8D443</br>
+                            <canvas style="background-color:#F1F0B9;" width="10" height="10"></canvas> #F1F0B9</br> 
+                        </div>
+                        <div class="span4">
+                           <b>Sexto Estado</b></br>
+                            <canvas style="background-color:#8DC63D;" width="10" height="10"></canvas> #8DC63D</br>
+                            <canvas style="background-color:#D2E8B2;" width="10" height="10"></canvas> #D2E8B2</br> 
+                        </div>
+                    </div>
+                    </div>
+                </div><!-- /.tab-pane -->
+            </div><!-- /.tab-content -->
+        </div>
+    </div>
+   
+
+    <hr>
 <div class="filtering">
   <!-- search form -->
   <form >
-    <div class="row">
-      <div class="col-xs-11">
-        <div class="input-group">
-          <input type="text" placeholder="Buscar..." class="form-control" name="textoABuscar" id="textoABuscar" />
+    <div class="input-group">
+        <input type="text" placeholder="Buscar..." class="form-control" name="textoABuscar" id="textoABuscar" />
         <span class="input-group-btn">
             <button type="submit" id="btnBuscar" class="btn btn-flat">
               <i class="fa fa-search"></i>
             </button>
         </span>
-        </div>
-      </div>
-      <div class="col-xs-1">
+    </div>
+<!--       <div class="col-xs-1">
         <button type="button" id="btnFiltrar" class="btn btn-default btn-flat">
           <i class="fa fa-filter"></i> Filtrar
         </button>
@@ -52,7 +105,7 @@
         });
     </script>
     <br/>
-    <div id="filtro" class="row collapse well">
+   <div id="filtro" class="row collapse well">
         <div class="col-xs-4">
           <label>Mostrar medallas con:</label>
           <select id="atributoCondicion" class="form-control">
@@ -71,12 +124,12 @@
         </div>
         <br/>
         <br/>
-    </div>
+    </div>-->
 
   </form>
-  <!-- /.search form -->
+  <!-- /.search form --> </br>
 </div>
-<hr>
+
 <!-- jTable Medallas -->
 <div id="medallasTableContainer" class="col-lg-12 col-md-12 col-xs-12">
   <button id="btnAgregar" class="btn btn-default btn-sm" data-toggle="modal" data-target="#basicModal">
@@ -128,8 +181,8 @@
             deleteConfirm: true,
             actions: {
                 //Aquí va el URL del método del controlador, debemos definirlos primero en config/routes.
-                listAction: '/medalla_controller/jtable_filterlist'
-                ,deleteAction: '/medalla_controller/jtable_delete'
+                listAction: '/medalla_controller/jtable_filterlist',
+                deleteAction: '/medalla_controller/jtable_delete'
             },
             fields: {
                 //Columna en la tabla. Deben ponerse todas las columnas, si no deben ser visible, solamente
@@ -166,19 +219,7 @@
                     title: 'Imagen',
                     width: '10%'
                 }
-//                ,
-//                DeleteIcon: {
-//                    title: '',
-//                    display: function(data){
-//                        var $img = $('<button title="Eliminar" class="jtable-command-button jtable-delete-command-button"><span>Eliminar</span></button>');
-//                        $img.click(function(){
-//                            $('#MyTableContainer').jtable('deleteRecord', {
-//                                key: data.record.Id,url: '/medalla_controller/jtable_delete?user_id=' + data.record.user_id
-//                            });
-//                        });
-//                        return $img;
-//                    }
-//                }
+
             },
             //Se crea el evento de selectionchanged
             selectionChanged: function () {
@@ -259,7 +300,7 @@
                 });
             }
         });
-        $('#condicion').change(function() {
+       /* $('#condicion').change(function() {
             var texto = $('#valorCondicion').val();
             if(texto.trim().length == 0){
                 $('#medallasTableContainer').jtable('load');
@@ -271,7 +312,7 @@
                     valorCondicion: $('#valorCondicion').val()
                 });
             }
-        });
+        });*/
         // Esta línea carga los datos de la jTable al desplegar la página.
         $('#medallasTableContainer').jtable('load');
         // Esta línea oculta el detalle al cargar la jTable

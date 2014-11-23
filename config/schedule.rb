@@ -21,6 +21,7 @@
 # Learn more: http://github.com/javan/whenever
 
 set :environment, "development"
+set :path, "/home/Vanpool"
 set :output, {:error => "log/cron_error_log.log", :standard => "log/cron_log.log"}
 
 require File.expand_path(File.dirname(__FILE__) + "/environment")
@@ -33,4 +34,8 @@ require File.expand_path(File.dirname(__FILE__) + "/environment")
 
 every eval(@dias.valor).to_i.days do
   runner "UserMailer.enviar_correo_prueba.deliver"
+end
+
+every 30.days do
+  runner "Viaje.generar_viajes_mensuales"
 end

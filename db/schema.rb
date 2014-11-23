@@ -114,8 +114,17 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
     t.datetime "updated_at", :null => false
   end
 
-# Could not dump table "medallas" because of following StandardError
-#   Unknown type 'attachment' for column 'imagenmedalla'
+  create_table "medallas", :force => true do |t|
+    t.integer  "tipomedalla_id"
+    t.string   "nombre"
+    t.integer  "puntos"
+    t.string   "imagen"
+    t.boolean  "estatus",        :default => true
+    t.integer  "estado",         :default => 0
+    t.string   "descripcion"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
 
   create_table "medallasmuros", :force => true do |t|
     t.integer  "cliente_id"
@@ -226,7 +235,7 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
     t.string   "nombre"
     t.string   "descripcion"
     t.float    "cantidad"
-    t.string   "medalla_id"
+    t.integer  "medalla_id"
     t.boolean  "estatus"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
@@ -243,9 +252,9 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
   end
 
   create_table "sugerencias", :force => true do |t|
-    t.datetime "hora_inicio", :limit => 255
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.string   "hora_inicio"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "tipocalificacions", :force => true do |t|

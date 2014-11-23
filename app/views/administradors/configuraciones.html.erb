@@ -28,6 +28,16 @@
               $("#confCorreos").on("click",function(){
                   $("#contenidoConfiguracion").html("<%= escape_javascript(render partial: 'shared/administrador_configuracion_correos', locals: { correoBienvenida: @correoBienvenida } ) %>");
               });
+              $("#confEmisiones").on("click",function(){
+                  $("#contenidoConfiguracion").html("<%= escape_javascript(render partial: 'shared/administrador_configuracion_emisiones', locals: { emisionAutomovil: @emisionAutomovil, automovil:@automovil } ) %>");
+              });
+              $("#conResultadosBusqueda").on("click",function(){
+                  $("#contenidoConfiguracion").html("<%= escape_javascript(render partial: 'shared/administrador_configuracion_resultados'  ) %>")
+              });
+              $("#confEconomica").on("click",function(){
+//                  , locals: { emisionAutomovil: @emisionAutomovil, automovil:@automovil }
+                  $("#contenidoConfiguracion").html("<%= escape_javascript(render partial: 'shared/administrador_configuracion_impuestos'  ) %>")
+              });
           });
       </script>
       <div class="row">
@@ -83,7 +93,7 @@
                 <div class="icon">
                   <i class="fa fa-search"></i>
                 </div>
-                <a id="confResultados" href="#" class="small-box-footer">
+                <a id="conResultadosBusqueda" href="#" class="small-box-footer">
                   Ver Configuración <i class="fa fa-arrow-circle-right"></i>
                 </a>
               </div>

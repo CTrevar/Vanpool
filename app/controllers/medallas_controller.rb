@@ -104,8 +104,7 @@ class MedallasController < ApplicationController
                           :descripcion => params[:descripcion]
                        } 
 
-    puts(params[:base64data])
-    puts("IMAGEN ^")
+
     nombre_medalla = params[:nombre]
     estado_medalla = params[:estado]
 
@@ -209,12 +208,10 @@ class MedallasController < ApplicationController
     if @medalla.valid?
       @medalla.save!
       respond_to do |format|
-        # format.js { render :js => "window.location = '#{forma_detalle_conductor @conductor}'" }
         format.html { render partial: 'administradors/form_medalla', medalla:@medalla, locals: {exito:true}}
       end
     else
       respond_to do |format|
-        # format.js { render :js => "window.location = '#{forma_detalle_conductor @conductor}'" }
         format.html { render partial: 'administradors/form_medalla', medalla:@medalla }
         format.json { render json: @medalla.errors, status: :unprocessable_entity }
       end
@@ -266,9 +263,12 @@ class MedallasController < ApplicationController
       @results = Medalla.select('*').where("estatus = 't'").joins(:tipomedalla).select('medallas.id as medalla_id,medallas.tipomedalla_id as tipomedalla_id, tipomedallas.nombre as nombre_tipomedalla, medallas.nombre as nombre_medalla').order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
 
     else
+      jtTextoBusqueda = jtTextoBusqueda.gsub("'", %q(\\\'))
       # Si contiene algo más realiza la búsqueda en todos los atributos de la tabla.
-      @results = Medalla.select('*').where("(LOWER(nombre) LIKE '%#{jtTextoBusqueda.downcase}%') 
-        AND estatus = 't'").joins(:tipomedalla).select('medallas.tipomedalla_id as tipomedalla_id, tipomedallas.nombre as nombre_tipomedalla, medallas.nombre as nombre_medalla').order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+      @results = Medalla.select('*').where("(medallas.nombre ILIKE :search OR
+                                                 descripcion ILIKE :search OR
+                                                 tipomedallas.nombre ILIKE :search)
+                                            AND medallas.estatus = 't'", search:"%#{jtTextoBusqueda.strip}%").joins(:tipomedalla).select('medallas.tipomedalla_id as tipomedalla_id, tipomedallas.nombre as nombre_tipomedalla, medallas.nombre as nombre_medalla').order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     end
     respond_to do |format|
       # Regresamos el resultado de la operación a la jTable

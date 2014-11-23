@@ -14,13 +14,18 @@
             <%@viajes.each_with_index do |viaje, index| %>
             <div class="item-ruta border">
                 <div class="row-fluid">
-                    <div class="span4">
-                        <small>FECHA:</small><b><%= viaje.fecha.strftime("%d/%m/%Y") %></b></br>
-                        <input type="text" name="viaje_<%=index%>" value="<%=@viajes[index].id%>" style="display:none;">
+                    <div class="span2">
+                         <input type="text" name="viaje_<%=index%>" value="<%=@viajes[index].id%>" style="display:none;"> 
+                     <% if @disponibilidad[index]>0 %>   
+                        <input type="checkbox" name="check_viaje_<%=index%>" checked>
+                    <%end%>                                 
+                    </div>
+                    <div class="span6">
+                        <small>FECHA:</small><b><%= viaje.fecha.strftime("%d/%m/%Y") %></b>
                     </div>
                     <div class="span4">
                         <%if @disponibilidad[index]>0%>
-                                <input type="checkbox" name="check_viaje_<%=index%>" checked>
+                                Sólo quedan <b><%=@disponibilidad[index]%></b> lugares
                         <%else%>
                             Este viaje va lleno
                                 <a onclick="solicitarRuta(<%=viaje.id%>)"> Solicitar</a>

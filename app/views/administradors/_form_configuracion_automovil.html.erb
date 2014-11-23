@@ -1,0 +1,66 @@
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        $("#edit_configuracion_4").submit(function (event) {
+            event.preventDefault();
+            var request = $.ajax({
+                type: "POST",
+                url: '<%= "/cambiar_configuracion" %>',
+                data: $(this).serialize()
+            });
+            request.done(function( msg ) {
+                $("#configura_automovil").html(msg);
+            });
+            request.fail(function( jqXHR, textStatus ) {
+                alert(textStatus);
+            });
+            return false;
+        });
+    });
+</script>
+<% exito ||= false %>
+<%= form_for @automovil, remote: true, :url => "/cambiar_configuracion", method: "POST" do |f| %>
+    <%= f.hidden_field :id, :value => @automovil.id %>
+    <% if @automovil.errors.any? %>
+        <div class="col-xs-6">
+          <div class="input-group input-group-lg has-error">
+            <%= f.text_field :valor,placeholder:'Ej. Tsuru 2015', class: "form-control" %>
+            <span class="input-group-btn">
+                    <%= submit_tag("Guardar",id:"btnSubmit",class:"btn btn-primary btn-flat") %>
+                  </span>
+          </div>
+          <div class="callout callout-danger">
+            <%= @automovil.errors[:valor] %>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="alert alert-danger alert-dismissable">
+            <i class="fa fa-times"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <b><%= pluralize(@automovil.errors.count, "error") %>:</b>
+            <ul>
+              <% @automovil.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+    <% else %>
+        <div class="col-xs-6">
+          <div class="input-group input-group-lg">
+            <%= f.text_field :valor, placeholder:'Ej. Tsuru 2015', class:"form-control" %>
+            <span class="input-group-btn">
+                      <%= submit_tag("Guardar",id:"btnSubmit",class:"btn btn-primary btn-flat") %>
+                    </span>
+          </div>
+        </div>
+        <%  if exito %>
+            <div class="col-xs-6">
+              <div class="alert alert-success alert-dismissable">
+                <i class="fa fa-check"></i>
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <p>Se actualizó el valor correctamente.</p>
+              </div>
+            </div>
+        <%  end %>
+    <% end %>
+<% end %>

@@ -18,7 +18,7 @@ gem 'delayed_job_active_record'
 #gem 'pg'
 gem 'rack', "~> 1.4.5" 
 gem 'grape'
-gem 'simple_token_authentication'
+#gem 'simple_token_authentication'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -83,6 +83,7 @@ end
 
 # Use unicorn as the app server
 # gem 'unicorn'
+gem 'unicorn-worker-killer'
 
 # Deploy with Capistrano
 # gem 'capistrano'

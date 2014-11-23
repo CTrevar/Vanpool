@@ -4,7 +4,7 @@ class CreateSaldopromocions < ActiveRecord::Migration
       t.string :nombre
       t.string :descripcion
       t.float :cantidad
-      t.string :medalla_id
+      t.integer :medalla_id
       t.boolean :estatus
 
       t.timestamps

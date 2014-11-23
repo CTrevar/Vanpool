@@ -553,13 +553,14 @@ class ClientesController < ApplicationController
 
       #si tiene saldo, da render a mensaje exitoso
       if tiene_saldo
+        session.delete(:reservaciones)
         redirect_to :action=>'viajes', :mensaje => "Compra exitosa"
       end
 
       #si no tiene saldo, guarda las reservas en la sesión y
       #redirecciona a recargar saldo con mensaje que necesita recargar saldo
       if !tiene_saldo
-        redirect_to :action=>'compracredito', :mensaje => "No tienes saldo suficiente. Recarga."
+        redirect_to :action=>'compracredito', :mensaje => "No tienes saldo suficiente. Recarga y ve al carrito de compras para comprar tu viaje."
       end
 
 
@@ -575,12 +576,13 @@ class ClientesController < ApplicationController
     viajes_id = session[:reservaciones]
     if viajes_id
       @viajes = []
+      @disponibilidad = []
       viajes_id.each do |viaje_id|
-        @viajes << Viaje.find(viaje_id)
+        viaje = Viaje.find(viaje_id)
+        @viajes << viaje
+        @disponibilidad<<calcula_disponibilidad_viaje(viaje)
       end
     end
-    
-
 
     render 'show_reservaciones'
   end

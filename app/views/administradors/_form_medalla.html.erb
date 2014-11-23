@@ -72,7 +72,8 @@
           <%end%>
         </div>
         <% if @action=='update' and !@medalla.imagen.blank? %>
-          <%= image_tag("/assets/medals/#{@medalla.imagen}" , :id=>"img_prev") %>
+        <img id="img_prev" src="/assets/medals/<%=@medalla.imagen%>" alt="medalla"/>
+         
         <%end%>
     </div>
   
@@ -105,8 +106,8 @@
         function getBase64Image(img, type) {
             // Create an empty canvas element
             var canvas = document.createElement("canvas");
-            canvas.width = img.width;
-            canvas.height = img.height;
+            canvas.width = 315;
+            canvas.height = 315;
 
             // Copy the image contents to the canvas
             var ctx = canvas.getContext("2d");
