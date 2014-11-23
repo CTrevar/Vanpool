@@ -129,7 +129,9 @@ class AdministradorsController < ApplicationController
   end
 
 
-
+  #
+  # Metodo para desplegar la información básica de un conductor en un div lateral.
+  #
   def conductores
     user_id = params[:user_id]
     if user_id.nil?
@@ -147,7 +149,6 @@ class AdministradorsController < ApplicationController
       end
     end
   end
-
   #
   # Metodo para desplegar la información básica de administrador en un div lateral.
   #
@@ -426,6 +427,41 @@ class AdministradorsController < ApplicationController
             format.json { render json: @emisionFuenteVan.errors, status: :unprocessable_entity }
           end
         end
+    end
+  end
+  #
+  # Metodo para
+  #
+  def saldopromocion
+    saldopromocion_id = params[:id]
+    if saldopromocion_id.nil?
+      @saldopromocion = Saldopromocion.new
+      @conductor.user = Saldop.new
+      @action = 'create'
+      # respond_to do |format|
+      #   format.html #listaconductores.html.erb
+      # end
+    else
+      @saldopromocion = Saldopromocion.find(user_id)
+      @action = 'update'
+      respond_to do |format|
+        format.html {render partial: 'shared/administrador_detalleconductor', locals: { saldopromocion: @saldopromocion, aciton: @action }}
+      end
+    end
+  end
+
+  def administrador_detallesaldopromocion
+    saldopromocion_id = params[:id]
+    @saldopromocion = Saldopromocion.new
+    if saldopromocion_id.nil?
+      @action = 'create'
+    else
+      @saldopromocion = Saldopromocion.find(saldopromocion_id)
+      @saldopromocion.medalla = Medalla.find(@saldopromocion.medalla)
+      @action = 'update'
+      respond_to do |format|
+        format.html { render partial: 'shared/administrador_detallecliente', locals: { saldopromocion: @saldopromocion, aciton: @action }, layout:false}
+      end
     end
   end
 

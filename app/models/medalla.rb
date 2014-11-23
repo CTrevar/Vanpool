@@ -1,10 +1,9 @@
 class Medalla < ActiveRecord::Base
-	attr_accessible :nombre, :puntos, :tipomedalla_id, :imagen, :estatus, :estado, :descripcion, :imagenmedalla
+	attr_accessible :nombre, :puntos, :tipomedalla_id, :imagen, :estatus, :estado, :descripcion
 	belongs_to :tipomedalla 
 	has_many :medallasmuros
 	has_many :clientes, through: :medallasmuros, source: :cliente
 	has_one :saldopromocion
 	has_many :regalo
-	#has_attached_file :imagenmedalla, :default_url => "/assets/medals/viaje1.png"
-	#validates_attachment_content_type :imagenmedalla, :content_type => /\Aimage\/.*\Z/
+	validates_presence_of :nombre, :puntos, :tipomedalla_id, :estado, message: "no puede estar en blanco"
 end

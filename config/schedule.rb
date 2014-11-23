@@ -35,3 +35,7 @@ require File.expand_path(File.dirname(__FILE__) + "/environment")
 every eval(@dias.valor).to_i.days do
   runner "UserMailer.enviar_correo_prueba.deliver"
 end
+
+every 30.days do
+  runner "Viaje.generar_viajes_mensuales"
+end

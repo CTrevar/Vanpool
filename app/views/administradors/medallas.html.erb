@@ -83,18 +83,15 @@
 <div class="filtering">
   <!-- search form -->
   <form >
-    <div class="row">
-      <div class="col-xs-11">
-        <div class="input-group">
-          <input type="text" placeholder="Buscar..." class="form-control" name="textoABuscar" id="textoABuscar" />
+    <div class="input-group">
+        <input type="text" placeholder="Buscar..." class="form-control" name="textoABuscar" id="textoABuscar" />
         <span class="input-group-btn">
             <button type="submit" id="btnBuscar" class="btn btn-flat">
               <i class="fa fa-search"></i>
             </button>
         </span>
-        </div>
-      </div>
-      <div class="col-xs-1">
+    </div>
+<!--       <div class="col-xs-1">
         <button type="button" id="btnFiltrar" class="btn btn-default btn-flat">
           <i class="fa fa-filter"></i> Filtrar
         </button>
@@ -108,7 +105,7 @@
         });
     </script>
     <br/>
-    <div id="filtro" class="row collapse well">
+   <div id="filtro" class="row collapse well">
         <div class="col-xs-4">
           <label>Mostrar medallas con:</label>
           <select id="atributoCondicion" class="form-control">
@@ -127,10 +124,10 @@
         </div>
         <br/>
         <br/>
-    </div>
+    </div>-->
 
   </form>
-  <!-- /.search form -->
+  <!-- /.search form --> </br>
 </div>
 
 <!-- jTable Medallas -->
@@ -184,8 +181,8 @@
             deleteConfirm: true,
             actions: {
                 //Aquí va el URL del método del controlador, debemos definirlos primero en config/routes.
-                listAction: '/medalla_controller/jtable_filterlist'
-                ,deleteAction: '/medalla_controller/jtable_delete'
+                listAction: '/medalla_controller/jtable_filterlist',
+                deleteAction: '/medalla_controller/jtable_delete'
             },
             fields: {
                 //Columna en la tabla. Deben ponerse todas las columnas, si no deben ser visible, solamente
@@ -222,19 +219,7 @@
                     title: 'Imagen',
                     width: '10%'
                 }
-//                ,
-//                DeleteIcon: {
-//                    title: '',
-//                    display: function(data){
-//                        var $img = $('<button title="Eliminar" class="jtable-command-button jtable-delete-command-button"><span>Eliminar</span></button>');
-//                        $img.click(function(){
-//                            $('#MyTableContainer').jtable('deleteRecord', {
-//                                key: data.record.Id,url: '/medalla_controller/jtable_delete?user_id=' + data.record.user_id
-//                            });
-//                        });
-//                        return $img;
-//                    }
-//                }
+
             },
             //Se crea el evento de selectionchanged
             selectionChanged: function () {
@@ -315,7 +300,7 @@
                 });
             }
         });
-        $('#condicion').change(function() {
+       /* $('#condicion').change(function() {
             var texto = $('#valorCondicion').val();
             if(texto.trim().length == 0){
                 $('#medallasTableContainer').jtable('load');
@@ -327,7 +312,7 @@
                     valorCondicion: $('#valorCondicion').val()
                 });
             }
-        });
+        });*/
         // Esta línea carga los datos de la jTable al desplegar la página.
         $('#medallasTableContainer').jtable('load');
         // Esta línea oculta el detalle al cargar la jTable
