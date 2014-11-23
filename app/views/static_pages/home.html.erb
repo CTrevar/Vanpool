@@ -57,9 +57,9 @@ function buscarOtra(){
                         <div id="formaBusqueda">
                           <div class="box-header">
                             </br>
-                            <h3 class="box-title">Busca tu ruta</h3>
+                            <h2 class="box-title">Busca tu ruta</h2>
                           </div><!-- /.box-header --> 
-                          <%= render 'shared/user_campos_busqueda', locals: {title: @title} %>
+                          <%= render 'shared/user_campos_busqueda_home', locals: {title: @title} %>
                         </div><!--formabusqueda-->
                         <a id="regresar" style="display:none;" onclick="javascript:buscarOtra()"><i class="fa fa-angle-double-left"></i>&nbsp;Buscar otra ruta</a>
                         <div id="lista" style="overflow:auto; height: 400px; display:none;">

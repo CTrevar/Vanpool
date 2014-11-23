@@ -95,6 +95,7 @@ end
   match '/retroalimentaciones', to: 'administradors#reporteretros'
   
   match '/inicio', to: 'administradors#inicio'
+  match '/entrega', to: 'administradors#entrega_regalos'
   match '/dashboard', to: 'clientes#dashboard'
   match '/promociones', to: 'clientes#promociones'
   match '/buscar', to: 'clientes#buscarviaje'
@@ -111,6 +112,7 @@ end
 
   match '/recarga', to: 'pagos#recarga'
   match '/compra', to: 'pagos#compra'
+  match '/entrega_regalos', to: 'administradors#admin_entrega_regalo'
 
   match '/signup', to: 'users#new'
   #match '/signin', to: 'sessions#new'

@@ -20,10 +20,11 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   #attr_accessible :email, :password, :password_confirmation, :name, :admin
   attr_accessible :email, :name,:password, :password_confirmation, :fechaNacimiento, :estatusUsuario, :admin, :provider, :uid, 
-  :apellidoPaterno, :apellidoMaterno, :remember_me
+  :apellidoPaterno, :apellidoMaterno, :remember_me, :cliente_attributes
   #has_secure_password
-  has_one :clients, dependent: :destroy
-
+  has_one :cliente
+  accepts_nested_attributes_for :cliente
+ 
   
   # before_save { |user| user.email = email.downcase }
   # before_save :create_remember_token

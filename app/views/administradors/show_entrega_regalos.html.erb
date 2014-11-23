@@ -1,0 +1,51 @@
+ <% provide(:title, @title) %>
+ <div class="wrapper row-offcanvas row-offcanvas-left">
+    <aside class="left-side sidebar-offcanvas">
+        <%= render 'shared/administrador_sidebar' %> 
+    </aside>
+    <aside class="right-side">
+    <section class="content-header">
+        <h1>Entrega de promociones</h1>
+        <ol class="breadcrumb">
+            <li class="active"><a href="/dashboard"><i class="fa fa-home"></i> Inicio</a></li>
+        </ol>
+    </section>
+    <section class="content">
+            <div class="row-fluid">
+                <div class="span12">
+<%if @muros.count==0 %>
+    <div class="alert alert-success alert-dismissable">
+        <i class="fa fa-check"></i>
+        <b>Por el momento no hay más promociones que entregar</b>
+    </div>
+<%else %>
+<div class="box box-success">
+    <table class="table table-bordered table-striped">
+       <tr>
+        <th><center><b>#</b></center></th>
+        <th><center>Cliente</center></th>
+        <th><center><b>Promoción</b></center></th>
+        <th><center><b>Descripción</b></center></th>
+        <th><center><b>Asignado</b></center></th>
+        <th></th>
+      </tr>
+      
+      <% @muros.each do |muro| %>
+      <tr>
+        <td><%=muro.id%></td>
+        <td><%=muro.cliente.user.name%></td>
+        <td><%=muro.medalla.regalo.first.nombre%></td>
+        <td><%=muro.medalla.regalo.first.descripcion%></td>
+        <td><%=muro.created_at.to_date%></td>
+        <td><%= link_to "Entregar", "/entrega_regalos?id=#{muro.id}", class:"btn btn-default btn-flat" %></td>
+        
+      </tr>
+      <% end %>                          
+      </table>
+  </div><!-- /.box -->  
+  <%end %>           
+                </div>
+            </div>
+    </section>                                  
+    </aside><!-- /.right-side -->
+</div><!-- ./wrapper -->

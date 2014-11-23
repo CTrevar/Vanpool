@@ -1,0 +1,50 @@
+<div class="box box-success">
+    <div class="box-header">
+        <i class="fa fa-road"></i>
+        <h3 class="box-title">Tus Próximos Viajes</h3>
+    </div>
+    <div class="box-body">
+        
+        <% if @validareservas==false then %>
+        <div class="msg-vacio">
+            <h4><b>Aún no tienes viajes</b></h4>
+            (Mensaje de la empresa)
+        </div>
+    <% else %>
+
+        <% @reservaciones_pagadas.each_with_index do |reservacion, index| %>
+            
+            <div class="item">
+        <div class="row-fluid">
+            <div class="span6">
+                <label>Ruta:</label>&nbsp<%=reservacion.viaje.ruta.nombre%></br>
+                <label>Fecha:</label>&nbsp<%=reservacion.viaje.fecha.strftime("%d/%m/%Y")%> </br>
+                <label>Km:</label>&nbsp<%=(reservacion.viaje.ruta.paradas.sum(:distancia))/1000%></br></br>
+
+                <%salida = reservacion.viaje.ruta.paradas.order('posicion ASC').first.nombre.split(",")%> 
+                <label>Lugar de salida:</label>&nbsp<%=salida[0]%> </br>
+                <label>Hora de salida:</label>&nbsp<%=reservacion.viaje.horainicio.strftime("%I:%M%p")%> </br></br>
+                <%llegada = reservacion.viaje.ruta.paradas.order('posicion ASC').last.nombre.split(",")%>
+                <label>Lugar de llegada:</label>&nbsp<%=llegada[0]%> </br>
+                <label>Hora de llegada:</label>&nbsp<%=(reservacion.viaje.horainicio+ reservacion.viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></br>
+                
+            </div>
+            <div class="span6">
+
+                <%= link_to "Ver detalle", "/viajes/#{reservacion.viaje.id}/detalle", class:"btn btn-default btn-flat" %>
+                <button type="button" class="btn btn-primary">Invitar amigos</button>
+                <div class="msg-amigos">
+                    <p>¡Solo faltan <%= @disponibilidad_pagadas[index] %> personas para alcanzar el SOLD OUT! <a href="#">Invita a tus amigos y gana más puntos</a></p>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.item -->
+<hr></hr>
+        <% end %>
+        <div class="box-footer">
+                    <h4 class="text-center"><a href="/mis_viajes">Ver todos mis viajes</a></h4>
+                </div>
+    <% end %>
+    </div><!-- /.boxbody -->
+</div><!-- /.box --> 
+

@@ -63,6 +63,8 @@
 
 	def edit
 		@user = User.find(params[:id])
+
+
 		@current_cliente = obtener_cliente(current_user)
 	end
 

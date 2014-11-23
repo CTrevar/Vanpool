@@ -68,4 +68,21 @@ module PromocionesHelper
         
     end
 
+    def obtener_regalos_no_entregados
+        regalos=Array.new
+        medallasmuro=Medallasmuro.where(:cobrado=>false)
+        medallasmuro.each do |medallamuro|
+            if valida_regalo (medallamuro)
+                regalos<<medallamuro
+            end
+        end     
+      return regalos
+    end
+
+    def cobra_regalo(id)
+        medallamuro=Medallasmuro.find(id)
+        medallamuro.cobrado=true
+        medallamuro.save
+    end
+
 end

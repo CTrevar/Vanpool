@@ -9,4 +9,5 @@ class Cliente < ActiveRecord::Base
   has_many :reportes
   has_many :liders
 
+
 end

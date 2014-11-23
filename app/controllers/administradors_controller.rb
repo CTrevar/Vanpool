@@ -93,6 +93,17 @@ class AdministradorsController < ApplicationController
 
   end
 
+  def entrega_regalos
+    @muros=obtener_regalos_no_entregados
+    render 'show_entrega_regalos'
+
+  end
+
+  def admin_entrega_regalo
+    cobra_regalo(params[:id])
+    redirect_to :controller => 'administradors', :action => 'entrega_regalos'
+  end
+
   def listadministradores
     respond_to do |format|
       format.html
