@@ -195,7 +195,10 @@ Van.create!([
   {placa: "3467LUCY", modelo: "Cutlass", capacidad: 12,  fecha_compra: "2011-04-03", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1}
 ])
 Viaje.create!([
-  {ruta_id: 1, horainicio: "2000-01-01 12:30:00", fecha: "2014-09-27 05:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 12:30:00", fecha: "2014-12-27 05:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 12:30:00", fecha: "2014-12-28 05:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 12:30:00", fecha: "2014-12-29 05:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 12:30:00", fecha: "2014-12-30 05:00:00", estadoviaje_id: 1, estatus: 1},
   {ruta_id: 2, horainicio: "2000-01-01 13:15:00", fecha: "2014-10-23 00:26:53", estadoviaje_id: 1, estatus: 1},
   {ruta_id: 3, horainicio: "2000-01-01 12:30:00", fecha: "2014-11-01 00:28:14", estadoviaje_id: 1, estatus: 1},
   {ruta_id: 4, horainicio: "2000-01-01 12:30:00", fecha: "2014-10-22 23:27:50", estadoviaje_id: 1, estatus: 1},
