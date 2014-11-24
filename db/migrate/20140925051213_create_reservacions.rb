@@ -3,9 +3,9 @@ class CreateReservacions < ActiveRecord::Migration
     create_table :reservacions do |t|
       t.integer :viaje_id
       t.integer :cliente_id
-      t.integer :referenciapago_id
-      t.integer :estadotipo_id
-      t.boolean :estatus
+      t.string :referenciapago_id
+      t.integer :estadotipo_id, :default =>1
+      t.boolean :estatus, :default =>true
 
       t.timestamps
     end

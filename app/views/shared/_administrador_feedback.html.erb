@@ -18,11 +18,11 @@
       <% @aspectos.each do |aspecto| %>
       <tr>
         <td><%= Retroaspecto.find(aspecto.id).nombre %></td>
-        <td><center><%= Retroalimentacion.where(:aspecto_id => aspecto.id, :calificacion =>1).count%></center></td>
-        <td><center><%= Retroalimentacion.where(:aspecto_id => aspecto.id, :calificacion =>2).count%></center></td>
-        <td><center><%= Retroalimentacion.where(:aspecto_id => aspecto.id, :calificacion =>3).count%></center></td>
-        <td><center><%= Retroalimentacion.where(:aspecto_id => aspecto.id, :calificacion =>4).count%><center></td>
-        <td><center><b><%= number_with_precision(Retroalimentacion.where(:aspecto_id => aspecto.id).average(:calificacion).to_s,:precision => 2) %></b></center></td>
+        <td><center><%= Retroalimentacion.where(:aspecto_id => aspecto.id, :tipocalificacion_id =>1).count%></center></td>
+        <td><center><%= Retroalimentacion.where(:aspecto_id => aspecto.id, :tipocalificacion_id =>2).count%></center></td>
+        <td><center><%= Retroalimentacion.where(:aspecto_id => aspecto.id, :tipocalificacion_id =>3).count%></center></td>
+        <td><center><%= Retroalimentacion.where(:aspecto_id => aspecto.id, :tipocalificacion_id =>4).count%><center></td>
+        <td><center><b><%= number_with_precision(Retroalimentacion.where(:aspecto_id => aspecto.id).average(:tipocalificacion_id).to_s,:precision => 2) %></b></center></td>
       </tr>
       <% end %>                          
       </table>

@@ -11,10 +11,10 @@
 		</br>
 		<small>ORIGEN:</small>
 		<b>
-			<%= result[:sugerencia].sugerenciaparadas.order('posicion ASC').first.nombre.split(",")[0] %>
+			<%= result.sugerenciaparadas.order('posicion ASC').first.nombre.split(",")[0] %>
 			</b></br>
 			<small>DESTINO:</small>
-			<b><%= result[:sugerencia].sugerenciaparadas.order('posicion ASC').last.nombre.split(",")[0] %></b>
+			<b><%= result.sugerenciaparadas.order('posicion ASC').last.nombre.split(",")[0] %></b>
 			</br> </br> 
 			<%= link_to "Ver Detalle", '#', onclick: "mostrarDetalle(#{sug_id}, #{result_cercanas})", class: "btn btn-buscar-nav btn-flat span5 pull-right" %>
 		</div>

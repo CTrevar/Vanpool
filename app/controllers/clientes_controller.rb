@@ -487,7 +487,7 @@ class ClientesController < ApplicationController
     @cantidad = params[:cantidad].to_i
 
 
-    @viajes = Viaje.where("ruta_id = ? and estadoviaje_id = 2", @ruta.id).take(@cantidad)
+    @viajes = Viaje.where("ruta_id = ? and estadoviaje_id = 1", @ruta.id).take(@cantidad)
     @disponibilidad = []
 
     @viajes.each do |viaje|
@@ -539,7 +539,7 @@ class ClientesController < ApplicationController
         if tiene_saldo
           reserva.estadotipo_id = 2
           reserva.estatus = true
-          reserva.referenciapago_id = referenciapago
+          reserva.referenciapago_id = referenciapago[:id]
           reserva.save
         end
 
@@ -583,6 +583,8 @@ class ClientesController < ApplicationController
         @disponibilidad<<calcula_disponibilidad_viaje(viaje)
       end
     end
+
+    #@cantidad = session[:reservaciones].count
 
     render 'show_reservaciones'
   end

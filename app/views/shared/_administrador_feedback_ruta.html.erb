@@ -19,11 +19,11 @@
       <% @aspectos.each do |aspecto| %>
       <tr>
         <td><%= Retroaspecto.find(aspecto.id).nombre %></td>
-        <td><center><%=  @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:calificacion=>1}).where(:retroalimentacions=>{:aspecto_id=>aspecto.id}).count %></center></td>
-        <td><center><%= @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:calificacion=>2}).where(:retroalimentacions=>{:aspecto_id=>aspecto.id}).count %></center></td>
-        <td><center><%= @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:calificacion=>3}).where(:retroalimentacions=>{:aspecto_id=>aspecto.id}).count %></center></td>
-        <td><center><%= @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:calificacion=>4}).where(:retroalimentacions=>{:aspecto_id=>aspecto.id}).count %><center></td>
-        <td><center><b><%= @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:aspecto_id=>aspecto.id}).average(:calificacion).to_s %></b></center></td>
+        <td><center><%=  @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:tipocalificacion_id=>1}).where(:retroalimentacions=>{:aspecto_id=>aspecto.id}).count %></center></td>
+        <td><center><%= @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:tipocalificacion_id=>2}).where(:retroalimentacions=>{:aspecto_id=>aspecto.id}).count %></center></td>
+        <td><center><%= @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:tipocalificacion_id=>3}).where(:retroalimentacions=>{:aspecto_id=>aspecto.id}).count %></center></td>
+        <td><center><%= @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:tipocalificacion_id=>4}).where(:retroalimentacions=>{:aspecto_id=>aspecto.id}).count %><center></td>
+        <td><center><b><%= @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:aspecto_id=>aspecto.id}).average(:tipocalificacion_id).to_s %></b></center></td>
       </tr>
       <% end %>                          
       </table>
