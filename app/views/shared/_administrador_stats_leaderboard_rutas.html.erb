@@ -1,0 +1,13 @@
+<table class="table table-bordered">
+  <tr class="success">
+    <th><b>Ruta</b></th>
+    <th><b>Cliente</b></th>
+  </tr>
+
+<% clientes_lideres_rutas.each do |lider| %>
+  <tr>
+  	<td><%=lider.ruta.nombre%></td>
+    <td><a><%=lider.cliente.user.name%></a></td>
+  </tr>
+<% end %>
+</table>

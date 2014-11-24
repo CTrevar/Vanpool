@@ -1,0 +1,31 @@
+<% provide(:title, 'Estadísticas') %>
+<div class="wrapper row-offcanvas row-offcanvas-left">
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="left-side sidebar-offcanvas">
+      <%= render 'shared/administrador_sidebar' %>
+    </aside>
+
+    <!-- Right side column. Contains the navbar and content of the page -->
+    <aside class="right-side">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        <i class="fa fa-fw fa-dashboard"></i>
+        <span>Dashboard</span>
+      </h1>
+      <ol class="breadcrumb">
+        <li >Inicio</li>
+        <li class="active">
+          <i class="fa fa-fw fa-dashboard"></i>
+          <span>Dashboard</span>
+        </li>
+      </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+      <%= render 'shared/administrador_stats_box' %>
+      <%= render 'shared/administrador_stats_graph' %>
+      
+    </section>
+    </aside><!-- /.right-side -->
+</div><!-- ./wrapper -->
