@@ -15,6 +15,43 @@ module PagosHelper
         return cuenta=@customers.get(@cliente.openpay_id)
     end
 
+    def obtener_cuenta_vanpool 
+        @openpay=OpenpayApi.new(get_merchant,get_private)
+        @customers=@openpay.create(:customers)
+        return cuenta=@customers.get("a86oeiwoibd2zz3k6og6")
+    end
+
+    def obtener_tranferencias_promocion
+      @openpay=OpenpayApi.new(get_merchant,get_private)
+      @transfers=@openpay.create(:transfers)
+      transferencias=@transfers.all(obtener_cuenta_vanpool["id"])
+      suma=0.0
+      transferencias.each do |trans|
+        if trans["operation_type"]=="out"
+          suma=suma+trans["amount"]
+        end
+      end
+      return suma
+    end
+
+    def obtener_cargos
+      @openpay=OpenpayApi.new(get_merchant,get_private)
+
+      @customers=@openpay.create(:customers)
+      customs=@customers.all
+      @charges=@openpay.create(:charges)
+
+      cargos=Array.new
+      customs.each do |custom|
+        if @charges.all(custom["id"])!=[]
+        cargos=cargos+@charges.all(custom["id"])
+        end
+      end
+     
+      c=cargos.group_by{|item| item["operation_date"].to_date}
+      return c.map {|k,v| [k, v.length]}
+    end
+
     def obtener_cuenta_admin
       @openpay=OpenpayApi.new(get_merchant,get_private)
       @customers=@openpay.create(:customers)
@@ -50,7 +87,7 @@ module PagosHelper
 
         @transfers=@openpay.create(:transfers)
         request_hash={
-            "customer_id" => "ate1ywygq39yso3xz5yw", #openpay_id de cliente
+            "customer_id" => obtener_cuenta_vanpool["id"], #openpay_id de cliente
             "amount" => cantidad,
             "description" => "Compra de viaje"
         }

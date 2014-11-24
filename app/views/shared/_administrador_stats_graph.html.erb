@@ -1,3 +1,51 @@
-<%= line_chart Reservacion.group("DATE(created_at)").count.take(30), {library: {title: "Reservaciones pagadas"}} %>
-<%= line_chart User.group("DATE(created_at)").count.take(30), {library: {title: "Usuarios registrados"}} %>
-<%= line_chart Reservacion.group("strftime('%m', created_at)").order('created_at').count.take(30), {library: {title: "Ventas mensuales"}} %>
+<div class="row">
+	<div class="box box-solid box-primary">
+        <div class="box-header">
+        	<h3 class="box-title">Usuarios</h3>
+    	</div>
+		<div class="box-body">
+			<div class="row-fluid">
+				<div class="span6">
+					<%= line_chart Cliente.group("DATE(created_at)").count.take(60), {library: {title: "Clientes registrados",  vAxis: {title: "Clientes"}}} %>
+				</div>
+				<div class="span3">
+					<h3>Lideres de puntos</h3>
+					<%= render 'shared/administrador_stats_leaderboard' %>
+				</div>
+				<div class="span3">
+					<h3>Líderes de ruta</h3>
+					<%= render 'shared/administrador_stats_leaderboard_rutas' %>
+				</div>
+			</div>
+    		
+		</div><!-- /.box-body -->
+	</div><!-- /.box -->
+
+	<div class="box box-solid box-success">
+        <div class="box-header">
+        	<h3 class="box-title">Reservaciones</h3>
+    	</div>
+		<div class="box-body">
+			<div class="row-fluid">
+				<div class="span6">
+					<%= line_chart Reservacion.where(:estadotipo_id=>2).group("DATE(created_at)").count.take(60), {library: {title: "Reservaciones por día", vAxis: {title: "Reservaciones"}}} %>
+				</div>
+				<div class="span6">
+					<%= line_chart obtener_cargos.take(60), {library: {title: "Ventas de saldo por día"}} %>
+				</div>
+			</div>
+    		
+		</div><!-- /.box-body -->
+	</div><!-- /.box -->
+
+	<div class="box box-solid box-danger">
+        <div class="box-header">
+        	<h3 class="box-title">Rutas</h3>
+    	</div>
+		<div class="box-body">
+			<div class="row-fluid">
+				<%= render 'shared/administrador_stats_rutas' %>
+			</div>
+		</div><!-- /.box-body -->
+	</div><!-- /.box -->
+</div><!-- row -->

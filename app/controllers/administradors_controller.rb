@@ -89,8 +89,8 @@ class AdministradorsController < ApplicationController
   end
 
   def inicio
-    render 'show_inicio'
-
+    @rutas=rutas
+    render 'estadisticas'
   end
 
   def entrega_regalos
