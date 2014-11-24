@@ -19,7 +19,7 @@
             <div class="span6">
                 <label>Ruta:</label>&nbsp<%=reservacion.viaje.ruta.nombre%></br>
                 <label>Fecha:</label>&nbsp<%=reservacion.viaje.fecha.strftime("%d/%m/%Y")%> </br>
-                <label>Km:</label>&nbsp<%=(reservacion.viaje.ruta.paradas.sum(:distancia))/1000%></br></br>
+                <label>Km:</label>&nbsp<%=(reservacion.viaje.ruta.paradas.sum(:distancia)).to_f/1000%></br></br>
 
                 <%salida = reservacion.viaje.ruta.paradas.order('posicion ASC').first.nombre.split(",")%> 
                 <label>Lugar de salida:</label>&nbsp<%=salida[0]%> </br>

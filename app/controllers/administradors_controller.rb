@@ -443,38 +443,35 @@ class AdministradorsController < ApplicationController
   #
   # Metodo para
   #
-  def saldopromocion
+  def promocion_saldo
     saldopromocion_id = params[:id]
     if saldopromocion_id.nil?
       @saldopromocion = Saldopromocion.new
-      @conductor.user = Saldop.new
+      @saldopromocion.medalla = Medalla.new
       @action = 'create'
-      # respond_to do |format|
-      #   format.html #listaconductores.html.erb
-      # end
     else
-      @saldopromocion = Saldopromocion.find(user_id)
+      @saldopromocion = Saldopromocion.find(saldopromocion_id)
       @action = 'update'
       respond_to do |format|
-        format.html {render partial: 'shared/administrador_detalleconductor', locals: { saldopromocion: @saldopromocion, aciton: @action }}
+        format.html {render partial: 'shared/administrador_detallesaldopromocion', locals: { saldopromocion: @saldopromocion, aciton: @action }}
       end
     end
   end
 
-  def administrador_detallesaldopromocion
-    saldopromocion_id = params[:id]
-    @saldopromocion = Saldopromocion.new
-    if saldopromocion_id.nil?
-      @action = 'create'
-    else
-      @saldopromocion = Saldopromocion.find(saldopromocion_id)
-      @saldopromocion.medalla = Medalla.find(@saldopromocion.medalla)
-      @action = 'update'
-      respond_to do |format|
-        format.html { render partial: 'shared/administrador_detallecliente', locals: { saldopromocion: @saldopromocion, aciton: @action }, layout:false}
-      end
-    end
-  end
+  # def administrador_detallesaldopromocion
+  #   saldopromocion_id = params[:id]
+  #   @saldopromocion = Saldopromocion.new
+  #   if saldopromocion_id.nil?
+  #     @action = 'create'
+  #   else
+  #     @saldopromocion = Saldopromocion.find(saldopromocion_id)
+  #     @saldopromocion.medalla = Medalla.find(@saldopromocion.medalla)
+  #     @action = 'update'
+  #     respond_to do |format|
+  #       format.html { render partial: 'shared/administrador_detallesaldopromocion', locals: { saldopromocion: @saldopromocion, aciton: @action }, layout:false}
+  #     end
+  #   end
+  # end
 
   #
   # Metodo para ver el perfil con la información de un cliente.

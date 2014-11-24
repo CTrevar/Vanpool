@@ -128,14 +128,14 @@
                     //Mostrar filas seleccionadas
                     $selectedRows.each(function () {
                         var record = $(this).data('record');
-                        $.get('/administrar_saldopromocion_detalle', record, function(data){
-                            $("#detalleAdministrador").html(data);
+                        $.get('/administrar_promocion_saldo', record, function(data){
+                            $("#detallePromocion_saldo").html(data);
                         }).success();
                         $("#promociones_saldoTableContainer").removeClass('col-md-12');
                         $("#promociones_saldoTableContainer").removeClass('col-lg-12');
                         $("#promociones_saldoTableContainer").addClass('col-md-8');
                         $("#promociones_saldoTableContainer").addClass('col-lg-8');
-                        $("#detalleAdministrador").show('fast');
+                        $("#detallePromocion_saldo").show('fast');
                     });
                 } else {
                     //Ninguna fila seleccionada
@@ -143,7 +143,7 @@
                     $("#promociones_saldoTableContainer").removeClass('col-lg-8');
                     $("#promociones_saldoTableContainer").addClass('col-md-12');
                     $("#promociones_saldoTableContainer").addClass('col-lg-12');
-                    $("#detalleAdministrador").hide('fast');
+                    $("#detallePromocion_saldo").hide('fast');
                 }
             }
         });
@@ -168,7 +168,7 @@
         // Esta línea carga los datos de la jTable al desplegar la página.
         $('#promociones_saldoTableContainer').jtable('load');
         // Esta línea oculta el detalle al cargar la jTable
-        $("#detalleAdministrador").hide();
+        $("#detallePromocion_saldo").hide();
     });
 </script>
 <br/>
@@ -177,7 +177,7 @@
 <script type="text/javascript" charset="utf-8">
     $(document).ready(function (){
         $("#btnAgregar").click(function(event){
-//            $("#modal-body").html("<%#= escape_javascript(render partial: 'shared/administrador_detalleadministrador', locals: { administrador: @administrador, action:'create' } )%>");
+            $("#modal-body").html("<%= escape_javascript(render partial: 'shared/administrador_detallesaldopromocion', locals: { saldopromocion: @saldopromocion, action:'create' } )%>");
         });
     });
 </script>
@@ -203,7 +203,7 @@
         <h4 class="modal-title" id="myModalLabel">Nueva Promoci&oacute;n</h4>
       </div>
       <div id="modal-body" class="modal-body nav-tabs-custom">
-        <!-- Aquí va el render de detalleadministrador que carga la forma para agregar Administradores. -->
+        <!-- Aquí va el render de detallePromocion_saldo que carga la forma para agregar Administradores. -->
       </div>
     </div>
   </div>
