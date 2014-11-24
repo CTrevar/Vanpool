@@ -1,1 +1,28 @@
-<% if(@results.first!=nil)%><%= will_paginate @results, :class => "pagination" %><% @results.each do |result| %><% sug_id = result[:id] %><% result_cercanas = result[:sugerencias_cercanas]%><div class="item-ruta border"><div class="row-fluid"><button class="btn btn-danger btn-sm pull-right" onclick="borrarSugerencia(<%=sug_id%>, <%=result_cercanas%>)"><i class="fa fa-trash-o"></i> Borrar</button></br> <small class="label label-warning"><%= result[:numero_incidencias] %> incidencias</small></br><small>ORIGEN:</small><b><%= result[:sugerencia].sugerenciaparadas.order('posicion ASC').first.nombre.split(",")[0] %></b></br><small>DESTINO:</small><b><%= result[:sugerencia].sugerenciaparadas.order('posicion ASC').last.nombre.split(",")[0] %></b></br> </br> <%= link_to "Ver Detalle", '#', onclick: "mostrarDetalle(#{sug_id}, #{result_cercanas})", class: "btn btn-buscar-nav btn-flat span5 pull-right" %></div></div><!-- /.item --><% end %><%= will_paginate @results %><!--lista sugs --> <% else %> <div class="item-ruta border"> <h2>No hay sugerencias enviadas.</h2></div><% end %>
+<% if(@results.first!=nil)%>
+<%= will_paginate @results, :class => "pagination" %>
+<% @results.each do |result| %>
+<% sug_id = result[:id] %>
+<% result_cercanas = result[:sugerencias_cercanas]%>
+<div class="item-ruta border"><div class="row-fluid">
+	<button class="btn btn-danger btn-sm pull-right" onclick="borrarSugerencia(<%=sug_id%>, <%=result_cercanas%>)">
+		<i class="fa fa-trash-o"></i> Borrar</button>
+		</br> 
+		<small class="label label-warning"><%= result[:numero_incidencias] %> incidencias</small>
+		</br>
+		<small>ORIGEN:</small>
+		<b>
+			<%= result[:sugerencia].sugerenciaparadas.order('posicion ASC').first.nombre.split(",")[0] %>
+			</b></br>
+			<small>DESTINO:</small>
+			<b><%= result[:sugerencia].sugerenciaparadas.order('posicion ASC').last.nombre.split(",")[0] %></b>
+			</br> </br> 
+			<%= link_to "Ver Detalle", '#', onclick: "mostrarDetalle(#{sug_id}, #{result_cercanas})", class: "btn btn-buscar-nav btn-flat span5 pull-right" %>
+		</div>
+			</div><!-- /.item -->
+			<% end %>
+			<%= will_paginate @results %><!--lista sugs --> 
+			<% else %> 
+			<div class="item-ruta border"> 
+				<h2>No hay sugerencias enviadas.</h2>
+				</div>
+				<% end %>
