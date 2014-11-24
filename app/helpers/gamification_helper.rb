@@ -244,7 +244,7 @@ module GamificationHelper
 	end
 
     def calcula_co2_viaje(reservacion)
-        return (calcular_distancia(reservacion)*(Configuracion.find(6).valor.to_f/1000))/Reservacion.find_all_by_estadotipo_id_and_viaje_id([2,3],reservacion.viaje_id).count
+        return (calcular_distancia(reservacion)*(Configuracion.find(9).valor.to_f/1000))/Reservacion.find_all_by_estadotipo_id_and_viaje_id([2,3],reservacion.viaje_id).count
     end
 
      def calcula_co2ahorrado(cliente)

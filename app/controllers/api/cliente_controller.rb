@@ -294,8 +294,7 @@ class API::ClienteController < ApplicationController
       end
       rescue ActiveRecord::RecordNotFound
         @exito="No se encontro la reservacion"
-      rescue Exception
-        @exito="Algo salio mal, vuelva a intentar"
+      
       end
        respond_to do |format|
           format.json { render :json => @exito }
