@@ -1,0 +1,142 @@
+<div class="filtering">
+  <!-- search form -->
+  <!--<form >-->
+    <div class="input-group">
+      <input type="text" placeholder="Buscar..." class="form-control" name="textoABuscarMedallas" id="textoABuscarMedallas" />
+        <span class="input-group-btn">
+            <button type="submit" id="btnBuscarMedallas" class="btn btn-flat">
+              <i class="fa fa-search"></i>
+            </button>
+        </span>
+    </div>
+  <!--</form>-->
+  <!-- /.search form --> </br>
+</div>
+
+<!-- jTable Medallas -->
+<div id="medallasTableContainer" class="col-lg-12 col-md-12 col-xs-12">
+</div>
+<!-- nav-tabs-custom -->
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        $('#medallasTableContainer').jtable({
+            messages: {
+                serverCommunicationError: 'Ocurri&oacute; un error al comunicarse con el servidor.',
+                loadingMessage: 'Cargando Registros...',
+                noDataAvailable: '&iexcl;No hay Datos!',
+                addNewRecord: 'Agregar medalla',
+                editRecord: 'Editar medalla',
+                areYouSure: '¿Está seguro?',
+                deleteConfirmation: '&iquest;Est&aacute; seguro de eliminar este medalla?',
+                save: 'Guardar',
+                saving: 'Guardando',
+                cancel: 'Cancelar',
+                deleteText: 'Eliminar',
+                deleting: 'Eliminando',
+                error: 'Error',
+                close: 'Cerrar',
+                cannotLoadOptionsFor: 'No se pueden cargar las opciones para el campo {0}',
+                pagingInfo: 'Mostrando {0} a {1} de {2} medallas',
+                pageSizeChangeLabel: 'N&uacute;mero de registros',
+                gotoPageLabel: 'Ir a la p&aacute;gina',
+                canNotDeletedRecords: '&excl;No se pudieron eliminar {0} de {1} registros!',
+                deleteProgress: 'Eliminadas {0} de {1} medallas, procesando...'
+            },
+            title: 'Tabla de medallas',
+            useBootstrap: true,
+            paging: true, //Habilitamos paginación.
+            pageSize: 10, //Definimos el número de registros a mostrar a 10.
+            sorting: true, //Habilitamos ordenación.
+            defaultSorting: 'name ASC', //Definimos la columna default de ordenación.
+            defaultDateFormat: 'yy-mm-dd',
+            gotoPageArea: 'combobox',
+            selecting: true, //Habilitar Seleccion.
+            selectingCheckboxes: true, //Mostrar checkbox en la primer columna
+            selectOnRowClick: true, //Habilitamos selección con la fila
+            deleteConfirm: true,
+            actions: {
+                //Aquí va el URL del método del controlador, debemos definirlos primero en config/routes.
+                listAction: '/medalla_controller/jtable_filterlist'
+            },
+            fields: {
+                //Columna en la tabla. Deben ponerse todas las columnas, si no deben ser visible, solamente
+                //habilitamos la opción list:false. Si un campo no debe editarse configuramos edit:false.
+                medalla_id: {
+                    key: true,
+                    list: false
+                },
+                nombre_medalla: {
+                    title: 'Nombre',
+                    width: '10%'
+                },
+                descripcion: {
+                    title: 'Descripcion',
+                    width: '10%'
+                },
+                puntos: {
+                    title: 'Puntos',
+                    width: '10%'
+                },
+                nombre_tipomedalla: {
+                    title: 'Tipo',
+                    width: '10%'
+                },
+                estado:{
+                    title: 'Estado',
+                    width:'10%'
+                },
+                estatus:{
+                    list:false
+                },
+                imagen: {
+                    list: false,
+                    title: 'Imagen',
+                    width: '10%'
+                }
+
+            },
+            //Se crea el evento de selectionchanged
+            selectionChanged: function () {
+                //Obtener todas las filas seleccionadas.
+                var $selectedRows = $('#medallasTableContainer').jtable('selectedRows');
+                $('#SelectedRowList').empty();
+                if ($selectedRows.length > 0) {
+                    //Mostrar filas seleccionadas
+                    $selectedRows.each(function () {
+                        var record = $(this).data('record');
+                        console.log(record);
+                        $("#saldopromocion_medalla_medalla_id").val(record.medalla_id);
+                        $("#saldopromocion_medalla_nombre").val(record.nombre_medalla);
+                        $("#saldopromocion_medalla_descripcion").val(record.descripcion);
+                        $("#saldopromocion_medalla_puntos").val(record.puntos);
+                        $("#saldopromocion_medalla_imagen").attr("src", ("/assets/medals/"+record.imagen));
+                        $("#basicModal").modal('toggle');
+                    });
+                }
+            }
+        });
+        //Realiza la búsqueda al presiona el botón de buscar.
+        $('#btnBuscarMedallas').click(function (e) {
+            e.preventDefault();
+            $('#medallasTableContainer').jtable('load', {
+                textoABuscar: $('#textoABuscarMedallas').val()
+            });
+        });
+        //Realiza la búsqueda al teclear en el campo de búsqueda si solo hay espacios, muestra todos los campos.
+        $('#textoABuscarMedallas').keyup(function() {
+            var texto = $('#textoABuscarMedallas').val();
+            if(texto.trim().length == 0){
+                $('#medallasTableContainer').jtable('load');
+            }else{
+                $('#medallasTableContainer').jtable('load', {
+                    textoABuscar: $('#textoABuscarMedallas').val()
+                });
+            }
+        });
+        // Esta línea carga los datos de la jTable al desplegar la página.
+        $('#medallasTableContainer').jtable('load');
+    });
+</script>
+<br/>
+<br/>
+<br/>
