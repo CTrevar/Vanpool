@@ -96,6 +96,18 @@ module PagosHelper
         #redirect_to :controller => 'clientes', :action => 'dashboard'
     end
 
+    def compra_api (cantidad, id)
+        @cuenta=obtener_cuenta_api(id)
+        @cliente=Cliente.find(id)
+        @transfers=@openpay.create(:transfers)
+        request_hash={
+            "customer_id" => obtener_cuenta_vanpool["id"], #openpay_id de cliente
+            "amount" => cantidad,
+            "description" => "Compra de viaje"
+        }
+        return @transfers.create(request_hash.to_hash, @cliente.openpay_id) #numero de referencia de pago
+    end
+
     
 
     def obtener_saldo
@@ -104,7 +116,19 @@ module PagosHelper
 
     def valida_saldo_suficiente (cantidad)
         saldo = obtener_saldo
-        return saldo>cantidad
+        return saldo>=cantidad
+    end
+
+    def obtener_cuenta_api(id)
+        @cliente=Cliente.find(id)
+        @openpay=OpenpayApi.new(get_merchant,get_private)
+        @customers=@openpay.create(:customers)
+        return cuenta=@customers.get(@cliente.openpay_id)
+    end
+
+    def valida_saldo_suficiente_api (cantidad, id)
+        saldo = obtener_cuenta_api(id)["balance"]
+        return saldo>=cantidad
     end
 
 
