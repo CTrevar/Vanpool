@@ -501,7 +501,7 @@ class AdministradorsController < ApplicationController
   end
 
   def sugerencias
-    @sugerencias = Sugerencia.all
+    @results = Sugerencia.paginate(:page => params[:page], :per_page => 30)
     
   end
 
