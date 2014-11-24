@@ -1,0 +1,11 @@
+<% @rutas.each do |ruta| %>
+<div style="margin:5px" class="span6">
+<div class="box box-primary">
+  <div class="box-header">
+    <h3 class="box-title"><%=ruta.nombre%></h3>
+  </div><!-- /.box-header -->
+   <%= line_chart Reservacion.joins(:viaje).where("reservacions.estadotipo_id=2 and viajes.ruta_id=#{ruta.id}").group("DATE(viajes.fecha)").count.take(30),  {library: {title: "Cantidad de reservaciones por día",  vAxis: {title: "Clientes"}}} %>
+
+  </div><!-- /.box -->
+  </div>
+<% end %>

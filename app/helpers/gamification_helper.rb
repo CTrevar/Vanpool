@@ -254,6 +254,13 @@ module GamificationHelper
        return co2auto-co2emitido
     end
 
+    def calcula_co2_total
+        sumaco2=Cliente.sum(:emisionco2)
+        sumakm=Cliente.sum(:kilometros)
+        compara=sumakm.to_f*(Configuracion.find(1).valor.to_f/1000)
+        return compara-sumaco2
+    end
+
     def tabla_lideres(current_cliente)
         @top=Cliente.order('puntaje DESC').where('puntaje > ?',current_cliente.puntaje).last(2)
         @bot=Cliente.order('puntaje DESC').where('puntaje < ?',current_cliente.puntaje).first(2)

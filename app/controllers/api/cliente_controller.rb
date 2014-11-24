@@ -186,6 +186,7 @@ class API::ClienteController < ApplicationController
     end
 
   	def ruta_disponibilidad_viaje
+      begin
   	  id=params[:id]
   	  viaje = Viaje.find(id)
       ruta = Ruta.find(viaje.ruta_id)
@@ -193,6 +194,12 @@ class API::ClienteController < ApplicationController
       capacidad = van.capacidad
       pasajeros = viaje.reservacions.find_all_by_estadotipo_id([2,3]).count
       @disponibilidad = capacidad - pasajeros
+
+      rescue ActiveRecord::RecordNotFound
+        @exito="No se encontro el viaje"
+      rescue Exception
+        @exito="Algo salio mal, vuelva a intentar"
+      end
       	respond_to do |format|
       		format.json { render :json => @disponibilidad }
     	end
@@ -201,7 +208,8 @@ class API::ClienteController < ApplicationController
     def rutas_busqueda
     	#http://localhost:3000/api/rutas_busqueda?olatitud=25.67093&olongitud=-100.4366063&dlatitud=25.6603322&dlongitud=-100.3689728
       #http://localhost:3000/api/rutas_busqueda?olatitud=25.77093&olongitud=-100.4386063&dlatitud=25.6609322&dlongitud=-100.3689028 
-  		olat=params[:olatitud]
+  		
+      olat=params[:olatitud]
   		olong=params[:olongitud]
 
   		dlat=params[:dlatitud]
@@ -223,19 +231,18 @@ class API::ClienteController < ApplicationController
         destinoDireccion=""
         create_sugerencia(origen, destino, horainicio, origenDireccion, destinoDireccion)
         @rutas="No se encontro, sugerencia enviada"
-        @exito=true
         respond_to do |format|
           format.json { render :json => @rutas }
         end
       else
-      	#@medallas = Cliente.find(id).medallas.all(:select=>'medallas.nombre,medallas.descripcion,medallas.imagen', :order=>'medallas.created_at DESC')
       	respond_to do |format|
       		format.json { render :json => @rutas }
-    	end
+    	end 
     end
     end
 
     def cliente_co2ahorrado
+      begin
       id=params[:id]
       current_cliente=Cliente.find(id)
        co2emitido = current_cliente.emisionco2.to_f
@@ -244,12 +251,18 @@ class API::ClienteController < ApplicationController
        @datos = Array.new
        @datos<<co2auto-co2emitido
        @datos<<@modelo
+       rescue ActiveRecord::RecordNotFound
+        @exito="No se encontro el cliente"
+      rescue Exception
+        @exito="Algo salio mal, vuelva a intentar"
+      end
        respond_to do |format|
           format.json { render :json => @datos }
       end
     end
 
     def cliente_co2_viaje
+      begin
       id=params[:id]
        reservacion=Reservacion.find(id)
        co2emitido=calcula_co2_viaje(reservacion)
@@ -259,12 +272,19 @@ class API::ClienteController < ApplicationController
        @datos = Array.new
        @datos<<@co2
        @datos<<@auto
+
+      rescue ActiveRecord::RecordNotFound
+        @exito="No se encontro la reservacion"
+      rescue Exception
+        @exito="Algo salio mal, vuelva a intentar"
+      end
        respond_to do |format|
           format.json { render :json => @datos }
       end
     end
 
-     def cliente_checkin 
+     def cliente_checkin
+      begin 
       id=params[:id]
       if Reservacion.find(id).estadotipo_id==2
         checkin(id)
@@ -272,11 +292,58 @@ class API::ClienteController < ApplicationController
       else
         @exito="Ya ha realizado checkin anteriormente"
       end
-
+      rescue ActiveRecord::RecordNotFound
+        @exito="No se encontro la reservacion"
+      rescue Exception
+        @exito="Algo salio mal, vuelva a intentar"
+      end
        respond_to do |format|
           format.json { render :json => @exito }
       end
     end
 
+    def cliente_reserva_viajes
+      #http://localhost:3000/api/cliente_reserva_viajes?id=1&viaje[]=4&viaje[]=5&viaje[]=2
+      begin
+      cliente=params[:id]    
+      viajes=params[:viaje]
+      
+      pedido=Array.new
+      x=0
+      cantidad_pago=0.0
+      
+      viajes.length.times do
+        v=Viaje.find(viajes[x])
+        cantidad_pago=cantidad_pago+v.ruta.precio.to_f
+        pedido<<v
+        x=x+1
+      end
 
+      if valida_saldo_suficiente_api(cantidad_pago, cliente)
+        referenciapago=compra_api(cantidad_pago, cliente)
+
+        pedido.each do |index|
+          reserva = Reservacion.new
+          reserva.viaje_id = index.id
+          reserva.cliente_id = cliente.to_i
+          reserva.referenciapago_id=referenciapago["id"]
+          reserva.estadotipo_id=2
+          reserva.save
+        end
+        @exito=true
+      else
+        @exito="No tiene saldo suficiente"
+      end
+      rescue OpenpayTransactionException
+        @exito= "No se pudo realizar la transaccion"
+      rescue ActiveRecord::RecordNotFound
+        @exito="Cliente o viaje no encontrado"
+      rescue Exception
+        @exito="Algo salio mal, vuelva a intentar"
+      end
+      respond_to do |format|
+          format.json { render :json => @exito }
+      end
+
+    end
 end

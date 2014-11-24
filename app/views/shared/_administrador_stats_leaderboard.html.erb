@@ -1,12 +1,12 @@
 <table class="table table-bordered">
-  <tr>
-    <th>Cliente</th>
-    <th>Puntos</th>
+  <tr class="success">
+    <th><b>Cliente</b></th>
+    <th><b>Puntos</b></th>
   </tr>
 
-<% clientes_top10.each do |cliente| %>
+<% clientes_top5.each do |cliente| %>
   <tr>
-    <td><%=cliente.user.name%></td>
+    <td><a><%=cliente.user.name%></a></td>
     <td><%=cliente.puntaje%></td>
   </tr>
 <% end %>
