@@ -251,6 +251,7 @@ module GamificationHelper
        current_cliente=cliente
        co2emitido = current_cliente.emisionco2.to_f
        co2auto =current_cliente.kilometros.to_f*(Configuracion.find(1).valor.to_f/1000)
+
        return co2auto-co2emitido
     end
 

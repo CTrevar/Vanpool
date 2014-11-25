@@ -34,8 +34,8 @@
       <tr>
         <td><%=muro.id%></td>
         <td><%=muro.cliente.user.name%></td>
-        <td><%=muro.medalla.regalo.first.nombre%></td>
-        <td><%=muro.medalla.regalo.first.descripcion%></td>
+        <td><%=muro.medalla.regalo.where(:perfil_id=>muro.cliente.perfil_id).first.nombre%></td>
+        <td><%=muro.medalla.regalo.where(:perfil_id=>muro.cliente.perfil_id).first.descripcion%></td>
         <td><%=muro.created_at.to_date%></td>
         <td><%= link_to "Entregar", "/entrega_regalos?id=#{muro.id}", class:"btn btn-default btn-flat" %></td>
         
