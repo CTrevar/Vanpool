@@ -28,8 +28,9 @@
                     </div>
                     <hr>
                 <% end %>
+               
                 <% @regalos.each do |muroregalo| %> 
-                    <div class="row-fluid">
+                    <div class="row-fluid"> 
                         <div class="span2">
                             <% if muroregalo.cobrado==true then %>
                                 <img class="pull-left" src="/assets/check.png" style="width:80px; padding:3px" alt="Promoción aplicada" />
@@ -41,10 +42,14 @@
                         <div class="span10">
                             <label><%= muroregalo.medalla.regalo.where(:perfil_id=>@current_cliente.perfil_id).first.nombre%></label> </br>
                             <label>Descripción: </label><%= muroregalo.medalla.regalo.where(:perfil_id=>@current_cliente.perfil_id).first.descripcion%><br>
+                             <% if muroregalo.cobrado==false then %>
+                                <a>En tu próximo viaje pregunta por tu premio al chofer. </a><br>
+                            <% end %>
                         </div>
                     </div>
                     <hr>
                 <% end %>
+            
                 <div class="box-footer">
                     <h4 class="text-center"><a href="/promociones">Ver todas mis promociones</a></h4>
                 </div>
