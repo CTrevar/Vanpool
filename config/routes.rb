@@ -204,6 +204,7 @@ end
 
 
   match '/procesar_busqueda',   to: 'clientes#procesarbusquedaviaje',   via: [:get, :post]
+  match '/procesar_busqueda_sinlogin',   to: 'static_pages#procesarbusqueda_sinlogin',   via: [:get, :post]
 
   match '/administrar_medallas', to: 'administradors#medallas', via:[:get, :post, :put]
   match '/medalla_controller/jtable_list',   to: 'medallas#jtable_list',   via: [:post, :get]
