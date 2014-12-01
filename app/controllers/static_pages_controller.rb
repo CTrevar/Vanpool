@@ -35,6 +35,29 @@ class StaticPagesController < ApplicationController
       #end
   end
 
+  def procesarbusqueda_sinlogin
+    @origen=Localizacion.new
+    @origen.longitud= params[:origenLng]
+    @origen.latitud= params[:origenLat]
+    @origenDireccion = params[:origenRuta]
+
+    @destino = Localizacion.new
+    @destino.longitud = params[:destinoLng]
+    @destino.latitud = params[:destinoLat]
+    @destinoDireccion = params[:destinoRuta]
+
+    @result=busqueda(@origen, @destino)
+
+    if @result.blank?
+      create_sugerencia(@origen, @destino, @origenDireccion, @destinoDireccion)
+    end
+
+    respond_to do |format|
+        format.html { render partial: 'shared/user_rutas_busqueda', locals: { result: @result, horainicio: @horainicio }, layout:false}
+        
+    end
+  end
+
   def help
   end
 

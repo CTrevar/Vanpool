@@ -487,7 +487,7 @@ class ClientesController < ApplicationController
     @cantidad = params[:cantidad].to_i
 
 
-    @viajes = Viaje.where("ruta_id = ? and estadoviaje_id = 1", @ruta.id).take(@cantidad)
+    @viajes = Viaje.where("ruta_id = ? and estadoviaje_id = 2", @ruta.id).take(@cantidad)
     @disponibilidad = []
 
     @viajes.each do |viaje|

@@ -29,7 +29,7 @@ $(document).ready(function(){
      fechainicio: $('#diaViajeRuta').val()
     }
 
-    $.post('/procesar_busqueda' , data, function(result){
+    $.post('procesar_busqueda_sinlogin' , data, function(result){
                                 $("#lista").html(result);
     }).success();
     $("#formaBusqueda").hide();
