@@ -32,7 +32,8 @@ module PromocionesHelper
         begin
             medallamuro=Medallasmuro.find(id_medallamuro)
             medalla=Medalla.find(medallamuro.medalla_id)
-            transfiere_saldo_promocion(medalla.saldopromocion)
+            cliente=Cliente.find(medallamuro.cliente_id)
+            transfiere_saldo_promocion(medalla.saldopromocion, cliente)
             #medalla=Medallasmuro.where(:cliente_id=>medallamuro.cliente_id, :cobrado=>false, :medalla_id=>medallamuro.medalla.id)
             medallamuro.cobrado=true
             medallamuro.save
@@ -54,13 +55,13 @@ module PromocionesHelper
       return promociones
     end
 
-    def transfiere_saldo_promocion (saldopromocion)
+    def transfiere_saldo_promocion (saldopromocion, cliente)
         #@cuenta=obtener_cuenta
-        @cliente=obtener_cliente(current_user)
+        #@cliente=cliente
         @openpay=OpenpayApi.new(get_merchant,get_private)
         @transfers=@openpay.create(:transfers)
         request_hash={
-            "customer_id" => @cliente.openpay_id, #openpay_id de vanpool
+            "customer_id" => cliente.openpay_id, #openpay_id de vanpool
             "amount" => saldopromocion.cantidad,
             "description" => saldopromocion.nombre
         }

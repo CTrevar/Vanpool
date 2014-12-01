@@ -23,7 +23,7 @@
         <td><center><%= @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:tipocalificacion_id=>2}).where(:retroalimentacions=>{:aspecto_id=>aspecto.id}).count %></center></td>
         <td><center><%= @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:tipocalificacion_id=>3}).where(:retroalimentacions=>{:aspecto_id=>aspecto.id}).count %></center></td>
         <td><center><%= @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:tipocalificacion_id=>4}).where(:retroalimentacions=>{:aspecto_id=>aspecto.id}).count %><center></td>
-        <td><center><b><%= @retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:aspecto_id=>aspecto.id}).average(:tipocalificacion_id).to_s %></b></center></td>
+        <td><center><b><%=  number_with_precision(@retrosjoin.where(:rutas =>{:id=>ruta.id},:retroalimentacions=>{:aspecto_id=>aspecto.id}).average(:tipocalificacion_id).to_f,:precision => 2) %></b></center></td>
       </tr>
       <% end %>                          
       </table>

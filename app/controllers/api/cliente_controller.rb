@@ -229,7 +229,7 @@ class API::ClienteController < ApplicationController
         horainicio="00:00"
         origenDireccion=""
         destinoDireccion=""
-        create_sugerencia(origen, destino, horainicio, origenDireccion, destinoDireccion)
+        create_sugerencia(origen, destino, origenDireccion, destinoDireccion)
         @rutas="No se encontro, sugerencia enviada"
         respond_to do |format|
           format.json { render :json => @rutas }

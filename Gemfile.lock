@@ -204,6 +204,7 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    railroady (1.2.0)
     rails (3.2.13)
       actionmailer (= 3.2.13)
       actionpack (= 3.2.13)
@@ -334,6 +335,7 @@ DEPENDENCIES
   openpay
   pg
   rack (~> 1.4.5)
+  railroady
   rails (= 3.2.13)
   railties (= 3.2.13)
   rspec-rails (= 2.9.0)

@@ -41,13 +41,6 @@ User.create!([
   {name: "Evelin", provider: nil, uid: nil, admin: false, estatusUsuario: true, fechaNacimiento: nil, apellidoPaterno: nil, apellidoMaterno: nil, authentication_token: nil, email: "epo@gmail.com", encrypted_password: "$2a$10$wic2tsNrFeasTbuqVCW.xOuOE8g3I3emg670pzqY5PMmhqboRHgy2", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2014-11-22 18:54:26", last_sign_in_at: "2014-11-22 18:54:26", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1"},
   {name: "vanpool", provider: nil, uid: nil, admin: false, estatusUsuario: true, fechaNacimiento: nil, apellidoPaterno: nil, apellidoMaterno: nil, authentication_token: nil, email: "eponce19@gmail.com", encrypted_password: "$2a$10$Bd9QMyqFmv44Dxg11P3KF.SD1jSVuvNacy59coJGlBJMiP7LO9chS", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2014-11-23 23:09:09", last_sign_in_at: "2014-11-23 23:09:09", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1"}
 ])
-Cliente.create!([
-  {puntaje: 0, nivel_id: 1, user_id: 1, perfil_id: nil, kilometros: 0.0, emisionco2: 0.0, openpay_id: "anxgx4mqdsxjntghjfhq", estatus: true},
-  {puntaje: 0, nivel_id: 1, user_id: 2, perfil_id: nil, kilometros: 0.0, emisionco2: 0.0, openpay_id: "a5wkd9ejzpngo1cbuexq", estatus: true},
-  {puntaje: 0, nivel_id: 1, user_id: 27, perfil_id: nil, kilometros: 0.0, emisionco2: 0.0, openpay_id: "aw2vbakepbxmhr0czqik", estatus: true},
-  {puntaje: 0, nivel_id: 1, user_id: 3, perfil_id: nil, kilometros: 0.0, emisionco2: 0.0, openpay_id: "aderclwbzotghff2hefl", estatus: true},
-  {puntaje: 0, nivel_id: 1, user_id: 41, perfil_id: nil, kilometros: 0.0, emisionco2: 0.0, openpay_id: "a86oeiwoibd2zz3k6og6", estatus: true}
-])
 Conductor.create!([
   {user_id: 15, licenciaConductor: "SVG6404", estatusConductor: true},
   {user_id: 16, licenciaConductor: "SVG5475", estatusConductor: true},
@@ -115,41 +108,6 @@ Parada.create!([
   {nombre: "Potrero Chico 301, Hacienda Los Portales, 66120 NL, Mexico", longitud: -100.43614919999999, latitud: 25.6809919, estatus: nil},
   {nombre: "R. de Las Mitras 212, Rincón de Corregidora, 66239 NL, Mexico", longitud: -100.40331379999998, latitud: 25.668548, estatus: nil}
 ])
-=begin
-Reservacion.create!([
-  {viaje_id: 1, cliente_id: 2, referenciapago_id: nil, estadotipo_id: 2, estatus: true},
-  {viaje_id: 9, cliente_id: 1, referenciapago_id: "3456789", estadotipo_id: 2, estatus: true},
-  {viaje_id: 2, cliente_id: 1, referenciapago_id: nil, estadotipo_id: 2, estatus: true},
-  {viaje_id: 2, cliente_id: 1, referenciapago_id: "348732389", estadotipo_id: 2, estatus: true},
-  {viaje_id: 1, cliente_id: 2, referenciapago_id: nil, estadotipo_id: 2, estatus: true},
-  {viaje_id: 1, cliente_id: 3, referenciapago_id: nil, estadotipo_id: 2, estatus: true},
-  {viaje_id: 4, cliente_id: 1, referenciapago_id: nil, estadotipo_id: nil, estatus: nil},
-  {viaje_id: 5, cliente_id: 1, referenciapago_id: nil, estadotipo_id: nil, estatus: nil},
-  {viaje_id: 2, cliente_id: 1, referenciapago_id: nil, estadotipo_id: nil, estatus: nil},
-  {viaje_id: 4, cliente_id: 1, referenciapago_id: nil, estadotipo_id: nil, estatus: nil},
-  {viaje_id: 5, cliente_id: 1, referenciapago_id: nil, estadotipo_id: nil, estatus: nil},
-  {viaje_id: 2, cliente_id: 1, referenciapago_id: nil, estadotipo_id: nil, estatus: nil},
-  {viaje_id: 4, cliente_id: 1, referenciapago_id: nil, estadotipo_id: nil, estatus: nil},
-  {viaje_id: 5, cliente_id: 1, referenciapago_id: nil, estadotipo_id: nil, estatus: nil},
-  {viaje_id: 2, cliente_id: 1, referenciapago_id: nil, estadotipo_id: nil, estatus: nil},
-  {viaje_id: 4, cliente_id: 1, referenciapago_id: nil, estadotipo_id: nil, estatus: nil},
-  {viaje_id: 5, cliente_id: 1, referenciapago_id: nil, estadotipo_id: nil, estatus: nil},
-  {viaje_id: 2, cliente_id: 1, referenciapago_id: nil, estadotipo_id: nil, estatus: nil},
-  {viaje_id: 4, cliente_id: 1, referenciapago_id: "0", estadotipo_id: 2, estatus: nil},
-  {viaje_id: 5, cliente_id: 1, referenciapago_id: "0", estadotipo_id: 2, estatus: nil},
-  {viaje_id: 2, cliente_id: 1, referenciapago_id: "0", estadotipo_id: 2, estatus: nil},
-  {viaje_id: 4, cliente_id: 1, referenciapago_id: "tr7qwrulquqyql1gqfbe", estadotipo_id: 2, estatus: nil},
-  {viaje_id: 5, cliente_id: 1, referenciapago_id: "tr7qwrulquqyql1gqfbe", estadotipo_id: 2, estatus: nil},
-  {viaje_id: 2, cliente_id: 1, referenciapago_id: "tr7qwrulquqyql1gqfbe", estadotipo_id: 2, estatus: nil}
-])
-=end
-#Reservacion.create!([
-#  {viaje_id: 1, cliente_id: 2, referenciapago_id: nil, estadotipo_id: 1, estatus: true},
-#  {viaje_id: 1, cliente_id: 1, referenciapago_id: 3456789, estadotipo_id: 2, estatus: true},
-#  {viaje_id: 2, cliente_id: 2, referenciapago_id: nil, estadotipo_id: 1, estatus: true},
-#  {viaje_id: 2, cliente_id: 1, referenciapago_id: 348732389, estadotipo_id: 3, estatus: true}
-#])
-
 Retroaspecto.create!([
   {nombre: "Limpieza de la van", estatus: true},
   {nombre: "Trato de conductor", estatus: true},
@@ -157,40 +115,12 @@ Retroaspecto.create!([
 ])
 Ruta.create!([
   {conductor_id: 1, van_id: 1, nombre: "Valle-Galerias", precio: "20.0", estatus: true, zona_id: 1},
-  {conductor_id: 1, van_id: 1, nombre: "Centro-Cumbres", precio: "30.0", estatus: true, zona_id: 1},
-  #{conductor_id: 1, van_id: 1, nombre: "Country-Valle", precio: "50.0", estatus: false, zona_id: 1},
-  #{conductor_id: 1, van_id: 1, nombre: "newerkjh", precio: "322.0", estatus: false, zona_id: 1},
-  #{conductor_id: 1, van_id: 1, nombre: "newerkjh", precio: "312.0", estatus: false, zona_id: 1},
-  #{conductor_id: 1, van_id: 1, nombre: "nomnew", precio: "32.0", estatus: true, zona_id: 1},
-  #{conductor_id: 1, van_id: 1, nombre: "nomnew", precio: "32.0", estatus: false, zona_id: 1},
-  #{conductor_id: 1, van_id: 1, nombre: "nomnew", precio: "32.0", estatus: false, zona_id: 1},
-  #{conductor_id: 1, van_id: 1, nombre: "nomnew", precio: "32.0", estatus: false, zona_id: 1},
-  #{conductor_id: 1, van_id: 1, nombre: "Gallifrey-Kashyyyk", precio: "420.0", estatus: true, zona_id: 1},
-  #{conductor_id: 1, van_id: 1, nombre: "Corellia-Coruscant", precio: "322.0", estatus: true, zona_id: 1},
-  #{conductor_id: 1, van_id: 1, nombre: "Nal Hutta - Naboo", precio: "32.0", estatus: true, zona_id: 1},
-  #{conductor_id: 1, van_id: 1, nombre: "P4X639 - Abydos", precio: "322.0", estatus: true, zona_id: 1},
-  #{conductor_id: 1, van_id: 1, nombre: "Chulak-Asgard", precio: "322.0", estatus: true, zona_id: 1},
-  #{conductor_id: 1, van_id: 1, nombre: "Hermes - Kronos", precio: "322.0", estatus: true, zona_id: 1},
-  #{conductor_id: 1, van_id: 1, nombre: "Lantea - Novus", precio: "120.0", estatus: true, zona_id: 1},
-  #{conductor_id: 1, van_id: 1, nombre: "Sateda - Athos", precio: "123.0", estatus: true, zona_id: 3},
-  {conductor_id: 1, van_id: 1, nombre: "Dagan - Asuras", precio: "23.0", estatus: true, zona_id: 8},
-  {conductor_id: 1, van_id: 1, nombre: "Jenev - Vedeena", precio: "23.0", estatus: true, zona_id: 10}
+  {conductor_id: 2, van_id: 1, nombre: "Centro-Cumbres", precio: "30.0", estatus: true, zona_id: 1},
+  {conductor_id: 3, van_id: 1, nombre: "Country-Valle", precio: "50.0", estatus: false, zona_id: 1}
 
 ])
 Saldopromocion.create!([
-  {nombre: "Credito de bienvenida", descripcion: "Por haber realizado tu primer viaje, te regalomos $50 pesos para que sigas viajando en Vanpool", cantidad: 50.0, medalla_id: "1", estatus: true}
-])
-Sugerencia.create!([
-  {hora_inicio: "2014-10-22 17:25:33.338532"},
-  {hora_inicio: "2014-10-20 11:20:00.000000"},
-  {hora_inicio: "2014-10-20 19:15:00.000000"},
-  {hora_inicio: "2014-10-21 17:40:00.000000"},
-  {hora_inicio: "2014-10-22 04:45:00.000000"},
-  {hora_inicio: "2014-10-21 16:45:00.000000"},
-  {hora_inicio: "2014-10-22 02:45:00.000000"},
-  {hora_inicio: "2014-10-22 20:45:00.000000"},
-  {hora_inicio: "2014-11-08 08:30:00.000000"}
->>>>>>> cb776a7343307e0b463066beecd6afc22d588ab2
+  {nombre: "Crédito de bienvenida", descripcion: "Por haber realizado tu primer viaje, te regalomos $50 pesos para que sigas viajando en Vanpool", cantidad: 50.0, medalla_id: "1", estatus: true}
 ])
 Tipomedalla.create!([
   {nombre: "Viaje"},
@@ -218,13 +148,13 @@ Viaje.create!([
   {ruta_id: 1, horainicio: "2000-01-01 12:30:00", fecha: "2014-12-29 05:00:00", estadoviaje_id: 1, estatus: 1},
   {ruta_id: 1, horainicio: "2000-01-01 12:30:00", fecha: "2014-12-30 05:00:00", estadoviaje_id: 1, estatus: 1},
   {ruta_id: 2, horainicio: "2000-01-01 13:15:00", fecha: "2014-10-23 00:26:53", estadoviaje_id: 1, estatus: 1},
-  {ruta_id: 3, horainicio: "2000-01-01 12:30:00", fecha: "2014-11-01 00:28:14", estadoviaje_id: 1, estatus: 1},
-  {ruta_id: 4, horainicio: "2000-01-01 12:30:00", fecha: "2014-10-22 23:27:50", estadoviaje_id: 1, estatus: 1},
-  {ruta_id: 5, horainicio: "2000-01-01 12:30:00", fecha: "2014-10-19 23:28:44", estadoviaje_id: 1, estatus: 1},
-  {ruta_id: 6, horainicio: "2000-01-01 20:00:00", fecha: "2014-11-25 00:29:40", estadoviaje_id: 1, estatus: 1},
-  {ruta_id: 7, horainicio: "2000-01-01 02:45:00", fecha: "2014-11-25 00:29:59", estadoviaje_id: 1, estatus: 1},
-  {ruta_id: 7, horainicio: "2000-01-01 02:45:00", fecha: "2014-11-25 00:30:07", estadoviaje_id: 1, estatus: 1},
-  {ruta_id: 2, horainicio: "2000-01-01 02:45:00", fecha: "2014-11-25 00:30:07", estadoviaje_id: 1, estatus: 1}
+  {ruta_id: 2, horainicio: "2000-01-01 12:30:00", fecha: "2014-11-01 00:28:14", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 2, horainicio: "2000-01-01 12:30:00", fecha: "2014-10-22 23:27:50", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 12:30:00", fecha: "2014-10-19 23:28:44", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 20:00:00", fecha: "2014-11-25 00:29:40", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 02:45:00", fecha: "2014-11-25 00:29:59", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 02:45:00", fecha: "2014-11-25 00:30:07", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 02:45:00", fecha: "2014-11-25 00:30:07", estadoviaje_id: 1, estatus: 1}
 ])
 Ciudad.create!([
   {clave: "DF", nombre: "Ciudad de Mexico", estauts: true, pais_id: 1}
@@ -248,47 +178,13 @@ Estadotipo.create!([
 ])
 Frecuencia.create!([
   {lunes: true, martes: false, miercoles: false, jueves: false, viernes: false, sabado: false, ruta_id: 1, domingo: false},
-  #{lunes: nil, martes: nil, miercoles: nil, jueves: nil, viernes: nil, sabado: nil, ruta_id: 5, domingo: nil},
-  #{lunes: nil, martes: nil, miercoles: nil, jueves: nil, viernes: nil, sabado: nil, ruta_id: nil, domingo: nil},
-  #{lunes: nil, martes: nil, miercoles: nil, jueves: nil, viernes: nil, sabado: nil, ruta_id: 6, domingo: nil},
-  #{lunes: nil, martes: nil, miercoles: nil, jueves: nil, viernes: nil, sabado: nil, ruta_id: 7, domingo: nil},
-  #{lunes: nil, martes: nil, miercoles: nil, jueves: nil, viernes: true, sabado: nil, ruta_id: 10, domingo: nil},
   {lunes: true, martes: nil, miercoles: nil, jueves: nil, viernes: nil, sabado: nil, ruta_id: 2, domingo: nil},
-  {lunes: true, martes: nil, miercoles: nil, jueves: nil, viernes: nil, sabado: nil, ruta_id: 3, domingo: nil},
-  #{lunes: true, martes: nil, miercoles: nil, jueves: nil, viernes: nil, sabado: nil, ruta_id: 4, domingo: nil},
-  #{lunes: true, martes: nil, miercoles: nil, jueves: nil, viernes: nil, sabado: nil, ruta_id: 5, domingo: nil},
-  #{lunes: true, martes: nil, miercoles: nil, jueves: nil, viernes: nil, sabado: nil, ruta_id: 6, domingo: nil},
-  #{lunes: nil, martes: nil, miercoles: nil, jueves: true, viernes: true, sabado: true, ruta_id: 16, domingo: true},
-  #{lunes: nil, martes: nil, miercoles: nil, jueves: nil, viernes: true, sabado: nil, ruta_id: 17, domingo: nil},
-  #{lunes: true, martes: nil, miercoles: nil, jueves: nil, viernes: nil, sabado: nil, ruta_id: 18, domingo: nil},
-  #{lunes: true, martes: nil, miercoles: nil, jueves: nil, viernes: nil, sabado: nil, ruta_id: 19, domingo: nil},
-  {lunes: true, martes: nil, miercoles: nil, jueves: nil, viernes: nil, sabado: nil, ruta_id: 4, domingo: nil}
+  {lunes: true, martes: nil, miercoles: nil, jueves: nil, viernes: nil, sabado: nil, ruta_id: 3, domingo: nil}
 ])
 Horario.create!([
   {hora: "2000-01-01 12:30:00", ruta_id: 1},
   {hora: "2000-01-01 12:30:00", ruta_id: 2},
-  {hora: "2000-01-01 12:30:00", ruta_id: 3},
-  {hora: "2000-01-01 12:30:00", ruta_id: 4},
-  {hora: "2000-01-01 12:30:00", ruta_id: 5},
-  {hora: "2000-01-01 12:30:00", ruta_id: 6},
-  {hora: "2000-01-01 13:15:00", ruta_id: 7},
-  {hora: "2000-01-01 12:30:00", ruta_id: 8},
-  {hora: "2000-01-01 12:30:00", ruta_id: 9},
-  {hora: "2000-01-01 12:30:00", ruta_id: 10},
-  {hora: "2000-01-01 20:00:00", ruta_id: 11},
-  {hora: "2000-01-01 02:45:00", ruta_id: 12},
-  {hora: "2000-01-01 12:15:00", ruta_id: 13},
-  {hora: "2000-01-01 12:30:00", ruta_id: 14},
-  {hora: "2000-01-01 12:30:00", ruta_id: 15}
-])
-Lider.create!([
-  {cliente_id: 1, ruta_id: 1, record: 1, estatus: true},
-  {cliente_id: 1, ruta_id: 2, record: 2, estatus: true}
-])
-Pais.create!([
-  {clave: "MX", nombre: "Mexico", divisa: "MXN", estatus: true},
-  {clave: "CL", nombre: "Chile", divisa: "CLP", estatus: true},
-  {clave: "GB", nombre: "Great Britain", divisa: "GBP", estatus: false}
+  {hora: "2000-01-01 12:30:00", ruta_id: 3}
 ])
 Perfil.create!([
   {nombre: "Musical", descripcion: "Te gusta escuchar música durante el viaje"},
@@ -305,82 +201,11 @@ Rutaparada.create!([
   {posicion: 1, tiempo: 381.0, distancia: 2619.0, ruta_id: 1, parada_id: 2},
   {posicion: 0, tiempo: 0.0, distancia: 0.0, ruta_id: 2, parada_id: 11},
   {posicion: 1, tiempo: 506.0, distancia: 4140.0, ruta_id: 2, parada_id: 12},
-  {posicion: 0, tiempo: 0.0, distancia: 0.0, ruta_id: 3, parada_id: 13},
-  {posicion: 1, tiempo: 785.0, distancia: 9713.0, ruta_id: 3, parada_id: 14},
-  {posicion: 0, tiempo: 0.0, distancia: 0.0, ruta_id: 4, parada_id: 15},
-  {posicion: 1, tiempo: 671.0, distancia: 6895.0, ruta_id: 4, parada_id: 16},
-  #{posicion: 0, tiempo: 0.0, distancia: 0.0, ruta_id: 2, parada_id: 17},
-  #{posicion: 1, tiempo: 716.0, distancia: 6801.0, ruta_id: 13, parada_id: 18},
-  #{posicion: 0, tiempo: 0.0, distancia: 0.0, ruta_id: 14, parada_id: 19},
-  #{posicion: 1, tiempo: 421.0, distancia: 4419.0, ruta_id: 14, parada_id: 20},
-  #{posicion: 0, tiempo: 0.0, distancia: 0.0, ruta_id: 15, parada_id: 21},
-  #{posicion: 1, tiempo: 929.0, distancia: 11412.0, ruta_id: 15, parada_id: 22},
-  #{posicion: 0, tiempo: 0.0, distancia: 0.0, ruta_id: 16, parada_id: 23},
-  #{posicion: 1, tiempo: 634.0, distancia: 5717.0, ruta_id: 16, parada_id: 24},
-  #{posicion: 0, tiempo: 0.0, distancia: 0.0, ruta_id: 17, parada_id: 25},
-  #{posicion: 1, tiempo: 336.0, distancia: 1583.0, ruta_id: 17, parada_id: 26},
-  #{posicion: 1, tiempo: 442.0, distancia: 4027.0, ruta_id: 18, parada_id: 27},
-  #{posicion: 2, tiempo: 442.0, distancia: 4027.0, ruta_id: 18, parada_id: 28},
-  #{posicion: 1, tiempo: 801.0, distancia: 11898.0, ruta_id: 19, parada_id: 29},
-  #{posicion: 2, tiempo: 801.0, distancia: 11898.0, ruta_id: 19, parada_id: 30},
-  #{posicion: 0, tiempo: 0.0, distancia: 0.0, ruta_id: 20, parada_id: 31},
-  #{posicion: 1, tiempo: 692.0, distancia: 5459.0, ruta_id: 20, parada_id: 32},
-  {posicion: 2, tiempo: 692.0, distancia: 5459.0, ruta_id: 4, parada_id: 33}
-])
-
-Sugerenciaparada.create!([
-<<<<<<< HEAD
-  {latitud: "25.6633183", longitud: "-100.4189359", posicion: 0, sugerencia_id: 1, nombre: "Universidad de Monterrey, Eje Metropolitano 6, Zona Valle Poniente, NL, Mexico"},
-  {latitud: "25.6526249", longitud: "-100.288725", posicion: 1, sugerencia_id: 1, nombre: "Junco De La Vega 2604, Cerro de La Silla, 64810 Monterrey, NL, Mexico"},
-  {latitud: "25.6609018", longitud: "-100.3960408", posicion: 0, sugerencia_id: 2, nombre: "Gral. Porfirio Díaz 901, Casco Urbano, 66230 NL, Mexico"},
-  {latitud: "25.6634773", longitud: "-100.3524343", posicion: 1, sugerencia_id: 2, nombre: "José Eleuterio González (Gonzalitos), Zona La Diana, NL, Mexico"},
-  {latitud: "25.741098", longitud: "-100.3851941", posicion: 0, sugerencia_id: 3, nombre: "Cerro del Topo 6144-6146, Valle de Las Cumbres, 1º Sector, Monterrey, NL, Mexico"},
-  {latitud: "25.7139346", longitud: "-100.3240605", posicion: 1, sugerencia_id: 3, nombre: "Francisco S. Carvajal 1073, Niño Artillero, 64280 Monterrey, NL, Mexico"},
-  {latitud: "25.6868796", longitud: "-100.4527054", posicion: 0, sugerencia_id: 4, nombre: "Onix Pte., Sin Nombre de Colonia 3, NL, Mexico"},
-  {latitud: "25.6680166", longitud: "-100.3901419", posicion: 1, sugerencia_id: 4, nombre: "San Patricio 125, Zona Los Callejones, 66230 Monterrey, NL, Mexico"},
-  {latitud: "25.6798418", longitud: "-100.4507892", posicion: 0, sugerencia_id: 5, nombre: "Carretera Federal 40 2300, Sin Nombre de Colonia 21, NL, Mexico"},
-  {latitud: "25.656448", longitud: "-100.3797096", posicion: 1, sugerencia_id: 5, nombre: "Río Rhin 310-314, Del Valle, 66220 Monterrey, NL, Mexico"},
-  {latitud: "25.6798418", longitud: "-100.4507892", posicion: 0, sugerencia_id: 6, nombre: "Carretera Federal 40 2300, Sin Nombre de Colonia 21, NL, Mexico"},
-  {latitud: "25.656448", longitud: "-100.3797096", posicion: 1, sugerencia_id: 6, nombre: "Río Rhin 310-314, Del Valle, 66220 Monterrey, NL, Mexico"},
-  {latitud: "25.6827689", longitud: "-100.4758824", posicion: 0, sugerencia_id: 7, nombre: "Dionisio de Herrera 103, Zimix, 66358 NL, Mexico"},
-  {latitud: "25.6585536", longitud: "-100.4169773", posicion: 1, sugerencia_id: 7, nombre: "Avenida Alfonso Reyes, Zona Valle Poniente, Monterrey, NL, Mexico"},
-  {latitud: "25.6647025", longitud: "-100.4355634", posicion: 0, sugerencia_id: 8, nombre: "Encino 105, Protexa, 66170 NL, Mexico"},
-  {latitud: "25.6555177", longitud: "-100.385198", posicion: 1, sugerencia_id: 8, nombre: "Avenida Humberto Lobo 820-S, Del Valle, 66220 NL, Mexico"},
-  {latitud: "25.670855", longitud: "-100.4364791", posicion: 0, sugerencia_id: 9, nombre: "Durango 110, Los Treviño, 66150 NL, Mexico"},
-  {latitud: "25.6564569", longitud: "-100.3721165", posicion: 1, sugerencia_id: 9, nombre: "Río Guayalejo 105, Del Valle, 66220 NL, Mexico"},
-  {latitud: "25.670855", longitud: "-100.4364791", posicion: 0, sugerencia_id: 10, nombre: "Durango 110, Los Treviño, 66150 NL, Mexico"},
-  {latitud: "25.6564569", longitud: "-100.3721165", posicion: 1, sugerencia_id: 10, nombre: "Río Guayalejo 105, Del Valle, 66220 NL, Mexico"},
-  {latitud: "25.670855", longitud: "-100.4364791", posicion: 0, sugerencia_id: 12, nombre: "Durango 110, Los Treviño, 66150 NL, Mexico"},
-  {latitud: "25.6564569", longitud: "-100.3721165", posicion: 1, sugerencia_id: 12, nombre: "Río Guayalejo 105, Del Valle, 66220 NL, Mexico"},
-  {latitud: "25.670855", longitud: "-100.4364791", posicion: 0, sugerencia_id: 13, nombre: "Durango 110, Los Treviño, 66150 NL, Mexico"},
-  {latitud: "25.6574091", longitud: "-100.3754838", posicion: 1, sugerencia_id: 13, nombre: "Río Danubio 202-210, Del Valle, 66220 Monterrey, NL, Mexico"},
-  {latitud: "25.670855", longitud: "-100.4364791", posicion: 0, sugerencia_id: 14, nombre: "Durango 110, Los Treviño, 66150 NL, Mexico"},
-  {latitud: "25.6574361", longitud: "-100.3755739", posicion: 1, sugerencia_id: 14, nombre: "Río Danubio 210, Del Valle, 66220 NL, Mexico"},
-  {latitud: "25.6633183", longitud: "-100.4189359", posicion: 0, sugerencia_id: 15, nombre: "Universidad de Monterrey, Eje Metropolitano 6, Zona Valle Poniente, NL, Mexico"},
-  {latitud: "25.6526249", longitud: "-100.288725", posicion: 1, sugerencia_id: 15, nombre: "Junco De La Vega 2604, Cerro de La Silla, 64810 Monterrey, NL, Mexico"},
-  {latitud: "25.6633183", longitud: "-100.4189359", posicion: 0, sugerencia_id: 16, nombre: "Universidad de Monterrey, Eje Metropolitano 6, Zona Valle Poniente, NL, Mexico"},
-  {latitud: "25.6691482", longitud: "-100.3094452", posicion: 1, sugerencia_id: 16, nombre: "Juan Zuazua, Centro, 64000 Monterrey, NL, Mexico"},
-  {latitud: "25.6854807", longitud: "-100.4461477", posicion: 0, sugerencia_id: 17, nombre: "Puerto Cumarebo 206, Residencial Cuauhtémoc, 66360 NL, Mexico"},
-  {latitud: "25.6827353", longitud: "-100.3734586", posicion: 1, sugerencia_id: 17, nombre: "Camino de Los Pavorreales 521-525, San Jerónimo 4o. Sector, 64634 Monterrey, NL, Mexico"},
-  {latitud: "25.6854807", longitud: "-100.4461477", posicion: 0, sugerencia_id: 18, nombre: "Puerto Cumarebo 206, Residencial Cuauhtémoc, 66360 NL, Mexico"},
-  {latitud: "25.6827353", longitud: "-100.3734586", posicion: 1, sugerencia_id: 18, nombre: "Camino de Los Pavorreales 521-525, San Jerónimo 4o. Sector, 64634 Monterrey, NL, Mexico"},
-  {latitud: "25.6854807", longitud: "-100.4461477", posicion: 0, sugerencia_id: 19, nombre: "Puerto Cumarebo 206, Residencial Cuauhtémoc, 66360 NL, Mexico"},
-  {latitud: "25.6827353", longitud: "-100.3734586", posicion: 1, sugerencia_id: 19, nombre: "Camino de Los Pavorreales 521-525, San Jerónimo 4o. Sector, 64634 Monterrey, NL, Mexico"},
-  {latitud: "25.6445013", longitud: "-100.3471421", posicion: 0, sugerencia_id: 20, nombre: "Avenida Alfonso Reyes 107, Veredalta, NL, Mexico"},
-  {latitud: "25.6621707", longitud: "-100.4212473", posicion: 1, sugerencia_id: 20, nombre: "Universidad de Monterrey, Eje Metropolitano 6, Zona Valle Poniente, NL, Mexico"},
-  {latitud: "25.680141", longitud: "-100.354224", posicion: 0, sugerencia_id: 20, nombre: "General Pablo González Garza 1282-S, San Jerónimo, 64634 Monterrey, NL, Mexico"},
-  {latitud: "25.7473609", longitud: "-100.3006184", posicion: 1, sugerencia_id: 20, nombre: "Universidad de Monterrey 207, Roble Norte, 66458 San Nicolás de Los Garza, NL, Mexico"},
-  {latitud: "25.670855", longitud: "-100.4364791", posicion: 0, sugerencia_id: 21, nombre: "Durango 110, Los Treviño, 66150 NL, Mexico"},
-  {latitud: "25.6296705", longitud: "-100.2889895", posicion: 1, sugerencia_id: 21, nombre: "Francisco Beltrán 2313, Sierra Ventana (Fomerrey 77), 64780 Monterrey, NL, Mexico"},
-  {latitud: "25.670855", longitud: "-100.4364791", posicion: 0, sugerencia_id: 22, nombre: "Durango 110, Los Treviño, 66150 NL, Mexico"},
-  {latitud: "25.6296705", longitud: "-100.2889895", posicion: 1, sugerencia_id: 22, nombre: "Francisco Beltrán 2313, Sierra Ventana (Fomerrey 77), 64780 Monterrey, NL, Mexico"}
-])
-
-Zona.create!([
-  {clave: "VLmty", nombre: "Valle", estauts: true, ciudad_id: 1},
-  {clave: "MTmty", nombre: "Mitras", estauts: true, ciudad_id: 1},
-  {clave: "CTmty", nombre: "Centro", estauts: true, ciudad_id: 1},
-  {clave: "CUmty", nombre: "Cumbres", estauts: true, ciudad_id: 1}
+  {posicion: 2, tiempo: 0.0, distancia: 0.0, ruta_id: 2, parada_id: 13},
+  {posicion: 0, tiempo: 785.0, distancia: 9713.0, ruta_id: 3, parada_id: 14},
+  {posicion: 1, tiempo: 0.0, distancia: 0.0, ruta_id: 3, parada_id: 15},
+  {posicion: 2, tiempo: 671.0, distancia: 6895.0, ruta_id: 3, parada_id: 16},
+  {posicion: 3, tiempo: 692.0, distancia: 5459.0, ruta_id: 3, parada_id: 33}
 ])
 Tipocalificacion.create!([
   {nombre: "Malo"},
@@ -393,16 +218,4 @@ Zona.create!([
   {clave: "MTmty", nombre: "Mitras", estauts: true, ciudad_id: 1},
   {clave: "CTmty", nombre: "Centro", estauts: true, ciudad_id: 1},
   {clave: "CUmty", nombre: "Cumbres", estauts: true, ciudad_id: 1}
-Saldopromocion.create!([
-  {nombre: "Credito de bienvenida", descripcion: "Por haber realizado tu primer viaje, te regalomos $50 pesos para que sigas viajando en Vanpool", cantidad: 50.0, medalla_id: "1", estatus: true}
-])
-Perfil.create!([
-  {nombre: "Musical", descripcion: "Te gusta escuchar música durante el viaje"},
-  {nombre: "Lector", descripcion: "Te gusta leer tus libros favoritos durante el viaje"},
-  {nombre: "Social", descripcion: "Te gusta platicar con amigos y desconocidos"},
-  {nombre: "Dormilón", descripcion: "Te gusta dormir hasta llegar a tu destino"}
-])
-Regalo.create!([
-  {nombre: "Spotify", descripcion: "Cuenta premium de Spotify Premium por 30 dias", perfil_id: 1, medalla_id: 2, estatus: true},
-  {nombre: "Gandhi", descripcion: "Tarjeta con $100 de crédito en Gandhi", perfil_id: 3, medalla_id: 2, estatus: true}
 ])
