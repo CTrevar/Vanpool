@@ -19,8 +19,8 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   #attr_accessible :email, :password, :password_confirmation, :name, :admin
-  attr_accessible :email, :name,:password, :password_confirmation, :fechaNacimiento, :estatusUsuario, :admin, :provider, :uid, 
-  :apellidoPaterno, :apellidoMaterno, :remember_me, :cliente_attributes
+  attr_accessible :email, :name, :password, :password_confirmation, :estatusUsuario, :admin, :provider, :uid, 
+  :authentication_token, :remember_me, :cliente_attributes
   #has_secure_password
   has_one :cliente
   accepts_nested_attributes_for :cliente
