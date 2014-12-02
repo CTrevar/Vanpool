@@ -20,4 +20,12 @@ class ApplicationController < ActionController::Base
   include LidersHelper
   include PromocionesHelper
 
+  def after_sign_in_path_for(resource)
+  if current_user.has_role? :admin
+    inicio_path
+  else
+    dashboard_path
+  end
+end
+
 end
