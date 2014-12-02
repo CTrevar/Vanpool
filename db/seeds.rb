@@ -55,16 +55,16 @@ Conductor.create!([
   {user_id: 26, licenciaConductor: "MRN2597", estatusConductor: true}
 ])
 Medalla.create!([
-  {tipomedalla_id: 1, nombre: "Primer viaje", puntos: 5000, imagen: "viaje1.png", estatus: true, estado: 1, descripcion: nil, imagenmedalla: nil},
-  {tipomedalla_id: 1, nombre: "Quinto Viaje", puntos: 5000, imagen: "viaje5.png", estatus: true, estado: 5, descripcion: nil, imagenmedalla: nil},
-  {tipomedalla_id: 2, nombre: "Evangelista (500 shares)", puntos: 500, imagen: "share500.jpg", estatus: true, estado: 500, descripcion: nil, imagenmedalla: nil},
-  {tipomedalla_id: 2, nombre: "Socialite (100 shares)", puntos: 500, imagen: "share100.jpg", estatus: true, estado: 100, descripcion: nil, imagenmedalla: nil},
-  {tipomedalla_id: 2, nombre: "Vocero (25 shares)", puntos: 500, imagen: "share25.jpg", estatus: true, estado: 0, descripcion: nil, imagenmedalla: nil},
-  {tipomedalla_id: 3, nombre: "Primer retro", puntos: 500, imagen: "retro1.png", estatus: true, estado: 0, descripcion: nil, imagenmedalla: nil},
-  {tipomedalla_id: 3, nombre: "Quinta retro", puntos: 500, imagen: "retro5.png", estatus: true, estado: 0, descripcion: nil, imagenmedalla: nil},
-  {tipomedalla_id: 1, nombre: "Decimo viaje", puntos: 10000, imagen: "viaje10.jpg", estatus: true, estado: 10, descripcion: nil, imagenmedalla: nil},
-  {tipomedalla_id: 4, nombre: "soldout1", puntos: 5000, imagen: "agotado1.png", estatus: true, estado: 1, descripcion: nil, imagenmedalla: nil},
-  {tipomedalla_id: 4, nombre: "soldout2", puntos: 5000, imagen: "agotado5.png", estatus: true, estado: 5, descripcion: nil, imagenmedalla: nil}
+  {tipomedalla_id: 1, nombre: "Primer viaje", puntos: 5000, imagen: "viaje1.png", estatus: true, estado: 1, descripcion: nil},
+  {tipomedalla_id: 1, nombre: "Quinto Viaje", puntos: 5000, imagen: "viaje5.png", estatus: true, estado: 5, descripcion: nil},
+  {tipomedalla_id: 2, nombre: "Evangelista (500 shares)", puntos: 500, imagen: "share500.jpg", estatus: true, estado: 500, descripcion: nil},
+  {tipomedalla_id: 2, nombre: "Socialite (100 shares)", puntos: 500, imagen: "share100.jpg", estatus: true, estado: 100, descripcion: nil},
+  {tipomedalla_id: 2, nombre: "Vocero (25 shares)", puntos: 500, imagen: "share25.jpg", estatus: true, estado: 0, descripcion: nil},
+  {tipomedalla_id: 3, nombre: "Primer retro", puntos: 500, imagen: "retro1.png", estatus: true, estado: 0, descripcion: nil},
+  {tipomedalla_id: 3, nombre: "Quinta retro", puntos: 500, imagen: "retro5.png", estatus: true, estado: 0, descripcion: nil},
+  {tipomedalla_id: 1, nombre: "Decimo viaje", puntos: 10000, imagen: "viaje10.jpg", estatus: true, estado: 10, descripcion: nil},
+  {tipomedalla_id: 4, nombre: "soldout1", puntos: 5000, imagen: "agotado1.png", estatus: true, estado: 1, descripcion: nil},
+  {tipomedalla_id: 4, nombre: "soldout2", puntos: 5000, imagen: "agotado5.png", estatus: true, estado: 5, descripcion: nil}
 ])
 Nivel.create!([
   {nombre: "Novato 1", rangomaximo: 4999, estatus: true},
