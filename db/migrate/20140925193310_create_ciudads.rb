@@ -4,7 +4,7 @@ class CreateCiudads < ActiveRecord::Migration
       t.string :clave, :limit => 45
       t.string :nombre, :limit => 100
       t.boolean :estauts
-      t.references :pais
+      t.string :pais
 
       t.timestamps
     end
