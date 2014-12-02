@@ -112,6 +112,14 @@ Retroaspecto.create!([
   {nombre: "Trato de conductor", estatus: true},
   {nombre: "Comodidad de la van", estatus: true}
 ])
+Van.create!([
+  {placa: "SPN4735", modelo: "Impala", capacidad: 10, fecha_compra: "2011-04-06", kilometro_recorrido: 0, activa: true, estatus: true},
+  {placa: "SPN4735", modelo: "Impala", capacidad: 10, fecha_compra: "2011-04-06", kilometro_recorrido: 0, activa: true, estatus: true},
+  {placa: "KJM212K", modelo: "Cortina", capacidad: 13, fecha_compra: "2013-03-03", kilometro_recorrido: 0, activa: true, estatus: true},
+  {placa: "OUTATIME", modelo: "DeLorean", capacidad: 15, fecha_compra: "2012-04-02", kilometro_recorrido: 0, activa: true, estatus: true},
+  {placa: "TRD12G", modelo: "TARDIS", capacidad: 11, fecha_compra: "2014-03-10", kilometro_recorrido: 0, activa: true, estatus: true},
+  {placa: "3467LUCY", modelo: "Cutlass", capacidad: 12, fecha_compra: "2011-04-03", kilometro_recorrido: 0, activa: true, estatus: true}
+])
 Ruta.create!([
   {conductor_id: 1, van_id: 1, nombre: "Valle-Galerias", precio: "20.0", estatus: true, zona_id: 1},
   {conductor_id: 2, van_id: 1, nombre: "Centro-Cumbres", precio: "30.0", estatus: true, zona_id: 1},
@@ -131,14 +139,6 @@ Tipomedalla.create!([
   {nombre: "Con amigos"},
   {nombre: "Host"},
   {nombre: "Nivel"}
-])
-Van.create!([
-  {placa: "SPN4735", modelo: "Impala", capacidad: 10, fecha_compra: "2011-04-06", kilometro_recorrido: 0, activa: true, estatus: true, pais_id: 1},
-  {placa: "SPN4735", modelo: "Impala", capacidad: 10, fecha_compra: "2011-04-06", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1},
-  {placa: "KJM212K", modelo: "Cortina", capacidad: 13, fecha_compra: "2013-03-03", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1},
-  {placa: "OUTATIME", modelo: "DeLorean", capacidad: 15, fecha_compra: "2012-04-02", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1},
-  {placa: "TRD12G", modelo: "TARDIS", capacidad: 11, fecha_compra: "2014-03-10", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1},
-  {placa: "3467LUCY", modelo: "Cutlass", capacidad: 12, fecha_compra: "2011-04-03", kilometro_recorrido: nil, activa: true, estatus: true, pais_id: 1}
 ])
 Viaje.create!([
   {ruta_id: 1, horainicio: "2000-01-01 12:30:00", fecha: "2014-09-27 05:00:00", estadoviaje_id: 1, estatus: 1},
