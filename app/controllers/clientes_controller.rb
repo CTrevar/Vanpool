@@ -94,6 +94,7 @@ class ClientesController < ApplicationController
   
   def dashboard
 
+    @user = current_user
     if Cliente.find_by_user_id(current_user.id).nil?
       @cliente = Cliente.create(puntaje:0,nivel_id:1,user_id:@user.id)
       #flash[:success] = "Welcome to the Sample App!"
@@ -116,7 +117,7 @@ class ClientesController < ApplicationController
         redirect_to :controller => 'clientes', :action => 'dashboard'
     end
 
-    @user = current_user
+ 
     @current_cliente=obtener_cliente(current_user)
     @mensaje=obtener_mensaje_nivel(@current_cliente)
     
