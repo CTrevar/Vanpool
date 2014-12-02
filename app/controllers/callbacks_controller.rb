@@ -15,7 +15,7 @@ class CallbacksController < Devise::OmniauthCallbacksController
     #end
 
     if Cliente.find_by_user_id(@user.id)
-      sign_in_and_redirect @user
+      redirect_to :controller => 'clientes', :action => 'dashboard'
     else
       @cliente = Cliente.create(puntaje:0,nivel_id:1,user_id:@user.id)
       #flash[:success] = "Welcome to the Sample App!"
