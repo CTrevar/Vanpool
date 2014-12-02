@@ -14,6 +14,7 @@ class CallbacksController < Devise::OmniauthCallbacksController
      # redirect_to new_user_registration_url
     #end
 
-        sign_in_and_redirect @user
+        #sign_in_and_redirect @user
+        sign_in_and_redirect dashboard_path
     end
 end
