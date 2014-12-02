@@ -156,7 +156,7 @@ Viaje.create!([
   {ruta_id: 3, horainicio: "2000-01-01 02:45:00", fecha: "2014-11-25 00:30:07", estadoviaje_id: 1, estatus: 1}
 ])
 Ciudad.create!([
-  {clave: "DF", nombre: "Ciudad de Mexico", estauts: true, pais_id: 1}
+  {clave: "DF", nombre: "Ciudad de Mexico", estauts: true}
 ])
 Configuracion.create!([
   {nombre: "CO2gxkmauto", valor: "180"},
@@ -211,6 +211,11 @@ Tipocalificacion.create!([
   {nombre: "Regular"},
   {nombre: "Bueno"},
   {nombre: "Excelente"}
+])
+Pais.create!([
+{clave: "MX", nombre: "Mexico", divisa: "MXN", estatus: true},
+{clave: "CL", nombre: "Chile", divisa: "CLP", estatus: true},
+{clave: "GB", nombre: "Great Britain", divisa: "GBP", estatus: false}
 ])
 Zona.create!([
   {clave: "VLmty", nombre: "Valle", estauts: true, ciudad_id: 1},
