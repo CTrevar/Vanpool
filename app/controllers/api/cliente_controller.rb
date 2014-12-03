@@ -185,6 +185,47 @@ class API::ClienteController < ApplicationController
       end
     end
 
+     def viaje_reservaciones
+    id=params[:id]
+    begin
+        @reservaciones = Viaje.find(id).reservacions.select('id,cliente_id,estadotipo_id')
+        #@viajes=@rutas.viajes.select('fecha, id,estadoviaje_id')
+    rescue ActiveRecord::RecordNotFound
+        @reservaciones="No se encontro el viaje"
+    end
+        respond_to do |format|
+            format.json { render :json => @reservaciones }
+        end
+    end
+
+    def viaje_cierre
+      id=params[:id]
+      viaje=Viaje.find(id)
+      viaje.estadoviaje_id=3
+      if viaje.save
+        @exito=true
+      else
+        @exito=false
+      end
+      respond_to do |format|
+            format.json { render :json => @exito }
+        end
+    end
+
+    def viaje_apertura
+      id=params[:id]
+      viaje=Viaje.find(id)
+      viaje.estadoviaje_id=2
+      if viaje.save
+        @exito=true
+      else
+        @exito=false
+      end
+      respond_to do |format|
+            format.json { render :json => @exito }
+        end
+    end
+
   	def ruta_disponibilidad_viaje
       begin
   	  id=params[:id]

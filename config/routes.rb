@@ -18,6 +18,9 @@ namespace :api, :defaults => {:format => :json} do
   match '/cliente_envia_reporte', to: 'cliente#cliente_envia_reporte'
   match '/cliente_envia_sugerencia', to: 'cliente#cliente_envia_sugerencia'
   match '/cliente_reserva_viajes', to: 'cliente#cliente_reserva_viajes'
+  match '/viaje_reservaciones', to: 'cliente#viaje_reservaciones'
+  match '/viaje_cierre', to: 'cliente#viaje_cierre'
+  match '/viaje_apertura', to: 'cliente#viaje_apertura'
 
   devise_scope :user do
     #match '/sessions' => 'sessions#destroy', :via => :delete
