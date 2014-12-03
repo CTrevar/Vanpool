@@ -155,7 +155,7 @@
                 <label for="conductorRuta">Conductor</label>
                     <div class="user-panel bg-gray">
                     <div class="pull-left image">
-                        <img src="../img/avatar3.png" class="img-circle" alt="User Image" />
+                            <i class="fa fa-user fa-3x"></i>
                     </div>
                     <div class="pull-left info">
                         <b>Id </b>
@@ -206,7 +206,7 @@
                         
 
                     <!-- Paradas -->
-                    <div id = "Paradas">
+                    <div id = "Paradas" class="box-body">
                         <% @paradas_ruta.each_with_index do |parada, count| %>
                         <div class="input-group">
                           <span class="input-group-addon"><%=@letras[count]%></span>
@@ -236,25 +236,22 @@
 
                     </div>
 
-                    <div id="Paradas2"></div>
 
 
 
-
-                    <input id="numeroParadas" name="numeroParadas" placeholder="NUm" value ="<%=@ruta.paradas.count%>" style=""> </input>
-                    <input type="button" value="Más Paradas" onclick="masParadas()">
+                    <input id="numeroParadas" name="numeroParadas" placeholder="NUm" value ="<%=@ruta.paradas.count%>" style="display:none;"> </input>
 
                 
 
                 <p></p>
+            </div>
 
+                <%= submit_tag("Editar", :class => "btn btn-success")%>
 
-
-                </div><!-- /.box-body -->
              </div><!-- /.box -->
 
             
-                <%= submit_tag("Editar", :class => "btn btn-success")%>
+                
              <% end %>
         
 
