@@ -47,12 +47,6 @@
           <%= f.number_field :capacidad, in: 10.. 20, class:"form-control span12" %>
         </div>
       </div>
-      <div class="form-group">
-        <label>País</label>
-        <div class="row-fluid">
-          <%= f.collection_select :pais_id, Pais.all, :id, :nombre, class:"form-control span12" %>
-        </div>
-      </div>
 
       <div class="form-group">
         <label>Fecha Compra</label>

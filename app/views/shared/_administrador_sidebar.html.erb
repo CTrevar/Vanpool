@@ -1,27 +1,27 @@
 <section class="sidebar">
   <ul class="sidebar-menu">
-    <li class="active">
+    <li class="<%= 'active' if params[:action] == 'inicio' %>">
       <a href="/inicio"><i class="fa fa-home"></i> <span>Inicio</span></a>
     </li>
-    <li>
+    <li class="<%= 'active' if params[:action] == 'listareportes' %>">
       <a href="/listareportes"><i class="fa fa-flag"></i> <span>Reportes</span></a>
     </li>
-    <li>
+    <li class="<%= 'active' if params[:action] == 'reporteretros' %>">
       <a href="/retroalimentaciones"><i class="fa fa-comment"></i> <span>Retroalimentaciones</span></a>
     </li>
-    <li>
+    <li class="<%= 'active' if params[:controller] == 'rutas' %>">
       <a href="/rutas"><i class="fa fa-map-marker"></i> <span>Rutas</span></a>
     </li>
-    <li>
+    <li class="<%= 'active' if params[:controller] == 'vans' %>">
       <a href="/vans"><i class="fa fa-truck"></i> <span>Vanes</span></a>
     </li>
-    <li>
+    <li class="<%= 'active' if params[:action] == 'sugerencias' %>">
       <a href="/sugerencias"><i class="fa fa-inbox"></i> <span>Sugerencias</span></a>
     </li>
-    <li>
+    <li class="<%= 'active' if params[:action] == 'medallas' %>">
       <a href="/administrar_medallas"><i class="fa fa-trophy"></i> <span>Medallas</span></a>
     </li>
-    <li>
+    <li class="<%= 'active' if params[:action] == 'configuraciones' %>">
       <a href="/configuraciones"><i class="fa fa-fw fa-gears"></i> <span>Configuraciones</span></a>
     </li>
     <li class="treeview">
@@ -41,7 +41,7 @@
         </li>
       </ul>
     </li>
-    <li class="treeview">
+    <li class="treeview <%= 'active' if params[:action] == 'clientes' or params[:action] =='conductores' or params[:action]=='administradores'%>">
       <a href="#">
         <i class="fa fa-fw fa-users"></i> <span>Usuarios</span>
         <i class="fa fa-angle-left pull-right"></i>

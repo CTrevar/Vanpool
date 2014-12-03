@@ -29,18 +29,18 @@ module PromocionesHelper
     end
 
     def asigna_saldo_promocion(medallamuro)
-        begin
-            medallamuro=Medallasmuro.find(id_medallamuro)
+        #begin
+            #medallamuro=Medallasmuro.find(medallamuro)
             medalla=Medalla.find(medallamuro.medalla_id)
             cliente=Cliente.find(medallamuro.cliente_id)
             transfiere_saldo_promocion(medalla.saldopromocion, cliente)
             #medalla=Medallasmuro.where(:cliente_id=>medallamuro.cliente_id, :cobrado=>false, :medalla_id=>medallamuro.medalla.id)
             medallamuro.cobrado=true
             medallamuro.save
-            return true
-        rescue Exception
-            return false
-        end
+        #    return true
+        #rescue Exception
+        #    return false
+        #end
     end
 
 
@@ -65,7 +65,7 @@ module PromocionesHelper
             "amount" => saldopromocion.cantidad,
             "description" => saldopromocion.nombre
         }
-        return @transfers.create(request_hash.to_hash, "ate1ywygq39yso3xz5yw" ) #numero de referencia de pago
+        return @transfers.create(request_hash.to_hash, "a86oeiwoibd2zz3k6og6" ) #numero de referencia de pago
         
     end
 

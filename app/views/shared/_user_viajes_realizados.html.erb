@@ -17,9 +17,9 @@
             <div class="span6">
                 <label>ID Viaje:</label><%=reservacion.viaje_id%></br>
                 <label>Ruta:</label><%=reservacion.viaje.ruta.nombre%></br>
-                <label>Fecha:</label><%=reservacion.viaje.fecha%> </br>
-                <label>Hora de salida:</label><%=reservacion.viaje.horainicio%> </br>
-                <label>Hora de llegada:</label></br>
+                <label>Fecha:</label><%=reservacion.viaje.fecha.strftime("%d/%m/%Y")%> </br>
+                <label>Hora de salida:</label><%=reservacion.viaje.horainicio.strftime("%H:%M %p")%> </br>
+                <label>Hora de llegada:</label><%=(reservacion.viaje.horainicio+ reservacion.viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></br>
             </div>
             <div class="span6">
                 <button type="button" class="btn btn-success">Ver detalle</button>

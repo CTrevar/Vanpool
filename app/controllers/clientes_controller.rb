@@ -509,11 +509,15 @@ class ClientesController < ApplicationController
     @cantidad = params[:cantidad].to_i
 
 
-    @viajes = Viaje.where("ruta_id = ? and estadoviaje_id = 2", @ruta.id).take(@cantidad)
+    hoy = DateTime.now.beginning_of_day
+    @viajes = Viaje.where("ruta_id = ? and estadoviaje_id = 2 and fecha > ?", @ruta.id, hoy).take(@cantidad)
     @disponibilidad = []
 
-    @viajes.each do |viaje|
-      @disponibilidad<<calcula_disponibilidad_viaje(viaje)
+    if !@viajes.blank?
+      @viajes.delete_if {|viaje| viaje.fecha.beginning_of_day  == hoy.beginning_of_day }
+      @viajes.each do |viaje|
+        @disponibilidad<<calcula_disponibilidad_viaje(viaje)
+      end
     end
 
     respond_to do |format|

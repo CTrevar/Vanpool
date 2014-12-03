@@ -8,6 +8,6 @@ class CreateCiudads < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :ciudads, :pais_id
+    
   end
 end

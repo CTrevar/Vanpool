@@ -8,10 +8,13 @@ module AdministradorsHelper
 	def clientes_lideres_rutas
 		lideres=Array.new
 		rutasconlider=Lider.where(:estatus=>true)
-		rutasconlider.each do |ruta|
-			lideres<< Lider.where(:ruta_id=>ruta.id, :estatus=>true).first
-		end
-		
+		rutas=Ruta.all
+		#rutas.each do |ruta|
+			rutasconlider.each do |lider|
+				lideres<< Lider.where(:ruta_id=>lider.ruta.id, :estatus=>true).first
+				#lideres<< Lider.first
+			end
+		#end
 		return lideres.last(5)
 	end
 

@@ -17,12 +17,10 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
     t.string   "clave",      :limit => 45
     t.string   "nombre",     :limit => 100
     t.boolean  "estauts"
-    t.integer  "pais_id"
+    t.string   "pais"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
   end
-
-  add_index "ciudads", ["pais_id"], :name => "index_ciudads_on_pais_id"
 
   create_table "clientes", :force => true do |t|
     t.integer  "puntaje",    :default => 0
@@ -271,13 +269,13 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
 
   create_table "users", :force => true do |t|
     t.string   "name"
+    t.string   "apellidoPaterno"
+    t.string   "apellidoMaterno"
+    t.datetime "fechaNacimiento"
     t.string   "provider"
     t.string   "uid"
     t.boolean  "admin",                  :default => false
     t.boolean  "estatusUsuario",         :default => true
-    t.datetime "fechaNacimiento"
-    t.string   "apellidoPaterno"
-    t.string   "apellidoMaterno"
     t.string   "authentication_token"
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false

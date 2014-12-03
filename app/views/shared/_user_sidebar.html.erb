@@ -1,18 +1,18 @@
 <section class="sidebar">
     <ul class="sidebar-menu">
-        <li class="active">
+        <li class="<%= 'active' if params[:action] == 'dashboard' %>">
             <a href="/dashboard"><i class="fa fa-home"></i> <span>Inicio</span></a>
         </li>
-        <li>
+        <li class="<%= 'active' if params[:action] == 'viajes' %>">
             <a href="/mis_viajes"><i class="fa fa-road"></i> <span>Mis viajes</span></a>
         </li>
-        <li>
+        <li class="<%= 'active' if params[:action] == 'listar_rutas' %>">
             <a href="/buscar_zona"><i class="fa fa-map-marker"></i> <span>Lista de Rutas</span></a>
         </li>
-        <li>
+        <li class="<%= 'active' if params[:action] == 'edit' %>">
             <a href="/users/<%= @current_user.id %>/edit"><i class="fa fa-wrench"></i> <span>Configuración</span></a>
         </li>
-         <li>
+         <li class="<%= 'active' if params[:action] == 'reporte' %>">
             <a href="/reporte"><i class="fa fa-check-square-o"></i> <span>Reportar servicio</span></a>
         </li>
     </ul>

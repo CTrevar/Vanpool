@@ -48,6 +48,7 @@ module PagosHelper
         end
       end
      
+     #return cargos
       c=cargos.group_by{|item| item["operation_date"].to_date}
       return c.map {|k,v| [k, v.length]}
     end
