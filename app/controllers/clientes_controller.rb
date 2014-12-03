@@ -125,7 +125,7 @@ class ClientesController < ApplicationController
     @muro = obtener_ultimas_medallas(@current_cliente)
     @co2 = calcula_co2ahorrado(@current_cliente)
 
-    tabla_lideres(@current_cliente)
+    
 
     #@reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
     @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
@@ -142,7 +142,7 @@ class ClientesController < ApplicationController
     #@reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
     #@reservaciones_canceladas=@current_cliente.reservacions.find_all_by_estadotipo_id(4)
 
-    if(current_user.provider)
+    if current_user.provider
     @oauth = Koala::Facebook::OAuth.new("708292565932035", "0961c370c701538ac20f349b9a02b4b3")
     facebook_user_token = session[:access_token]
     @graph = Koala::Facebook::API.new(facebook_user_token)
@@ -152,17 +152,20 @@ class ClientesController < ApplicationController
     @profile = @graph.get_object("me")
     @friends = @graph.get_connections("me", "friends")
 
-    #friendsvanpool=Array.new
-    #@friends.each do |friend| 
-    #  friendsvanpool<<User.find_by_uid(friend["uid"])
-    #end
+    friendsvanpool=Array.new
+    clientesvanpool=Array.new
+    @friends.each do |friend| 
+      friendsvanpool<<User.find_by_uid(friend["id"])
+    end
 
-    #friendsvanpool.each do |f|
-    #  clientesvanpool<<Cliente.find_by_user_id(f.id)
-    #end
+    friendsvanpool.each do |f|
+      clientesvanpool<<Cliente.find_by_user_id(f.id)
+    end
     
-    #tabla_lideres_facebook(@current_cliente, Cliente.where(id: clientesvanpool.map(&:id)))
+    tabla_lideres_facebook(@current_cliente, Cliente.where(id: clientesvanpool.map(&:id)))
 
+    else
+    tabla_lideres(@current_cliente)
     end
 
 
@@ -185,6 +188,16 @@ class ClientesController < ApplicationController
   def compracredito
     @current_cliente = obtener_cliente(current_user)
     render 'show_compra_credito'
+  end
+
+  def compartir_facebook
+    #@current_cliente = obtener_cliente(current_user)
+    viaje=Viaje.find(params[:id])
+    @oauth = Koala::Facebook::OAuth.new("708292565932035", "0961c370c701538ac20f349b9a02b4b3")
+    facebook_user_token = session[:access_token]
+    @graph = Koala::Facebook::API.new(facebook_user_token)
+    @graph.put_wall_post("Yo ya uso la ruta #{viaje.ruta.nombre} de Vanpool y tu? http://vanpool.mx",{"picture"=>"http://104.236.6.99/assets/medals/viaje6-01.png"})
+    redirect_to mis_viajes_path
   end
 
   def formapago

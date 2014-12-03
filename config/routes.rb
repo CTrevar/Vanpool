@@ -109,6 +109,7 @@ end
   match '/retro', to: 'reservacions#create_retro'
   match '/retro', to: 'reservacions#retro'
   match '/checkin', to: 'reservacions#checkin'
+  match '/compartir_facebook', to: 'clientes#compartir_facebook'
 
   match '/formapago', to: 'clientes#formapago'
   match '/compracredito', to: 'clientes#compracredito'

@@ -1,7 +1,7 @@
 <% disabled ||= false %>
 <% exito ||= false %>
 <% create ||= false %>
-<%= form_for @saldopromocion, remote: true, :url => "/saldopromocion_controller/#{@action}" do |f| %>
+<%= form_for @saldopromocion,:id=>"form_saldopromocion", remote: true, :url => "/saldopromocion_controller/#{@action}" do |f| %>
     </br>
     <%  if exito %>
         <div class="alert alert-success alert-dismissable">
@@ -59,7 +59,7 @@
          if @saldopromocion.errors[:descripcion].present? %>
             <div class="form-group has-error">
               <%= f.label :descripcion, 'Descripcion', class: "control-label" %><br />
-              <%= f.text_field :descripcion, class: "form-control", :disabled => disabled %>
+              <%= f.text_area :descripcion,:rows => "5", class: "form-control", :disabled => disabled %>
               <div class="callout callout-danger">
                 <%= @saldopromocion.errors[:descripcion] %>
               </div>
@@ -67,13 +67,13 @@
         <%   else   %>
             <div class="form-group">
               <%= f.label :descripcion, 'Descripcion', class: "control-label" %><br />
-              <%= f.text_field :descripcion, class: "form-control", :disabled => disabled %>
+              <%= f.text_area :descripcion,:rows => "5", class: "form-control", :disabled => disabled %>
             </div>
         <%   end
              else   %>
         <div class="form-group">
           <%= f.label :descripcion, 'Descripcion', class: "control-label" %><br />
-          <%= f.text_field :descripcion, class: "form-control", :disabled => disabled %>
+          <%= f.text_area :descripcion,:rows => "5", class: "form-control", :disabled => disabled %>
         </div>
     <% end %>
     <!----------------------------------------------------------->
@@ -106,15 +106,24 @@
     <!------------------------------------------------->
     <%=  f.fields_for @saldopromocion.medalla do |medalla|  %>
         <div class="row">
-          <div class="col-xs-1"></div>
-          <div class="col-xs-5">
-            <p>&iquest;Con cu&aacute;l medalla se le otorgar&aacute; al usuario esta promoci&oacute;n?</p>
-          </div>
-          <div class="col-xs-5">
-            <a class="btn btn-app" id="btnVerMedallas" href="#" data-toggle="modal" data-target="#basicModal">
-              <i class="fa fa-edit"></i> Elegir Medalla
-            </a>
-          </div>
+          <% if @action == "create" %>
+              <div class="col-xs-1"></div>
+              <div class="col-xs-5">
+                <p>&iquest;Con cu&aacute;l medalla se le otorgar&aacute; al usuario esta promoci&oacute;n?</p>
+              </div>
+              <%= render partial: 'shared/show_medallas_tables' %>
+          <% else %>
+              <div class="col-xs-1"></div>
+              <div class="col-xs-5">
+                <p>&iquest;Con cu&aacute;l medalla se le otorgar&aacute; al usuario esta promoci&oacute;n?</p>
+              </div>
+              <div class="col-xs-5">
+                <a class="btn btn-app" id="btnVerMedallas" href="#" data-toggle="modal" data-target="#modalShowMedallas">
+                  <i class="fa fa-edit"></i> Elegir Medalla
+                </a>
+              </div>
+          <% end %>
+
         </div>
         <%= medalla.hidden_field :medalla_id, :value => @saldopromocion.medalla_id%>
 
@@ -137,18 +146,18 @@
         </div>
 
         <style>
-            #basicModal .modal-dialog
+            #modalShowMedallas .modal-dialog
             {
                 height: 100%;
             }
-            #basicModal .modal-content
+            #modalShowMedallas .modal-content
             {
                 border: 1px solid blue;
                 overflow: auto;
                 height: 90%;
             }
         </style>
-        <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal fade" id="modalShowMedallas" tabindex="-1" role="dialog" aria-labelledby="modalShowMedallas" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -158,7 +167,7 @@
                 <h4 class="modal-title" id="myModalLabel">Seleccione una medalla</h4>
               </div>
               <div id="modal-body" class="modal-body nav-tabs-custom">
-                <!-- Aquí va el render de detallePromocion_saldo que carga la forma para agregar Administradores. -->
+                <!-- Aquí va el render de detallePromocion_saldo que carga la forma para agregar promociones de saldo. -->
 
               </div>
             </div>
@@ -173,12 +182,9 @@
       <script type="text/javascript" charset="utf-8">
               $("#btnVerMedallas").on("click",function(event){
                   event.preventDefault();
-                  $("#modal-body").html("<%= escape_javascript( render partial: 'shared/show_medallas_tables') %>");
+                  $("#modalShowMedallas #modal-body").html("<%= escape_javascript( render partial: 'shared/show_medallas_tables') %>");
               });
-//              $("#btnSubmit").on("click", function(event) {
-//                  $("#forma_detalle_saldopromocion form").submit();
-//              });
-              $("form").submit(function (event) {
+              $(".edit_saldopromocion").submit(function (event) {
                   event.preventDefault();
                   var request = $.ajax({
                       type: "POST",
@@ -187,7 +193,7 @@
                   });
                   request.done(function( msg ) {
                       <% if @action == 'create' %>
-                      $("#modal-body #forma_detalle_saldopromocion").html(msg);
+                      $("#basicModal #modal-body #forma_detalle_saldopromocion").html(msg);
                       <% else %>
                       $("#forma_detalle_saldopromocion").html(msg);
                       <% end %>

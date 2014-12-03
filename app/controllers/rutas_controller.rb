@@ -450,7 +450,10 @@ end
           reservacion.estadotipo_id= 4
           reservacion.estatus = false
           count+=1
-          usuarios.concat("  #{reservacion.cliente.user.name}")
+          nombre_usuario = "#{reservacion.cliente.user.name}"
+          if !usuarios.include? nombre_usuario
+            usuarios.concat(nombre_usuario)
+          end
           reservacion.save!
         end
       end

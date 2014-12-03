@@ -12,7 +12,8 @@ class SaldopromocionsController < ApplicationController
                                  :descripcion => paramssaldopromocion.descripcion,
                                  :cantidad => paramssaldopromocion.cantidad }
     medalla = OpenStruct.new paramssaldopromocion.medalla
-    @saldopromocion.medalla_id = medalla.medalla_id
+    # @saldopromocion.medalla_id = medalla.medalla_id
+    @saldopromocion.medalla_id = paramssaldopromocion.medalla_id
     @saldopromocion.medalla = Medalla.find(medalla.medalla_id)
     @action = 'update'
     if @saldopromocion.valid?
@@ -36,7 +37,6 @@ class SaldopromocionsController < ApplicationController
     jtStartIndex = params[:jtStartIndex]
     jtPageSize = params[:jtPageSize]
     jtStartPage = jtStartIndex.to_i / jtPageSize.to_i + 1
-
     # Si el campo de busqueda tiene solo espacios en blanco.
     if jtTextoBusqueda.blank? || jtTextoBusqueda.to_s == ''
       @results = Saldopromocion.joins(:medalla).select('saldopromocions.id, saldopromocions.nombre, saldopromocions.descripcion,
@@ -45,15 +45,17 @@ class SaldopromocionsController < ApplicationController
                                                       ).order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
       # @results = Conductor.joins(:user).select('*').where("\"estatusConductor\" = 't'").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     else
-      @query = "( nombre ILIKE :search OR
-                  \"descripcion\" ILIKE :search OR
-                  \"cantidad\" ILIKE :search
+      @query = "( saldopromocions.nombre ILIKE :search OR
+                  medallas.nombre ILIKE :search OR
+                  saldopromocions.descripcion ILIKE :search OR
+                  to_char(\"cantidad\",'999D99S') ILIKE :search
                   )"
       # Si contiene algo más realiza la búsqueda en todos los atributos de la tabla.
-      @results = Saldopromocion.joins(:medalla).select('saldopromocions.id, saldopromocions.nombre, saldopromocions.descripcion,
+      @results = Saldopromocion.joins(:medalla).where(@query,search: "%#{jtTextoBusqueda.strip}%")
+                                               .select('saldopromocions.id, saldopromocions.nombre, saldopromocions.descripcion,
                                                         saldopromocions.cantidad, medallas.id, medallas.nombre as medalla_nombre,
                                                         medallas.estatus,  medallas.estado, medallas.imagen, medallas.puntos'
-                                                      ).where(@query,search: "%#{jtTextoBusqueda.strip}%").select('*').order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+                                                      ).order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
 
     end
     # if jtTextoBusqueda.blank? || jtTextoBusqueda.to_s == ''
