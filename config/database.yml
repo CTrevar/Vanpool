@@ -5,7 +5,7 @@
 #   gem 'sqlite3'
 development:
   adapter: postgresql
-  database: vanpooldb
+  database: vanpooldb0
   encoding: utf8
   username: postgres
   password: 123456
@@ -21,7 +21,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   #adapter: postgresql
-  #database: vanpooldb
+  #database: vanpooldb0
   #pool: 5
   #timeout: 5000
   adapter: sqlite3
@@ -32,7 +32,7 @@ test:
 production:
   #adapter: postgresql
   #encoding: utf8
-  #database: vanpooldb
+  #database: vanpooldb0
   #pool: 5
   #username: postgres
   #password: 123456

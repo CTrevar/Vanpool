@@ -155,9 +155,9 @@
                       $("#detalleRuta").hide('fast');
                   }
                     
-                }
+                },
 
-                recordDeleted: function(){
+                recordDeleted: function(event, data){
                     $("#DeleteMessage").val(data.serverResponse.Message);
                 }
 

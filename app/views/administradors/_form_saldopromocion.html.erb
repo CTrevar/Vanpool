@@ -104,15 +104,14 @@
     <!------------------------------------------------->
     <!-- Validación y creación de campos de medalla. -->
     <!------------------------------------------------->
-    <%=  f.fields_for @saldopromocion.medalla do |medalla|  %>
-        <div class="row">
-          <% if @action == "create" %>
-              <div class="col-xs-1"></div>
-              <div class="col-xs-5">
-                <p>&iquest;Con cu&aacute;l medalla se le otorgar&aacute; al usuario esta promoci&oacute;n?</p>
-              </div>
-              <%= render partial: 'shared/show_medallas_tables' %>
-          <% else %>
+    <% if @action == "create" #--- if create %>
+        <div class="form-group">
+          <%= f.medalla :nombre, 'Nombre:', class: "control-label" %><br />
+          <%= f.text_field :nombre, class: "form-control", :disabled => true %>
+        </div>
+    <% else %>
+        <%=  f.fields_for @saldopromocion.medalla do |medalla|  %>
+            <div class="row">
               <div class="col-xs-1"></div>
               <div class="col-xs-5">
                 <p>&iquest;Con cu&aacute;l medalla se le otorgar&aacute; al usuario esta promoci&oacute;n?</p>
@@ -122,58 +121,55 @@
                   <i class="fa fa-edit"></i> Elegir Medalla
                 </a>
               </div>
-          <% end %>
+            </div>
+            <%= medalla.hidden_field :medalla_id, :value => @saldopromocion.medalla_id%>
+            <div class="form-group">
+              <%= medalla.label :nombre, 'Nombre:', class: "control-label" %><br />
+              <%= medalla.text_field :nombre, class: "form-control", :disabled => true %>
+            </div>
+            <div class="form-group">
+              <%= medalla.label :imagen, 'Medalla:', class: "control-label" %><br />
+              <img id="saldopromocion_medalla_imagen" src="/assets/medals/<%= @saldopromocion.medalla.imagen %>" style="max-height: 150px; max-width: 150px;">
+            </div>
+            <div class="form-group">
+              <%= medalla.label :descripcion, 'Descripción:', class: "control-label" %><br />
+              <%= medalla.text_area :descripcion,:rows => "5", class: "form-control", :disabled => true %>
+            </div>
+            <div class="form-group">
+              <%= medalla.label :puntos, 'Puntos:', class: "control-label" %><br />
+              <%= medalla.text_field :puntos, class: "form-control", :disabled => true %>
+            </div>
+            <style>
+                #modalShowMedallas .modal-dialog
+                {
+                    height: 100%;
+                }
+                #modalShowMedallas .modal-content
+                {
+                    border: 1px solid blue;
+                    overflow: auto;
+                    height: 90%;
+                }
+            </style>
+            <div class="modal fade" id="modalShowMedallas" tabindex="-1" role="dialog" aria-labelledby="modalShowMedallas" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                      <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Seleccione una medalla</h4>
+                  </div>
+                  <div id="modal-body" class="modal-body nav-tabs-custom">
+                    <!-- Aquí va el render de detallePromocion_saldo que carga la forma para agregar promociones de saldo. -->
 
-        </div>
-        <%= medalla.hidden_field :medalla_id, :value => @saldopromocion.medalla_id%>
-
-          <div class="form-group">
-            <%= medalla.label :nombre, 'Nombre:', class: "control-label" %><br />
-            <%= medalla.text_field :nombre, class: "form-control", :disabled => true %>
-          </div>
-          <div class="form-group">
-            <%= medalla.label :imagen, 'Medalla:', class: "control-label" %><br />
-            <img id="saldopromocion_medalla_imagen" src="/assets/medals/<%= @saldopromocion.medalla.imagen %>" style="max-height: 150px; max-width: 150px;">
-          </div>
-
-        <div class="form-group">
-          <%= medalla.label :descripcion, 'Descripción:', class: "control-label" %><br />
-          <%= medalla.text_area :descripcion,:rows => "5", class: "form-control", :disabled => true %>
-        </div>
-        <div class="form-group">
-          <%= medalla.label :puntos, 'Puntos:', class: "control-label" %><br />
-          <%= medalla.text_field :puntos, class: "form-control", :disabled => true %>
-        </div>
-
-        <style>
-            #modalShowMedallas .modal-dialog
-            {
-                height: 100%;
-            }
-            #modalShowMedallas .modal-content
-            {
-                border: 1px solid blue;
-                overflow: auto;
-                height: 90%;
-            }
-        </style>
-        <div class="modal fade" id="modalShowMedallas" tabindex="-1" role="dialog" aria-labelledby="modalShowMedallas" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                  <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">Seleccione una medalla</h4>
-              </div>
-              <div id="modal-body" class="modal-body nav-tabs-custom">
-                <!-- Aquí va el render de detallePromocion_saldo que carga la forma para agregar promociones de saldo. -->
-
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-    <%  end  %>
+        <%  end #-- endfields_for %>
+    <% end #--- endif %>
+
     <hr>
     <div class="actions" align="right">
       <button id="btnSubmit" class="btn btn-success">
@@ -192,11 +188,23 @@
                       data: $(this).serialize()
                   });
                   request.done(function( msg ) {
-                      <% if @action == 'create' %>
-                      $("#basicModal #modal-body #forma_detalle_saldopromocion").html(msg);
-                      <% else %>
                       $("#forma_detalle_saldopromocion").html(msg);
-                      <% end %>
+                      $('#promociones_saldoTableContainer').jtable('reload');
+                  });
+                  request.fail(function( jqXHR, textStatus ) {
+                      alert(textStatus);
+                  });
+                  return false;
+              });
+              $("#new_saldopromocion").submit(function (event) {
+                  event.preventDefault();
+                  var request = $.ajax({
+                      type: "POST",
+                      url: '<%= "/saldopromocion_controller/#{@action}" %>',
+                      data: $(this).serialize()
+                  });
+                  request.done(function( msg ) {
+                      $("#basicModal #modal-body #forma_detalle_saldopromocion").html(msg);
                       $('#promociones_saldoTableContainer').jtable('reload');
                   });
                   request.fail(function( jqXHR, textStatus ) {
