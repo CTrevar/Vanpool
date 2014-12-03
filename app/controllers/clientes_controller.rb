@@ -510,11 +510,13 @@ class ClientesController < ApplicationController
 
 
     hoy = DateTime.now.beginning_of_day
-    @viajes = Viaje.where("ruta_id = ? and estadoviaje_id = 2 and fecha > ?", @ruta.id, hoy).take(@cantidad)
+    @viajes = Viaje.where("ruta_id = ? and estadoviaje_id = 2 and fecha > ?", @ruta.id, hoy)
     @disponibilidad = []
 
     if !@viajes.blank?
-      @viajes.delete_if {|viaje| viaje.fecha.beginning_of_day  == hoy.beginning_of_day }
+      #quitar los viajes que son del mismo día, pero en una hora que ya pasó
+      @viajes.delete_if {|viaje| viaje.fecha.beginning_of_day.utc.strftime("%d%m%Y")==DateTime.now.beginning_of_day.utc.strftime("%d%m%Y") and viaje.horainicio.utc.strftime("%H%M%S%N") <= DateTime.now.utc.strftime("%H%M%S%N")}
+      @viajes = @viajes.take(@cantidad) 
       @viajes.each do |viaje|
         @disponibilidad<<calcula_disponibilidad_viaje(viaje)
       end
