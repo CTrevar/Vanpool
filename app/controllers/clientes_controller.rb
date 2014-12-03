@@ -192,11 +192,12 @@ class ClientesController < ApplicationController
 
   def compartir_facebook
     #@current_cliente = obtener_cliente(current_user)
-    viaje=Viaje.find(params[:id])
+    reservacion=Reservacion.find(params[:id])
     @oauth = Koala::Facebook::OAuth.new("708292565932035", "0961c370c701538ac20f349b9a02b4b3")
     facebook_user_token = session[:access_token]
     @graph = Koala::Facebook::API.new(facebook_user_token)
-    @graph.put_wall_post("Yo ya uso la ruta #{viaje.ruta.nombre} de Vanpool y tu? http://vanpool.mx",{"picture"=>"http://104.236.6.99/assets/medals/viaje6-01.png"})
+    @graph.put_wall_post("Yo ya uso la ruta #{reservacion.viaje.ruta.nombre} de Vanpool y tu? http://vanpool.mx",{"picture"=>"http://104.236.6.99/assets/medals/viaje6-01.png"})
+    Share.create(reservacion_id:reservacion.id)
     redirect_to mis_viajes_path
   end
 

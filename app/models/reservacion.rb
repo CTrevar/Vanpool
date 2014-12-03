@@ -3,5 +3,6 @@ class Reservacion < ActiveRecord::Base
   belongs_to :cliente
   belongs_to :viaje
   has_many :retroalimentacions
+  has_one :share
 
 end

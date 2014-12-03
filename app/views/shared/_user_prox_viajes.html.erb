@@ -32,7 +32,11 @@
             <div class="span6">
 
                 <%= link_to "Ver detalle", "/viajes/#{reservacion.viaje.id}/detalle", class:"btn btn-default btn-flat" %>
-                <button type="button" class="btn btn-primary">Invitar amigos</button>
+
+                <% if current_user.provider %>
+                <%= link_to "Invitar Amigos", "/compartir_facebook?id=#{reservacion.id}", class:"btn btn-primary btn-flat" %>
+                <% end %>
+                
                 <div class="msg-amigos">
                     <p>¡Solo faltan <%= @disponibilidad_pagadas[index] %> personas para alcanzar el SOLD OUT! <a href="#">Invita a tus amigos y gana más puntos</a></p>
                 </div>
