@@ -40,7 +40,7 @@
     <% if @emisionAutomovil.errors.any? %>
         <div class="col-xs-6">
           <div class="input-group input-group-lg has-error">
-            <%= f.text_field :valor,placeholder:'Cantidad de CO2 emitida por los autos...', class: "form-control" %>
+            <%= f.text_field :valor,placeholder:'Cantidad de CO2 en gramos x kilómetro emitida por los autos...', class: "form-control" %>
             <span class="input-group-btn">
                     <%= submit_tag("Guardar",id:"btnSubmit",class:"btn btn-primary btn-flat") %>
                   </span>
@@ -65,7 +65,7 @@
     <% else %>
         <div class="col-xs-6">
           <div class="input-group input-group-lg">
-            <%= f.text_field :valor, placeholder:'Cantidad de CO2 emitida por los autos...', class:"form-control" %>
+            <%= f.text_field :valor, placeholder:'Cantidad de CO2 en gramos x kilómetro emitida por los autos...', class:"form-control" %>
             <span class="input-group-btn">
                       <%= submit_tag("Guardar",id:"btnSubmit",class:"btn btn-primary btn-flat") %>
                     </span>

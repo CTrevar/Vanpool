@@ -21,10 +21,13 @@ module PromocionesHelper
 
     #Validar si el cliente tiene medallas
     def valida_promocion(medallamuro)
-        medalla=Medalla.find(medallamuro.medalla_id)
+        medalla=Medalla.find_by_id_and_estatus(medallamuro.medalla_id,true)
+    
       if medalla.saldopromocion!=nil
-        return true
-      end
+        if medalla.saldopromocion.estatus==true
+            return true
+        end
+        end
         return false
     end
 

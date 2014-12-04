@@ -82,7 +82,7 @@
     <% if @saldopromocion.errors.any?
          if @saldopromocion.errors[:cantidad].present? %>
             <div class="form-group has-error">
-              <%= f.label :cantidad, 'Cantidad', class: "control-label" %><br />
+              <%= f.label :cantidad, 'Monto de regalo ($)', class: "control-label" %><br />
               <%= f.text_field :cantidad, class: "form-control", :disabled => disabled %>
               <div class="callout callout-danger">
                 <%= @saldopromocion.errors[:cantidad] %>
@@ -90,13 +90,13 @@
             </div>
         <%   else   %>
             <div class="form-group">
-              <%= f.label :cantidad, 'Cantidad', class: "control-label" %><br />
+              <%= f.label :cantidad, 'Monto de regalo ($)', class: "control-label" %><br />
               <%= f.text_field :cantidad, class: "form-control", :disabled => disabled %>
             </div>
         <%   end
              else   %>
         <div class="form-group">
-          <%= f.label :cantidad, 'Cantidad', class: "control-label" %><br />
+          <%= f.label :cantidad, 'Monto de regalo ($)', class: "control-label" %><br />
           <%= f.text_field :cantidad, class: "form-control", :disabled => disabled %>
         </div>
     <% end %>
@@ -106,8 +106,8 @@
     <!------------------------------------------------->
     <% if @action == "create" #--- if create %>
         <div class="form-group">
-          <%= f.medalla :nombre, 'Nombre:', class: "control-label" %><br />
-          <%= f.text_field :nombre, class: "form-control", :disabled => true %>
+          &iquest;Con cu&aacute;l medalla se le otorgar&aacute; al usuario esta promoci&oacute;n?
+          <%= collection_select(:saldopromocion, :medalla_id, Medalla.all(:order => 'nombre'), :id, :nombre, { :prompt =>nil}, :class => "form-control" ) %>
         </div>
     <% else %>
         <%=  f.fields_for @saldopromocion.medalla do |medalla|  %>

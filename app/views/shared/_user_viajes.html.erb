@@ -33,7 +33,7 @@
 
                 <%= link_to "Ver detalle", "/viajes/#{reservacion.viaje.id}/detalle", class:"btn btn-default btn-flat" %>
                 
-                <% if current_user.provider %>
+                <% if current_user.provider && Share.find_by_reservacion_id(reservacion.id)==nil %>
                 <%= link_to "Invitar Amigos", "/compartir_facebook?id=#{reservacion.id}", class:"btn btn-primary btn-flat" %>
                 <% end %>
 

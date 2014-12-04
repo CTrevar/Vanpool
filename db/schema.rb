@@ -239,6 +239,12 @@ ActiveRecord::Schema.define(:version => 20141116081805) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "shares", :force => true do |t|
+    t.integer  "reservacion_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "sugerenciaparadas", :force => true do |t|
     t.decimal  "latitud"
     t.decimal  "longitud"

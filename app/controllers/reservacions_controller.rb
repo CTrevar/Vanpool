@@ -94,11 +94,15 @@ class ReservacionsController < ApplicationController
 
   def create_retro
     id=params[:reservacion_id]
+    reservacion=Reservacion.find(id)
+    @current_cliente = obtener_cliente(reservacion.cliente.user)
     aspectos.each do |aspecto|
       calificacion=params[:"#{aspecto.id}"]
       retro = Retroalimentacion.create(reservacion_id:id,aspecto_id:aspecto.id,tipocalificacion_id:calificacion)
     end
-    redirect_to :controller => 'clientes', :action => 'reservaciones'
+    asigna_medalla_retro(@current_cliente)
+    aumenta_puntos(@current_cliente,50)
+    redirect_to :controller => 'clientes', :action => 'dashboard'
   end
 
 end

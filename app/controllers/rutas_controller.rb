@@ -21,40 +21,9 @@ class RutasController < ApplicationController
     @nombres_paradas.uniq!
 
     @letras = ("A".."Z").to_a
-    #@ruta.viajes.build
-    
-    # 8.times do
-    #   @ruta.paradas.build
-    # end
-
-    ##@ruta.paradas.build
-    
-    #@ruta.build_van
-    #@ruta.build_frecuencia
   end
 
   def create
-    # @ruta = Ruta.new(params[:ruta])
-  #   @ruta.estatus = true
-
-
-
-  #   @paradas = @ruta.paradas
-
-  #   @paradas.each do |parada|
-  #     parada.estatus = true
-  #   end
-
-
-
-
-  #   @ruta.save
-  #   genera_viajes_ruta_nueva(@ruta)
-    
-
-  #   redirect_to rutas_path
-     
-      
           #Guardar ruta
         @ruta = Ruta.new
         @ruta.nombre = params[:nombreRuta]
@@ -164,9 +133,6 @@ class RutasController < ApplicationController
 	end
 
   def detalle
-    # @ruta = Ruta.find(params[:id])
-    # @paradas_ruta = @ruta.paradas
-    # @van = @ruta.van
     @ruta = Ruta.find(params[:id])
     @van = @ruta.van
     @conductor = Conductor.find(@ruta.conductor_id)
@@ -256,11 +222,12 @@ class RutasController < ApplicationController
       end #end if ruta is valid
 
   end
+
   def edit
-@ruta = Ruta.find(params[:id])
-@paradas_ruta = @ruta.paradas
-@van = @ruta.van
-end
+    @ruta = Ruta.find(params[:id])
+    @paradas_ruta = @ruta.paradas
+    @van = @ruta.van
+  end
 
   def listar_por_zona
     filtro_zona_id = params[:zona_id]
@@ -440,7 +407,7 @@ end
       ruta.save!
       count = 0
       usuarios = ""
-      viajes = Viaje.where("ruta_id = ? and estadoviaje_id = 2", ruta.id)
+      viajes = Viaje.where("ruta_id = ? and estadoviaje_id = 1", ruta.id)
       viajes.each do |viaje|
         viaje.estadoviaje_id = 4
         viaje.estatus = 0
@@ -562,7 +529,7 @@ end
         viaje = Viaje.new
         viaje.fecha = fecha_viaje 
         viaje.estatus= 1
-        viaje.estadoviaje_id= 2 
+        viaje.estadoviaje_id= 1
         viaje.ruta_id= ruta.id
         viaje.horainicio = horario.hora
         viaje.save

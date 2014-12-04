@@ -51,25 +51,15 @@ module GamificationHelper
         end
     end
 
-    def envia_retro
-        #retro.save
-        #asigna_medalla_retro(cliente)
-    end
 
     #Dar medalla tipo retro
-    ##no esta probado
     def asigna_medalla_retro(cliente)
         medallas=Medalla.find_all_by_tipomedalla_id_and_estatus(3,true)
-        reservas=Reservacion.find_all_by_cliente_id_and_estadotipo_id(cliente.id,[2,3])
-        cuenta=0
-        reservas.each do |reserva|
-            if(reserva.retroalimentacions.count==1) then
-                cuenta=cuenta+1
-            end
-        end
+        #reservas=Reservacion.find_all_by_cliente_id_and_estadotipo_id(cliente.id,[2,3])
+        retros=Retroalimentacion.joins(:reservacion).where('reservacions.cliente_id'=>cliente.id).count
 
         medallas.each do |medalla|
-            if(cuenta==medalla.estado) then
+            if((retros.to_i/Retroaspecto.where(:estatus=>true).count.to_i)==medalla.estado) then
                 medallamuro = Medallasmuro.create(cliente_id:cliente.id,medalla_id:medalla.id)
                 medallamuro.save
                 aumenta_puntos(cliente,medalla.puntos)
@@ -80,19 +70,15 @@ module GamificationHelper
         end
     end
 
-    def envia_share
-        #share.save
-        #asigna_medalla_retro(cliente)
-    end
 
     #Dar medalla tipo social
-    ##no esta probado
     def asigna_medalla_social(cliente)
         medallas=Medalla.find_all_by_tipomedalla_id_and_estatus(2,true)
-        shares=Share.find_all_by_cliente_id(cliente.id) ##cambiarlo por id facebook
+        #shares=Share.find_all_by_cliente_id(cliente.id) ##cambiarlo por id facebook
+        shares=Share.joins(:reservacion).where('reservacions.cliente_id'=>cliente.id).count
 
         medallas.each do |medalla|
-            if(shares.count==medalla.estado) then
+            if(shares==medalla.estado) then
                 medallamuro = Medallasmuro.create(cliente_id:cliente.id,medalla_id:medalla.id)
                 medallamuro.save
                 aumenta_puntos(cliente,medalla.puntos)
@@ -103,24 +89,7 @@ module GamificationHelper
         end
     end
 
-    #Dar medalla tipo cumpleaños
-    ##no esta probado
-    ##como se valida que no haya cambiado la fecha solo para tener la promo
-    def asigna_medalla_bday(cliente)
-        #medalla=Medalla.find_by_tipomedalla_id_and_estatus(5,true)
-        #if(cliente.fechanacimiento==date.now) then
-            #medallamuro = Medallasmuro.create(cliente_id:cliente.id,medalla_id:medalla.id)
-            #medallamuro.save
-            #aumenta_puntos(cliente,medalla.puntos)
-        #end
-    end
-
-    #Metodo con facebook
-    def obtener_amigos(cliente)
-        amigos=["1","2","3"]
-        return amigos
-    end
-
+=begin
     def viaja_con_amigos(cliente,reservacion)
         viaje=reservacion.viaje
         pasajeros=viaje.reservacions
@@ -136,6 +105,7 @@ module GamificationHelper
         end
         return amigosenviaje
     end
+
 
     #Dar medalla tipo viaja con amigos
     ##no esta probado
@@ -188,6 +158,7 @@ module GamificationHelper
             end
         end
     end
+=end
 
     #asigna lider de parada
     def asigna_lider(cliente, ruta)
