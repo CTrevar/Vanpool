@@ -10,7 +10,7 @@ module MedallasHelper
 
 	#Obtener las ultimas 3 medallas del cliente
     def obtener_ultimas_medallas(cliente)
-      return cliente.medallas.order("created_at DESC").last(3)
+      return cliente.medallas.order("created_at DESC").limit(3)
     end
 
     #obtener todo las medallas del cliente

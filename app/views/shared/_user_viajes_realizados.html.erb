@@ -15,16 +15,19 @@
             <div class="item">
         <div class="row-fluid">
             <div class="span6">
-                <label>ID Viaje:</label><%=reservacion.viaje_id%></br>
-                <label>Ruta:</label><%=reservacion.viaje.ruta.nombre%></br>
+                <label>Ruta:</label><%=reservacion.viaje.ruta.nombre%>
                 <label>Fecha:</label><%=reservacion.viaje.fecha.strftime("%d/%m/%Y")%> </br>
-                <label>Hora de salida:</label><%=reservacion.viaje.horainicio.strftime("%H:%M %p")%> </br>
-                <label>Hora de llegada:</label><%=(reservacion.viaje.horainicio+ reservacion.viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></br>
+                 <%salida = reservacion.viaje.ruta.paradas.order('posicion ASC').first.nombre.split(",")%> 
+                <label>Lugar de salida:</label>&nbsp<%=salida[0]%>
+                <label>Hora de salida:</label>&nbsp<%=reservacion.viaje.horainicio.strftime("%I:%M%p")%> </br>
+                <%llegada = reservacion.viaje.ruta.paradas.order('posicion ASC').last.nombre.split(",")%>
+                <label>Lugar de llegada:</label>&nbsp<%=llegada[0]%>
+                <label>Hora de llegada:</label>&nbsp<%=(reservacion.viaje.horainicio+ reservacion.viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></br>
             </div>
             <div class="span6">
-                <button type="button" class="btn btn-success">Ver detalle</button>
+                <%= link_to "Ver detalle", "/viajes/#{reservacion.viaje.id}/detalle", class:"btn btn-default btn-flat" %>
                 <% if existe_retroalimentacion(reservacion)==false then %>
-                <%= link_to "Evaluar", "reservacions/#{reservacion.id}/retroalimentacion", class:"btn btn-default btn-flat" %>
+                <%= link_to "Evaluar", "reservacions/#{reservacion.id}/retroalimentacion", class:"btn btn-success btn-flat" %>
                 <% end %>
             </div>
         </div>

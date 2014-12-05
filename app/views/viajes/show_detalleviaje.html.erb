@@ -44,10 +44,17 @@
                                     <h4><%=@viaje.horainicio.strftime("%I:%M%p")%></h4>
                                     <small>HORA DE LLEGADA:</small>
                                     <h4><%=(@viaje.horainicio + @viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></h4>
-                                
-
-                                    <small>DISPONIBILIDAD:</small>
-                                    <h4><%=@disponibilidad%></h4>
+                                  
+                                    <small>Estado de viaje:</small>
+                                    <% if valida_van_llena(@viaje)%>
+                                      <h4>Agotado</h4>
+                                    <%elsif @viaje.estadoviaje_id=2 || @viaje.estadoviaje_id=3 || @viaje.fecha>Time.now%>
+                                    <h4>Viaje realizado</h4>
+                                    <%else%>
+                                      <h4><%=@disponibilidad%> lugar(es) diponibles</h4>
+                                    <%end%>
+                                    
+                                    
                                     </br>
                                 
                                 </div>
@@ -55,7 +62,12 @@
                                   <small>PARADAS</small>
                                   <div id="paradasTableContainer"></div></br>
                                     <%= link_to "Buscar otra ruta", "/buscar", class:"btn btn-buscar-nav btn-flat" %>
-                                    <%= link_to "Comprar viaje", "/compra", class:"btn btn-pagar-l btn-flat pull-right" %>
+                                    <% if valida_van_llena(@viaje) ||  @viaje.estadoviaje_id=2 || @viaje.estadoviaje_id=3 || @viaje.fecha>Time.now%>
+                                      <%= link_to "Ver viajes disponibles", "/ver_ruta/#{@viaje.ruta.id}", class:"btn btn-pagar-l btn-flat pull-right" %>
+                                    <%else%>
+                                      <%= link_to "Comprar boletos", "/ver_ruta/#{@viaje.ruta.id}", class:"btn btn-pagar-l btn-flat pull-right" %>
+                                    <%end%>
+                                    
                                   </br>
                                 </div>
                               </br>

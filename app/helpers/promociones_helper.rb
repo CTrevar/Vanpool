@@ -76,7 +76,7 @@ module PromocionesHelper
         regalos=Array.new
         medallasmuro=Medallasmuro.where(:cobrado=>false)
         medallasmuro.each do |medallamuro|
-            if valida_regalo (medallamuro)
+            if valida_regalo(medallamuro)==true
                 regalos<<medallamuro
             end
         end     

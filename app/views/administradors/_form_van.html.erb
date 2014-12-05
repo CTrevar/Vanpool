@@ -1,6 +1,13 @@
 <% disabled ||= false %>
 <% exito ||= false %>
 <% create ||= false %>
+  <script type="text/javascript">
+   $(function() {
+                //Datemask dd/mm/yyyy
+                $("#van_fecha_compra").inputmask("yyyy/mm/dd", {"placeholder": "dd/mm/yyyy"});
+
+            });
+   </script>
 <%= form_for @van, :url => "/van_controller/#{@action}" do |f| %>
     </br>
     <%  if exito %>
@@ -51,7 +58,7 @@
       <div class="form-group">
         <label>Fecha Compra</label>
         <div class="row-fluid">
-          <%= f.text_field :fecha_compra, class: "form-control span12", data: {inputmask:"'alias': 'dd/mm/yyyy'", mask:''}%>
+          <%= f.text_field :fecha_compra, class: "form-control span12", data: {inputmask:"'alias': 'yyyy/mm/dd'", mask:''}%>
         </div>
       </div>
   

@@ -99,7 +99,7 @@ class ClientesController < ApplicationController
       @cliente = Cliente.create(puntaje:0,nivel_id:1,user_id:@user.id)
       #flash[:success] = "Welcome to the Sample App!"
       # Tell the UserMailer to send a welcome email after save
-      # UserMailer.welcome_email(@user).deliver
+      UserMailer.welcome_email(@user).deliver
 
       @openpay=OpenpayApi.new('muvdvkft3dzo57bfzv5g','sk_aa543af9dc964f83b41418a26aa6104f')
    
@@ -128,11 +128,9 @@ class ClientesController < ApplicationController
     tabla_lideres(@current_cliente)
 
     #@reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
-    @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
-    #@reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
-
+    #@reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
+    @reservaciones_pagadas=@current_cliente.reservacions.joins(:viaje).where('estadotipo_id=3 or estadoviaje_id=1 or fecha>?', Time.now).last(3)
     
-    @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2).last(3)
     @disponibilidad_pagadas = []
     @reservaciones_pagadas.each do |reserva_pagada|
       @disponibilidad_pagadas<< calcula_disponibilidad_viaje(reserva_pagada.viaje)
@@ -152,17 +150,20 @@ class ClientesController < ApplicationController
     @profile = @graph.get_object("me")
     @friends = @graph.get_connections("me", "friends")
 
-    #friendsvanpool=Array.new
-    #@friends.each do |friend| 
-    #  friendsvanpool<<User.find_by_uid(friend["uid"])
-    #end
+    friendsvanpool=Array.new
+    clientesvanpool=Array.new
+    @friends.each do |friend| 
+      friendsvanpool<<User.find_by_uid(friend["id"])
+    end
 
-    #friendsvanpool.each do |f|
-    #  clientesvanpool<<Cliente.find_by_user_id(f.id)
-    #end
+    friendsvanpool.each do |f|
+      clientesvanpool<<Cliente.find_by_user_id(f.id)
+    end
     
-    #tabla_lideres_facebook(@current_cliente, Cliente.where(id: clientesvanpool.map(&:id)))
+    tabla_lideres_facebook(@current_cliente, Cliente.where(id: clientesvanpool.map(&:id)))
 
+    else
+    tabla_lideres(@current_cliente)
     end
 
 
@@ -311,7 +312,8 @@ class ClientesController < ApplicationController
       @disponibilidad_pendientes<< calcula_disponibilidad_viaje(reserva_pendiente.viaje)
     end
 
-    @reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
+    #@reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
+    @reservaciones_pagadas=@current_cliente.reservacions.joins(:viaje).where('estadotipo_id=3 or estadoviaje_id=1 or fecha>?', Time.now).last(3)
     @disponibilidad_pagadas = []
     @reservaciones_pagadas.each do |reserva_pagada|
       @disponibilidad_pagadas<< calcula_disponibilidad_viaje(reserva_pagada.viaje)

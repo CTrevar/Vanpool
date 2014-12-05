@@ -17,7 +17,7 @@ module GamificationHelper
     	medallas=Medalla.find_all_by_tipomedalla_id_and_estatus(1,true)
     	medallas.each do |medalla|
     		if(cliente.reservacions.find_all_by_estadotipo_id(3).count==medalla.estado) then
-      			medallamuro = Medallasmuro.create(cliente_id:cliente.id,medalla_id:medalla.id)
+      			medallamuro = Medallasmuro.create(cliente_id:cliente.id,medalla_id:medalla.id,cobrado:false)
       			medallamuro.save
       			aumenta_puntos(cliente,medalla.puntos)
                 if valida_promocion(medallamuro)
@@ -34,14 +34,14 @@ module GamificationHelper
         llenostotales=0
 
         reservaciones.each do |reservacion|
-            if(valida_van_llena(reservacion.viaje.ruta.van, reservacion.viaje))then
+            if(valida_van_llena(reservacion.viaje) && reservacion.estadotipo_id==3)then
                 llenostotales=llenostotales+1
             end
         end
 
         medallas.each do |medalla| 
             if(llenostotales==medalla.estado) then
-                medallamuro = Medallasmuro.create(cliente_id:cliente.id,medalla_id:medalla.id)
+                medallamuro = Medallasmuro.create(cliente_id:cliente.id,medalla_id:medalla.id,cobrado:false)
                 medallamuro.save
                 aumenta_puntos(cliente,medalla.puntos)
                 if valida_promocion(medallamuro)
@@ -60,7 +60,7 @@ module GamificationHelper
 
         medallas.each do |medalla|
             if((retros.to_i/Retroaspecto.where(:estatus=>true).count.to_i)==medalla.estado) then
-                medallamuro = Medallasmuro.create(cliente_id:cliente.id,medalla_id:medalla.id)
+                medallamuro = Medallasmuro.create(cliente_id:cliente.id,medalla_id:medalla.id,cobrado:false)
                 medallamuro.save
                 aumenta_puntos(cliente,medalla.puntos)
                 if valida_promocion(medallamuro)
@@ -79,7 +79,7 @@ module GamificationHelper
 
         medallas.each do |medalla|
             if(shares==medalla.estado) then
-                medallamuro = Medallasmuro.create(cliente_id:cliente.id,medalla_id:medalla.id)
+                medallamuro = Medallasmuro.create(cliente_id:cliente.id,medalla_id:medalla.id,cobrado:false)
                 medallamuro.save
                 aumenta_puntos(cliente,medalla.puntos)
                 if valida_promocion(medallamuro)
@@ -141,15 +141,14 @@ module GamificationHelper
             #end
         end
     end
-
+=end
     #Dar medalla tipo anfitrion
-    ##no esta probado
     def asigna_medalla_nivel(cliente)
         medallas=Medalla.find_all_by_tipomedalla_id_and_estatus(9,true)
 
         medallas.each do |medalla| 
             if(cliente.nivel_id==medalla.estado) then
-                medallamuro = Medallasmuro.create(cliente_id:cliente.id,medalla_id:medalla.id)
+                medallamuro = Medallasmuro.create(cliente_id:cliente.id,medalla_id:medalla.id,cobrado:false)
                 medallamuro.save
                 aumenta_puntos(cliente,medalla.puntos)
                 if valida_promocion(medallamuro)
@@ -158,7 +157,7 @@ module GamificationHelper
             end
         end
     end
-=end
+
 
     #asigna lider de parada
     def asigna_lider(cliente, ruta)
@@ -196,7 +195,7 @@ module GamificationHelper
 
     #Si la van va llena se multiplica por dos los puntos del kilometraje
 	def aumenta_puntos_kilometraje(reservacion)
-		if (valida_van_llena(reservacion.viaje.ruta.van, reservacion.viaje))
+		if (valida_van_llena(reservacion.viaje))
 			# aumenta_puntos(reservacion.cliente,reservacion.viaje.ruta.kilometros*10*2)
             aumenta_puntos(reservacion.cliente,calcular_distancia(reservacion)*10*2)
 		else
@@ -234,38 +233,38 @@ module GamificationHelper
     end
 
     def tabla_lideres(current_cliente)
-        @top=Cliente.order('puntaje DESC').where('puntaje >= ?',current_cliente.puntaje).last(2)
-        @bot=Cliente.order('puntaje DESC').where('puntaje < ?',current_cliente.puntaje).first(2)
+        @top=Cliente.order('puntaje DESC').where('puntaje >= ? and id!= ?',current_cliente.puntaje, current_cliente.id).last(2)
+        @bot=Cliente.order('puntaje DESC').where('puntaje < ? and id!= ?',current_cliente.puntaje, current_cliente.id).first(2)
 
     if(@top.count==1) 
-    @bot=Cliente.order('puntaje DESC').where('puntaje < ?',current_cliente.puntaje).first(3)
+    @bot=Cliente.order('puntaje DESC').where('puntaje < ? and id!= ?',current_cliente.puntaje, current_cliente.id).first(3)
     end
     if(@top.count==0)
-    @bot=Cliente.order('puntaje DESC').where('puntaje < ?',current_cliente.puntaje).first(4)
+    @bot=Cliente.order('puntaje DESC').where('puntaje < ? and id!= ?',current_cliente.puntaje, current_cliente.id).first(4)
     end
     if(@bot.count==1)
-      @top=Cliente.order('puntaje DESC').where('puntaje >= ?',current_cliente.puntaje).last(3)
+      @top=Cliente.order('puntaje DESC').where('puntaje >= ? and id!= ?',current_cliente.puntaje, current_cliente.id).last(3)
     end
     if(@bot.count==0)
-      @top=Cliente.order('puntaje DESC').where('puntaje >= ?',current_cliente.puntaje).last(4)
+      @top=Cliente.order('puntaje DESC').where('puntaje >= ? and id!= ?',current_cliente.puntaje, current_cliente.id).last(4)
     end
     end
 
     def tabla_lideres_facebook(current_cliente, clientes)
-        @top=clientes.order('puntaje DESC').where('puntaje >= ?',current_cliente.puntaje).last(2)
-        @bot=clientes.order('puntaje DESC').where('puntaje < ?',current_cliente.puntaje).first(2)
+        @top=clientes.order('puntaje DESC').where('puntaje >= ? and id!= ?',current_cliente.puntaje, current_cliente.id).last(2)
+        @bot=clientes.order('puntaje DESC').where('puntaje < ? and id!= ?',current_cliente.puntaje, current_cliente.id).first(2)
 
     if(@top.count==1) 
-    @bot=clientes.order('puntaje DESC').where('puntaje < ?',current_cliente.puntaje).first(3)
+    @bot=clientes.order('puntaje DESC').where('puntaje < ? and id!= ?',current_cliente.puntaje, current_cliente.id).first(3)
     end
     if(@top.count==0)
-    @bot=clientes.order('puntaje DESC').where('puntaje < ?',current_cliente.puntaje).first(4)
+    @bot=clientes.order('puntaje DESC').where('puntaje < ? and id!= ?',current_cliente.puntaje, current_cliente.id).first(4)
     end
     if(@bot.count==1)
-      @top=clientes.order('puntaje DESC').where('puntaje >= ?',current_cliente.puntaje).last(3)
+      @top=clientes.order('puntaje DESC').where('puntaje >= ? and id!= ?',current_cliente.puntaje, current_cliente.id).last(3)
     end
     if(@bot.count==0)
-      @top=clientes.order('puntaje DESC').where('puntaje >= ?',current_cliente.puntaje).last(4)
+      @top=clientes.order('puntaje DESC').where('puntaje >= ? and id!= ?',current_cliente.puntaje, current_cliente.id).last(4)
     end
     end
 
