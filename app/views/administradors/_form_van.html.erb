@@ -25,7 +25,6 @@
         <div class="alert alert-danger alert-dismissable">
           <i class="fa fa-times"></i>
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-          <b><%= pluralize(@van.errors.count, "error") %>:</b>
           <ul>
             <% @van.errors.full_messages.each do |msg| %>
                 <li><%= msg %></li>

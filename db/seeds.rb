@@ -38,7 +38,16 @@ User.create!([
   {name: "Marco Huerta", provider: nil, uid: nil, admin: true, estatusUsuario: true,   authentication_token: nil, email: "admin11@gmail.com", password: "12345678"},
   {name: "Samuel Cardona", provider: nil, uid: nil, admin: true, estatusUsuario: true,  authentication_token: nil, email: "admin12@gmail.com", password: "12345678"},
   {name: "Maritere Salinas", provider: nil, uid: nil, admin: true, estatusUsuario: true,  authentication_token: nil, email: "admin13@gmail.com", password: "12345678"},
-  {name: "vanpool", provider: nil, uid: nil, admin: false, estatusUsuario: true,  authentication_token: nil, email: "eponce19@gmail.com", password: "12345678"}
+  {name: "vanpool", provider: nil, uid: nil, admin: false, estatusUsuario: true,  authentication_token: nil, email: "serviciovanpool@gmail.com", password: "12345678"}
+])
+Cliente.create!([
+  {puntaje: 5000, nivel_id: 1, user_id: 2, perfil_id: 1, kilometros: 80.0, emisionco2: 0.728, openpay_id: "acbbmcdxengxjxfuzqgi", estatus: true},
+  {puntaje: 600, nivel_id: 1, user_id: 2, perfil_id: 2, kilometros: 30.0, emisionco2: 0.053839, openpay_id: "aemixqnfwwg4auefwuij", estatus: true},
+  {puntaje: 1050, nivel_id: 1, user_id: 3, perfil_id: 1, kilometros: 50.0, emisionco2: 0.083773, openpay_id: "acjhr3ct53witegiuoxx", estatus: true},
+  {puntaje: 14560, nivel_id: 2, user_id: 4, perfil_id: 2, kilometros: 100.0, emisionco2: 0.930, openpay_id: "a6z0dwrnr1ecnxkfpomq", estatus: true},
+  {puntaje: 24900, nivel_id: 2, user_id: 5, perfil_id: 1, kilometros: 200.0, emisionco2: 0.9930, openpay_id: "aqovz6cvfmrcsjmsbhx8", estatus: true},
+  {puntaje: 700, nivel_id: 1, user_id: 6, perfil_id: 2, kilometros: 40.0, emisionco2: 0.03, openpay_id: "a6kisxccbkeazyatliiw", estatus: true},
+  {puntaje: 200, nivel_id: 1, user_id: 7, perfil_id: 1, kilometros: 10.0, emisionco2: 0.02, openpay_id: "ascbkm3cokhertzgfmys", estatus: true}
 ])
 Conductor.create!([
   {user_id: 15, licenciaConductor: "SVG6404", estatusConductor: true},
@@ -55,57 +64,142 @@ Conductor.create!([
   {user_id: 26, licenciaConductor: "MRN2597", estatusConductor: true}
 ])
 Medalla.create!([
-  {tipomedalla_id: 1, nombre: "Primer viaje", puntos: 5000, imagen: "viaje1.png", estatus: true, estado: 1, descripcion: nil},
-  {tipomedalla_id: 1, nombre: "Quinto Viaje", puntos: 5000, imagen: "viaje5.png", estatus: true, estado: 5, descripcion: nil},
-  {tipomedalla_id: 2, nombre: "Evangelista (500 shares)", puntos: 500, imagen: "share500.jpg", estatus: true, estado: 500, descripcion: nil},
-  {tipomedalla_id: 2, nombre: "Socialite (100 shares)", puntos: 500, imagen: "share100.jpg", estatus: true, estado: 100, descripcion: nil},
-  {tipomedalla_id: 2, nombre: "Vocero (25 shares)", puntos: 500, imagen: "share25.jpg", estatus: true, estado: 0, descripcion: nil},
-  {tipomedalla_id: 3, nombre: "Primer retro", puntos: 500, imagen: "retro1.png", estatus: true, estado: 0, descripcion: nil},
-  {tipomedalla_id: 3, nombre: "Quinta retro", puntos: 500, imagen: "retro5.png", estatus: true, estado: 0, descripcion: nil},
-  {tipomedalla_id: 1, nombre: "Decimo viaje", puntos: 10000, imagen: "viaje10.jpg", estatus: true, estado: 10, descripcion: nil},
-  {tipomedalla_id: 4, nombre: "soldout1", puntos: 5000, imagen: "agotado1.png", estatus: true, estado: 1, descripcion: nil},
-  {tipomedalla_id: 4, nombre: "soldout2", puntos: 5000, imagen: "agotado5.png", estatus: true, estado: 5, descripcion: nil}
+  {tipomedalla_id: 1, nombre: "Primer viaje", puntos: 5000, imagen: "viaje1.png", estatus: true, estado: 1, descripcion: ""},
+  {tipomedalla_id: 1, nombre: "Quinto Viaje", puntos: 5000, imagen: "viaje5.png", estatus: true, estado: 5, descripcion: ""},
+  {tipomedalla_id: 1, nombre: "Decimo viaje", puntos: 10000, imagen: "viaje_10.png", estatus: true, estado: 10, descripcion: ""},
+  {tipomedalla_id: 3, nombre: "Primer retro", puntos: 500, imagen: "retro1.png", estatus: true, estado: 1, descripcion: ""},
+  {tipomedalla_id: 3, nombre: "Quinta retro", puntos: 500, imagen: "retro5.png", estatus: true, estado: 5, descripcion: ""},
+  {tipomedalla_id: 4, nombre: "soldout1", puntos: 5000, imagen: "agotado1.png", estatus: true, estado: 1, descripcion: ""},
+  {tipomedalla_id: 4, nombre: "soldout5", puntos: 5000, imagen: "agotado5.png", estatus: true, estado: 5, descripcion: ""},
+  {tipomedalla_id: 2, nombre: "Primer share (1 share)", puntos: 500, imagen: "Vocero (25 shares)_1.png", estatus: true, estado: 25, descripcion: ""},
+  {tipomedalla_id: 2, nombre: "Vocero (25 shares)", puntos: 500, imagen: "Vocero (25 shares)_1.png", estatus: true, estado: 25, descripcion: ""},
+  {tipomedalla_id: 2, nombre: "Socialite (100 shares)", puntos: 500, imagen: "Socialite (100 shares)_100.png", estatus: true, estado: 100, descripcion: ""},
+  {tipomedalla_id: 2, nombre: "Evangelista (500 shares)", puntos: 500, imagen: "Evangelista (500 shares)_500.png", estatus: true, estado: 500, descripcion: ""},
+  {tipomedalla_id: 5, nombre: "Experto", puntos: 1000, imagen: "Experto_1.png", estatus: true, estado: 6, descripcion: ""}
 ])
 Nivel.create!([
   {nombre: "Novato 1", rangomaximo: 4999, estatus: true},
   {nombre: "Novato 2", rangomaximo: 24999, estatus: true},
   {nombre: "Aprendiz 1", rangomaximo: 49999, estatus: true},
   {nombre: "Aprendiz 2", rangomaximo: 74999, estatus: true},
-  {nombre: "Aprendiz 2", rangomaximo: 99999, estatus: true},
-  {nombre: "Aprendiz 3", rangomaximo: 124999, estatus: true},
-  {nombre: "Experto 1", rangomaximo: 174999, estatus: true},
-  {nombre: "Experto 2", rangomaximo: 224999, estatus: true},
-  {nombre: "Veterano 1", rangomaximo: 299999, estatus: true},
-  {nombre: "Veterano 2", rangomaximo: 374999, estatus: true},
-  {nombre: "Veterano 3", rangomaximo: 499999, estatus: true},
-  {nombre: "Gurú", rangomaximo: 999999, estatus: true}
+  {nombre: "Aprendiz 3", rangomaximo: 99999, estatus: true},
+  {nombre: "Experto 1", rangomaximo: 124999, estatus: true},
+  {nombre: "Experto 2", rangomaximo: 174999, estatus: true},
+  {nombre: "Veterano 1", rangomaximo: 224999, estatus: true},
+  {nombre: "Veterano 2", rangomaximo: 299999, estatus: true},
+  {nombre: "Veterano 3", rangomaximo: 374999, estatus: true},
+  {nombre: "Gurú", rangomaximo: 499999, estatus: true}
 ])
 Parada.create!([
   {nombre: "Durango 110A, Los Treviño, 66376 NL, Mexico", longitud: -100.4366063, latitud: 25.67093, estatus: true},
   {nombre: "Lic. Gustavo Díaz Ordaz 100-S, Sin Nombre de Colonia 27, Monterrey, NL, Mexico", longitud: -100.3793322, latitud: 25.67093, estatus: true},
-  {nombre: "Del Encino 104, Lomas del Rosario, 66287 NL, Mexico", longitud: -100.39546419999999, latitud: 25.6412933, estatus: nil},
-  {nombre: "Carrizalejo 105, Zona Carrizalejo, 66254 NL, Mexico", longitud: -100.36499709999998, latitud: 25.6387654, estatus: nil},
-  {nombre: "Cuauhtémoc 145, Residencial Cuauhtémoc, 66360 NL, Mexico", longitud: -100.44163020000002, latitud: 25.6825928, estatus: nil},
-  {nombre: "La Gloria 109, Hacienda El Rosario, 66247 NL, Mexico", longitud: -100.38654070000001, latitud: 25.6501053, estatus: nil},
-  {nombre: "Lourdes 5, Hacienda El Rosario, 66247 NL, Mexico", longitud: -100.39033240000003, latitud: 25.6445404, estatus: nil},
+  {nombre: "Del Encino 104, Lomas del Rosario, 66287 NL, Mexico", longitud: -100.3954642, latitud: 25.6412933, estatus: nil},
+  {nombre: "Carrizalejo 105, Zona Carrizalejo, 66254 NL, Mexico", longitud: -100.3649971, latitud: 25.6387654, estatus: nil},
+  {nombre: "Cuauhtémoc 145, Residencial Cuauhtémoc, 66360 NL, Mexico", longitud: -100.4416302, latitud: 25.6825928, estatus: nil},
+  {nombre: "La Gloria 109, Hacienda El Rosario, 66247 NL, Mexico", longitud: -100.3865407, latitud: 25.6501053, estatus: nil},
+  {nombre: "Lourdes 5, Hacienda El Rosario, 66247 NL, Mexico", longitud: -100.3903324, latitud: 25.6445404, estatus: nil},
   {nombre: "Hoyo 6 104, Jardines del Campestre, 66260 San Pedro Garza García, NL, Mexico", longitud: -100.344336, latitud: 25.6490095, estatus: nil},
-  {nombre: "Manuel Doblado 414-420, Casco Urbano, 66230 NL, Mexico", longitud: -100.39321840000002, latitud: 25.6557306, estatus: nil},
-  {nombre: "Hacienda de San Francisco, Sin Nombre de Colonia 32, Monterrey, NL, Mexico", longitud: -100.34946909999996, latitud: 25.6645464, estatus: nil},
-  {nombre: "Avenida Alfonso Reyes 1358, Jardines Coloniales 1er Sector, 66230 NL, Mexico", longitud: -100.39689629999998, latitud: 25.6528038, estatus: nil},
+  {nombre: "Manuel Doblado 414-420, Casco Urbano, 66230 NL, Mexico", longitud: -100.3932184, latitud: 25.6557306, estatus: nil},
+  {nombre: "Hacienda de San Francisco, Sin Nombre de Colonia 32, Monterrey, NL, Mexico", longitud: -100.3494691, latitud: 25.6645464, estatus: nil},
+  {nombre: "Avenida Alfonso Reyes 1358, Jardines Coloniales 1er Sector, 66230 NL, Mexico", longitud: -100.3968963, latitud: 25.6528038, estatus: nil},
   {nombre: "Eje Metropolitano 7 213, Del Valle, 66220 NL, Mexico", longitud: -100.3689728, latitud: 25.6603322, estatus: nil},
   {nombre: "Barcelona 103, Rincón de San Jerónimo, 64635 Monterrey, NL, Mexico", longitud: -100.3771668, latitud: 25.6885415, estatus: nil},
-  {nombre: "Av. Olinca, Nuevo León, Mexico", longitud: -100.43204760000003, latitud: 25.6532514, estatus: nil},
-  {nombre: "Isaac Garza 1112, Casco Urbano, 66230 NL, Mexico", longitud: -100.39531729999999, latitud: 25.657419, estatus: nil},
-  {nombre: "Miguel Hidalgo y Costilla 701-761, La Fama, 66100 NL, Mexico", longitud: -100.43082900000002, latitud: 25.6676718, estatus: nil},
-  {nombre: "Paseo de Los Leones, Cima del Bosque, 64344 Monterrey, NL, Mexico", longitud: -100.40375589999996, latitud: 25.7359418, estatus: nil},
-  {nombre: "Tolteca 7303, Unidad Modelo, 64140 Monterrey, NL, Mexico", longitud: -100.35448129999997, latitud: 25.7401879, estatus: nil},
-  {nombre: "Calle de los zenzontles 123, San Jerónimo 1o. Sector, Monterrey, NL, Mexico", longitud: -100.36505970000002, latitud: 25.6811278, estatus: nil},
-  {nombre: "Avenida Francisco I. Madero 2201, Mitras Sur, 64000 Monterrey, NL, Mexico", longitud: -100.33350410000003, latitud: 25.6862131, estatus: nil},
-  {nombre: "Boulevard Gustavo Díaz Ordaz, El Lechugal, 66376 NL, Mexico", longitud: -100.43782980000003, latitud: 25.6745601, estatus: nil},
+  {nombre: "Av. Olinca, Nuevo León, Mexico", longitud: -100.4320476, latitud: 25.6532514, estatus: nil},
+  {nombre: "Isaac Garza 1112, Casco Urbano, 66230 NL, Mexico", longitud: -100.3953173, latitud: 25.657419, estatus: nil},
+  {nombre: "Miguel Hidalgo y Costilla 701-761, La Fama, 66100 NL, Mexico", longitud: -100.430829, latitud: 25.6676718, estatus: nil},
+  {nombre: "Paseo de Los Leones, Cima del Bosque, 64344 Monterrey, NL, Mexico", longitud: -100.4037559, latitud: 25.7359418, estatus: nil},
+  {nombre: "Tolteca 7303, Unidad Modelo, 64140 Monterrey, NL, Mexico", longitud: -100.3544813, latitud: 25.7401879, estatus: nil},
+  {nombre: "Calle de los zenzontles 123, San Jerónimo 1o. Sector, Monterrey, NL, Mexico", longitud: -100.3650597, latitud: 25.6811278, estatus: nil},
+  {nombre: "Avenida Francisco I. Madero 2201, Mitras Sur, 64000 Monterrey, NL, Mexico", longitud: -100.3335041, latitud: 25.6862131, estatus: nil},
+  {nombre: "Boulevard Gustavo Díaz Ordaz, El Lechugal, 66376 NL, Mexico", longitud: -100.4378298, latitud: 25.6745601, estatus: nil},
   {nombre: "Eje Metropolitano 410, Sin Nombre de Colonia 27, Monterrey, NL, Mexico", longitud: -100.3773645, latitud: 25.6804894, estatus: nil},
   {nombre: "De Los Colibríes 516, San Jerónimo 2o. Sector, 64634 Monterrey, NL, Mexico", longitud: -100.3697429, latitud: 25.6826109, estatus: nil},
-  {nombre: "Potrero Chico 301, Hacienda Los Portales, 66120 NL, Mexico", longitud: -100.43614919999999, latitud: 25.6809919, estatus: nil},
-  {nombre: "R. de Las Mitras 212, Rincón de Corregidora, 66239 NL, Mexico", longitud: -100.40331379999998, latitud: 25.668548, estatus: nil}
+  {nombre: "Potrero Chico 301, Hacienda Los Portales, 66120 NL, Mexico", longitud: -100.4361492, latitud: 25.6809919, estatus: nil},
+  {nombre: "R. de Las Mitras 212, Rincón de Corregidora, 66239 NL, Mexico", longitud: -100.4033138, latitud: 25.668548, estatus: nil},
+  {nombre: "Paseo de la Reforma, Bosque de Chapultepec I, 11100 Ciudad de México, D.F., Mexico", longitud: -99.1899435, latitud: 19.4253699, estatus: nil},
+  {nombre: "Calle Durango, Roma Norte, 06700 Ciudad de México, D.F., Mexico", longitud: -99.160923, latitud: 19.4209884, estatus: nil},
+  {nombre: "José María Pino Suárez SCJ, Centro, 06000 Ciudad de México, D.F., Mexico", longitud: -99.1324458, latitud: 19.4332674, estatus: nil},
+  {nombre: "Reforma 110, El Lechugal, 66376 NL, Mexico", longitud: -100.4409695, latitud: 25.6690525, estatus: nil},
+  {nombre: "Prolongación Alfonso Reyes, Nuevo León, Mexico", longitud: -100.4344773, latitud: 25.6571915, estatus: nil},
+  {nombre: "20 de Noviembre 211, Idelfonso Vázquez, 66367 NL, Mexico", longitud: -100.4314891, latitud: 25.6594768, estatus: nil},
+  {nombre: "16 de Septiembre 445, Casco Urbano, 66230 NL, Mexico", longitud: -100.4014913, latitud: 25.6590582, estatus: nil}
+])
+Regalo.create!([
+  {nombre: "Spotify", descripcion: "Cuenta premium de Spotify Premium por 30 dias", perfil_id: 1, medalla_id: 2, estatus: true},
+  {nombre: "Gandhi", descripcion: "Tarjeta con $100 de crédito en Gandhi", perfil_id: 3, medalla_id: 2, estatus: true}
+])
+Reservacion.create!([
+  {viaje_id: 1, cliente_id: 1, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 1, cliente_id: 2, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 1, cliente_id: 3, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 1, cliente_id: 4, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 1, cliente_id: 5, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 2, cliente_id: 1, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 2, cliente_id: 2, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 2, cliente_id: 3, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 2, cliente_id: 4, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 2, cliente_id: 5, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 2, cliente_id: 6, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 2, cliente_id: 7, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 3, cliente_id: 1, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 3, cliente_id: 2, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 3, cliente_id: 3, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 3, cliente_id: 4, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 4, cliente_id: 5, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 4, cliente_id: 6, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 4, cliente_id: 7, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 4, cliente_id: 5, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 4, cliente_id: 6, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 5, cliente_id: 7, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 5, cliente_id: 1, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 5, cliente_id: 2, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 5, cliente_id: 3, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 6, cliente_id: 4, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 6, cliente_id: 5, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 6, cliente_id: 6, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 6, cliente_id: 7, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 6, cliente_id: 5, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 6, cliente_id: 6, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 6, cliente_id: 7, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 7, cliente_id: 1, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 7, cliente_id: 2, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 7, cliente_id: 3, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 7, cliente_id: 4, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 7, cliente_id: 5, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 7, cliente_id: 6, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true},
+  {viaje_id: 7, cliente_id: 7, referenciapago_id: "trir4xahsvtg3u2uoigk", estadotipo_id: 3, estatus: true}
+])
+Retroalimentacion.create!([
+  {reservacion_id: 1, tipocalificacion_id: 4, aspecto_id: 1},
+  {reservacion_id: 1, tipocalificacion_id: 2, aspecto_id: 2},
+  {reservacion_id: 1, tipocalificacion_id: 3, aspecto_id: 3},
+  {reservacion_id: 2, tipocalificacion_id: 4, aspecto_id: 1},
+  {reservacion_id: 2, tipocalificacion_id: 3, aspecto_id: 2},
+  {reservacion_id: 2, tipocalificacion_id: 3, aspecto_id: 3},
+  {reservacion_id: 3, tipocalificacion_id: 4, aspecto_id: 1},
+  {reservacion_id: 3, tipocalificacion_id: 2, aspecto_id: 2},
+  {reservacion_id: 3, tipocalificacion_id: 3, aspecto_id: 3},
+  {reservacion_id: 4, tipocalificacion_id: 4, aspecto_id: 1},
+  {reservacion_id: 4, tipocalificacion_id: 3, aspecto_id: 2},
+  {reservacion_id: 4, tipocalificacion_id: 3, aspecto_id: 3},
+  {reservacion_id: 5, tipocalificacion_id: 4, aspecto_id: 1},
+  {reservacion_id: 5, tipocalificacion_id: 2, aspecto_id: 2},
+  {reservacion_id: 5, tipocalificacion_id: 3, aspecto_id: 3},
+  {reservacion_id: 6, tipocalificacion_id: 4, aspecto_id: 1},
+  {reservacion_id: 6, tipocalificacion_id: 3, aspecto_id: 2},
+  {reservacion_id: 6, tipocalificacion_id: 3, aspecto_id: 3},
+  {reservacion_id: 7, tipocalificacion_id: 4, aspecto_id: 1},
+  {reservacion_id: 7, tipocalificacion_id: 3, aspecto_id: 2},
+  {reservacion_id: 7, tipocalificacion_id: 4, aspecto_id: 3},
+  {reservacion_id: 8, tipocalificacion_id: 4, aspecto_id: 1},
+  {reservacion_id: 8, tipocalificacion_id: 4, aspecto_id: 2},
+  {reservacion_id: 8, tipocalificacion_id: 4, aspecto_id: 3},
+  {reservacion_id: 9, tipocalificacion_id: 4, aspecto_id: 1},
+  {reservacion_id: 9, tipocalificacion_id: 4, aspecto_id: 2},
+  {reservacion_id: 9, tipocalificacion_id: 2, aspecto_id: 3},
+  {reservacion_id: 10, tipocalificacion_id: 4, aspecto_id: 1},
+  {reservacion_id: 10, tipocalificacion_id: 3, aspecto_id: 2},
+  {reservacion_id: 10, tipocalificacion_id: 4, aspecto_id: 3}
 ])
 Retroaspecto.create!([
   {nombre: "Limpieza de la van", estatus: true},
@@ -114,46 +208,148 @@ Retroaspecto.create!([
 ])
 Van.create!([
   {placa: "SPN4735", modelo: "Impala", capacidad: 10, fecha_compra: "2011-04-06", kilometro_recorrido: 0, activa: true, estatus: true},
-  {placa: "SPN4735", modelo: "Impala", capacidad: 10, fecha_compra: "2011-04-06", kilometro_recorrido: 0, activa: true, estatus: true},
-  {placa: "KJM212K", modelo: "Cortina", capacidad: 13, fecha_compra: "2013-03-03", kilometro_recorrido: 0, activa: true, estatus: true},
-  {placa: "OUTATIME", modelo: "DeLorean", capacidad: 15, fecha_compra: "2012-04-02", kilometro_recorrido: 0, activa: true, estatus: true},
-  {placa: "TRD12G", modelo: "TARDIS", capacidad: 11, fecha_compra: "2014-03-10", kilometro_recorrido: 0, activa: true, estatus: true},
-  {placa: "3467LUCY", modelo: "Cutlass", capacidad: 12, fecha_compra: "2011-04-03", kilometro_recorrido: 0, activa: true, estatus: true}
+  {placa: "3467LUCY", modelo: "Cutlass", capacidad: 12, fecha_compra: "2013-12-12", kilometro_recorrido: 0, activa: true, estatus: true}
 ])
 Ruta.create!([
   {conductor_id: 1, van_id: 1, nombre: "Valle-Galerias", precio: "20.0", estatus: true, zona_id: 1},
   {conductor_id: 2, van_id: 1, nombre: "Centro-Cumbres", precio: "30.0", estatus: true, zona_id: 1},
-  {conductor_id: 3, van_id: 1, nombre: "Country-Valle", precio: "50.0", estatus: false, zona_id: 1}
-
+  {conductor_id: 3, van_id: 1, nombre: "Country-Valle", precio: "50.0", estatus: true, zona_id: 1},
+  {conductor_id: 1, van_id: 1, nombre: "Antropología - Templo Mayor", precio: "30.0", estatus: true, zona_id: 3}
 ])
 Saldopromocion.create!([
-  {nombre: "Crédito de bienvenida", descripcion: "Por haber realizado tu primer viaje, te regalomos $50 pesos para que sigas viajando en Vanpool", cantidad: 50.0, medalla_id: "1", estatus: true}
+  {nombre: "Crédito de bienvenida", descripcion: "Por haber realizado tu primer viaje, te regalomos $50 pesos para que sigas viajando en Vanpool", cantidad: 50.0, medalla_id: 1, estatus: true},
+  {nombre: "Crédito a los chismos", descripcion: "Al haber compartido 25 o más mensajes por facebook te regalamos $30", cantidad: 30.0, medalla_id: 9, estatus: true}
+])
+Sugerencia.create!([
+  {hora_inicio: nil}
 ])
 Tipomedalla.create!([
   {nombre: "Viaje"},
   {nombre: "Social"},
   {nombre: "Retro"},
   {nombre: "SoldOut"},
-  {nombre: "BDay"},
-  {nombre: "Continuidad"},
-  {nombre: "Con amigos"},
-  {nombre: "Host"},
   {nombre: "Nivel"}
 ])
 Viaje.create!([
-  {ruta_id: 1, horainicio: "2000-01-01 12:30:00", fecha: "2014-09-27 05:00:00", estadoviaje_id: 1, estatus: 1},
-  {ruta_id: 1, horainicio: "2000-01-01 12:30:00", fecha: "2014-12-27 05:00:00", estadoviaje_id: 1, estatus: 1},
-  {ruta_id: 1, horainicio: "2000-01-01 12:30:00", fecha: "2014-12-28 05:00:00", estadoviaje_id: 1, estatus: 1},
-  {ruta_id: 1, horainicio: "2000-01-01 12:30:00", fecha: "2014-12-29 05:00:00", estadoviaje_id: 1, estatus: 1},
-  {ruta_id: 1, horainicio: "2000-01-01 12:30:00", fecha: "2014-12-30 05:00:00", estadoviaje_id: 1, estatus: 1},
-  {ruta_id: 2, horainicio: "2000-01-01 13:15:00", fecha: "2014-10-23 00:26:53", estadoviaje_id: 1, estatus: 1},
-  {ruta_id: 2, horainicio: "2000-01-01 12:30:00", fecha: "2014-11-01 00:28:14", estadoviaje_id: 1, estatus: 1},
-  {ruta_id: 2, horainicio: "2000-01-01 12:30:00", fecha: "2014-10-22 23:27:50", estadoviaje_id: 1, estatus: 1},
-  {ruta_id: 3, horainicio: "2000-01-01 12:30:00", fecha: "2014-10-19 23:28:44", estadoviaje_id: 1, estatus: 1},
-  {ruta_id: 3, horainicio: "2000-01-01 20:00:00", fecha: "2014-11-25 00:29:40", estadoviaje_id: 1, estatus: 1},
-  {ruta_id: 3, horainicio: "2000-01-01 02:45:00", fecha: "2014-11-25 00:29:59", estadoviaje_id: 1, estatus: 1},
-  {ruta_id: 3, horainicio: "2000-01-01 02:45:00", fecha: "2014-11-25 00:30:07", estadoviaje_id: 1, estatus: 1},
-  {ruta_id: 3, horainicio: "2000-01-01 02:45:00", fecha: "2014-11-25 00:30:07", estadoviaje_id: 1, estatus: 1}
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-11-15 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-11-16 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-11-17 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-11-18 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-11-19 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-11-20 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-11-21 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-11-22 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-11-23 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-11-24 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-11-25 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-11-29 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-11-30 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-12-01 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-12-02 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-12-03 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-12-04 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-12-05 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-12-06 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-12-07 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-12-08 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-12-09 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-12-10 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-12-11 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-12-12 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-12-13 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 1, horainicio: "2000-01-01 20:30:00", fecha: "2014-12-14 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 2, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-02 06:30:07", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 2, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-03 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 2, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-04 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 2, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-05 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 2, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-06 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 2, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-07 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 2, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-08 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 2, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-09 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 2, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-10 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 2, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-11 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 2, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-12 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 2, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-13 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 2, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-14 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-02 06:30:07", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-03 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-04 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-05 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-06 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-07 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-08 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-09 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-10 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-11 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-12 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-13 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-14 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-15 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-16 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-17 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-18 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-19 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-20 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-21 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-22 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-23 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-24 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-25 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-26 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-27 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-28 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-29 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-30 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2014-12-31 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-01 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-02 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-03 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-04 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-05 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-06 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-07 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-08 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-09 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-10 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-11 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-12 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-13 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-14 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-15 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-16 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-17 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-18 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-19 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-20 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-21 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-22 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-23 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-24 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-25 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-26 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-27 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-28 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-29 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-30 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-01-31 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 3, horainicio: "2000-01-01 17:30:00", fecha: "2015-02-01 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 4, horainicio: "2000-01-01 18:30:00", fecha: "2014-12-01 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 4, horainicio: "2000-01-01 18:30:00", fecha: "2014-12-02 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 4, horainicio: "2000-01-01 18:30:00", fecha: "2014-12-03 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 4, horainicio: "2000-01-01 18:30:00", fecha: "2014-12-04 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 4, horainicio: "2000-01-01 18:30:00", fecha: "2014-12-05 00:00:00", estadoviaje_id: 3, estatus: 1},
+  {ruta_id: 4, horainicio: "2000-01-01 18:30:00", fecha: "2014-12-06 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 4, horainicio: "2000-01-01 18:30:00", fecha: "2014-12-07 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 4, horainicio: "2000-01-01 18:30:00", fecha: "2014-12-08 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 4, horainicio: "2000-01-01 18:30:00", fecha: "2014-12-09 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 4, horainicio: "2000-01-01 18:30:00", fecha: "2014-12-10 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 4, horainicio: "2000-01-01 18:30:00", fecha: "2014-12-11 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 4, horainicio: "2000-01-01 18:30:00", fecha: "2014-12-12 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 4, horainicio: "2000-01-01 18:30:00", fecha: "2014-12-13 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 4, horainicio: "2000-01-01 18:30:00", fecha: "2014-12-14 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 4, horainicio: "2000-01-01 18:30:00", fecha: "2014-12-15 00:00:00", estadoviaje_id: 1, estatus: 1},
+  {ruta_id: 4, horainicio: "2000-01-01 18:30:00", fecha: "2014-12-16 00:00:00", estadoviaje_id: 1, estatus: 1}
+  
 ])
 Ciudad.create!([
   {clave: "DF", nombre: "Ciudad de Mexico", estauts: true}
@@ -164,7 +360,7 @@ Configuracion.create!([
   {nombre: "radio", valor: "1"},
   {nombre: "modeloauto", valor: "Tsuru 2015"},
   {nombre: "fuenteCO2", valor: "http://www.ecovehiculos.gob.mx/ecoetiquetado.php?vehiculo_id=14177"},
-  {nombre: "correoBienvenida", valor: "<p><img alt=\"Vanpool\" src=\"http://www.vanpool.mx/uploads/1/2/6/7/12675191/1390415955.png\" style=\"height:38px; width:110px\" /></p>\r\n\r\n<hr />\r\n<h1>Hola&nbsp;<strong>@usuario</strong>!</h1>\r\n\r\n<h2>Te est&aacute; llegando este correo porque te acabas&nbsp;de registrar en Vanpool.</h2>\r\n\r\n<h2>Recuerda que Aventones te ayuda a encontrar gente con la cual compartir autom&oacute;vil y de esta forma, solucionar el problema del tr&aacute;fico estar&aacute; en tus manos.</h2>\r\n\r\n<h2>Gracias,</h2>\r\n\r\n<h3><em>Aventones Dame Ride UDEM</em></h3>\r\n"},
+  {nombre: "correoBienvenida", valor: "<p><img alt=\"Vanpool\" src=\"http://www.vanpool.mx/uploads/1/2/6/7/12675191/1390415955.png\" style=\"height:38px; width:110px\" /></p>\r\n\r\n<hr />\r\n<h1>&iexcl;Hola&nbsp;<strong>@usuario</strong>!</h1>\r\n\r\n<h2>Te est&aacute; llegando este correo porque te acabas&nbsp;de registrar en Vanpool.</h2>\r\n\r\n<h2>Recuerda que Aventones te ayuda a encontrar gente con la cual compartir van y de esta forma, solucionar el problema del tr&aacute;fico estar&aacute; en tus manos.</h2>\r\n\r\n<h2>Gracias,</h2>\r\n\r\n<h3><em>Aventones Vanpool</em></h3>\r\n"},
   {nombre: "correoRecordatorio", valor: "<p><img alt=\"Vanpool\" src=\"http://www.vanpool.mx/uploads/1/2/6/7/12675191/1390415955.png\" style=\"height:38px; width:110px\" /></p>\r\n\r\n<hr />\r\n<h1 style=\"text-align:center\"><span style=\"font-size:48px\">&iquest;Cu&aacute;ndo vas a regresar? =(</span></h1>\r\n\r\n<p style=\"text-align:center\"><img alt=\"\" class=\"left\" src=\"http://4.bp.blogspot.com/-AOFUPvN5Fbc/UMbYptdHkEI/AAAAAAAAACM/Nng4hx3QT08/s1600/polar+bear.png\" style=\"float:right; height:240px; margin:10px; width:240px\" /></p>\r\n\r\n<div style=\"font-size: 13.3333330154419px; line-height: 27.7333316802979px; border: 1px solid rgb(204, 204, 204); padding: 5px 10px; background: rgb(238, 238, 238);\">\r\n<h2>Hola @usuario!</h2>\r\n\r\n<h3>Recuerda que cuando utilizas nuestros servicios, ayudas a ahorrar emisiones de CO2 a la atm&oacute;sfera, con lo cual, contribuyes a abatir al cambio clim&aacute;tico que exprimenta nuestro hermoso planeta.</h3>\r\n\r\n<h3>En cualquier momento puedes regresar a neustra plataforma y contribuir al cambio clim&aacute;tico utilizando&nbsp;<a href=\"http://www.vanpool.com\">nuestros servicios</a>.<br />\r\nSinceramente, esperamos que te encuentres bien y que regreses pronto a nuestra plataforma..</h3>\r\n\r\n<p><br />\r\nSaludos,</p>\r\n\r\n<h3><em>Aventones Vanpool</em></h3>\r\n</div>\r\n"},
   {nombre: "frecuenciaCorreosRecordatorios", valor: "20"},
   {nombre: "co2van", valor: "230"}
@@ -176,24 +372,27 @@ Estadotipo.create!([
   {nombre: "Cancelado"}
 ])
 Frecuencia.create!([
-  {lunes: true, martes: false, miercoles: false, jueves: false, viernes: false, sabado: false, ruta_id: 1, domingo: false},
-  {lunes: true, martes: nil, miercoles: nil, jueves: nil, viernes: nil, sabado: nil, ruta_id: 2, domingo: nil},
-  {lunes: true, martes: nil, miercoles: nil, jueves: nil, viernes: nil, sabado: nil, ruta_id: 3, domingo: nil}
+  {lunes: true, martes: false, miercoles: false, jueves: false, viernes: false, sabado: false, domingo: false, ruta_id: 1},
+  {lunes: true, martes: nil, miercoles: nil, jueves: nil, viernes: nil, sabado: nil, domingo: nil, ruta_id: 2},
+  {lunes: true, martes: nil, miercoles: nil, jueves: nil, viernes: nil, sabado: nil, domingo: nil, ruta_id: 3},
+  {lunes: true, martes: true, miercoles: true, jueves: true, viernes: true, sabado: true, domingo: true, ruta_id: 4},
+  {lunes: true, martes: nil, miercoles: nil, jueves: nil, viernes: nil, sabado: nil, domingo: nil, ruta_id: 5},
+  {lunes: true, martes: nil, miercoles: nil, jueves: nil, viernes: nil, sabado: nil, domingo: nil, ruta_id: 6}
 ])
 Horario.create!([
   {hora: "2000-01-01 12:30:00", ruta_id: 1},
   {hora: "2000-01-01 12:30:00", ruta_id: 2},
-  {hora: "2000-01-01 12:30:00", ruta_id: 3}
+  {hora: "2000-01-01 12:30:00", ruta_id: 3},
+  {hora: "2000-01-01 17:30:00", ruta_id: 4}
 ])
-Perfil.create!([
+Perfil.create!([ 
   {nombre: "Musical", descripcion: "Te gusta escuchar música durante el viaje"},
   {nombre: "Lector", descripcion: "Te gusta leer tus libros favoritos durante el viaje"},
-  {nombre: "Social", descripcion: "Te gusta platicar con amigos y desconocidos"},
-  {nombre: "Dormilón", descripcion: "Te gusta dormir hasta llegar a tu destino"}
-])
-Regalo.create!([
-  {nombre: "Spotify", descripcion: "Cuenta premium de Spotify Premium por 30 dias", perfil_id: 1, medalla_id: 2, estatus: true},
-  {nombre: "Gandhi", descripcion: "Tarjeta con $100 de crédito en Gandhi", perfil_id: 3, medalla_id: 2, estatus: true}
+  {nombre: "Dormilón", descripcion: "Te gusta dormir hasta llegar a tu destino"},
+  {nombre: "Trabajador", descripcion: "Te gusta ir trabajando al ir a tu destino"},
+  {nombre: "Estudioso", descripcion: "Te gusta ir estudiando durante el viaje"},
+  {nombre: "Platicador", descripcion: "Te gusta platicar con amigos y desconocidos"},
+  {nombre: "Reflexivo", descripcion: "Te gusta reflexionar y pensar en tus asuntos durante el viaje"}
 ])
 Rutaparada.create!([
   {posicion: 0, tiempo: 0.0, distancia: 0.0, ruta_id: 1, parada_id: 1},
@@ -204,18 +403,27 @@ Rutaparada.create!([
   {posicion: 0, tiempo: 785.0, distancia: 9713.0, ruta_id: 3, parada_id: 6},
   {posicion: 1, tiempo: 0.0, distancia: 0.0, ruta_id: 3, parada_id: 7},
   {posicion: 2, tiempo: 671.0, distancia: 6895.0, ruta_id: 3, parada_id: 8},
-  {posicion: 3, tiempo: 692.0, distancia: 5459.0, ruta_id: 3, parada_id: 9}
+  {posicion: 3, tiempo: 692.0, distancia: 5459.0, ruta_id: 3, parada_id: 9},
+  {posicion: 0, tiempo: 0.0, distancia: 0.0, ruta_id: 4, parada_id: 26},
+  {posicion: 1, tiempo: 446.0, distancia: 3618.0, ruta_id: 4, parada_id: 27},
+  {posicion: 2, tiempo: 600.0, distancia: 4844.0, ruta_id: 4, parada_id: 28}
+])
+Share.create!([
+  {reservacion_id: 3},
+  {reservacion_id: 1},
+  {reservacion_id: 4},
+  {reservacion_id: 5},
+  {reservacion_id: 7}
+])
+Sugerenciaparada.create!([
+  {latitud: "19.4162817", longitud: "-99.0871335", posicion: 0, sugerencia_id: 2, nombre: "Antropología E Historia 170, Federal, 15700 Ciudad de México, D.F., Mexico"},
+  {latitud: "19.434604", longitud: "-99.13188100000002", posicion: 1, sugerencia_id: 2, nombre: "Calle República de Guatemala, Centro, 06000 Ciudad de México, D.F., Mexico"}
 ])
 Tipocalificacion.create!([
   {nombre: "Malo"},
   {nombre: "Regular"},
   {nombre: "Bueno"},
   {nombre: "Excelente"}
-])
-Pais.create!([
-{clave: "MX", nombre: "Mexico", divisa: "MXN", estatus: true},
-{clave: "CL", nombre: "Chile", divisa: "CLP", estatus: true},
-{clave: "GB", nombre: "Great Britain", divisa: "GBP", estatus: false}
 ])
 Zona.create!([
   {clave: "VLmty", nombre: "Valle", estauts: true, ciudad_id: 1},

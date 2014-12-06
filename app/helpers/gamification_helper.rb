@@ -144,7 +144,7 @@ module GamificationHelper
 =end
     #Dar medalla tipo anfitrion
     def asigna_medalla_nivel(cliente)
-        medallas=Medalla.find_all_by_tipomedalla_id_and_estatus(9,true)
+        medallas=Medalla.find_all_by_tipomedalla_id_and_estatus(5,true)
 
         medallas.each do |medalla| 
             if(cliente.nivel_id==medalla.estado) then

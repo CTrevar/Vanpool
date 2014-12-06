@@ -8,13 +8,11 @@
     <div id="forma_detalle_conductor">
       <div class="row">
         <div class="col-xs-8">
+          <h2><%= "#{@cliente.id}" %></h2>
           <h2><%= "#{@cliente.user.name}" %></h2>
           <h4><a href="mailto:<%= @cliente.user.email %>" target="_blank"><%= @cliente.user.email %></a></h4>
           <h4><small>Cr&eacute;ditos:</small> <%=number_to_currency(obtener_cuenta_admin["balance"], :precision => 2)%></h4>
           <h4><small>Kms recorridos:</small> <%= @cliente.kilometros %> </h4>
-        </div>
-        <div class="col-xs-4 text-center ">
-          <img src="/assets/avatar5.png" class="img-circle" alt="User Image" />
         </div>
       </div>
     </div>
@@ -50,15 +48,15 @@
     </div>
     <hr>
     <div class="row">
-      <div class="col-xs-4" align="center">
-        <img class="media-object" src="/assets/Foodzy_Badges.png" alt="Descripcion de perfil">
+      <div class="col-xs-4" align="right" >
+        <!--<img class="media-object" src="/assets/medals/Foodzy_Badges.png" alt="Descripcion de perfil">-->
+        <img class="media-object" src="/assets/medals/<%= "#{Perfil.find(@cliente.perfil_id).nombre}" %>.png" alt="Descripcion de perfil">
       </div>
       <div class="col-xs-8">
-        <h4>Platicador</h4>
+        <h4><%= "#{Perfil.find(@cliente.perfil_id).nombre}" %></h4>
         <p>
-          Descripci&oacute;n dejugador.
           <br>
-          Lorem ipsum at en absyrde.
+          <%= "#{Perfil.find(@cliente.perfil_id).descripcion}" %>
         </p>
       </div>
     </div>

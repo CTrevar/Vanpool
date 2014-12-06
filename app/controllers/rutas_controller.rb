@@ -20,27 +20,42 @@ class RutasController < ApplicationController
     @nombres_paradas.delete("")
     @nombres_paradas.uniq!
 
+    @conductor_disponible  = true
+    @van_disponible  = true
+
     @letras = ("A".."Z").to_a
   end
 
   def create
-          #Guardar ruta
+      #Guardar ruta
         @ruta = Ruta.new
         @ruta.nombre = params[:nombreRuta]
         @ruta.precio = params[:precio]
-        @ruta.van_id = params[:vanId]
+        van_id = params[:vanId]
+
+        #encontrar van si se ingresó en la forma
+        if !van_id.blank?
+          @ruta.van_id = params[:vanId]
+          van = Van.find(params[:vanId])
+        end
+
         @ruta.zona_id = params[:ruta][:zona_id]
-        conductor = Conductor.find_by_user_id(params[:conductorId])
-        if conductor
+
+        #encontrar conductor si se ingresó en la forma
+        conductor_userid = params[:conductorId]
+        if !conductor_userid.blank?
+          conductor = Conductor.find_by_user_id(conductor_userid)
           @ruta.conductor_id = conductor.id
         end
+
         @ruta.estatus = true
-
-      if @ruta.valid?
-        @ruta.save
-
+        @conductor_disponible = true
+        @van_disponible  = true
+        
         #Guardar paradas
         
+        @paradas = []
+        @rutaparadas = []
 
         10.times do |num|
      
@@ -68,16 +83,15 @@ class RutasController < ApplicationController
               @parada.nombre = nombreparada
               @parada.latitud = params[:"latitudParada_#{num}"]
               @parada.longitud = params[:"longitudParada_#{num}"]
-              @parada.save
-              #guarda el id de la parada en la tabla de paradas_ruta
-              @rutaparada.parada_id = @parada.id
+              @paradas << @parada
+              
             end
 
-            @rutaparada.ruta_id = @ruta.id
+            
             @rutaparada.posicion  = params[:"posicionParada_#{num}"]
             @rutaparada.tiempo = params[:"tiempoParada_#{num}"]
             @rutaparada.distancia = params[:"distanciaParada_#{num}"]
-            @rutaparada.save
+            @rutaparadas << @rutaparada
           end #si hay parada
 
         end #end for paradas
@@ -92,22 +106,108 @@ class RutasController < ApplicationController
         @frecuencia.viernes = params[:viernes]
         @frecuencia.sabado = params[:sabado]
         @frecuencia.domingo = params[:domingo]
-        @frecuencia.ruta_id = @ruta.id
-        @frecuencia.save
-
         
 
         #Guardar horario
         @horario = Horario.new
         @horario.hora = params[:horarioRuta]
+
+
+        #hora de inicio de la nueva ruta
+          hora_ruta_inicio = @horario.hora.to_datetime
+
+        #tiempo de recorrido de la nueva ruta
+          tiempo_ruta = @rutaparadas.inject(0) {|sum, hash| sum + hash[:tiempo]}
+
+        #hora de terminación de la nueva ruta
+          hora_ruta_fin = (hora_ruta_inicio + tiempo_ruta).utc.strftime("%H%M%S%N").to_i
+          hora_ruta_inicio = hora_ruta_inicio.utc.strftime("%H%M%S%N").to_i
+        
+        #Si se ingresó un conductor, comprobar disponibilidad
+        if !conductor.nil?
+          #encontrar las rutas del conductor
+          rutas_conductor = Ruta.where("conductor_id = ? and estatus= 't'", conductor.id)
+
+          #por cada ruta, obtener días de  la semana en que pasa y su hora
+          rutas_conductor.each do |ruta_c|
+            hora_ruta_c = ruta_c.horario.hora.utc.strftime("%H%M%S%N").to_i
+            lu_ruta = ruta_c.frecuencia.lunes
+            ma_ruta = ruta_c.frecuencia.martes
+            mie_ruta = ruta_c.frecuencia.miercoles
+            jue_ruta = ruta_c.frecuencia.jueves
+            vie_ruta = ruta_c.frecuencia.viernes
+            sab_ruta = ruta_c.frecuencia.sabado
+            dom_ruta = ruta_c.frecuencia.domingo
+
+            #si la hora del recorrido de la ruta nueva está entre la hora de la ruta del conductor
+            #y pasa uno de los mismos días de la semana
+            #el conductor no está disponible para manejar la nueva ruta
+            if (hora_ruta_c>= hora_ruta_inicio or hora_ruta_c<= hora_ruta_fin) and
+               ((lu_ruta and @frecuencia.lunes) or (ma_ruta and @frecuencia.martes) or (mie_ruta and @frecuencia.miercoles) or (jue_ruta and @frecuencia.jueves) or (vie_ruta and @frecuencia.viernes) or (sab_ruta and @frecuencia.sabado) or (dom_ruta and @frecuencia.domingo))
+              @conductor_disponible = false
+            end
+        end
+      end
+
+      #Si se ingresó una van, comprobar disponibilidad
+      if !van.nil?
+        #encontrar las rutas de la van
+          rutas_van = Ruta.where("van_id = ? and estatus= 't'", van.id)
+
+          #por cada ruta, obtener días de  la semana en que pasa y su hora
+          rutas_van.each do |ruta_v|i
+            hora_ruta_v = ruta_v.horario.hora#.utc.strftime("%H%M%S%N").to_i
+            #hora de terminación de la ruta
+            hora_ruta_v_fin = (hora_ruta_v + tiempo_ruta).utc.strftime("%H%M%S%N").to_i
+            hora_ruta_v = hora_ruta_v.utc.strftime("%H%M%S%N").to_i
+            lu_ruta = ruta_v.frecuencia.lunes
+            ma_ruta = ruta_v.frecuencia.martes
+            mie_ruta = ruta_v.frecuencia.miercoles
+            jue_ruta = ruta_v.frecuencia.jueves
+            vie_ruta = ruta_v.frecuencia.viernes
+            sab_ruta = ruta_v.frecuencia.sabado
+            dom_ruta = ruta_v.frecuencia.domingo
+
+            #si la hora del recorrido de la ruta nueva está entre la hora de la ruta del conductor
+            #y pasa uno de los mismos días de la semana
+            #la van no está disponible para la nueva ruta
+            if (hora_ruta_v>= hora_ruta_inicio or hora_ruta_v<= hora_ruta_fin) and
+               ((lu_ruta and @frecuencia.lunes) or (ma_ruta and @frecuencia.martes) or (mie_ruta and @frecuencia.miercoles) or (jue_ruta and @frecuencia.jueves) or (vie_ruta and @frecuencia.viernes) or (sab_ruta and @frecuencia.sabado) or (dom_ruta and @frecuencia.domingo))
+              @van_disponible = false
+            end
+        end
+      end
+
+      #si la ruta es válida y el conductor y la van están disponibles, se guarda la ruta, sus paradas, frecuencia, horario
+      if @ruta.valid? and @conductor_disponible and @van_disponible
+        @ruta.save
+        @paradas.each_with_index do |parada, index|
+          parada.save
+          @rutaparadas[index].ruta_id = @ruta.id
+            #guarda el id de la parada en la tabla de paradas_ruta
+          @rutaparadas[index].parada_id = parada.id
+          @rutaparadas[index].save
+        end
+
+        @frecuencia.ruta_id = @ruta.id      
+        @frecuencia.save
+
         @horario.ruta_id = @ruta.id
         @horario.save
-        
+
+        #se generan nuevos viajes
         genera_viajes_ruta_nueva(@ruta)
 
         redirect_to rutas_path
       else
-        params[:nombreRuta]
+        params[:conductor_disponible] = @conductor_disponible
+        params[:van_disponible] = @van_disponible
+        if !@conductor_disponible
+          @conductor_nombre = conductor.user.name
+        end
+        if !@van_disponible
+          @van_placas = van.placa
+        end
         render 'new'
       end #end if ruta is valid
       
@@ -410,7 +510,7 @@ class RutasController < ApplicationController
       viajes = Viaje.where("ruta_id = ? and estadoviaje_id = 1", ruta.id)
       viajes.each do |viaje|
         viaje.estadoviaje_id = 4
-        viaje.estatus = 0
+        viaje.estatus = false
         viaje.save!
         reservaciones = Reservacion.where("viaje_id = ?", viaje.id)
         reservaciones.each do |reservacion|
@@ -528,7 +628,7 @@ class RutasController < ApplicationController
       fechas_viaje.each do |fecha_viaje| 
         viaje = Viaje.new
         viaje.fecha = fecha_viaje 
-        viaje.estatus= 1
+        viaje.estatus= true
         viaje.estadoviaje_id= 1
         viaje.ruta_id= ruta.id
         viaje.horainicio = horario.hora

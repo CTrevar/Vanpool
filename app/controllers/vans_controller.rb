@@ -79,12 +79,16 @@ class VansController < ApplicationController
 
   def update
     @van = Van.find(params[:van][:id])
+    @action = 'update'
     if @van.update_attributes(params[:van])
       respond_to do |format|
-        format.html { render partial: 'shared/administrador_detallevan', van:@van}
+        format.html { render partial: 'administradors/form_van', van:@van, locals: {exito:true}}
       end
     else
-      #render 'edit'
+      respond_to do |format|
+        format.html { render partial: 'administradors/form_van', van:@van }
+        format.json { render json: @van.errors, status: :unprocessable_entity }
+      end
     end
 
   end

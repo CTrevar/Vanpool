@@ -37,10 +37,26 @@
                   </ul>
                 </div>
             <% end %>
+            <%if !@conductor_disponible %>
+                <div class="alert alert-danger alert-dismissable">
+                      <i class="fa fa-times"></i>
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                      <b><%= @conductor_nombre%></b> está ocupado esos días a la hora escogida.
+                      </ul>
+                </div>
+            <%end%>
+            <%if !@van_disponible %>
+                <div class="alert alert-danger alert-dismissable">
+                      <i class="fa fa-times"></i>
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                      La van con placas <b><%= @van_placas%></b> está ocupada esos días a la hora escogida.
+                      </ul>
+                </div>
+            <%end%>
 
                 <div class="form-group">
                     <label for="nombreRuta">Nombre</label>
-                    <input  class="form-control" name="nombreRuta" placeholder="Nombre de la Ruta">
+                    <input  class="form-control" name="nombreRuta" placeholder="Nombre de la Ruta" value="<%=@ruta.nombre if !@ruta.nombre.nil?%>">
                 </div>
 
                 <div class="form-group">

@@ -52,7 +52,7 @@ class Viaje < ActiveRecord::Base
 	        fechas_viaje.each do |fecha_viaje| 
 	          viaje = Viaje.new
 	          viaje.fecha = fecha_viaje 
-	          viaje.estatus= 1
+	          viaje.estatus= true
 	          viaje.estadoviaje_id= 2 
 	          viaje.ruta_id= ruta.id
 	          viaje.horainicio = horario.hora

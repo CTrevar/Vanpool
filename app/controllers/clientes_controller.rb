@@ -126,10 +126,10 @@ class ClientesController < ApplicationController
     @co2 = calcula_co2ahorrado(@current_cliente)
 
     tabla_lideres(@current_cliente)
-
+    @validareservas=valida_viajes(@cliente)
     #@reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
     #@reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
-    @reservaciones_pagadas=@current_cliente.reservacions.joins(:viaje).where('estadotipo_id=3 or estadoviaje_id=1 or fecha>?', Time.now).last(3)
+    @reservaciones_pagadas=@current_cliente.reservacions.joins(:viaje).where('(estadotipo_id=3 or estadotipo_id=2) and (estadoviaje_id=1 or fecha>?)', Time.now).last(3)
     
     @disponibilidad_pagadas = []
     @reservaciones_pagadas.each do |reserva_pagada|
@@ -170,6 +170,17 @@ class ClientesController < ApplicationController
     @regalos=obtener_regalos(@current_cliente).last(2)
     @promociones=obtener_promociones(@current_cliente).last(2)
 
+  end
+
+  def compartir_facebook
+    #@current_cliente = obtener_cliente(current_user)
+    reservacion=Reservacion.find(params[:id])
+    @oauth = Koala::Facebook::OAuth.new("708292565932035", "0961c370c701538ac20f349b9a02b4b3")
+    facebook_user_token = session[:access_token]
+    @graph = Koala::Facebook::API.new(facebook_user_token)
+    @graph.put_wall_post("Yo ya uso la ruta #{reservacion.viaje.ruta.nombre} de Vanpool y tu? http://vanpool.mx",{"picture"=>"http://104.236.6.99/assets/medals/viaje6-01.png"})
+    Share.create(reservacion_id:reservacion.id)
+    redirect_to mis_viajes_path
   end
 
   def promociones
@@ -313,14 +324,16 @@ class ClientesController < ApplicationController
     end
 
     #@reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
-    @reservaciones_pagadas=@current_cliente.reservacions.joins(:viaje).where('estadotipo_id=3 or estadoviaje_id=1 or fecha>?', Time.now).last(3)
+    #@reservaciones_pagadas=@current_cliente.reservacions.joins(:viaje).where('estadotipo_id=3 or estadoviaje_id=1 or fecha>?', Time.now).last(3)
+    @reservaciones_pagadas=@current_cliente.reservacions.joins(:viaje).where('(estadotipo_id=3 or estadotipo_id=2) and (estadoviaje_id=1 or fecha>?)', Time.now)
+
     @disponibilidad_pagadas = []
     @reservaciones_pagadas.each do |reserva_pagada|
       @disponibilidad_pagadas<< calcula_disponibilidad_viaje(reserva_pagada.viaje)
     end
 
     @reservaciones_realizadas=@current_cliente.reservacions.find_all_by_estadotipo_id(3)
-    @reservaciones_canceladas=@current_cliente.reservacions.find_all_by_estadotipo_id(4)
+    #@reservaciones_canceladas=@current_cliente.reservacions.find_all_by_estadotipo_id(4)
     
     render 'show_viajes'
   end
@@ -695,13 +708,21 @@ class ClientesController < ApplicationController
     # Si el campo de busqueda tiene solo espacios en blanco.
     if jtTextoBusqueda.blank? || jtTextoBusqueda.to_s == ''
       if jtAtributoCondicion.present? && jtCondicion.present? && jtValorCondicion.present?
-        @results = Cliente.joins(:user).select('*').where(" #{jtAtributoCondicion} #{jtCondicion} #{jtValorCondicion} AND clientes.estatus = 't'").joins(:nivel).select('clientes.id as cliente_id, nombre as nombre_nivel, nivels.estatus as estatus_nivel, nivels.id as nivel_id').order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+        @results = Cliente.joins(:user).select('*').where(" #{jtAtributoCondicion} #{jtCondicion} #{jtValorCondicion} AND clientes.estatus = 't'")
+        .joins(:reservacions).select("to_char(reservacions.created_at, 'DD/Mon/YYYY') as reservacions_created_at")
+        .where("created_at = MAX(created_at)")
+        .joins(:nivel).select('clientes.id as cliente_id, nombre as nombre_nivel, nivels.estatus as estatus_nivel, nivels.id as nivel_id')
+        .order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
       else
-        @results = Cliente.joins(:user).select('*').where("clientes.estatus = 't'").joins(:nivel).select('clientes.id as cliente_id, nombre as nombre_nivel, nivels.estatus as estatus_nivel, nivels.id as nivel_id').order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+        @results = Cliente
+        .joins(:user).select('*').where("clientes.estatus = 't'")
+        .joins(:nivel).select('clientes.id as cliente_id, nombre as nombre_nivel, nivels.estatus as estatus_nivel, nivels.id as nivel_id')
+        .joins(:reservacions).select("to_char(reservacions.created_at, 'DD/Mon/YYYY') as reservacions_created_at").uniq
+        .order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
       end
     else
       if jtAtributoCondicion.present? && jtCondicion.present? && jtValorCondicion.present?
-          @queryFiltrado = " AND ( #{jtAtributoCondicion} #{jtCondicion} #{jtValorCondicion} ) "
+        @queryFiltrado = " AND ( #{jtAtributoCondicion} #{jtCondicion} #{jtValorCondicion} ) "
       end
       @query = "(name ILIKE :search OR
                  email ILIKE :search OR
@@ -709,8 +730,11 @@ class ClientesController < ApplicationController
                  nivels.nombre ILIKE :search
                 ) #{@queryFiltrado} AND clientes.estatus = 't'"
       # Si contiene algo más realiza la búsqueda en todos los atributos de la tabla.
-      @results =  Cliente.joins(:user).select('*').joins(:nivel).select('nombre as nombre_nivel, nivels.estatus as estatus_nivel, nivels.id as nivel_id, clientes.id as cliente_id')
-      .where(@query,search: "%#{jtTextoBusqueda.strip}%").select('*').order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+      @results = Cliente.joins(:user).select('*')
+      .joins(:nivel).select('nombre as nombre_nivel, nivels.estatus as estatus_nivel, nivels.id as nivel_id, clientes.id as cliente_id')
+      .where(@query,search: "%#{jtTextoBusqueda.strip}%").select('*')
+      .joins(:reservacions).select("to_char(reservacions.created_at, 'DD/Mon/YYYY') as reservacions_created_at")
+      .order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     end
     respond_to do |format|
       # Regresamos el resultado de la operación a la jTable
