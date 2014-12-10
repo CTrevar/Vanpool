@@ -176,8 +176,9 @@ function agregarMarcador(location, posicion) {
         latit= (arregloMarcadores[0].getPosition().lat()+arregloMarcadores[1].getPosition().lat())/2;
         map.setCenter({lat: latit, lng: longit});
         map.setZoom(map.getZoom()-1);
-      }//(if) más de 2 marcadores
-
+      }else if (arregloMarcadores.length==1) {
+        map.setCenter({lat: arregloMarcadores[0].getPosition().lat(), lng: arregloMarcadores[0].getPosition().lng()});
+      }
 
       contador+=1;
         

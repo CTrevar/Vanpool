@@ -2,8 +2,8 @@
 
 <% 10.times do |count|%>
     	<div class="input-group">
-          <span class="input-group-addon"><%=@letras[count]%></span>
-            <input type="text" id="nombreParada_<%=count%>"  name="nombreParada_<%=count%>" class="form-control" autocomplete="off">
+          <span class="input-group-addon" id="letras_<%=count%>" style="<%= 'display: none' if count>2%>"><%=@letras[count]%></span>
+            <input type="text" id="nombreParada_<%=count%>"  name="nombreParada_<%=count%>" class="form-control" autocomplete="off" style="<%= 'display: none' if count>2%>">
          </div>
     		<input id="latitudParada_<%=count%>" name="latitudParada_<%=count%>" style="display: none" > </input>
 	        <input id="longitudParada_<%=count%>" name="longitudParada_<%=count%>" style="display: none"> </input>

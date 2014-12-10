@@ -46,12 +46,16 @@ class ReportesController < ApplicationController
     @reporte.estatus = true
 
     respond_to do |format|
-      if @reporte.save
-        format.html { redirect_to :controller => 'clientes', :action => 'dashboard', notice: 'Reporte was successfully created.' }
-        format.json { render json: @reporte, status: :created, location: @reporte }
+      if !@reporte.descripcion.blank?
+        if @reporte.save
+          format.html { redirect_to :controller => 'clientes', :action => 'dashboard', mensaje: 'Reporte fue enviado exitosamente.' }
+          format.json { render json: @reporte, status: :created, location: @reporte }
+        else
+          format.html { redirect_to :controller => 'clientes', :action => 'reporte'}
+          format.json { render json: @reporte.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render action: "new" }
-        format.json { render json: @reporte.errors, status: :unprocessable_entity }
+        format.html { redirect_to :controller => 'clientes', :action => 'reporte', mensaje: 'No has llenado el reporte' }
       end
     end
   end
@@ -63,7 +67,7 @@ class ReportesController < ApplicationController
 
     respond_to do |format|
       if @reporte.update_attributes(params[:reporte])
-        format.html { redirect_to @reporte, notice: 'Reporte was successfully updated.' }
+        format.html { redirect_to @reporte, mensaje: 'Reporte fue enviado exitosamente.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

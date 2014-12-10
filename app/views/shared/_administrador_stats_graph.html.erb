@@ -28,7 +28,7 @@
 		<div class="box-body">
 			<div class="row-fluid">
 				<div class="span6">
-					<%= line_chart Reservacion.where(:estadotipo_id=>2).group("DATE(created_at)").count.take(60), {library: {title: "Reservaciones compradas por día", vAxis: {title: "Reservaciones"}}} %>
+					<%= line_chart Reservacion.where('estadotipo_id=? or estadotipo_id=? or estadotipo_id=?',2,3,4).group("DATE(created_at)").count.take(60), {library: {title: "Reservaciones compradas por día", vAxis: {title: "Reservaciones"}}} %>
 				</div>
 				<div class="span6">
 					<%= line_chart obtener_cargos.take(60), {library: {title: "Ventas de saldo por día", vAxis: {title: "Cargos"}}} %>

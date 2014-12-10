@@ -1,17 +1,4 @@
-<div class="filtering">
-	<!-- search form -->
-	<form >
-	  <div class="input-group">
-	    <input type="text" placeholder="Buscar..." class="form-control" name="textoABuscar" id="textoABuscar" />
-	    <span class="input-group-btn">
-	      <button type="submit" id="btnBuscar" class="btn btn-flat">
-	        <i class="fa fa-search"></i>
-	      </button>
-	    </span>
-	  </div>
-	</form>
-	<!-- /.search form -->
-</div>
+
 
 <div id="conductorsTableContainer" class="col-lg-12 col-xs-12">
 </div>
@@ -35,7 +22,7 @@
                     error: 'Error',
                     close: 'Cerrar',
                     cannotLoadOptionsFor: 'No se pueden cargar las opciones para el campo {0}',
-                    pagingInfo: 'Mostrando {0} a {1} de {2} conductores',
+                    pagingInfo: '{0} a {1} de {2}',
                     pageSizeChangeLabel: 'N&uacute;mero de registros',
                     gotoPageLabel: 'Ir a la p&aacute;gina',
                     canNotDeletedRecords: '&excl;No se pudieron eliminar {0} de {1} registros!',
@@ -132,24 +119,7 @@
                   	
                   }
             });
-            //Realiza la búsqueda al presiona el botón de bsucar.
-            $('#btnBuscar').click(function (e) {
-                e.preventDefault();
-                $('#conductorsTableContainer').jtable('load', {
-                    textoABuscar: $('#textoABuscar').val()
-                });
-            });
-            //Realiza la búsqueda al teclear en el campo de búsqueda si solo hay espacios, muestra todos los campos.
-            $('#textoABuscar').keyup(function() {
-                var texto = $('#textoABuscar').val();
-                if(texto.trim().length == 0){
-                    $('#conductorsTableContainer').jtable('load');
-                }else{
-                    $('#conductorsTableContainer').jtable('load', {
-                        textoABuscar: $('#textoABuscar').val()
-                    });
-                }
-            });
+
             // Esta línea carga los datos de la jTable al desplegar la página.
             $('#conductorsTableContainer').jtable('load');
         });

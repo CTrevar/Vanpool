@@ -1,7 +1,7 @@
 module RutasHelper
 
 	def rutas
-		return Ruta.all
+		return Ruta.where('estatus=true')
 	end
 
 	def calcular_distancia(reservacion)

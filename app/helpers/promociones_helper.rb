@@ -2,7 +2,7 @@ module PromocionesHelper
 
     def valida_regalo(medallamuro)
         medalla=Medalla.find(medallamuro.medalla_id)
-      if medalla.regalo!=[]
+      if medalla.regalo.where(:estatus=>true)!=[]
         return true
       end
         return false

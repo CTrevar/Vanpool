@@ -7,9 +7,8 @@
   <div class="tab-pane active" id="tab_1-1">
     <div id="forma_detalle_conductor">
       <div class="row">
-        <div class="col-xs-8">
-          <h2><%= "#{@cliente.id}" %></h2>
-          <h2><%= "#{@cliente.user.name}" %></h2>
+        <div class="col-xs-12">
+          <h2><%= "#{@cliente.user.name} #{@cliente.user.apellidoPaterno} #{@cliente.user.apellidoMaterno}" %></h2>
           <h4><a href="mailto:<%= @cliente.user.email %>" target="_blank"><%= @cliente.user.email %></a></h4>
           <h4><small>Cr&eacute;ditos:</small> <%=number_to_currency(obtener_cuenta_admin["balance"], :precision => 2)%></h4>
           <h4><small>Kms recorridos:</small> <%= @cliente.kilometros %> </h4>

@@ -21,6 +21,7 @@ module PagosHelper
         return cuenta=@customers.get("a86oeiwoibd2zz3k6og6")
     end
 
+    #En sandbox de openpay no retorna todos los valores que deberian ser
     def obtener_tranferencias_promocion
       @openpay=OpenpayApi.new(get_merchant,get_private)
       @transfers=@openpay.create(:transfers)

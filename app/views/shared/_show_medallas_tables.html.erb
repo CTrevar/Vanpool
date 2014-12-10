@@ -1,14 +1,14 @@
 <div class="filtering">
   <!-- search form -->
   <!--<form >-->
-    <div class="input-group">
-      <input type="text" placeholder="Buscar..." class="form-control" name="textoABuscarMedallas" id="textoABuscarMedallas" />
-        <span class="input-group-btn">
-            <button type="submit" id="btnBuscarMedallas" class="btn btn-flat">
-              <i class="fa fa-search"></i>
-            </button>
-        </span>
-    </div>
+    <!--<div class="input-group">-->
+      <!--<input type="text" placeholder="Buscar..." class="form-control" name="textoABuscarMedallas" id="textoABuscarMedallas" />-->
+        <!--<span class="input-group-btn">-->
+            <!--<button type="submit" id="btnBuscarMedallas" class="btn btn-flat">-->
+              <!--<i class="fa fa-search"></i>-->
+            <!--</button>-->
+        <!--</span>-->
+    <!--</div>-->
   <!--</form>-->
   <!-- /.search form --> </br>
 </div>
@@ -110,6 +110,13 @@
                         $("#saldopromocion_medalla_descripcion").val(record.descripcion);
                         $("#saldopromocion_medalla_puntos").val(record.puntos);
                         $("#saldopromocion_medalla_imagen").attr("src", ("/assets/medals/"+record.imagen));
+
+                        $("#regalo_medalla_medalla_id").val(record.medalla_id);
+                        $("#regalo_medalla_nombre").val(record.nombre_medalla);
+                        $("#regalo_medalla_descripcion").val(record.descripcion);
+                        $("#regalo_medalla_puntos").val(record.puntos);
+//                        $("#regalo_medalla_imagen").attr("src", ("/assets/medals/"+record.imagen));
+                        $("#regalopromocion_medalla_imagen").attr("src", ("/assets/medals/"+record.imagen));
                         $("#modalShowMedallas").modal('toggle');
                     });
                 }

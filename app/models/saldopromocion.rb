@@ -6,4 +6,7 @@ class Saldopromocion < ActiveRecord::Base
   validates :cantidad, presence: true
   validates :cantidad, :numericality => {:greater_than_or_equal_to => 1}
   validates :medalla_id, presence: true
+  validates :medalla_id, uniqueness: {message:"has already been taken by another promoción de saldo"}
+
+
 end

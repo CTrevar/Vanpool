@@ -80,7 +80,7 @@ class SaldopromocionsController < ApplicationController
                   medallas.nombre ILIKE :search OR
                   saldopromocions.descripcion ILIKE :search OR
                   to_char(\"cantidad\",'999D99S') ILIKE :search
-                  ) AND estatus = 't'"
+                  ) AND saldopromocions.estatus = 't'"
       # Si contiene algo más realiza la búsqueda en todos los atributos de la tabla.
       @results = Saldopromocion.joins(:medalla).where(@query,search: "%#{jtTextoBusqueda.strip}%")
                                                .select('saldopromocions.id, saldopromocions.nombre, saldopromocions.descripcion,

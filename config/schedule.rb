@@ -32,8 +32,9 @@ require File.expand_path(File.dirname(__FILE__) + "/environment")
 # require "#{Rails.root}/config/environment.rb"
 @dias = Configuracion.find(8)
 
-every eval(@dias.valor).to_i.days do
-  runner "UserMailer.enviar_correo_prueba.deliver"
+# every eval(@dias.valor).to_i.days do
+every 15.days do
+  runner "UserMailer.enviar_emails_recordatorios.deliver"
 end
 
 every 30.days do

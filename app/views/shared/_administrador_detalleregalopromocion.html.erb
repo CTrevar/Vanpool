@@ -1,0 +1,20 @@
+<ul class="nav nav-tabs pull-right">
+  <!--<li><a href="#tab_2-2" data-toggle="tab">Rutas de Conductor</a></li>-->
+  <li class="active"><a href="#tab_1-1" data-toggle="tab">Datos de Promoci&oacute;n de regalos</a></li>
+  <!--<li class="pull-left header"><i class="fa fa-th"></i></li>-->
+</ul>
+<div class="tab-content">
+  <div class="tab-pane active" id="tab_1-1">
+    <div id="forma_detalle_regalopromocion">
+      <%=
+          render 'administradors/form_regalopromocion', locals: { regalopromocion: @regalopromocion, action: @action }
+      %>
+    </div>
+  </div><!-- /.tab-pane -->
+  <div class="tab-pane" id="tab_2-2">
+    Sin partial
+    </br>
+  </div><!-- /.tab-pane -->
+
+
+</div><!-- /.tab-content -->

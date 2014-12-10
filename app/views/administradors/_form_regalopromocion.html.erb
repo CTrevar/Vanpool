@@ -1,0 +1,201 @@
+<% disabled ||= false %>
+<% exito ||= false %>
+<% create ||= false %>
+<%= form_for @regalopromocion,:id=>"form_regalopromocion", remote: true, :url => "/regalos_controller/#{@action}" do |f| %>
+    </br>
+    <%  if exito %>
+        <div class="alert alert-success alert-dismissable">
+          <i class="fa fa-check"></i>
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <% if @action=='create' %>
+              <p>Se creó la promoci&oacute;n de regalo correctamente.</p>
+          <% else%>
+              <p>Se acutaliz&oacute; la promoci&oacute;n correctamente.</p>
+          <% end%>
+        </div>
+    <%  end %>
+    <% if @regalopromocion.errors.any? %>
+        <div class="alert alert-danger alert-dismissable">
+          <i class="fa fa-times"></i>
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <b><%= pluralize(@regalopromocion.errors.count, "error") %>:</b>
+          <ul>
+            <% @regalopromocion.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <%= f.hidden_field :id, :value => @regalopromocion.id%>
+    <%= f.hidden_field :medalla_id, :value => @regalopromocion.medalla_id%>
+    <!----------------------------------------------------------->
+    <!-- Validación y creación de campo de nombre. -->
+    <!----------------------------------------------------------->
+    <% if @regalopromocion.errors.any?
+         if @regalopromocion.errors[:nombre].present? %>
+            <div class="form-group has-error">
+              <%= f.label :nombre, 'Nombre', class: "control-label" %><br />
+              <%= f.text_field :nombre, class: "form-control", :disabled => disabled %>
+              <div class="callout callout-danger">
+                <%= @regalopromocion.errors[:nombre] %>
+              </div>
+            </div>
+        <%   else   %>
+            <div class="form-group">
+              <%= f.label :nombre, 'Nombre', class: "control-label" %><br />
+              <%= f.text_field :nombre, class: "form-control", :disabled => disabled %>
+            </div>
+        <%   end
+             else   %>
+        <div class="form-group">
+          <%= f.label :nombre, 'Nombre', class: "control-label" %><br />
+          <%= f.text_field :nombre, class: "form-control", :disabled => disabled %>
+        </div>
+    <% end %>
+    <!----------------------------------------------------------->
+    <!-- Validación y creación de campo de descripcion. -->
+    <!----------------------------------------------------------->
+    <% if @regalopromocion.errors.any?
+         if @regalopromocion.errors[:descripcion].present? %>
+            <div class="form-group has-error">
+              <%= f.label :descripcion, 'Descripcion', class: "control-label" %><br />
+              <%= f.text_area :descripcion,:rows => "5", class: "form-control", :disabled => disabled %>
+              <div class="callout callout-danger">
+                <%= @regalopromocion.errors[:descripcion] %>
+              </div>
+            </div>
+        <%   else   %>
+            <div class="form-group">
+              <%= f.label :descripcion, 'Descripcion', class: "control-label" %><br />
+              <%= f.text_area :descripcion,:rows => "5", class: "form-control", :disabled => disabled %>
+            </div>
+        <%   end
+             else   %>
+        <div class="form-group">
+          <%= f.label :descripcion, 'Descripcion', class: "control-label" %><br />
+          <%= f.text_area :descripcion,:rows => "5", class: "form-control", :disabled => disabled %>
+        </div>
+    <% end %>
+    <!------------------------------------------------->
+    <!-- Validación y creación de campos de perfil.  -->
+    <!------------------------------------------------->
+    <div class="form-group">
+      &iquest;Con cu&aacute;l perfil est&aacute; vinculado este regalo?
+      <%= collection_select(:regalopromocion, :perfil_id, Perfil.all(:order => 'nombre'), :id, :nombre, { :prompt =>nil}, :class => "form-control" ) %>
+    </div>
+
+    <hr>
+    <!------------------------------------------------->
+    <!-- Validación y creación de campos de medalla. -->
+    <!------------------------------------------------->
+    <% if @action == "create" #--- if create %>
+        <div class="form-group">
+          &iquest;Con cu&aacute;l medalla se le otorgar&aacute; al usuario este regalo?
+          <%= collection_select(:regalopromocion, :medalla_id, Medalla.all(:order => 'nombre'), :id, :nombre, { :prompt =>nil}, :class => "form-control" ) %>
+        </div>
+    <% else %>
+        <%=  f.fields_for @regalopromocion.medalla do |medalla|  %>
+            <div class="row">
+              <div class="col-xs-1"></div>
+              <div class="col-xs-5">
+                <p>&iquest;Con cu&aacute;l medalla se le otorgar&aacute; al usuario esta promoci&oacute;n?</p>
+              </div>
+              <div class="col-xs-5">
+                <a class="btn btn-app" id="btnVerMedallas" href="#" data-toggle="modal" data-target="#modalShowMedallas">
+                  <i class="fa fa-edit"></i> Elegir Medalla
+                </a>
+              </div>
+            </div>
+            <%= medalla.hidden_field :medalla_id, :value => @regalopromocion.medalla_id%>
+            <div class="form-group">
+              <%= medalla.label :nombre, 'Nombre:', class: "control-label" %><br />
+              <%= medalla.text_field :nombre, class: "form-control", :disabled => true %>
+            </div>
+            <div class="form-group">
+              <%= medalla.label :imagen, 'Medalla:', class: "control-label" %><br />
+              <img id="regalopromocion_medalla_imagen" src="/assets/medals/<%= @regalopromocion.medalla.imagen %>" style="max-height: 150px; max-width: 150px;">
+            </div>
+            <div class="form-group">
+              <%= medalla.label :descripcion, 'Descripción:', class: "control-label" %><br />
+              <%= medalla.text_area :descripcion,:rows => "5", class: "form-control", :disabled => true %>
+            </div>
+            <div class="form-group">
+              <%= medalla.label :puntos, 'Puntos:', class: "control-label" %><br />
+              <%= medalla.text_field :puntos, class: "form-control", :disabled => true %>
+            </div>
+            <style>
+                #modalShowMedallas .modal-dialog
+                {
+                    height: 100%;
+                }
+                #modalShowMedallas .modal-content
+                {
+                    border: 1px solid blue;
+                    overflow: auto;
+                    height: 90%;
+                }
+            </style>
+            <div class="modal fade" id="modalShowMedallas" tabindex="-1" role="dialog" aria-labelledby="modalShowMedallas" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                      <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Seleccione una medalla</h4>
+                  </div>
+                  <div id="modal-body" class="modal-body nav-tabs-custom">
+                    <!-- Aquí va el render de detallePromocion_saldo que carga la forma para agregar promociones de saldo. -->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+        <%  end #-- endfields_for %>
+    <% end #--- endif %>
+
+    <hr>
+    <div class="actions" align="right">
+      <button id="btnSubmit" class="btn btn-success">
+        <i class="fa fa-save"></i>  Guardar
+      </button>
+      <script type="text/javascript" charset="utf-8">
+          $("#btnVerMedallas").on("click",function(event){
+              event.preventDefault();
+              $("#modalShowMedallas #modal-body").html("<%= escape_javascript( render partial: 'shared/show_medallas_tables') %>");
+          });
+          $(".edit_regalo").submit(function (event) {
+              event.preventDefault();
+              var request = $.ajax({
+                  type: "POST",
+                  url: '<%= "/regalos_controller/#{@action}" %>',
+                  data: $(this).serialize()
+              });
+              request.done(function( msg ) {
+                  $("#forma_detalle_regalopromocion").html(msg);
+                  $('#promociones_regaloTableContainer').jtable('reload');
+              });
+              request.fail(function( jqXHR, textStatus ) {
+                  alert(textStatus);
+              });
+              return false;
+          });
+          $("#new_regalo").submit(function (event) {
+              event.preventDefault();
+              var request = $.ajax({
+                  type: "POST",
+                  url: '<%= "/regalos_controller/#{@action}" %>',
+                  data: $(this).serialize()
+              });
+              request.done(function( msg ) {
+                  $("#basicModal #modal-body #forma_detalle_regalopromocion").html(msg);
+                  $('#promociones_regaloTableContainer').jtable('reload');
+              });
+              request.fail(function( jqXHR, textStatus ) {
+                  alert(textStatus);
+              });
+              return false;
+          });
+      </script>
+    </div>
+<% end %>

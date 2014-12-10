@@ -105,7 +105,7 @@ class API::ClienteController < ApplicationController
       destino.longitud=dlong
       destino.latitud=dlat
 
-      create_sugerencia(origen, destino, horainicio, origenDireccion, destinoDireccion)
+      create_sugerencia(origen, destino, origenDireccion, destinoDireccion)
 
       @exito=true
 
@@ -327,18 +327,20 @@ class API::ClienteController < ApplicationController
      def cliente_checkin
       begin 
       id=params[:id]
+      reserva = Hash.new
+      reserva[:resultado]="false"
       if Reservacion.find(id).estadotipo_id==2
         checkin(id)
-        @exito=true
+        reserva[:resultado]="Subida registrada"
       else
-        @exito="Ya ha realizado checkin anteriormente"
+        reserva[:resultado]="Ya ha realizado checkin anteriormente"
       end
       rescue ActiveRecord::RecordNotFound
-        @exito="No se encontro la reservacion"
+        reserva[:resultado]="No se encontro la reservacion"
       
       end
        respond_to do |format|
-          format.json { render :json => @exito }
+          format.json { render :json => reserva }
       end
     end
 

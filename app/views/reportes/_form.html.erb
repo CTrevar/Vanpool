@@ -1,17 +1,26 @@
 <div class="span8">
   <%= form_for(@reporte) do |f| %>
   <% if @reporte.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@reporte.errors.count, "error") %> prohibited this reporte from being saved:</h2>
-
-      <ul>
-      <% @reporte.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+      <div class="alert alert-danger alert-dismissable">
+        <i class="fa fa-times"></i>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <b><%= pluralize(@van.errors.count, "error") %>:</b>
+        <ul>
+          <% @reporte.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
   <% end %>
-<h4 style="padding-left:20px">Tu opinión es muy importante para nosotros, escribenos tus sugerencias o comentarios del servicio.</h4>
+
+  <%if params[:mensaje]%>
+    <div class="alert alert-danger alert-dismissable">
+      <i class="fa fa-times"></i>
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <%= params[:mensaje]%>
+    </div>
+  <%end%>
+<h4 style="padding-left:20px">Tu opini&oacute;n es muy importante para nosotros, escr&iacute;benos tus sugerencias o comentarios del servicio.</h4>
 
     <%= f.text_area :descripcion, :class=>"span12", :rows=>10 %>
                 </div> 

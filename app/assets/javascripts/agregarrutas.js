@@ -186,13 +186,17 @@ function agregarMarcador(location, posicion) {
       //si es del segundo marcador en adelante, trazar ruta
       if(arregloMarcadores.length>=2){
         trazarRuta();
-        // longit = (arregloMarcadores[0].getPosition().lng()+arregloMarcadores[1].getPosition().lng())/2;
-        // latit= (arregloMarcadores[0].getPosition().lat()+arregloMarcadores[1].getPosition().lat())/2;
+        $('#letras_'+arregloMarcadores.length).show();
+        $('#nombreParada_'+arregloMarcadores.length).show();
+        //posicionFinal = arregloMarcadores.length-1;
+        //longit = (arregloMarcadores[0].getPosition().lng()+arregloMarcadores[posicionFinal].getPosition().lng())/2;
+        //latit= (arregloMarcadores[0].getPosition().lat()+arregloMarcadores[posicionFinal].getPosition().lat())/2;
         // map.setCenter({lat: latit, lng: longit});
         
-      }//(if) más de 2 marcadores
-
-
+      } else if (arregloMarcadores.length==1) {
+        obtenerDireccion(arregloMarcadores[0]);
+        map.setCenter({lat: arregloMarcadores[0].getPosition().lat(), lng: arregloMarcadores[0].getPosition().lng()});
+      }
       contador+=1;
         
   }
@@ -228,7 +232,7 @@ function agregarMarcador(location, posicion) {
     var pos = arregloMarcadores.indexOf(marker);
     //despliega la dirección del marcador en sus respectivos campos
   
-      document.getElementById("nombreParada_"+pos).value.value = dir;
+      document.getElementById("nombreParada_"+pos).value = dir;
       document.getElementById("latitudParada_"+pos).value = marker.getPosition().lat();
        document.getElementById("longitudParada_"+pos).value = marker.getPosition().lng();
 

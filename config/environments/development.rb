@@ -23,7 +23,7 @@ SampleApp::Application.configure do
   :domain =>"gmail.com",
   :user_name =>"serviciovanpool@gmail.com",
   :password =>"vanpool2015",
-  :authentication => "plain",
+  :authentication => "login",
   :enable_starttls_auto =>true
 }
 

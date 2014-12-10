@@ -405,7 +405,7 @@ class AdministradorsController < ApplicationController
           @correoFrecuenciaRecordatorio.save!
           logger.info "\n================================================"
           logger.info "\n"
-          logger.info system "sudo whenever --update-crontab"
+          logger.info system("sudo whenever --update-crontab")
           # logger.info %x(sh whenever.sh)
           # logger.info %x(whenever -i)
           logger.info `pwd`
@@ -441,7 +441,7 @@ class AdministradorsController < ApplicationController
     end
   end
   #
-  # Metodo para
+  # Metodo para desplegar las promociones de saldo
   #
   def promocion_saldo
     saldopromocion_id = params[:id]
@@ -457,7 +457,23 @@ class AdministradorsController < ApplicationController
       end
     end
   end
-
+  #
+  # Metodo para desplegar las promociones de saldo
+  #
+  def promocion_regalo
+    regalopromocion_id = params[:id]
+    if regalopromocion_id.nil?
+      @regalopromocion = Regalo.new
+      @regalopromocion.medalla = Medalla.new
+      @action = 'create'
+    else
+      @regalopromocion = Regalo.find(regalopromocion_id)
+      @action = 'update'
+      respond_to do |format|
+        format.html {render partial: 'shared/administrador_detalleregalopromocion', locals: { regalopromocion: @regalopromocion, aciton: @action }}
+      end
+    end
+  end
   # def administrador_detallesaldopromocion
   #   saldopromocion_id = params[:id]
   #   @saldopromocion = Saldopromocion.new
@@ -626,6 +642,8 @@ class AdministradorsController < ApplicationController
     paramsuser = OpenStruct.new params[:user]
     @administrador = User.new
     @administrador.attributes = {:name => paramsuser.name, :email => paramsuser.email,
+                                 :apellidoPaterno => paramsuser.apellidoPaterno,
+                                 :apellidoMaterno => paramsuser.apellidoMaterno,
                                  :fechaNacimiento => paramsuser.fechaNacimiento,
                                  :password => paramsuser.password,
                                  :password_confirmation => paramsuser.password_confirmation,
@@ -700,14 +718,18 @@ class AdministradorsController < ApplicationController
 
     # Si el campo de busqueda tiene solo espacios en blanco.
     if jtTextoBusqueda.blank? || jtTextoBusqueda.to_s == ''
-      @results = User.where("admin = 't'").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
+      @results = User.select("id, name, \"apellidoPaterno\", \"apellidoMaterno\", email, \"estatusUsuario\",
+                              to_char(\"fechaNacimiento\", 'DD/mon/YYYY') as fechaNacimiento")
+                      .where("admin = 't'").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     else
       # Si contiene algo más realiza la búsqueda en todos los atributos de la tabla.
-      @results = User.where("( name ILIKE :search OR
+      @results =  User.select("id, name, \"apellidoPaterno\", \"apellidoMaterno\", email, \"estatusUsuario\",
+                              to_char(\"fechaNacimiento\", 'DD/mon/YYYY') as fechaNacimiento")
+                      .where("( name ILIKE :search OR
                              \"apellidoMaterno\" ILIKE :search OR
                              \"apellidoPaterno\" ILIKE :search OR
                                email ILIKE :search OR
-                               to_char(\"fechaNacimiento\", 'MM/DD/YYYY') ILIKE :search
+                               to_char(\"fechaNacimiento\", 'DD/mon/YYYY')  ILIKE :search
                               ) AND \"estatusUsuario\" = 't' AND admin = 't'",search: "%#{jtTextoBusqueda.strip}%").order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     end
     respond_to do |format|

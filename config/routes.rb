@@ -169,6 +169,14 @@ end
   match '/saldopromocion_controller/update',   to: 'saldopromocions#update',   via: [:post,:put]
   match '/saldopromocion_controller/create',   to: 'saldopromocions#create',   via: [:post,:put]
 
+  # CRUD (jTables) de promociones de regalo
+  match '/administrar_promocion_regalo', to: 'administradors#promocion_regalo'
+  match '/administrar_regalopromocion', to: 'administradors#saldopromocion', via:[:get, :post, :put]
+  match '/administrar_regalopromocion_detalle', to: 'administradors#administrador_detalleregalopromocion', via:[:get, :post, :put]
+  match '/regalos_controller/jtable_filterlist',   to: 'regalos#jtable_filterlist',   via: [:get, :post]
+  match '/regalos_controller/jtable_delete',   to: 'regalos#jtable_delete',   via: [:post]
+  match '/regalos_controller/update',   to: 'regalos#update',   via: [:post,:put]
+  match '/regalos_controller/create',   to: 'regalos#create',   via: [:post,:put]
 
 
 

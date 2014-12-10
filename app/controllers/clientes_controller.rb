@@ -129,7 +129,7 @@ class ClientesController < ApplicationController
     @validareservas=valida_viajes(@cliente)
     #@reservaciones_pendientes=@current_cliente.reservacions.find_all_by_estadotipo_id(1)
     #@reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
-    @reservaciones_pagadas=@current_cliente.reservacions.joins(:viaje).where('(estadotipo_id=3 or estadotipo_id=2) and (estadoviaje_id=1 or fecha>?)', Time.now).last(3)
+    @reservaciones_pagadas=@current_cliente.reservacions.joins(:viaje).where('(estadotipo_id=2) and (estadoviaje_id=1 and fecha>?)', Time.now).order("fecha ASC").limit(3)
     
     @disponibilidad_pagadas = []
     @reservaciones_pagadas.each do |reserva_pagada|
@@ -173,13 +173,14 @@ class ClientesController < ApplicationController
   end
 
   def compartir_facebook
-    #@current_cliente = obtener_cliente(current_user)
+    @current_cliente = obtener_cliente(current_user)
     reservacion=Reservacion.find(params[:id])
     @oauth = Koala::Facebook::OAuth.new("708292565932035", "0961c370c701538ac20f349b9a02b4b3")
     facebook_user_token = session[:access_token]
     @graph = Koala::Facebook::API.new(facebook_user_token)
-    @graph.put_wall_post("Yo ya uso la ruta #{reservacion.viaje.ruta.nombre} de Vanpool y tu? http://vanpool.mx",{"picture"=>"http://104.236.6.99/assets/medals/viaje6-01.png"})
+    @graph.put_wall_post("Yo ya uso la ruta #{reservacion.viaje.ruta.nombre} de Vanpool, ¿Y tú? http://vanpool.mx",{"picture"=>"http://104.236.6.99/assets/medals/viaje6-01.png"})
     Share.create(reservacion_id:reservacion.id)
+    aumenta_puntos(@current_cliente,50)
     redirect_to mis_viajes_path
   end
 
@@ -196,17 +197,56 @@ class ClientesController < ApplicationController
 
   def compracredito
     @current_cliente = obtener_cliente(current_user)
+    # @response_hash = {
+    #     id:"trrtxbcwh7808slobw12",
+    #     amount:50.0,
+    #     authorization:"801585",
+    #     method:"card",
+    #     operation_type:"in",
+    #     transaction_type:"charge",
+    #     card:{
+    #         type:"debit",
+    #         brand:"visa",
+    #         address:nil,
+    #         card_number:"411111XXXXXX1111",
+    #         holder_name:"Alvaro",
+    #         expiration_year:"20",
+    #         expiration_month:"12",
+    #         allows_charges:true,
+    #         allows_payouts:true,
+    #         bank_name:"Banamex",
+    #         bank_code:"002"
+    #     },
+    #     status:"completed",
+    #     conciliated:false,
+    #     currency:"MXN",
+    #     creation_date:"2014-12-07T01:18:14-06:00",
+    #     operation_date:"2014-12-07T01:18:15-06:00",
+    #     description:"Recarga de saldo por $50",
+    #     error_message:nil,
+    #     order_id:nil,
+    #     customer_id:"axkqdhljhlvrmf9nu9fb",
+    #     metadata:{
+    #         iva:"16",
+    #         subtotal:"42.0",
+    #         impuesto:"8.0"
+    #     },
+    #     fee:{
+    #         amount:3.45,
+    #         tax:0.55
+    #     }
+    # }
     render 'show_compra_credito'
   end
 
   def formapago
     # @formapago = params[:forma]
-    @recarga = params[:cantidad]
-    @current_cliente = obtener_cliente(current_user)
-    @subtotal=subtotal(@recarga)
-    @impuesto=impuesto(@recarga)
-    @monto = @recarga
-    render 'show_compra_credito_tarjeta'
+    # @recarga = params[:cantidad]
+    # @current_cliente = obtener_cliente(current_user)
+    # @subtotal=subtotal(@recarga)
+    # @impuesto=impuesto(@recarga)
+    # @monto = @recarga
+    # render 'show_compra_credito_tarjeta'
     # case @formapago
     #   when 'banco'
     #     render 'show_compra_credito_banco'
@@ -223,25 +263,43 @@ class ClientesController < ApplicationController
     if !params[:token_id].present?
       redirect_to :controller => 'clientes', :action => 'compracredito'
     else
-      @cuenta=obtener_cuenta
-      @charges=@openpay.create(:charges)
+      @cuenta = obtener_cuenta
+      @charges = @openpay.create(:charges)
+      @current_cliente=Cliente.find_by_user_id(current_user.id)
+      monto = params[:amount]
+      iva = Configuracion.find_by_nombre("impuesto").valor
+      # impuestos = (iva/100)*monto
+      # subtotal = monto - impuestos
+
       request_hash={
           "method" => "card",
           "source_id" => params[:token_id],
-          "amount" => params[:amount],
+          "amount" => monto,
           "description" => "Recarga de saldo por $#{params[:amount]}",
-          "device_session_id" => params[:deviceIdHiddenFieldName]
+          "device_session_id" => params[:deviceIdHiddenFieldName],
+          "metadata" => {
+              "iva" => iva,
+              "subtotal" => subtotal(monto),
+              "impuesto" => impuesto(monto)
+          }
       }
       begin
         @response_hash=@charges.create(request_hash.to_hash,@cuenta["id"])
-      rescue OpenpayTransactionException => e
+        UserMailer.enviar_email_pago(@response_hash,@current_cliente).deliver
+      rescue OpenpayTransactionException => @exception
 
+      rescue OpenpayException => @exception
+
+      rescue OpenpayConnectionException => @exception
+
+      rescue Net::SMTPFatalError => e
+        logger.error("Erro al enviar correo #{e.message}")
       end
     end
   end
 
   def subtotal(recarga)
-    return (recarga.to_i-impuesto(recarga)).to_d
+    return (recarga.to_f-impuesto(recarga)).to_d
   end
 
   def impuesto(recarga)
@@ -325,7 +383,7 @@ class ClientesController < ApplicationController
 
     #@reservaciones_pagadas=@current_cliente.reservacions.find_all_by_estadotipo_id(2)
     #@reservaciones_pagadas=@current_cliente.reservacions.joins(:viaje).where('estadotipo_id=3 or estadoviaje_id=1 or fecha>?', Time.now).last(3)
-    @reservaciones_pagadas=@current_cliente.reservacions.joins(:viaje).where('(estadotipo_id=3 or estadotipo_id=2) and (estadoviaje_id=1 or fecha>?)', Time.now)
+    @reservaciones_pagadas=@current_cliente.reservacions.joins(:viaje).where('(estadotipo_id=2) and (estadoviaje_id=1 and fecha>?)', Time.now)
 
     @disponibilidad_pagadas = []
     @reservaciones_pagadas.each do |reserva_pagada|
@@ -582,13 +640,13 @@ class ClientesController < ApplicationController
         if tiene_saldo
           reserva.estadotipo_id = 2
           reserva.estatus = true
-          reserva.referenciapago_id = referenciapago[:id]
+          reserva.referenciapago_id = referenciapago['id']
           reserva.save
         end
 
         #si no tiene saldo guardar reservaciones en sesión
         if !tiene_saldo
-          session[:reservaciones] << viaje_id
+          session[:reservaciones] << viaje_id if !session[:reservaciones].include? viaje_id
         end
       end
 
@@ -603,7 +661,7 @@ class ClientesController < ApplicationController
       #si no tiene saldo, guarda las reservas en la sesión y
       #redirecciona a recargar saldo con mensaje que necesita recargar saldo
       if !tiene_saldo
-        redirect_to :action=>'compracredito', :mensaje => "No tienes saldo suficiente. Recarga y ve al carrito de compras para comprar tu viaje."
+        redirect_to :action=>'compracredito', :mensaje => "El cargo total es de <b>$#{cantidad_pago}</b>. No tienes saldo suficiente. Recarga y ve al carrito de compras para comprar tu viaje."
       end
 
 
@@ -708,34 +766,62 @@ class ClientesController < ApplicationController
     # Si el campo de busqueda tiene solo espacios en blanco.
     if jtTextoBusqueda.blank? || jtTextoBusqueda.to_s == ''
       if jtAtributoCondicion.present? && jtCondicion.present? && jtValorCondicion.present?
-        @results = Cliente.joins(:user).select('*').where(" #{jtAtributoCondicion} #{jtCondicion} #{jtValorCondicion} AND clientes.estatus = 't'")
-        .joins(:reservacions).select("to_char(reservacions.created_at, 'DD/Mon/YYYY') as reservacions_created_at")
-        .where("created_at = MAX(created_at)")
-        .joins(:nivel).select('clientes.id as cliente_id, nombre as nombre_nivel, nivels.estatus as estatus_nivel, nivels.id as nivel_id')
+        @results = Cliente.joins(:user,:nivel).joins("LEFT OUTER JOIN reservacions ON reservacions.cliente_id = clientes.id")
+        .select("count(reservacions.id) as ha_comprado,
+                 users.name, \"apellidoPaterno\", \"apellidoMaterno\", \"fechaNacimiento\", users.email,
+                 clientes.id as cliente_id, puntaje, emisionco2, kilometros,
+                 nivels.nombre as nombre_nivel, nivels.estatus as estatus_nivel, nivels.id as nivel_id")
+        .group("users.name, \"apellidoPaterno\", \"apellidoMaterno\", \"fechaNacimiento\", users.email,
+                 clientes.id, puntaje, emisionco2, kilometros,
+                 nivels.nombre, nivels.estatus, nivels.id")
+        .where("#{jtAtributoCondicion} #{jtCondicion} #{jtValorCondicion} AND clientes.estatus = 't'")
         .order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
       else
-        @results = Cliente
-        .joins(:user).select('*').where("clientes.estatus = 't'")
-        .joins(:nivel).select('clientes.id as cliente_id, nombre as nombre_nivel, nivels.estatus as estatus_nivel, nivels.id as nivel_id')
-        .joins(:reservacions).select("to_char(reservacions.created_at, 'DD/Mon/YYYY') as reservacions_created_at").uniq
+        @results = Cliente.joins(:user,:nivel).joins("LEFT OUTER JOIN reservacions ON reservacions.cliente_id = clientes.id")
+        .select("count(reservacions.id) as ha_comprado,
+                 users.name, \"apellidoPaterno\", \"apellidoMaterno\", \"fechaNacimiento\", users.email,
+                 clientes.id as cliente_id, puntaje, emisionco2, kilometros,
+                 nivels.nombre as nombre_nivel, nivels.estatus as estatus_nivel, nivels.id as nivel_id")
+        .group("users.name, \"apellidoPaterno\", \"apellidoMaterno\", \"fechaNacimiento\", users.email,
+                 clientes.id, puntaje, emisionco2, kilometros,
+                 nivels.nombre, nivels.estatus, nivels.id")
+        .where("clientes.estatus = 't'")
         .order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
       end
     else
       if jtAtributoCondicion.present? && jtCondicion.present? && jtValorCondicion.present?
         @queryFiltrado = " AND ( #{jtAtributoCondicion} #{jtCondicion} #{jtValorCondicion} ) "
       end
-      @query = "(name ILIKE :search OR
+      @query = "(users.name ILIKE :search OR
                  email ILIKE :search OR
                  to_char(\"fechaNacimiento\", 'MM/DD/YYYY') ILIKE :search OR
                  nivels.nombre ILIKE :search
                 ) #{@queryFiltrado} AND clientes.estatus = 't'"
       # Si contiene algo más realiza la búsqueda en todos los atributos de la tabla.
-      @results = Cliente.joins(:user).select('*')
-      .joins(:nivel).select('nombre as nombre_nivel, nivels.estatus as estatus_nivel, nivels.id as nivel_id, clientes.id as cliente_id')
-      .where(@query,search: "%#{jtTextoBusqueda.strip}%").select('*')
-      .joins(:reservacions).select("to_char(reservacions.created_at, 'DD/Mon/YYYY') as reservacions_created_at")
+      @results = Cliente.joins(:user,:nivel).joins("LEFT OUTER JOIN reservacions ON reservacions.cliente_id = clientes.id")
+      .select("count(reservacions.id) as ha_comprado,
+                 users.name, \"apellidoPaterno\", \"apellidoMaterno\", \"fechaNacimiento\", users.email,
+                 clientes.id as cliente_id, puntaje, emisionco2, kilometros,
+                 nivels.nombre as nombre_nivel, nivels.estatus as estatus_nivel, nivels.id as nivel_id")
+      .group("users.name, \"apellidoPaterno\", \"apellidoMaterno\", \"fechaNacimiento\", users.email,
+                 clientes.id, puntaje, emisionco2, kilometros,
+                 nivels.nombre, nivels.estatus, nivels.id")
+      .where(@query,search: "%#{jtTextoBusqueda.strip}%")
       .order(jtSorting).paginate(page:jtStartPage,per_page:jtPageSize)
     end
+    # if jtSorting == "ha_comprado ASC"
+    #   Hash[@results.sort_by{|c| c[:ha_comprado]}]
+    # end
+    # if jtSorting == "ha_comprado DESC"
+    #   Hash[@results.sort_by{|c| c[:ha_comprado]}.reverse]
+    # end
+    # clientes_con_reserva =  Reservacion.uniq.pluck(:cliente_id)
+    # @results.each { |c|
+    #   c[:ha_comprado] = "No"
+    #   if clientes_con_reserva.include? c[:id]
+    #     c[:ha_comprado] = "Si"
+    #   end
+    # }
     respond_to do |format|
       # Regresamos el resultado de la operación a la jTable
       jTableResult = {:Result => "OK",

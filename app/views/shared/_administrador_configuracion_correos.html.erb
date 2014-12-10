@@ -17,7 +17,7 @@
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#tab_correoBienvenida" data-toggle="tab">Correo de Bienvenida</a></li>
                 <li><a href="#tab_correoRecordatorio" data-toggle="tab">Correo Recordatorio</a></li>
-                <li><a href="#tab_correoConfiguracion" data-toggle="tab">Frecuencia de Envío</a></li>
+                <!--<li><a href="#tab_correoConfiguracion" data-toggle="tab">Frecuencia de Envío</a></li>-->
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_correoBienvenida">
@@ -26,9 +26,9 @@
                 <div class="tab-pane" id="tab_correoRecordatorio">
                     <%= render partial: 'administradors/form_configuracion_correoRecordatorio', correoRecordatorio:@correoRecordatorio %>
                 </div><!-- /.tab-pane -->
-                <div class="tab-pane" id="tab_correoConfiguracion">
-                    <%= render partial: 'administradors/form_configuracion_correos_frecuencia', correoFrecuenciaRecordatorio:@correoFrecuenciaRecordatorio %>
-                </div><!-- /.tab-pane -->
+                <!--<div class="tab-pane" id="tab_correoConfiguracion">-->
+                    <%#= render partial: 'administradors/form_configuracion_correos_frecuencia', correoFrecuenciaRecordatorio:@correoFrecuenciaRecordatorio %>
+                <!--</div>&lt;!&ndash; /.tab-pane &ndash;&gt;-->
             </div><!-- /.tab-content -->
         </div><!-- nav-tabs-custom -->
     </div><!-- /.col -->

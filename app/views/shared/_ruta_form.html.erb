@@ -63,7 +63,7 @@
                     <label for="precioRuta">Precio Por Viaje</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                        <input  class="form-control" name="precio" placeholder="Precio">
+                        <input  class="form-control" name="precio" placeholder="Precio" value="<%=@ruta.precio if !@ruta.precio.nil?%>">
                     </div>
                 </div>
 
@@ -123,13 +123,14 @@
                             <i class="fa fa-user fa-3x"></i>
                     </div>
                     <div class="pull-left info">
-                        <b>Id </b>
-                        <%= text_field_tag("conductorId", nil, :style => "background-color:rgba(0, 0, 0, 0); border:none")   %> 
+                        <b>Id: </b>
+                        <% conductor_idd= @conductor.user.id if !@conductor.nil? %>
+                        <%= text_field_tag("conductorId", "#{conductor_idd}", :style => "background-color:rgba(0, 0, 0, 0); border:none")   %> 
                          </br>
                         <b>Nombre: </b>
-                        <input id ="conductorNombre" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
+                        <input id ="conductorNombre" disabled style="background-color:rgba(0, 0, 0, 0); border:none" value="<%=@conductor.user.name if !@conductor.nil?%>"></input> </br>
                         <b>Licencia: </b>
-                        <input id ="conductorLicencia" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br></br>
+                        <input id ="conductorLicencia" disabled style="background-color:rgba(0, 0, 0, 0); border:none" value="<%=@conductor.licenciaConductor if !@conductor.nil?%>"></input> </br></br>
                         <button type="button" class="btn btn-buscar-nav btn-flat pull-left" data-toggle="modal" data-target="#conductorsModal">Escoger</button>
                     </div>
                      
@@ -145,11 +146,12 @@
                         <div class="pull-left info">
                             
                             <b>Id: </b>
-                            <%= text_field_tag("vanId", nil, :style => "background-color:rgba(0, 0, 0, 0); border:none") %> </br>
+                            <% van_idd= @van.id if !@van.nil? %>
+                            <%= text_field_tag("vanId", "#{van_idd}", :style => "background-color:rgba(0, 0, 0, 0); border:none") %> </br>
                             <b>Placa: </b>
-                            <input id ="vanPlaca" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input> </br>
+                            <input id ="vanPlaca" disabled style="background-color:rgba(0, 0, 0, 0); border:none" value="<%=@van.placa if !@van.nil?%>"></input> </br>
                             <b>Modelo: </b>
-                            <input id ="vanModelo" disabled style="background-color:rgba(0, 0, 0, 0); border:none"></input></br></br>
+                            <input id ="vanModelo" disabled style="background-color:rgba(0, 0, 0, 0); border:none" value="<%=@van.modelo if !@van.nil?%>"></input></br></br>
                             <button type="button" class="btn btn-buscar-nav btn-flat pull-left" data-toggle="modal" data-target="#myModal">Escoger</button>
                            
                         </div>

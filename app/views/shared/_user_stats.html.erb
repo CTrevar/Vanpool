@@ -1,7 +1,7 @@
 <div class="row-fluid gray">
     <div class="span8">
             <div class="span12">
-                <p>Si tuvieras un <%=Configuracion.find(4).valor%> hasta el momento habrías ahorrado <b><%= number_with_precision(@co2.to_f,:precision => 2) %></b>
+                <p>Si tuvieras un <a href=<%=Configuracion.find(5).valor%>> <%=Configuracion.find(4).valor%> </a> hasta el momento habrías ahorrado <b><%= number_with_precision(@co2.to_f,:precision => 2) %></b>
                 Kgs de CO2.</p>
             </div>
     </div>

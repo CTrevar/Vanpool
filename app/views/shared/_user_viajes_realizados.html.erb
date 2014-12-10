@@ -25,7 +25,7 @@
                 <label>Hora de llegada:</label>&nbsp<%=(reservacion.viaje.horainicio+ reservacion.viaje.ruta.paradas.sum(:tiempo).to_i).strftime("%I:%M%p")%></br>
             </div>
             <div class="span6">
-                <%= link_to "Ver detalle", "/viajes/#{reservacion.viaje.id}/detalle", class:"btn btn-default btn-flat" %>
+                <%= link_to "Ver detalle", "/ver_ruta/#{reservacion.viaje.ruta.id}", class:"btn btn-default btn-flat" %>
                 <% if existe_retroalimentacion(reservacion)==false then %>
                 <%= link_to "Evaluar", "reservacions/#{reservacion.id}/retroalimentacion", class:"btn btn-success btn-flat" %>
                 <% end %>

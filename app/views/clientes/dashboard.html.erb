@@ -42,7 +42,13 @@ $(document).ready(function(){
                 <!-- Main content -->
                 <section class="content">
                     <div class="row-fluid">
-
+                    <% if params[:mensaje] %>
+                    <div class="alert alert-success alert-dismissable">
+                                        <i class="fa fa-check"></i>
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <%= params[:mensaje] %>
+                                    </div>
+                    <% end %>
 
             <div class="span12">
                 <div class="span9">
